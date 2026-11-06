@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="css/e3.css">
   <link rel="stylesheet" href="css/e4.css">
   <link rel="stylesheet" href="css/e5-e6.css">
+  <link rel="stylesheet" href="css/cierre.css">
   <!--STAGE-CSS-->
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -90,7 +91,7 @@
   <div class="bg-grid" aria-hidden="true"></div>
 
   <header class="hdr">
-    <a class="hdr__mark" href="#entrada" aria-label="Memoria Material, volver al inicio"><svg viewBox="66 190 710 216" aria-hidden="true"><use href="#logo-mark"/></svg></a>
+    <a class="hdr__mark" href="#entrada" aria-label="Memoria Material, volver al inicio"><svg viewBox="0 0 710 216" aria-hidden="true"><use href="#logo-mark"/></svg></a>
     <button class="sound" type="button" aria-pressed="false" data-sound-toggle>
       <span class="sound__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
       <span data-sound-label>Sonido apagado</span>
@@ -962,6 +963,80 @@
             <p class="said" data-e6-said hidden><b>Voz en off</b>—Encontraste el significado, depositalo en el tótem. Ya podés quitarte el detector e ir en busca de tu objeto.</p>
           </div>
           <span class="ph">Placeholder · escenario</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================== CIERRE ============================== -->
+    <section id="cierre" class="stage cierre" data-rail data-num="FIN" data-label="Cierre" data-color="crema" data-tempo="1.6">
+
+      <!-- Las esferas físicas en el tótem -->
+      <div class="screen cierre-esferas">
+        <div class="wrap cierre-esferas__in">
+          <div class="cierre-esferas__head">
+            <p class="eyebrow">De vuelta en el aula · el tótem</p>
+            <h2 class="title" data-split>Cada objeto, dentro de una esfera</h2>
+            <p class="body" data-split>En el tótem esperan esferas físicas como las que aparecieron en todo el recorrido. Cada una tiene un color y un nombre, y adentro está el objeto que cada participante dejó.</p>
+          </div>
+          <ul class="orbes">
+            <li class="orbe" style="--c:var(--fucsia)">
+              <span class="orbe__ball"><svg viewBox="0 0 200 240" aria-hidden="true"><use href="#obj-mate"/></svg></span>
+              <b>Esfera rosa</b><span class="mono">Nombre de ejemplo <span class="ph ph--inline">Pendiente</span></span>
+            </li>
+            <li class="orbe" style="--c:var(--amarillo)">
+              <span class="orbe__ball"><svg viewBox="0 0 100 260" aria-hidden="true"><use href="#obj-llave"/></svg></span>
+              <b>Esfera amarilla</b><span class="mono">Nombre de ejemplo <span class="ph ph--inline">Pendiente</span></span>
+            </li>
+            <li class="orbe" style="--c:var(--celeste)">
+              <span class="orbe__ball"><svg viewBox="0 0 240 180" aria-hidden="true"><use href="#obj-cuaderno"/></svg></span>
+              <b>Esfera celeste</b><span class="mono">Nombre de ejemplo <span class="ph ph--inline">Pendiente</span></span>
+            </li>
+          </ul>
+          <p class="cierre-esferas__note mono">Los objetos de adentro son los de cada participante; acá se muestran los tres del recorrido.</p>
+        </div>
+      </div>
+
+      <!-- Video final -->
+      <div class="video video--final" data-video data-total="14">
+        <div class="pin video__pin">
+          <div class="video__frame">
+            <div class="video__hud mono" aria-hidden="true"><span class="video__rec">Proyector</span><span>Video final</span><span class="video__tc">00:00</span></div>
+            <div class="video__scene" data-scene><p class="video__big" data-vsplit>Esto fue <span class="hl">Memoria Material</span>,</p><p class="video__mid" data-vsplit>una experiencia dispuesta a buscar en eso que te resultaba habitual.</p></div>
+            <div class="video__scene" data-scene><p class="video__mid" data-vsplit>Esperamos haberte hecho notar que en lo cotidiano, hay cosas que pueden cobrar <span class="hl">otro significado</span>.</p></div>
+            <div class="video__progress" aria-hidden="true"><i></i></div>
+          </div>
+          <p class="video__note mono">Video final · se proyecta al recibir las esferas</p>
+        </div>
+      </div>
+
+      <!-- Frase final, origen del proyecto, pregunta y créditos -->
+      <div class="screen cierre-fin">
+        <div class="wrap cierre-fin__in">
+          <p class="cierre-fin__claim" data-split>En lo cotidiano hay cosas que pueden cobrar otro significado.</p>
+
+          <div class="origen">
+            <figure class="origen__img"><span class="ph">Placeholder · objeto de partida</span><svg viewBox="0 0 80 40" aria-hidden="true"><use href="#shape-s"/></svg></figure>
+            <div class="origen__copy">
+              <p class="eyebrow">Cómo nació el proyecto <span class="ph ph--inline">Pendiente</span></p>
+              <p class="body">Texto de ejemplo: acá va la breve explicación de cómo nació Memoria Material y cuál fue el objeto de partida del equipo. Se muestra junto a una foto de ese objeto.</p>
+            </div>
+          </div>
+
+          <div class="pregunta">
+            <p class="eyebrow">Al devolver los objetos, preguntamos</p>
+            <p class="pregunta__q">¿Y ahora, habiendo experimentado nuestro recorrido, te gustaría contarnos por qué elegiste este objeto?</p>
+          </div>
+
+          <div class="creditos">
+            <svg class="creditos__mark" viewBox="0 0 710 216" role="img" aria-label="Memoria Material"><use href="#logo-mark"/></svg>
+            <dl class="creditos__list">
+              <div><dt>Integrantes</dt><dd>Nombre Apellido · Nombre Apellido · Nombre Apellido <span class="ph ph--inline">Pendiente</span></dd></div>
+              <div><dt>Materia</dt><dd>Nombre de la materia <span class="ph ph--inline">Pendiente</span></dd></div>
+              <div><dt>Cátedra</dt><dd>Nombre de la cátedra <span class="ph ph--inline">Pendiente</span></dd></div>
+              <div><dt>Año</dt><dd>2026</dd></div>
+            </dl>
+            <button class="btn btn--ghost" type="button" data-restart>Volver a empezar</button>
+          </div>
         </div>
       </div>
     </section>
