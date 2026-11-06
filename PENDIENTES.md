@@ -67,6 +67,17 @@ yo los optimizo y los copio a `docs/assets/`.
   - *Hoy:* textos de ejemplo. PENDIENTE.
 - [x] **14.** Las interacciones nunca bloquean el avance. Confirmado.
 
+## Interpretaciones hechas al maquetar (revisar)
+
+- [ ] **15.** Mundo del mate, escenario 2: el guion dice "una hornalla y encima una *paja* vieja".
+  Se interpretó como **pava vieja**.
+- [ ] **16.** Holograma y puerta de E3: se usó un **ancla** como ícono correcto (por las "anclas de
+  seguridad" de E4), con ojo y cerebro como opciones incorrectas. Ver punto 11.
+- [ ] **17.** Diálogos sin número de voz en el guion (mundo de la llave) aparecen como "Voz".
+  En el mate y el cuaderno se respetó Voz 1, 2, 3, 4 y "abu".
+- [ ] **18.** El video de introducción a E5 y el video final se resolvieron como secuencias de
+  texto, igual que el de bienvenida (punto 3).
+
 ## Publicación
 
 - [ ] **GitHub Pages.** El repo es **privado** y Pages no está activado. Opciones:

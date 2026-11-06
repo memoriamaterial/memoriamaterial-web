@@ -42,9 +42,7 @@ function pasillo(sec) {
 
   main(0); sides.forEach((s) => s(0.3));
   if (reduce) {
-    says.forEach((s) => { s.style.position = 'relative'; s.style.opacity = 1; s.style.translate = 'none'; });
-    wrap.querySelector('.pasillo__say').style.cssText = 'position:relative;left:auto;top:auto;translate:none;margin:30vh auto 0;display:grid;gap:24px';
-    return;
+    return; // las frases se leen como lista debajo del pasillo (main.js)
   }
 
   gsap.set(vb, { autoAlpha: 0 });

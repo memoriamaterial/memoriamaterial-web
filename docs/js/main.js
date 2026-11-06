@@ -1,5 +1,5 @@
 // Memoria Material — punto de entrada
-import { initUI, autoReveal } from './ui.js';
+import { initUI, autoReveal, reduce } from './ui.js';
 import * as inicio from './stages/inicio.js';
 import * as e1 from './stages/e1.js';
 import * as e2 from './stages/e2.js';
@@ -14,7 +14,22 @@ const { gsap, ScrollTrigger, SplitText, ScrollToPlugin, ScrambleTextPlugin, Draw
 gsap.registerPlugin(ScrollTrigger, SplitText, ScrollToPlugin, ScrambleTextPlugin, DrawSVGPlugin);
 ScrollTrigger.config({ ignoreMobileResize: true });
 
+// Movimiento reducido: los textos de las escenas fijas se leen como lista, debajo de cada escena.
+const FLOW = '.ronda, .manana, .cq__talk, .notas, .pasillo__say, .eco__lines';
+function flowOut() {
+  document.documentElement.classList.add('rm');
+  document.querySelectorAll(FLOW).forEach((el) => {
+    const pin = el.closest('.pin');
+    if (!pin) return;
+    el.classList.add('rm-flow');
+    const anchor = pin._rmAnchor || pin;
+    anchor.after(el);
+    pin._rmAnchor = el;
+  });
+}
+
 const start = () => {
+  if (reduce) flowOut();
   // Primero los escenarios (crean los pins), después el riel y las voces.
   stages.forEach((s) => s.init());
   initUI();

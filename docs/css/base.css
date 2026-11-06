@@ -349,6 +349,21 @@ main { position: relative; z-index: 1; padding-right: var(--rail-w); }
 .scroll-cue i { width: 1px; height: 40px; background: linear-gradient(var(--crema), transparent); animation: cue 1.8s var(--ease-out) infinite; transform-origin: top; }
 @keyframes cue { 0% { transform: scaleY(0); } 60% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
 
+/* --- Movimiento reducido: escenas fijas como lectura lineal ------------- */
+.rm .rm-flow {
+  position: static !important; inset: auto !important; translate: none !important; transform: none !important;
+  width: min(720px, calc(100% - 2 * var(--gutter))) !important; height: auto !important; max-width: none;
+  margin: var(--s-6) auto var(--s-9) !important; display: grid !important; gap: var(--s-4); opacity: 1 !important;
+}
+.rm .rm-flow > * { position: static !important; opacity: 1 !important; transform: none !important; translate: none !important; clip-path: none !important; inset: auto !important; }
+.rm .rm-flow.notas li { white-space: normal; }
+.rm .llave__pin { height: auto; overflow: visible; }
+.rm .llave__track { flex-direction: column; width: auto; transform: none !important; }
+.rm .llave__panel { width: auto; height: auto; min-height: 80svh; }
+.rm .llave .door, .rm .cq-head--recetas, .rm .cuaderno__final { display: none; }
+.rm .eco__pin { height: auto; padding: var(--s-9) var(--gutter) 0; }
+.rm .eco__voice { position: static; margin-inline: auto; }
+
 /* --- Movimiento reducido -------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }

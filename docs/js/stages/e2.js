@@ -263,9 +263,7 @@ function cuaderno(sec) {
     .to([cream, horno], { opacity: 0, duration: 0.3 }, '<');
 }
 
-// Movimiento reducido: todo visible, sin pins.
+// Movimiento reducido: los diálogos y anotaciones ya salen de los pins (main.js).
 function staticFallback(sec) {
-  sec.querySelectorAll('.pin').forEach((p) => { p.style.height = 'auto'; p.style.overflow = 'visible'; });
-  sec.querySelectorAll('.ronda li, .manana li, .cq__talk li, .cq--recetas, .cq-head--recetas').forEach((el) => { el.style.position = 'relative'; el.style.opacity = 1; });
   sec.querySelectorAll('.notas li').forEach((n) => { n.style.clipPath = 'none'; });
 }
