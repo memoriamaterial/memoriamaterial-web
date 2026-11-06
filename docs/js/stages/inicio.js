@@ -85,12 +85,16 @@ function lema() {
 
 // --- Video de bienvenida: secuencia de texto animado con el scroll -----------------
 function video() {
-  const wrap = document.querySelector('[data-video]');
+  document.querySelectorAll('#bienvenida [data-video]').forEach(videoSeq);
+}
+
+// Secuencia de texto animado que reemplaza a un video (se usa también en E4).
+export function videoSeq(wrap) {
   const pinEl = wrap.querySelector('.video__pin');
   const scenes = [...wrap.querySelectorAll('[data-scene]')];
   const tc = wrap.querySelector('.video__tc');
   const bar = wrap.querySelector('.video__progress i');
-  const TOTAL = 58; // duración "simulada" del video, en segundos
+  const TOTAL = parseFloat(wrap.dataset.total) || 58; // duración "simulada" del video, en segundos
 
   if (reduce) {
     scenes.forEach((s) => { s.style.position = 'relative'; s.style.visibility = 'visible'; s.style.inset = 'auto'; });
@@ -131,7 +135,8 @@ function video() {
   });
 
   // Fragmentos de color que "parpadean" como en el tratamiento gráfico
-  gsap.to('.escena__frag', {
+  const frags = wrap.querySelectorAll('.escena__frag');
+  if (frags.length) gsap.to(frags, {
     x: () => gsap.utils.random(-6, 6), duration: 0.08, ease: 'steps(1)', repeat: -1, repeatDelay: 1.6, yoyo: true, stagger: { each: 0.3, repeat: -1 },
   });
 }

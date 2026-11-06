@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="css/e1.css">
   <link rel="stylesheet" href="css/e2.css">
   <link rel="stylesheet" href="css/e3.css">
+  <link rel="stylesheet" href="css/e4.css">
   <!--STAGE-CSS-->
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -757,6 +758,145 @@
             <p class="e3-door__msg mono" aria-live="polite" data-e3msg></p>
             <p class="mono e3-door__ph"><span class="ph ph--inline">Placeholder</span> Íconos provisorios: falta confirmar cuáles son y cuál es el correcto.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================ E4 ================================= -->
+    <section id="e4" class="stage e4" data-rail data-num="04" data-label="Objetos perdidos" data-color="fucsia" data-tempo="1.15">
+
+      <!-- Destello blanco, pitido, glitch -->
+      <div class="screen e4-flash" data-voice-zone>
+        <div class="e4-flash__white" aria-hidden="true"></div>
+        <div class="e4-flash__scan" aria-hidden="true"></div>
+        <div class="wrap e4-flash__copy">
+          <p class="stage-num">Etapa 04 · Unreal</p>
+          <h2 class="display e4-glitch" data-text="Objetos perdidos">Objetos perdidos</h2>
+          <p class="onoma e4-flash__beep">un pitido intenso y sostenido · de fondo, ruido blanco</p>
+          <div data-voice="e4a" data-acc="fucsia"></div>
+        </div>
+      </div>
+
+      <!-- Réplica de E1 con la paleta invertida -->
+      <div class="screen e4-replica">
+        <figure class="e4-replica__maqueta" aria-hidden="true"><span class="ph ph--right">Maqueta · invertida</span><img src="assets/img/maqueta-e1-inv.webp" width="1927" height="903" alt="" loading="lazy" decoding="async"></figure>
+        <div class="wrap e4-replica__in">
+          <div class="e4-replica__head">
+            <p class="eyebrow">El desierto, invertido</p>
+            <h3 class="title" data-split>Solo quedan siluetas y sombras</h3>
+            <p class="body">Las esferas volvieron a apagarse. Tocalas: ahora hablan de cuando los objetos se perdieron.</p>
+          </div>
+          <div class="ausente" role="group" aria-label="Esferas apagadas">
+            <div class="ausente__col" style="--c:var(--amarillo)">
+              <button class="ausente__sphere" type="button" data-loss="llave" aria-label="Esfera de la llave"></button>
+              <div class="ausente__obj ausente__obj--llave" aria-hidden="true"><svg class="sil" viewBox="0 0 100 260"><use href="#obj-llave"/></svg><svg class="ghost" viewBox="0 0 100 260"><use href="#obj-llave"/></svg><span class="shadow"></span></div>
+            </div>
+            <div class="ausente__col" style="--c:var(--fucsia)">
+              <button class="ausente__sphere" type="button" data-loss="mate" aria-label="Esfera del mate"></button>
+              <div class="ausente__obj ausente__obj--mate" aria-hidden="true"><svg class="sil" viewBox="0 0 200 240"><use href="#obj-mate"/></svg><svg class="ghost" viewBox="0 0 200 240"><use href="#obj-mate"/></svg><span class="shadow"></span></div>
+            </div>
+            <div class="ausente__col" style="--c:var(--celeste)">
+              <button class="ausente__sphere" type="button" data-loss="cuaderno" aria-label="Esfera del cuaderno"></button>
+              <div class="ausente__obj ausente__obj--cuaderno" aria-hidden="true"><svg class="sil" viewBox="0 0 240 180"><use href="#obj-cuaderno"/></svg><svg class="ghost" viewBox="0 0 240 180"><use href="#obj-cuaderno"/></svg><span class="shadow"></span></div>
+            </div>
+          </div>
+          <p class="said e4-loss" data-loss-text aria-live="polite" hidden></p>
+          <template data-loss-tpl="llave"><b>Esfera de la llave</b>—Me quiero matar, dejé las llaves en el auto. Voy a perder todo el día.</template>
+          <template data-loss-tpl="mate"><b>Esfera del mate</b>—No lo puedo creer, se me pudrió el mate, lo voy a tener que tirar. ¿Cómo no me di cuenta? <span class="onoma">suspiro</span></template>
+          <template data-loss-tpl="cuaderno"><b>Esfera del cuaderno</b>—No puede ser, arruiné el cuaderno, tenía todos mis apuntes. Todo el año perdido.</template>
+        </div>
+      </div>
+
+      <!-- Los mundos, sin sus objetos -->
+      <div class="screen e4-mundos">
+        <div class="wrap">
+          <div class="e4-mundos__head">
+            <p class="eyebrow">Se puede volver a entrar en cada objeto</p>
+            <h3 class="title" data-split>Los mundos de la ausencia</h3>
+          </div>
+          <div class="trip">
+            <article class="trip__card trip--llave" style="--c:var(--amarillo)">
+              <span class="ph">Placeholder · escenario</span>
+              <div class="trip__art">
+                <div class="puertas" aria-hidden="true"><i></i><i></i><i></i></div>
+                <div class="trip__cajones" role="group" aria-label="Cajones que no se abren">
+                  <button type="button" class="trip__cajon" aria-label="Intentar abrir un cajón"></button>
+                  <button type="button" class="trip__cajon" aria-label="Intentar abrir un cajón"></button>
+                  <button type="button" class="trip__cajon" aria-label="Intentar abrir un cajón"></button>
+                </div>
+                <p class="onoma trip__clack" aria-live="polite"></p>
+              </div>
+              <h4>Llave</h4>
+              <p>Los marcos ahora son puertas cerradas. Los cajones no se abren: cada intento suena a cerradura trabada.</p>
+            </article>
+            <article class="trip__card trip--mate" style="--c:var(--fucsia)">
+              <span class="ph">Placeholder · escenario</span>
+              <div class="trip__art" aria-hidden="true">
+                <span class="cenital"></span>
+                <span class="cenital__floor"></span>
+                <svg class="sombra" style="--a:0deg"><use href="#obj-silla"/></svg><svg class="sombra" style="--a:72deg"><use href="#obj-silla"/></svg><svg class="sombra" style="--a:144deg"><use href="#obj-silla"/></svg><svg class="sombra" style="--a:216deg"><use href="#obj-silla"/></svg><svg class="sombra" style="--a:288deg"><use href="#obj-silla"/></svg>
+              </div>
+              <h4>Mate</h4>
+              <p>El escenario de las sillas, a oscuras. Una luz desde arriba ilumina la ronda: las sillas no están, solo sus sombras.</p>
+            </article>
+            <article class="trip__card trip--cuaderno" style="--c:var(--celeste)">
+              <span class="ph">Placeholder · escenario</span>
+              <div class="trip__art" aria-hidden="true">
+                <div class="bollos"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                <div class="pila"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                <p class="borrador b1">primero hay que elegir el mod</p>
+                <p class="borrador b2">3 huevos, 1 taza de az</p>
+                <p class="borrador b3">metro, calad</p>
+              </div>
+              <h4>Cuaderno</h4>
+              <p>Del cielo caen hojas arrugadas que forman una pila. Las anotaciones empiezan a escribirse, pero se apagan antes de terminar.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <!-- La voz, con reverberación: eco tipográfico -->
+      <div class="eco" data-eco data-voice-zone>
+        <div class="pin eco__pin">
+          <div class="eco__lines" aria-live="polite">
+            <p data-eco-line>¿Te das cuenta lo que sería perder ese objeto?</p>
+            <p data-eco-line>¿Cómo se sentiría?</p>
+            <p data-eco-line>¿Cómo te sentís ahora que sabés que no está con vos?</p>
+            <p data-eco-line>Sabemos que ahora querés recuperarlo, y vos sabés a dónde tenés que ir a buscar.</p>
+            <p data-eco-line>Te invitamos a que lo hagas.</p>
+          </div>
+          <div class="eco__voice"><div data-voice="e4b" data-acc="fucsia" data-autoplay="off" class="voice--compact"></div></div>
+        </div>
+      </div>
+
+      <!-- Afuera de Unreal: el tótem, con humo -->
+      <div class="screen e4-humo">
+        <div class="wrap e4-humo__grid">
+          <figure class="e4-humo__totem" aria-hidden="true">
+            <span class="ph">Placeholder · foto</span>
+            <div class="humo"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <svg viewBox="0 0 120 260"><use href="#obj-totem"/></svg>
+          </figure>
+          <div class="e4-humo__copy">
+            <p class="eyebrow">En el aula</p>
+            <h3 class="title" data-split>Donde estaban los objetos, ahora solo hay humo</h3>
+            <p class="body" data-split>Las luces del aula y el proyector se apagan. Las luces LED vuelven a guiar hasta el tótem; al acercarse, saliendo otra vez de Unreal, los objetos ya no están.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video de introducción a la Etapa 5 -->
+      <div class="video video--e5" data-video data-total="16">
+        <div class="pin video__pin">
+          <div class="video__frame">
+            <div class="video__hud mono" aria-hidden="true"><span class="video__rec">Proyector</span><span>Video · antes de la Etapa 5</span><span class="video__tc">00:00</span></div>
+            <div class="video__scene" data-scene><p class="video__big" data-vsplit>Cuando lo tenías encima ni pensabas en él.</p></div>
+            <div class="video__scene" data-scene><p class="video__mid" data-vsplit>Ahora que lo perdiste, no podés dejar de pensarlo, de <span class="hl">verlo en todos lados</span>.</p></div>
+            <div class="video__scene" data-scene><p class="video__mid" data-vsplit>Tu cerebro no te va a dejar descansar hasta que lo encuentres.</p></div>
+            <div class="video__scene" data-scene><p class="video__big" data-vsplit><span class="hl">Volvé a buscarlo.</span></p></div>
+            <div class="video__progress" aria-hidden="true"><i></i></div>
+          </div>
+          <p class="video__note mono">Video proyectado en el aula · habla directamente a los profesores</p>
         </div>
       </div>
     </section>
