@@ -368,3 +368,34 @@ main { position: relative; z-index: 1; padding-right: var(--rail-w); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
 }
+
+/* --- Dónde está la persona: espacio físico · Unreal · Oculus ------------- */
+.where {
+  display: inline-flex; align-items: center; gap: 8px; margin: 0;
+  font-family: var(--f-mono); font-size: 11px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; white-space: nowrap;
+  color: var(--crema); transition: opacity .3s;
+}
+.where.is-hidden { opacity: 0; pointer-events: none; }
+.where__pre { color: var(--ink-50); font-weight: 400; }
+.where__icons { display: inline-flex; align-items: center; gap: 3px; color: var(--acc); }
+.where__icons svg { width: 15px; height: 15px; }
+.where__icons i { font-style: normal; color: var(--ink-50); font-size: 10px; }
+.where--desk {
+  position: absolute; top: calc(max(12px, env(safe-area-inset-top)) + 52px); right: var(--gutter);
+  padding: 7px 12px; border: 1px solid var(--ink-20); border-radius: 999px;
+  background: rgb(53 42 114 / .7); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+}
+.where--bar { display: none; }
+@media (max-width: 899px) {
+  .where--desk { display: none; }
+  .where--bar { display: inline-flex; flex: none; gap: 5px; font-size: 10px; letter-spacing: .1em; padding: 5px 8px; border: 1px solid var(--ink-20); border-radius: 999px; }
+  .where--bar .where__icons svg { width: 13px; height: 13px; }
+  .rail__now { flex: 1; min-width: 0; }
+}
+@media (max-width: 599px) {
+  .rail__menu-txt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .rail__menu { min-width: 44px; justify-content: center; }
+}
+/* el encabezado gana un fondo al hacer scroll, para que logo e indicador no se mezclen con los títulos */
+.hdr { transition: background-color .3s; }
+.is-past-intro .hdr { background: linear-gradient(to bottom, rgb(53 42 114 / .94) 60%, rgb(53 42 114 / 0)); padding-bottom: 22px; }

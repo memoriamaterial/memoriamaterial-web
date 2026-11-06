@@ -86,6 +86,8 @@
       <symbol id="i-proyector" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="8" width="18" height="9" rx="2"/><circle cx="15" cy="12.5" r="2.4"/><path d="M6 17v2M18 17v2"/></g></symbol>
       <symbol id="i-pc" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M9 20h6M12 16v4"/></g></symbol>
       <symbol id="i-totem" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><ellipse cx="12" cy="5" rx="5" ry="2"/><path d="M10 7h4l2.5 13h-9z"/></g></symbol>
+      <symbol id="i-lugar" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M3 20V8l9-4 9 4v12"/><path d="M10 20v-6h4v6"/><path d="M2 20h20"/></g></symbol>
+      <symbol id="i-lista" viewBox="0 0 16 16"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M2 4h12M2 8h12M2 12h8"/></symbol>
       <symbol id="i-oculus" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="8" width="18" height="9" rx="4"/><path d="M10 17c.6-1.6 3.4-1.6 4 0"/></g></symbol>
     </defs>
   </svg>
@@ -99,6 +101,7 @@
       <span class="sound__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
       <span data-sound-label>Sonido apagado</span>
     </button>
+    <p class="where where--desk" data-where-ui aria-live="polite"><span class="where__pre">Estás en</span><span class="where__icons" aria-hidden="true"></span><span class="where__txt"></span></p>
   </header>
 
   <nav class="rail" aria-label="Etapas del recorrido">
@@ -106,7 +109,8 @@
     <ol class="rail__list"></ol>
     <div class="rail__bar">
       <p class="rail__now" aria-live="polite"></p>
-      <button class="rail__menu" type="button" data-open-menu>Etapas <svg width="12" height="12" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      <p class="where where--bar" data-where-ui><span class="sr-only">Estás en </span><span class="where__icons" aria-hidden="true"></span><span class="where__txt"></span></p>
+      <button class="rail__menu" type="button" data-open-menu><span class="rail__menu-txt">Etapas</span> <svg width="14" height="14" aria-hidden="true"><use href="#i-lista"/></svg></button>
     </div>
   </nav>
 
@@ -124,7 +128,7 @@
   <main id="contenido">
 
     <!-- ============================== ENTRADA ============================== -->
-    <section id="entrada" class="stage entrada" data-rail data-label="Entrada" data-color="crema" data-tempo="0.8">
+    <section id="entrada" class="stage entrada" data-rail data-label="Entrada" data-color="crema" data-tempo="0.8" data-where="none">
       <div class="screen entrada__screen">
         <div class="entrada__sky" aria-hidden="true">
           <svg class="sky-s s1" style="--x:8%;--y:18%;--w:120px;--c:var(--fucsia)"><use href="#shape-s"/></svg>
@@ -159,7 +163,7 @@
     <!-- ============================= BIENVENIDA ============================ -->
     <section id="bienvenida" class="stage bienvenida" data-rail data-label="Bienvenida" data-color="fucsia" data-tempo="0.8">
       <!-- A: el lema como afiche -->
-      <div class="screen lema">
+      <div class="screen lema" data-where="none">
         <div class="wrap lema__grid">
           <h2 class="lema__words" aria-label="Dale una nueva mirada a tu cotidianidad">
             <span class="lema__line" style="--c:var(--fucsia)"><span class="lema__row"><span class="lema__w">Dale</span><span class="lema__pill lema__pill--dot"></span></span><small class="lema__note">reinterpretá lo que más conocés</small></span>
@@ -177,7 +181,7 @@
       </div>
 
       <!-- B: el video de bienvenida, como secuencia de texto animado -->
-      <div class="video" data-video>
+      <div class="video" data-video data-where="fisico">
         <div class="pin video__pin">
           <div class="video__frame">
             <div class="video__hud mono" aria-hidden="true">
@@ -252,7 +256,7 @@
     </section>
 
     <!-- ============================ ESPACIO FÍSICO ========================= -->
-    <section id="aula" class="stage aula" data-rail data-label="El aula" data-color="celeste" data-tempo="0.85">
+    <section id="aula" class="stage aula" data-rail data-label="El aula" data-color="celeste" data-tempo="0.85" data-where="fisico">
       <div class="screen">
         <div class="wrap aula__grid">
           <div class="aula__copy">
@@ -317,7 +321,7 @@
     </section>
 
     <!-- ================================ E1 ================================= -->
-    <section id="e1" class="stage e1" data-rail data-num="01" data-label="Plasticidad sináptica" data-color="amarillo" data-tempo="0.85">
+    <section id="e1" class="stage e1" data-rail data-num="01" data-label="Plasticidad sináptica" data-color="amarillo" data-tempo="0.85" data-where="unreal">
 
       <!-- Pantalla 1: entrada a la etapa -->
       <div class="screen e1-intro" data-voice-zone>
@@ -432,7 +436,7 @@
     </section>
 
     <!-- ================================ E2 ================================= -->
-    <section id="e2" class="stage e2" data-rail data-num="02" data-label="El mundo de los objetos" data-color="fucsia" data-tempo="0.95">
+    <section id="e2" class="stage e2" data-rail data-num="02" data-label="El mundo de los objetos" data-color="fucsia" data-tempo="0.95" data-where="unreal">
 
       <!-- La cúpula: los tres objetos, uno en color -->
       <div class="screen e2-hub" data-voice-zone>
@@ -701,7 +705,7 @@
     <section id="e3" class="stage e3" data-rail data-num="03" data-label="Una extensión del yo" data-color="celeste" data-tempo="1.05">
 
       <!-- El pasillo: la cámara avanza y la consigna se desarrolla -->
-      <div class="pasillo" data-pasillo>
+      <div class="pasillo" data-pasillo data-where="unreal">
         <div class="pin pasillo__pin">
           <div class="tunel tunel--side tunel--l" aria-hidden="true"></div>
           <div class="tunel tunel--side tunel--r" aria-hidden="true"></div>
@@ -732,7 +736,7 @@
 
       <!-- Afuera de Unreal: el tótem del aula, y la puerta con tres íconos -->
       <div class="screen e3-aula">
-        <div class="wrap e3-aula__grid">
+        <div class="wrap e3-aula__grid" data-where="fisico">
           <div class="e3-aula__copy">
             <p class="eyebrow">Por un momento, fuera de Unreal</p>
             <h3 class="title" data-split>Desprenderse del objeto</h3>
@@ -755,7 +759,7 @@
           </figure>
         </div>
 
-        <div class="wrap e3-door">
+        <div class="wrap e3-door" data-where="unreal+fisico">
           <div class="e3-door__frame" data-e3door>
             <span class="e3-door__light" aria-hidden="true"></span>
             <div class="e3-door__icons" role="group" aria-label="Elegí el ícono que mostró el holograma">
@@ -778,7 +782,7 @@
     <section id="e4" class="stage e4" data-rail data-num="04" data-label="Objetos perdidos" data-color="fucsia" data-tempo="1.15">
 
       <!-- Destello blanco, pitido, glitch -->
-      <div class="screen e4-flash" data-voice-zone>
+      <div class="screen e4-flash" data-voice-zone data-where="unreal">
         <div class="e4-flash__white" aria-hidden="true"></div>
         <div class="e4-flash__scan" aria-hidden="true"></div>
         <div class="wrap e4-flash__copy">
@@ -790,7 +794,7 @@
       </div>
 
       <!-- Réplica de E1 con la paleta invertida -->
-      <div class="screen e4-replica">
+      <div class="screen e4-replica" data-where="unreal">
         <figure class="e4-replica__maqueta" aria-hidden="true"><span class="ph ph--right">Maqueta · invertida</span><img src="assets/img/maqueta-e1-inv.webp" width="1927" height="903" alt="" loading="lazy" decoding="async"></figure>
         <div class="wrap e4-replica__in">
           <div class="e4-replica__head">
@@ -820,7 +824,7 @@
       </div>
 
       <!-- Los mundos, sin sus objetos -->
-      <div class="screen e4-mundos">
+      <div class="screen e4-mundos" data-where="unreal">
         <div class="wrap">
           <div class="e4-mundos__head">
             <p class="eyebrow">Se puede volver a entrar en cada objeto</p>
@@ -868,7 +872,7 @@
       </div>
 
       <!-- La voz, con reverberación: eco tipográfico -->
-      <div class="eco" data-eco data-voice-zone>
+      <div class="eco" data-eco data-voice-zone data-where="unreal">
         <div class="pin eco__pin">
           <div class="eco__lines" aria-live="polite">
             <p data-eco-line>¿Te das cuenta lo que sería perder ese objeto?</p>
@@ -882,7 +886,7 @@
       </div>
 
       <!-- Afuera de Unreal: el tótem, con humo -->
-      <div class="screen e4-humo">
+      <div class="screen e4-humo" data-where="fisico">
         <div class="wrap e4-humo__grid">
           <figure class="e4-humo__totem" aria-hidden="true">
             <span class="ph">Placeholder · foto</span>
@@ -898,7 +902,7 @@
       </div>
 
       <!-- Video de introducción a la Etapa 5 -->
-      <div class="video video--e5" data-video data-total="16">
+      <div class="video video--e5" data-video data-total="16" data-where="fisico">
         <div class="pin video__pin">
           <div class="video__frame">
             <div class="video__hud mono" aria-hidden="true"><span class="video__rec">Proyector</span><span>Video · antes de la Etapa 5</span><span class="video__tc">00:00</span></div>
@@ -915,7 +919,7 @@
 
     <!-- ================================ E5 ================================= -->
     <section id="e5" class="stage e5" data-rail data-num="05" data-label="Obsesión con la pérdida" data-color="amarillo" data-tempo="1.3">
-      <div class="hall" data-hall>
+      <div class="hall" data-hall data-where="unreal">
         <div class="pin hall__pin">
           <div class="hall__space" aria-hidden="true">
             <div class="hall__wall hall__wall--l"><div class="hall__strip"></div></div>
@@ -942,7 +946,7 @@
 
     <!-- ================================ E6 ================================= -->
     <section id="e6" class="stage e6" data-rail data-num="06" data-label="Búsqueda del significado" data-color="celeste" data-tempo="1.4">
-      <div class="screen e6-play">
+      <div class="screen e6-play" data-where="oculus">
         <div class="wrap e6-head">
           <div>
             <p class="stage-num">Etapa 06 · Unreal · con los Oculus puestos</p>
@@ -981,7 +985,7 @@
     <section id="cierre" class="stage cierre" data-rail data-num="FIN" data-label="Cierre" data-color="crema" data-tempo="1.6">
 
       <!-- Las esferas físicas en el tótem -->
-      <div class="screen cierre-esferas">
+      <div class="screen cierre-esferas" data-where="fisico">
         <div class="wrap cierre-esferas__in">
           <div class="cierre-esferas__head">
             <p class="eyebrow">De vuelta en el aula · el tótem</p>
@@ -1007,7 +1011,7 @@
       </div>
 
       <!-- Video final -->
-      <div class="video video--final" data-video data-total="14">
+      <div class="video video--final" data-video data-total="14" data-where="fisico">
         <div class="pin video__pin">
           <div class="video__frame">
             <div class="video__hud mono" aria-hidden="true"><span class="video__rec">Proyector</span><span>Video final</span><span class="video__tc">00:00</span></div>
@@ -1020,7 +1024,7 @@
       </div>
 
       <!-- Frase final, origen del proyecto, pregunta y créditos -->
-      <div class="screen cierre-fin">
+      <div class="screen cierre-fin" data-where="fisico">
         <div class="wrap cierre-fin__in">
           <p class="cierre-fin__claim" data-split>En lo cotidiano hay cosas que pueden cobrar otro significado.</p>
 

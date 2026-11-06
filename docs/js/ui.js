@@ -181,9 +181,41 @@ function initVoices() {
   });
 }
 
+// --- Dónde está la persona (espacio físico · Unreal · Oculus) ---------------------
+const PLACES = {
+  fisico: { label: 'Espacio físico', short: 'Físico', icons: ['i-lugar'] },
+  unreal: { label: 'Unreal', short: 'Unreal', icons: ['i-pc'] },
+  oculus: { label: 'Oculus', short: 'Oculus', icons: ['i-oculus'] },
+  'unreal+fisico': { label: 'Unreal + espacio físico', short: 'Unreal + físico', icons: ['i-pc', 'i-lugar'] },
+};
+function initWhere() {
+  const uis = [...document.querySelectorAll('[data-where-ui]')];
+  let current = null;
+  const set = (key) => {
+    if (key === current) return;
+    current = key;
+    const place = PLACES[key];
+    uis.forEach((ui) => {
+      ui.classList.toggle('is-hidden', !place);
+      if (!place) return;
+      ui.dataset.place = key;
+      ui.querySelector('.where__icons').innerHTML = place.icons.map((id) => `<svg><use href="#${id}"/></svg>`).join('<i>+</i>');
+      const txt = ui.querySelector('.where__txt');
+      const text = ui.classList.contains('where--bar') ? place.short : place.label;
+      if (reduce || !txt.textContent) txt.textContent = text;
+      else gsap.to(txt, { duration: 0.5, scrambleText: { text, chars: 'UNREALOCUSFÍSICO', speed: 0.8 } });
+    });
+  };
+  document.querySelectorAll('[data-where]').forEach((el) => {
+    ScrollTrigger.create({ trigger: el, start: 'top 50%', end: 'bottom 50%', onToggle: (self) => self.isActive && set(el.dataset.where) });
+  });
+  set('none');
+}
+
 export function initUI() {
   wireDialogs();
   initRail();
+  initWhere();
   initSound();
   initVoices();
 }

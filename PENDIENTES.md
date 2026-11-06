@@ -83,6 +83,31 @@ yo los optimizo y los copio a `docs/assets/`.
 - [ ] **18.** El video de introducción a E5 y el video final se resolvieron como secuencias de
   texto, igual que el de bienvenida (punto 3).
 
+## Dónde está la persona (indicador "Estás en")
+
+| Bloque | Etiqueta | Por qué (guion) |
+|---|---|---|
+| Entrada y lema | — (oculta) | Es la presentación de la web, no un momento de la experiencia |
+| Video de bienvenida | Espacio físico | Se proyecta en el aula |
+| El espacio físico | Espacio físico | El aula, las estaciones y el tótem |
+| E1 · Plasticidad sináptica | Unreal | Se inicia la experiencia en Unreal en cada estación |
+| E2 · El mundo de los objetos | Unreal | Cúpula y los tres mundos |
+| E3 · El pasillo | Unreal | Recorrido del pasillo |
+| E3 · Depositar el objeto en el tótem | Espacio físico | "Saliendo momentáneamente del entorno de Unreal" |
+| E3 · La puerta con tres íconos | Unreal + espacio físico | Se elige en Unreal el ícono que proyectó el holograma del aula |
+| E4 · Destello, desierto invertido, mundos, preguntas | Unreal | Réplica de E1 y mundos de ausencia |
+| E4 · El tótem con humo | Espacio físico | "Saliendo nuevamente de Unreal por un momento" |
+| E4 · Video antes de la Etapa 5 | Espacio físico | Se proyecta en el aula |
+| E5 · Obsesión con la pérdida | Unreal | "Vuelve al Unreal" hasta llegar a los Oculus |
+| E6 · Búsqueda del significado | Oculus | "Con los Oculus puestos" |
+| Cierre (esferas, video final, pregunta) | Espacio físico | Tótem del aula, proyector y devolución a los profesores |
+
+- [ ] **20.** Casos ambiguos, decididos así (revisar):
+  - **E3, la puerta:** "Unreal + espacio físico", porque la clave está en el holograma del aula y se elige en Unreal.
+  - **E5, el final:** queda "Unreal" aunque termina al llegar a los Oculus; el cambio a "Oculus" se marca en E6.
+  - **E6, el final:** queda "Oculus" aunque en el aula se encienden las luces hacia el tótem; el paso al
+    espacio físico se marca en el Cierre, cuando la voz indica quitarse el detector.
+
 ## Publicación
 
 - [ ] **GitHub Pages.** El repo es **privado** y Pages no está activado. Opciones:
