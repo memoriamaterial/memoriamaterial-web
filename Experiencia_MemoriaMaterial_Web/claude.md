@@ -23,3 +23,12 @@ HTML + CSS + JS (o el que prefieras), GSAP + ScrollTrigger para el recorrido.
 - Construir de a un escenario por vez y mostrarlo antes de seguir.
 - Usar solo los colores de la paleta.
 - Debe funcionar en celular.
+
+## Skills a usar
+- Dirección visual y layout: impeccable, frontend-design, taste-skill
+- Recorrido por scroll: scroll-world, gsap-scrolltrigger
+- Animación: gsap-core, gsap-timeline, choreograph, animate
+- Pulido: improve-animations, animation-performance
+- Celular: mobile-native
+- Testeo final: break-ui
+Antes de cada tarea, revisá qué skills de esta lista aplican y usalas.
