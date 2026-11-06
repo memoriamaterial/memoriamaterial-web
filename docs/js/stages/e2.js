@@ -70,7 +70,7 @@ function llave(sec) {
     if (hasKey) return;
     hasKey = true;
     cajones[1].classList.add('is-open');
-    inv.textContent = 'Encontraste la llave';
+    inv.textContent = 'La llave apareció en la mesita de luz';
     inv.classList.add('is-on');
     unlockBtn.disabled = false;
   }

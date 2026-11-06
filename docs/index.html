@@ -307,7 +307,7 @@
       </template>
       <template data-pop="holograma" data-eyebrow="Aula · 5" data-acc="fucsia">
         <h3 data-title>Holograma <span class="ph ph--inline">Pendiente</span></h3>
-        <p>En una mesa cercana al tótem. Cuando se deposita el objeto, proyecta un ícono que anticipa la próxima zona del cerebro a transitar: la clave para abrir la puerta de la Etapa 3.</p>
+        <p>En una mesa cercana al tótem. Cuando se deposita el objeto, proyecta un ícono que anticipa la próxima zona del cerebro a transitar: el ícono que permite abrir la puerta de la Etapa 3.</p>
         <p class="mono" style="font-size:var(--t-xs)">Ubicación exacta e ícono por confirmar.</p>
       </template>
       <template data-pop="oculus" data-eyebrow="Aula · 6" data-acc="amarillo">
@@ -346,7 +346,7 @@
             <p class="e1-play__how" data-split>Tocá una esfera para escucharla. Después tocá el objeto que le corresponde.</p>
             <p class="e1-play__how e1-play__done" hidden>Las tres conexiones están hechas. Seguí bajando: la plataforma se eleva.</p>
           </div>
-          <p class="e1-count mono" aria-live="polite"><b data-count>0</b>/3 conexiones</p>
+          <p class="e1-count mono" aria-live="polite"><b data-count>0</b> de 3 conexiones</p>
         </div>
 
         <div class="e1-scene" data-scene-e1>
@@ -422,9 +422,9 @@
             </svg>
           </div>
           <div class="wrap e1-dome__copy">
-            <p class="stage-num">Conexiones completas</p>
+            <p class="stage-num">Conexiones hechas</p>
             <h3 class="title" data-dome-title>La Cúpula del Reencuadre</h3>
-            <p class="body" data-dome-sub>La plataforma se eleva. Para pasar a la siguiente etapa, atravesá la puerta.</p>
+            <p class="body" data-dome-sub>La plataforma se eleva. Para continuar con la experiencia, atravesá la puerta.</p>
           </div>
           <div class="e1-dome__flash" aria-hidden="true"></div>
         </div>
@@ -478,7 +478,7 @@
                 <p class="stage-num">Mundo de la llave · una mudanza</p>
                 <h3 class="title">Llegó el día</h3>
                 <p class="said"><b>Voz</b>—Llegó el día, por fin me voy a mudar.</p>
-                <p class="llave__hint mono">Seguí bajando: el recorrido avanza de puerta en puerta →</p>
+                <p class="llave__hint mono">Seguí bajando para recorrer el camino, de puerta en puerta →</p>
               </div>
               <div class="door" aria-hidden="true"><span class="door__n mono">Puerta 1</span></div>
             </article>
@@ -529,8 +529,8 @@
               </div>
               <div class="llave__copy llave__copy--end">
                 <p class="stage-num">La cerradura gigante</p>
-                <p class="llave__inv mono" data-inv>Todavía no encontraste la llave</p>
-                <button class="btn btn--solid" type="button" data-unlock disabled>Usar la llave</button>
+                <p class="llave__inv mono" data-inv>La llave está en uno de los cajones</p>
+                <button class="btn btn--solid" type="button" data-unlock disabled>Llevar la llave a la cerradura</button>
                 <p class="said" data-found hidden><b>Voz</b>—¡Sí! Acá están.</p>
                 <div data-voice="llave3" data-acc="amarillo" data-autoplay="off" class="voice--compact" hidden></div>
               </div>
@@ -713,7 +713,7 @@
             <p data-say class="pasillo__ask">¿Lo tenés?
               <button class="btn btn--solid" type="button" data-lo-tengo>Lo tengo</button>
             </p>
-            <p data-say>Para avanzar, vas a tener que <span class="acc">depositar ese objeto en nuestro tótem</span>.</p>
+            <p data-say>Para seguir recorriendo la experiencia, vas a tener que <span class="acc">depositar ese objeto en nuestro tótem</span>.</p>
           </div>
           <div class="pasillo__voices">
             <div data-voice="e3a" data-acc="celeste" data-autoplay="off" class="voice--compact"></div>
@@ -758,8 +758,8 @@
             </div>
           </div>
           <div class="e3-door__copy">
-            <p class="eyebrow">La puerta, antes bloqueada</p>
-            <p class="lead">Ahora muestra tres íconos. Elegí el que proyectó el holograma para pasar a la siguiente etapa.</p>
+            <p class="eyebrow">La puerta, antes cerrada</p>
+            <p class="lead">Ahora muestra tres íconos. Elegí el que proyectó el holograma para continuar con la experiencia.</p>
             <p class="e3-door__msg mono" aria-live="polite" data-e3msg></p>
             <p class="mono e3-door__ph"><span class="ph ph--inline">Placeholder</span> Íconos provisorios: falta confirmar cuáles son y cuál es el correcto.</p>
           </div>
@@ -825,14 +825,14 @@
               <div class="trip__art">
                 <div class="puertas" aria-hidden="true"><i></i><i></i><i></i></div>
                 <div class="trip__cajones" role="group" aria-label="Cajones que no se abren">
-                  <button type="button" class="trip__cajon" aria-label="Intentar abrir un cajón"></button>
-                  <button type="button" class="trip__cajon" aria-label="Intentar abrir un cajón"></button>
-                  <button type="button" class="trip__cajon" aria-label="Intentar abrir un cajón"></button>
+                  <button type="button" class="trip__cajon" aria-label="Tocar un cajón cerrado"></button>
+                  <button type="button" class="trip__cajon" aria-label="Tocar un cajón cerrado"></button>
+                  <button type="button" class="trip__cajon" aria-label="Tocar un cajón cerrado"></button>
                 </div>
                 <p class="onoma trip__clack" aria-live="polite"></p>
               </div>
               <h4>Llave</h4>
-              <p>Los marcos ahora son puertas cerradas. Los cajones no se abren: cada intento suena a cerradura trabada.</p>
+              <p>Los marcos ahora son puertas cerradas. Los cajones no se abren: cada vez que se tocan, suena una cerradura trabada.</p>
             </article>
             <article class="trip__card trip--mate" style="--c:var(--fucsia)">
               <span class="ph">Placeholder · escenario</span>
@@ -942,7 +942,7 @@
             <h2 class="title e6-title">Búsqueda del significado</h2>
             <p class="body e6-how">Todo se ve en wireframe. Mové el detector (el cursor o tu dedo) entre los objetos y tocá las esferas que brillan.</p>
           </div>
-          <p class="e6-count mono" aria-live="polite"><b data-e6-count>0</b>/3 esferas</p>
+          <p class="e6-count mono" aria-live="polite"><b data-e6-count>0</b> de 3 esferas</p>
         </div>
         <div class="scan" data-scan>
           <div class="scan__field scan__field--dim" aria-hidden="true"></div>
@@ -1038,7 +1038,7 @@
               <div><dt>Cátedra</dt><dd>Nombre de la cátedra <span class="ph ph--inline">Pendiente</span></dd></div>
               <div><dt>Año</dt><dd>2026</dd></div>
             </dl>
-            <button class="btn btn--ghost" type="button" data-restart>Volver a empezar</button>
+            <button class="btn btn--ghost" type="button" data-restart>Volver al inicio</button>
           </div>
         </div>
       </div>
