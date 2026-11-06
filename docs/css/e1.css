@@ -1,0 +1,112 @@
+/* ==========================================================================
+   E1 · Plasticidad sináptica
+   ========================================================================== */
+
+/* --- Pantalla 1 ----------------------------------------------------------- */
+.e1-intro { display: grid; align-items: end; overflow: hidden; }
+.e1-intro__maqueta { position: absolute; inset: auto 0 0 0; height: 78%; margin: 0; }
+.e1-intro__maqueta img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; opacity: .7;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 45%); mask-image: linear-gradient(to bottom, transparent, #000 45%); }
+.e1-intro__maqueta .ph { top: auto; bottom: calc(16px + var(--bar-h)); }
+.e1-intro__copy { position: relative; z-index: 2; display: grid; gap: var(--s-5); align-content: end; }
+.e1-intro__title { font-size: clamp(2.6rem, 1rem + 8vw, 8.4rem); max-width: 10ch; text-shadow: 0 0 40px rgb(53 42 114 / .8); }
+.e1-intro .lead { max-width: 30ch; }
+.e1-intro .voice { margin-top: var(--s-3); }
+
+.e1-sky { position: absolute; inset: 0 0 40% 0; z-index: 1; pointer-events: none; overflow: hidden; }
+.drift { position: absolute; left: 0; top: var(--y); width: var(--w); aspect-ratio: 2 / 1; color: var(--c); filter: drop-shadow(0 0 12px var(--c));
+  animation: drift var(--d) linear infinite; animation-delay: var(--delay, 0s); }
+.drift.is-echo { filter: none; }
+@keyframes drift { from { transform: translateX(-20vw); } to { transform: translateX(110vw); } }
+
+/* --- Pantalla 2: juego de conexiones ------------------------------------- */
+.e1-play { display: grid; grid-template-rows: auto 1fr; gap: var(--s-5); padding-bottom: calc(var(--s-6) + var(--bar-h)); }
+.e1-play__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: var(--s-4); }
+.e1-play__how { font-size: var(--t-lg); line-height: 1.3; max-width: 34ch; margin-top: var(--s-3); }
+.e1-count { font-size: var(--t-sm); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-70); padding: 8px 14px; border: 1px solid var(--ink-20); border-radius: 999px; }
+.e1-count b { color: var(--crema); font-weight: 600; font-size: 1.2em; }
+.e1-play.is-complete .e1-count { border-color: var(--crema); color: var(--crema); }
+
+.e1-scene {
+  position: relative; width: min(1280px, 100%); margin-inline: auto; min-height: 520px; height: 100%;
+  border-radius: 24px; overflow: hidden; border: 1px solid var(--ink-10);
+  background: radial-gradient(80% 60% at 50% 100%, rgb(242 237 212 / .1), transparent 70%), var(--violeta);
+  touch-action: manipulation;
+}
+@media (max-width: 699px) {
+  .e1-play { padding-top: calc(var(--s-8) + env(safe-area-inset-top)); gap: var(--s-4); height: 100svh; min-height: 560px; }
+  .e1-play__how { font-size: var(--t-base); }
+  .e1-count { padding: 6px 12px; }
+  .e1-scene { min-height: 0; height: 100%; border-radius: 18px; }
+}
+.e1-scene .floor { height: 62%; opacity: .9; }
+.e1-tint { position: absolute; inset: 0; z-index: 0; background: var(--tint, transparent); opacity: 0; transition: opacity .6s var(--ease-out), background-color .4s; pointer-events: none; }
+.e1-scene.has-tint .e1-tint { opacity: .14; }
+
+/* pliegues del cerebro: estructuras rectangulares en el horizonte */
+.e1-folds { position: absolute; left: 4%; right: 4%; top: 30%; height: 16%; display: flex; align-items: flex-end; gap: 1.6%; opacity: .55; }
+.e1-folds i { flex: 1; height: var(--h); border: 1px solid var(--ink-20); border-bottom: 0; background: linear-gradient(var(--ink-06), transparent); border-radius: 2px 2px 0 0; }
+
+.e1-node { position: absolute; left: var(--x); top: var(--y); translate: -50% -50%; }
+@media (max-width: 699px) { .e1-node { left: var(--mx, var(--x)); top: var(--my, var(--y)); } }
+
+.e1-lines { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; overflow: visible; }
+.e1-lines path { fill: none; stroke-width: 2.5; stroke-linecap: round; }
+
+/* Plataforma central con tres esferas incrustadas */
+.e1-platform { z-index: 1; width: clamp(120px, 18%, 220px); aspect-ratio: 3 / 1; }
+.e1-platform__disc { position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid var(--ink-50); background: radial-gradient(closest-side, rgb(242 237 212 / .12), rgb(242 237 212 / .02)); box-shadow: 0 10px 0 -2px rgb(242 237 212 / .12); }
+.e1-slot { position: absolute; width: 12%; aspect-ratio: 1; border-radius: 50%; background: var(--violeta); border: 1.5px solid var(--ink-50); translate: -50% -50%; transition: background-color .4s, box-shadow .4s, border-color .4s; }
+.e1-slot[data-slot="llave"] { left: 24%; top: 58%; }
+.e1-slot[data-slot="mate"] { left: 50%; top: 30%; }
+.e1-slot[data-slot="cuaderno"] { left: 76%; top: 58%; }
+.e1-slot.is-on { background: var(--c); border-color: var(--c); box-shadow: 0 0 14px var(--c), 0 0 2px var(--c); }
+
+/* Esferas flotantes: apagadas, apenas brillan */
+.e1-sphere { z-index: 3; width: clamp(64px, 8vw, 104px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; }
+.e1-sphere__core {
+  position: relative; width: 70%; aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgb(242 237 212 / .7), var(--c) 38%, rgb(53 42 114 / .9) 100%);
+  opacity: .32; filter: saturate(.5);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--c) 40%, transparent);
+  transition: opacity .4s, filter .4s, box-shadow .4s, transform .4s var(--ease-out);
+  animation: bob 4.5s ease-in-out infinite;
+}
+.e1-sphere:nth-of-type(2) .e1-sphere__core { animation-delay: -1.5s; }
+.e1-sphere:nth-of-type(3) .e1-sphere__core { animation-delay: -3s; }
+@keyframes bob { 50% { transform: translateY(-8px); } }
+@media (hover: hover) { .e1-sphere:hover .e1-sphere__core { opacity: .6; filter: none; } }
+.e1-sphere.is-active .e1-sphere__core, .e1-sphere.is-linked .e1-sphere__core {
+  opacity: 1; filter: none; box-shadow: 0 0 0 6px color-mix(in srgb, var(--c) 18%, transparent), 0 0 40px var(--c), 0 0 90px color-mix(in srgb, var(--c) 50%, transparent);
+}
+.e1-sphere.is-active .e1-sphere__core::after { content: ""; position: absolute; inset: -14px; border-radius: 50%; border: 1px solid var(--c); animation: ping 1.6s var(--ease-out) infinite; }
+
+/* Objetos gigantes encallados en la arena */
+.e1-obj { z-index: 2; display: grid; place-items: end center; color: rgb(242 237 212 / .34); transition: color .5s, filter .5s; }
+.e1-obj svg { width: 100%; height: auto; overflow: visible; }
+.e1-obj__sand { position: absolute; left: -12%; right: -12%; bottom: -6%; height: 22%; border-radius: 50%; background: radial-gradient(closest-side, rgb(242 237 212 / .18), transparent); }
+.e1-obj--llave { width: clamp(52px, 7vw, 96px); rotate: -28deg; }
+.e1-obj--cuaderno { width: clamp(120px, 17vw, 230px); rotate: 8deg; }
+.e1-obj--mate { width: clamp(96px, 12vw, 170px); rotate: 14deg; }
+@media (max-width: 699px) {
+  .e1-obj--llave { width: 15vw; } .e1-obj--cuaderno { width: 34vw; } .e1-obj--mate { width: 24vw; }
+  .e1-sphere { width: 64px; }
+}
+@media (hover: hover) { .e1-scene.is-choosing .e1-obj:not(.is-linked):hover { color: rgb(242 237 212 / .6); } }
+.e1-scene.is-choosing .e1-obj:not(.is-linked) { animation: invite 1.6s ease-in-out infinite; }
+@keyframes invite { 50% { color: rgb(242 237 212 / .55); } }
+.e1-obj.is-linked { color: var(--c); filter: drop-shadow(0 0 18px var(--c)) drop-shadow(0 0 40px color-mix(in srgb, var(--c) 45%, transparent)); animation: none; }
+
+.e1-bubble { position: absolute; z-index: 5; max-width: min(30ch, 70%); pointer-events: none; }
+.e1-scene > .ph { top: auto; bottom: 10px; }
+
+/* --- Pantalla 3: la cúpula ------------------------------------------------ */
+.e1-dome__pin { display: grid; place-items: center; }
+.e1-dome__pin .floor { height: 46%; }
+.e1-dome__stage { position: absolute; left: 50%; bottom: 22%; width: min(780px, 92vw); translate: -50% 0; }
+@media (max-width: 699px) { .e1-dome__stage { bottom: 30%; } }
+.e1-dome__svg { width: 100%; height: auto; overflow: visible; }
+.dome__gems circle { filter: drop-shadow(0 0 8px currentColor); }
+.e1-dome__copy { position: absolute; top: calc(var(--s-9) + env(safe-area-inset-top)); left: 0; right: 0; display: grid; gap: var(--s-3); padding-inline: var(--gutter); text-align: center; justify-items: center; }
+.e1-dome__copy .title { font-size: var(--t-xl); }
+.e1-dome__flash { position: absolute; inset: 0; background: var(--violeta); opacity: 0; pointer-events: none; }

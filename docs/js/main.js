@@ -1,8 +1,9 @@
 // Memoria Material — punto de entrada
 import { initUI, autoReveal } from './ui.js';
 import * as inicio from './stages/inicio.js';
+import * as e1 from './stages/e1.js';
 // Cada escenario nuevo se suma acá, en orden de aparición.
-const stages = [inicio];
+const stages = [inicio, e1];
 
 const { gsap, ScrollTrigger, SplitText, ScrollToPlugin, ScrambleTextPlugin, DrawSVGPlugin } = window;
 gsap.registerPlugin(ScrollTrigger, SplitText, ScrollToPlugin, ScrambleTextPlugin, DrawSVGPlugin);
