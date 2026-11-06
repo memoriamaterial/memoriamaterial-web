@@ -77,7 +77,7 @@ function lema() {
     const tl = gsap.timeline({
       scrollTrigger: { trigger: line, start: 'top 92%', end: 'top 55%', scrub: 0.6 },
     });
-    tl.from(w, { xPercent: i % 2 ? 12 : -12, opacity: 0, ease: 'power2.out' })
+    tl.from(w, { yPercent: 40, opacity: 0, ease: 'power2.out' })
       .from(pill, { scaleX: 0, ease: 'power3.out' }, '<0.15');
     if (note) tl.from(note, { opacity: 0, y: 6 }, '<0.2');
   });

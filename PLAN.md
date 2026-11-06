@@ -76,6 +76,6 @@ Narración en Space Grotesk; personajes en Plex Mono con el color de su objeto.
 - Colores → unificados a los hexadecimales exactos de `paleta.md`.
 - Esfera celeste → tiñe de celeste.
 - Logo → se deja como está por ahora.
-- Lema → "Dale una nueva mirada a tu normalidad".
+- Lema → "Dale una nueva mirada a tu cotidianidad".
 - Cierre y créditos → textos de ejemplo marcados como pendientes.
 - Un commit por etapa.
