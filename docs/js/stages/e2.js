@@ -8,7 +8,12 @@ const vh = () => window.innerHeight;
 
 export function init() {
   const sec = document.getElementById('e2');
-  if (reduce) { sec.classList.add('is-static'); staticFallback(sec); return; }
+  if (reduce) {
+    sec.classList.add('is-static');
+    staticFallback(sec);
+    cerradura(sec.querySelector('.llave'), null); // obligatoria también sin animaciones
+    return;
+  }
   llave(sec);
   swaps(sec);
   mate1(sec);
@@ -38,13 +43,7 @@ function llave(sec) {
   const pips = [...wrap.querySelectorAll('.llave__doors i')];
   const panels = [...track.children];
   const cajones = [...wrap.querySelectorAll('.cajon')];
-  const inv = wrap.querySelector('[data-inv]');
-  const unlockBtn = wrap.querySelector('[data-unlock]');
-  const lock = wrap.querySelector('[data-lock]');
-  const found = wrap.querySelector('[data-found]');
   const v2 = wrap.querySelector('[data-voice="llave2"]');
-  const v3 = wrap.querySelector('[data-voice="llave3"]');
-  let hasKey = false, opened = false;
 
   const distance = () => track.scrollWidth - pin.clientWidth;
   const tween = gsap.to(track, {
@@ -52,7 +51,6 @@ function llave(sec) {
     scrollTrigger: {
       trigger: wrap, pin, start: 'top top', end: () => `+=${Math.max(distance(), vh() * 4.5)}`, scrub: 0.5, invalidateOnRefresh: true,
       onUpdate: (self) => pips.forEach((p, i) => p.classList.toggle('is-on', self.progress >= (i + 0.55) / 4)),
-      onLeave: () => { findKey(); unlock(); },
     },
   });
 
@@ -60,38 +58,133 @@ function llave(sec) {
   panels.forEach((p) => {
     const door = p.querySelector('.door');
     if (door) gsap.fromTo(door, { scale: 0.86 }, { scale: 1.06, ease: 'none', scrollTrigger: { trigger: p, containerAnimation: tween, start: 'left right', end: 'right left', scrub: true } });
-    const items = p.querySelectorAll('.said, .cajas svg, .regalos svg, .mesita, .cerradura');
+    const items = p.querySelectorAll('.said:not([data-found]), .cajas svg, .regalos svg, .mesita, .cerradura');
     if (items.length) gsap.from(items, { y: 40, opacity: 0, stagger: 0.08, duration: 0.6, ease: 'power3.out', scrollTrigger: { trigger: p, containerAnimation: tween, start: 'left 70%', toggleActions: 'play none none reverse' } });
   });
 
   ScrollTrigger.create({ trigger: panels[3], containerAnimation: tween, start: 'left 55%', onEnter: () => audio.autoplay('llave2', v2) });
 
-  function findKey() {
-    if (hasKey) return;
-    hasKey = true;
-    cajones[1].classList.add('is-open');
-    inv.textContent = 'La llave apareció en la mesita de luz';
-    inv.classList.add('is-on');
-    unlockBtn.disabled = false;
-  }
-  function unlock() {
-    if (opened) return;
-    findKey();
-    opened = true;
-    lock.classList.add('is-open');
-    unlockBtn.hidden = true;
-    found.hidden = false;
-    v3.hidden = false;
-    gsap.from([found, v3], { y: 12, opacity: 0, stagger: 0.1, duration: 0.4 });
-    if (audio.enabled) audio.play('llave3', v3);
-  }
-
   cajones.forEach((c, i) => c.addEventListener('click', () => {
     c.classList.toggle('is-open');
     c.setAttribute('aria-label', `${c.classList.contains('is-open') ? 'Cerrar' : 'Abrir'} el ${['primer', 'segundo', 'tercer'][i]} cajón`);
-    if (i === 1 && c.classList.contains('is-open')) findKey();
   }));
-  unlockBtn.addEventListener('click', unlock);
+
+  cerradura(wrap, tween);
+}
+
+// La cerradura gigante: la única interacción obligatoria.
+// El scroll hacia abajo queda frenado hasta que la llave entra en la cerradura.
+function cerradura(wrap, tween) {
+  const panel = wrap.querySelector('[data-lock-panel]');
+  const lock = wrap.querySelector('[data-lock]');
+  const lockSvg = lock.querySelector('.cerradura__lock');
+  const key = wrap.querySelector('[data-llave-drag]');
+  const hint = wrap.querySelector('[data-lock-hint]');
+  const done = wrap.querySelector('[data-lock-done]');
+  const found = wrap.querySelector('[data-found]');
+  const v3 = wrap.querySelector('[data-voice="llave3"]');
+  const cajonLlave = wrap.querySelectorAll('.cajon')[1];
+  const rm = document.documentElement.classList.contains('rm');
+  let opened = false, jumping = false, busy = false;
+
+  // --- dónde se frena el scroll -----------------------------------------------------
+  const lockY = () => {
+    if (!rm) return tween.scrollTrigger.end;
+    const r = panel.getBoundingClientRect();
+    return r.bottom + window.scrollY - window.innerHeight + 24;
+  };
+  const near = () => Math.abs(window.scrollY - lockY()) < 6;
+  let lastY = window.scrollY, nudgeAt = 0;
+  const nudge = () => {
+    const now = performance.now();
+    if (now - nudgeAt < 900) return;
+    nudgeAt = now;
+    hint.classList.add('is-nudge');
+    if (!reduce) {
+      gsap.fromTo(hint, { x: 0 }, { x: 6, duration: 0.07, repeat: 5, yoyo: true, clearProps: 'x' });
+      gsap.fromTo(key, { rotation: 0 }, { rotation: 8, duration: 0.1, repeat: 3, yoyo: true, clearProps: 'rotation' });
+    }
+    setTimeout(() => hint.classList.remove('is-nudge'), 1200);
+  };
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY, L = lockY();
+    if (!opened && !jumping && lastY <= L + 2 && y > L + 2) { window.scrollTo(0, L); nudge(); }
+    lastY = window.scrollY;
+  }, { passive: true });
+  window.addEventListener('wheel', (e) => {
+    if (!opened && !jumping && near() && e.deltaY > 0) { e.preventDefault(); nudge(); }
+  }, { passive: false });
+  let ty = 0;
+  window.addEventListener('touchstart', (e) => { ty = e.touches[0].clientY; }, { passive: true });
+  window.addEventListener('touchmove', (e) => {
+    if (opened || jumping || !near()) return;
+    if (ty - e.touches[0].clientY > 0) { if (e.cancelable) e.preventDefault(); if (!e.target.closest('[data-llave-drag]')) nudge(); }
+  }, { passive: false });
+  window.addEventListener('keydown', (e) => {
+    if (opened || jumping || !near()) return;
+    const typing = e.target.closest('button, input, textarea, select, a');
+    const down = ['PageDown', 'ArrowDown', 'End'].includes(e.key) || (e.key === ' ' && !typing);
+    if (down) { e.preventDefault(); nudge(); }
+  });
+  // los saltos desde el riel no se frenan (son navegación, no scroll)
+  document.addEventListener('nav:jump', (e) => {
+    jumping = true;
+    setTimeout(() => { jumping = false; lastY = window.scrollY; }, (e.detail?.duration || 0) * 1000 + 250);
+  });
+
+  // --- geometría: punta de la llave y centro del ojo de la cerradura ------------
+  const tip = () => { const r = key.getBoundingClientRect(); return { x: r.left + r.width * 0.5, y: r.top + r.height * 0.92 }; };
+  const hole = () => { const r = lockSvg.getBoundingClientRect(); return { x: r.left + r.width * 0.5, y: r.top + r.height * 0.46 }; };
+  const gap = () => { const a = tip(), b = hole(); return { dx: b.x - a.x, dy: b.y - a.y, d: Math.hypot(b.x - a.x, b.y - a.y) }; };
+  const magnet = () => Math.max(90, lockSvg.getBoundingClientRect().width * 0.55);
+
+  // --- encajar: imán, giro, luz amarilla y la puerta se abre ---------------------
+  const insert = (fromDrag = false) => {
+    if (opened || busy) return;
+    busy = true;
+    drag?.disable();
+    cajonLlave.classList.add('is-open');
+    const { dx, dy } = gap();
+    const t = reduce ? 0 : 1;
+    gsap.timeline({ onComplete: open })
+      .to(key, { x: `+=${dx}`, y: `+=${dy}`, duration: (fromDrag ? 0.3 : 0.7) * t, ease: fromDrag ? 'back.out(2)' : 'power3.inOut' })
+      .to(key, { y: '+=6', duration: 0.12 * t, ease: 'power2.in' })
+      .add(() => key.classList.add('is-in'))
+      .to(key, { rotation: 90, transformOrigin: '50% 92%', duration: 0.55 * t, ease: 'power2.inOut' });
+  };
+  function open() {
+    opened = true;
+    lock.classList.add('is-open');
+    lock.classList.remove('is-near');
+    key.setAttribute('aria-disabled', 'true');
+    key.setAttribute('aria-label', 'Llave en la cerradura');
+    done.hidden = false;
+    found.hidden = false;
+    v3.hidden = false;
+    if (!reduce) gsap.from([done, found, v3], { y: 12, opacity: 0, stagger: 0.1, duration: 0.45, delay: 0.5 });
+    if (audio.enabled) audio.play('llave3', v3);
+    lastY = window.scrollY;
+  }
+
+  // --- arrastrar con mouse o dedo -----------------------------------------------
+  const drag = window.Draggable.create(key, {
+    type: 'x,y', zIndexBoost: false, minimumMovement: 4,
+    onPress() { gsap.killTweensOf(key); },
+    onDragStart() { key.classList.add('is-dragging'); },
+    onDrag() { lock.classList.toggle('is-near', gap().d < magnet()); },
+    onDragEnd() {
+      key.classList.remove('is-dragging');
+      if (gap().d < magnet()) insert(true);
+      else {
+        lock.classList.remove('is-near');
+        gsap.to(key, { x: 0, y: 0, duration: reduce ? 0 : 0.6, ease: 'elastic.out(1, 0.6)' }); // vuelve a su lugar
+      }
+    },
+    onClick() { insert(false); }, // un toque también la lleva
+  })[0];
+
+  // teclado: Enter o Espacio sobre la llave
+  key.addEventListener('click', (e) => { if (e.detail === 0) insert(false); });
 }
 
 // --- Pasajes por la cúpula: el objeto recorrido pasa a B/N y se colorea el siguiente ---

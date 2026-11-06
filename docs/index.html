@@ -521,16 +521,23 @@
               <div class="door" aria-hidden="true"><span class="door__n mono">Puerta 4</span></div>
             </article>
 
-            <article class="llave__panel llave__panel--cerradura">
+            <article class="llave__panel llave__panel--cerradura" data-lock-panel>
               <div class="cerradura" data-lock>
                 <div class="cerradura__exit" aria-hidden="true"></div>
                 <span class="cerradura__bolt" aria-hidden="true"></span>
                 <svg class="cerradura__lock" viewBox="0 0 200 260" aria-hidden="true"><use href="#obj-cerradura"/></svg>
+                <span class="cerradura__target" aria-hidden="true"></span>
               </div>
               <div class="llave__copy llave__copy--end">
                 <p class="stage-num">La cerradura gigante</p>
-                <p class="llave__inv mono" data-inv>La llave está en uno de los cajones</p>
-                <button class="btn btn--solid" type="button" data-unlock disabled>Llevar la llave a la cerradura</button>
+                <p class="llave__ask" id="lock-hint" data-lock-hint>Llevá la llave hasta la cerradura para continuar.</p>
+                <p class="llave__inv mono">Arrastrala con el mouse o con el dedo. También podés tocarla una vez, o usar Enter.</p>
+                <div class="llave-dock">
+                  <button class="llave-drag" type="button" data-llave-drag aria-describedby="lock-hint" aria-label="Llave: llevarla a la cerradura">
+                    <svg viewBox="0 0 100 260" aria-hidden="true"><use href="#obj-llave"/></svg>
+                  </button>
+                </div>
+                <p class="llave__done mono" data-lock-done aria-live="polite" hidden>La puerta está abierta. Seguí bajando.</p>
                 <p class="said" data-found hidden><b>Voz</b>—¡Sí! Acá están.</p>
                 <div data-voice="llave3" data-acc="amarillo" data-autoplay="off" class="voice--compact" hidden></div>
               </div>
@@ -1052,6 +1059,7 @@
   <script src="js/vendor/ScrollTrigger.min.js"></script>
   <script src="js/vendor/SplitText.min.js"></script>
   <script src="js/vendor/ScrollToPlugin.min.js"></script>
+  <script src="js/vendor/Draggable.min.js"></script>
   <script src="js/vendor/ScrambleTextPlugin.min.js"></script>
   <script src="js/vendor/DrawSVGPlugin.min.js"></script>
   <script type="module" src="js/main.js"></script>

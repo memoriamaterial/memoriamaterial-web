@@ -121,7 +121,9 @@ function initRail() {
     e.preventDefault();
     if (menu.open) menu.close();
     const target = document.querySelector(a.getAttribute('href'));
-    gsap.to(window, { scrollTo: { y: target, autoKill: true }, duration: reduce ? 0 : 1.1, ease: 'power3.inOut' });
+    const duration = reduce ? 0 : 1.1;
+    document.dispatchEvent(new CustomEvent('nav:jump', { detail: { duration } }));
+    gsap.to(window, { scrollTo: { y: target, autoKill: true }, duration, ease: 'power3.inOut' });
   };
   list.addEventListener('click', go);
   menuList.addEventListener('click', go);

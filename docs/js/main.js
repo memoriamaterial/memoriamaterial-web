@@ -10,8 +10,8 @@ import * as cierre from './stages/cierre.js';
 // Cada escenario nuevo se suma acá, en orden de aparición.
 const stages = [inicio, e1, e2, e3, e4, e5e6, cierre];
 
-const { gsap, ScrollTrigger, SplitText, ScrollToPlugin, ScrambleTextPlugin, DrawSVGPlugin } = window;
-gsap.registerPlugin(ScrollTrigger, SplitText, ScrollToPlugin, ScrambleTextPlugin, DrawSVGPlugin);
+const { gsap, ScrollTrigger, SplitText, ScrollToPlugin, ScrambleTextPlugin, DrawSVGPlugin, Draggable } = window;
+gsap.registerPlugin(ScrollTrigger, SplitText, ScrollToPlugin, ScrambleTextPlugin, DrawSVGPlugin, Draggable);
 ScrollTrigger.config({ ignoreMobileResize: true });
 
 // Movimiento reducido: los textos de las escenas fijas se leen como lista, debajo de cada escena.

@@ -193,3 +193,39 @@
   .notas li { font-size: .9rem; white-space: normal; max-width: 40vw; }
   .notas li { top: calc(24% + var(--y) * .5); }
 }
+
+/* --- Cerradura: llevar la llave (arrastrar y soltar) -------------------- */
+.cerradura__target { position: absolute; z-index: 3; left: 50%; top: 46%; width: 34%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; border: 2px dashed rgb(252 182 20 / .55); pointer-events: none; transition: border-color .25s, box-shadow .25s, scale .25s; animation: target 2.2s ease-in-out infinite; }
+@keyframes target { 50% { scale: 1.08; } }
+.cerradura.is-near .cerradura__target { border-style: solid; border-color: var(--amarillo); box-shadow: 0 0 24px var(--amarillo); animation: none; scale: 1.12; }
+.cerradura.is-open .cerradura__target { opacity: 0; transition: opacity .3s; }
+.llave-dock { position: relative; display: grid; place-items: center; width: 120px; height: 190px; border-radius: 14px; border: 1.5px dashed var(--ink-20); }
+.llave-drag {
+  position: relative; z-index: 20; display: grid; place-items: center; width: 64px; height: 166px;
+  color: var(--crema); cursor: grab; touch-action: none; -webkit-user-select: none; user-select: none;
+  filter: drop-shadow(0 0 10px rgb(242 237 212 / .35)); transition: color .3s, filter .3s;
+}
+.llave-drag svg { width: 100%; height: 100%; pointer-events: none; }
+.llave-drag:focus-visible { outline: 2px solid var(--amarillo); outline-offset: 6px; border-radius: 8px; }
+.llave-drag.is-dragging { cursor: grabbing; filter: drop-shadow(0 12px 18px rgb(53 42 114 / .8)) drop-shadow(0 0 14px rgb(242 237 212 / .5)); }
+.llave-drag.is-in { color: var(--amarillo); filter: drop-shadow(0 0 14px var(--amarillo)) drop-shadow(0 0 40px var(--amarillo)); cursor: default; }
+.llave__done { font-size: var(--t-sm); letter-spacing: .08em; color: var(--amarillo); }
+.llave__ask.is-nudge { color: var(--amarillo); }
+@media (max-width: 899px) {
+  .llave-dock { width: 92px; height: 150px; }
+  .llave-drag { width: 52px; height: 136px; }
+}
+
+/* La puerta de salida ocupa su propio lugar al lado de la cerradura */
+.llave__panel--cerradura .cerradura { --lw: clamp(170px, 20vw, 290px); width: var(--lw); margin-right: calc(var(--lw) * .95); }
+@media (max-width: 899px) {
+  .llave__panel--cerradura { grid-template-columns: auto minmax(0, 1fr); column-gap: var(--s-5); row-gap: var(--s-3); align-content: start; justify-items: stretch; padding-left: calc(12vw + 18px); }
+  .llave__panel--cerradura .llave__copy { display: contents; }
+  .llave__panel--cerradura .llave__copy > * { grid-column: 1 / -1; }
+  .llave__panel--cerradura .llave-dock { grid-column: 1; grid-row: 4; margin-top: var(--s-4); }
+  .llave__panel--cerradura .cerradura { grid-column: 2; grid-row: 4; order: 0; --lw: min(40vw, 190px); margin: var(--s-6) auto 0; justify-self: center; }
+  /* en celular la puerta aparece detrás de la cerradura */
+  .llave__panel--cerradura .cerradura__exit { left: -18%; top: -16%; width: 136%; height: 108%; }
+  .llave__panel--cerradura .llave__done { margin-top: var(--s-4); }
+  .llave__panel--cerradura .llave__inv { font-size: 11px; }
+}

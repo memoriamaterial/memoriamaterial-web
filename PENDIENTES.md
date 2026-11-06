@@ -66,7 +66,8 @@ yo los optimizo y los copio a `docs/assets/`.
   - *Hoy:* nombres de ejemplo. PENDIENTE.
 - [ ] **13.** Cierre: cómo nació el proyecto, el objeto de partida (foto), integrantes, materia, cátedra y año.
   - *Hoy:* textos de ejemplo. PENDIENTE.
-- [x] **14.** Las interacciones nunca bloquean el avance. Confirmado.
+- [x] **14.** Las interacciones nunca bloquean el recorrido. Confirmado, con **una excepción**: la cerradura
+  gigante del mundo de la llave, donde el scroll se detiene hasta que la llave entra en la cerradura.
 
 ## Interpretaciones hechas al maquetar (revisar)
 
@@ -76,6 +77,9 @@ yo los optimizo y los copio a `docs/assets/`.
   seguridad" de E4), con ojo y cerebro como opciones incorrectas. Ver punto 11.
 - [ ] **17.** Diálogos sin número de voz en el guion (mundo de la llave) aparecen como "Voz".
   En el mate y el cuaderno se respetó Voz 1, 2, 3, 4 y "abu".
+- [ ] **19.** Cerradura obligatoria: el scroll (rueda, dedo, teclado y barra de desplazamiento) se detiene,
+  pero los **saltos desde el riel o el menú de etapas** sí pasan, porque son navegación y no scroll
+  (útil para mostrar una etapa puntual en la presentación). Si preferís que también se frenen, avisame.
 - [ ] **18.** El video de introducción a E5 y el video final se resolvieron como secuencias de
   texto, igual que el de bienvenida (punto 3).
 
