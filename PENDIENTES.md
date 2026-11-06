@@ -28,8 +28,9 @@ yo los optimizo y los copio a `docs/assets/`.
 - [ ] **5.** `recursos graficos.svg` es idéntico a `tramas.svg`. Parecen faltar los recursos gráficos
   (las formas que vuelan en el cielo de E1).
   - *Hoy:* formas armadas con los semicírculos de las tramas y el logo.
-- [ ] **6. Logo:** dice "LO HABITUALL" (doble L). ¿Se corrige? *Hoy:* se deja como está.
-  **Lema principal:** *hoy* "Dale una nueva mirada a tu normalidad". ¿Se confirma?
+- [x] **6. Logo:** decía "LO HABITUALL" (doble L). Corregido a "LO HABITUAL" en `assets/logo/logo.svg`
+  y en la web (se quitó la L sobrante y se recentró la frase).
+  **Lema principal:** "Dale una nueva mirada a tu cotidianidad".
 - [x] **7. Colores:** tramas y tratamiento usaban `#EE569A`, `#ED4280`, `#40C5F0`, `#352A71`.
   Unificados a los hexadecimales exactos de `paleta.md`.
 - [x] **8. Esfera celeste:** el guion decía que tiñe "de rosa". Corregido: tiñe de celeste.
