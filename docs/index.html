@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="css/inicio.css">
   <link rel="stylesheet" href="css/e1.css">
   <link rel="stylesheet" href="css/e2.css">
+  <link rel="stylesheet" href="css/e3.css">
   <!--STAGE-CSS-->
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -71,6 +72,9 @@
       <symbol id="obj-pava" viewBox="0 0 160 130"><path fill="currentColor" d="M30 50c0-20 20-30 50-30s50 10 50 30l6 70H24z"/><path fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" d="M50 22c0-18 60-18 60 0"/><path fill="currentColor" d="M130 64l26-20 2 8-22 26z"/></symbol>
       <symbol id="obj-cerradura" viewBox="0 0 200 260"><rect fill="none" stroke="currentColor" stroke-width="10" x="8" y="8" width="184" height="244" rx="18"/><circle fill="currentColor" cx="100" cy="104" r="30"/><path fill="currentColor" d="M86 120h28l10 70H76z"/></symbol>
       <symbol id="obj-torta" viewBox="0 0 140 110"><path fill="currentColor" d="M10 50h120v52H10z"/><path fill="currentColor" opacity=".7" d="M10 50c10-14 22 4 30-6s20 8 30-2 22 8 30-2 20 6 30 10v6H10z"/><rect fill="currentColor" x="66" y="14" width="8" height="28"/><path fill="currentColor" d="M70 0c6 6 6 12 0 14-6-2-6-8 0-14z"/></symbol>
+      <symbol id="i-ojo" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M4 24C10 14 17 10 24 10s14 4 20 14c-6 10-13 14-20 14S10 34 4 24Z"/><circle cx="24" cy="24" r="6"/></g></symbol>
+      <symbol id="i-ancla" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="24" cy="9" r="4"/><path d="M24 13v29M15 20h18M8 28c0 8 7 14 16 14s16-6 16-14"/><path d="M4 30l4-4 4 4M36 30l4-4 4 4"/></g></symbol>
+      <symbol id="i-cerebro" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M24 8c-3-3-10-2-11 3-5 0-8 5-6 9-3 3-2 9 2 10 0 5 5 8 9 6 2 3 6 3 6 0V8Z"/><path d="M24 8c3-3 10-2 11 3 5 0 8 5 6 9 3 3 2 9-2 10 0 5-5 8-9 6-2 3-6 3-6 0"/><path d="M14 20c3 0 5 2 5 5M34 20c-3 0-5 2-5 5"/></g></symbol>
       <symbol id="i-close" viewBox="0 0 16 16"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M3 3l10 10M13 3 3 13"/></symbol>
       <symbol id="i-arrow" viewBox="0 0 16 16"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M8 2v12M3 9l5 5 5-5"/></symbol>
       <symbol id="i-proyector" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="8" width="18" height="9" rx="2"/><circle cx="15" cy="12.5" r="2.4"/><path d="M6 17v2M18 17v2"/></g></symbol>
@@ -676,6 +680,83 @@
             <p class="mono">La salida está dibujada en sus hojas</p>
           </div>
           <span class="ph">Placeholder · escenario</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================ E3 ================================= -->
+    <section id="e3" class="stage e3" data-rail data-num="03" data-label="Una extensión del yo" data-color="celeste" data-tempo="1.05">
+
+      <!-- El pasillo: la cámara avanza y la consigna se desarrolla -->
+      <div class="pasillo" data-pasillo>
+        <div class="pin pasillo__pin">
+          <div class="tunel tunel--side tunel--l" aria-hidden="true"></div>
+          <div class="tunel tunel--side tunel--r" aria-hidden="true"></div>
+          <div class="tunel tunel--main" aria-hidden="true">
+            <span class="tunel__door"></span>
+            <span class="tunel__led"><i></i></span>
+          </div>
+          <div class="pasillo__head wrap">
+            <p class="stage-num">Etapa 03 · Unreal · El pasillo</p>
+            <h2 class="title pasillo__title">Una extensión del yo</h2>
+          </div>
+          <div class="pasillo__say" aria-live="polite">
+            <p data-say>Pensá en los objetos que llevás encima.</p>
+            <p data-say>¿Cuál es aquel que puede tener un significado distinto?</p>
+            <p data-say>Te vamos a dar tiempo.</p>
+            <p data-say class="pasillo__ask">¿Lo tenés?
+              <button class="btn btn--solid" type="button" data-lo-tengo>Lo tengo</button>
+            </p>
+            <p data-say>Para avanzar, vas a tener que <span class="acc">depositar ese objeto en nuestro tótem</span>.</p>
+          </div>
+          <div class="pasillo__voices">
+            <div data-voice="e3a" data-acc="celeste" data-autoplay="off" class="voice--compact"></div>
+            <div data-voice="e3b" data-acc="celeste" data-autoplay="off" class="voice--compact"></div>
+          </div>
+          <span class="ph">Placeholder · escenario</span>
+        </div>
+      </div>
+
+      <!-- Afuera de Unreal: el tótem del aula, y la puerta con tres íconos -->
+      <div class="screen e3-aula">
+        <div class="wrap e3-aula__grid">
+          <div class="e3-aula__copy">
+            <p class="eyebrow">Por un momento, fuera de Unreal</p>
+            <h3 class="title" data-split>Desprenderse del objeto</h3>
+            <p class="body" data-split>Al llegar al final del pasillo, cada participante sale un momento de la experiencia y deposita el objeto elegido en el tótem del aula, guiado por las mismas luces que el pulso del pasillo.</p>
+            <p class="body" data-split>Al depositarlo, un holograma en una mesa cercana proyecta un ícono: la próxima zona del cerebro a transitar.</p>
+          </div>
+          <figure class="e3-totem" aria-label="Ilustración: camino de luces desde la estación hasta el tótem, y el holograma">
+            <span class="ph">Placeholder · foto del tótem</span>
+            <svg class="e3-totem__path" viewBox="0 0 400 300" aria-hidden="true">
+              <path class="led-path" d="M40 260C120 250 140 180 210 170S300 120 300 90" fill="none"/>
+              <g class="e3-totem__pc" fill="none" stroke="currentColor" stroke-width="2"><rect x="14" y="236" width="52" height="34" rx="3"/><path d="M30 280h20"/></g>
+            </svg>
+            <svg class="e3-totem__totem" viewBox="0 0 120 260" aria-hidden="true"><use href="#obj-totem"/></svg>
+            <div class="holo" aria-hidden="true">
+              <span class="holo__beam"></span>
+              <svg class="holo__icon" viewBox="0 0 48 48"><use href="#i-ancla"/></svg>
+              <span class="holo__table"></span>
+            </div>
+            <figcaption class="mono">Holograma · ícono de la próxima zona</figcaption>
+          </figure>
+        </div>
+
+        <div class="wrap e3-door">
+          <div class="e3-door__frame" data-e3door>
+            <span class="e3-door__light" aria-hidden="true"></span>
+            <div class="e3-door__icons" role="group" aria-label="Elegí el ícono que mostró el holograma">
+              <button type="button" class="e3-icon" data-icon="ojo" aria-label="Ícono: ojo"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-ojo"/></svg></button>
+              <button type="button" class="e3-icon" data-icon="ancla" aria-label="Ícono: ancla"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-ancla"/></svg></button>
+              <button type="button" class="e3-icon" data-icon="cerebro" aria-label="Ícono: cerebro"><svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-cerebro"/></svg></button>
+            </div>
+          </div>
+          <div class="e3-door__copy">
+            <p class="eyebrow">La puerta, antes bloqueada</p>
+            <p class="lead">Ahora muestra tres íconos. Elegí el que proyectó el holograma para pasar a la siguiente etapa.</p>
+            <p class="e3-door__msg mono" aria-live="polite" data-e3msg></p>
+            <p class="mono e3-door__ph"><span class="ph ph--inline">Placeholder</span> Íconos provisorios: falta confirmar cuáles son y cuál es el correcto.</p>
+          </div>
         </div>
       </div>
     </section>

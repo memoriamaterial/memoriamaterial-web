@@ -161,7 +161,7 @@ body {
   min-height: 48px; padding: 0 1.4em;
   font-family: var(--f-mono); font-size: var(--t-sm); font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
   border: 1px solid var(--b); border-radius: 999px;
-  transition: background-color .25s var(--ease-out), color .25s var(--ease-out), box-shadow .25s var(--ease-out), transform .2s var(--ease-out);
+  transition: background-color .25s var(--ease-out), color .25s var(--ease-out), box-shadow .25s var(--ease-out), scale .2s var(--ease-out);
 }
 .btn--solid { background: var(--crema); color: var(--violeta); }
 .btn--ghost { color: var(--crema); border-color: var(--ink-50); }
@@ -169,7 +169,7 @@ body {
   .btn--solid:hover { box-shadow: 0 0 0 4px var(--ink-20), 0 0 32px var(--ink-20); }
   .btn--ghost:hover { border-color: var(--crema); background: var(--ink-06); }
 }
-.btn:active { transform: scale(.97); }
+.btn:active { scale: .97; }
 .btn svg { width: 1.1em; height: 1.1em; }
 
 /* --- Encabezado ----------------------------------------------------------- */
