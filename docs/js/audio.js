@@ -1,5 +1,5 @@
 // Audio de Memoria Material
-// - Ruido blanco generado en el navegador (el aula a oscuras).
+// - Ruido blanco generado en el navegador (el lugar a oscuras).
 // - Voces en off producidas, con subtítulos sincronizados (tiempos estimados, ver PENDIENTES.md #9).
 
 const ICON_PLAY = '<svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M4 2.5v11l9.5-5.5z"/></svg>';
@@ -119,7 +119,7 @@ class AudioManager {
 
   toggle() { this.enabled ? this.disable() : this.enable(); }
 
-  // Ruido "rosado" suave, filtrado: el aula a oscuras con ruido blanco.
+  // Ruido "rosado" suave, filtrado: el lugar a oscuras con ruido blanco.
   buildNoise() {
     const ctx = this.ctx;
     const len = ctx.sampleRate * 4;
