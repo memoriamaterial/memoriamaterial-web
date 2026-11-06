@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/inicio.css">
   <link rel="stylesheet" href="css/e1.css">
+  <link rel="stylesheet" href="css/e2.css">
   <!--STAGE-CSS-->
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -60,6 +61,16 @@
         <ellipse fill="currentColor" cx="60" cy="246" rx="34" ry="10"/>
         <path fill="var(--violeta)" opacity=".35" d="M60 52h16l18 194H60z"/>
       </symbol>
+      <!-- E2: objetos del mundo de la llave, del mate y del cuaderno -->
+      <symbol id="obj-silla" viewBox="0 0 100 130"><g fill="currentColor"><rect x="18" y="4" width="64" height="58" rx="6"/><rect x="12" y="66" width="76" height="12" rx="3"/><rect x="16" y="78" width="8" height="50"/><rect x="76" y="78" width="8" height="50"/><rect x="24" y="62" width="6" height="6"/><rect x="70" y="62" width="6" height="6"/></g></symbol>
+      <symbol id="obj-caja" viewBox="0 0 120 100"><path fill="currentColor" d="M6 28h108v68H6z"/><path fill="currentColor" opacity=".7" d="M0 10h56l4 18H6zM64 10h56l-6 18H60z"/><path fill="var(--violeta)" opacity=".35" d="M52 28h16v30H52z"/></symbol>
+      <symbol id="obj-sarten" viewBox="0 0 200 90"><ellipse fill="currentColor" cx="62" cy="46" rx="58" ry="40"/><ellipse fill="var(--violeta)" opacity=".3" cx="62" cy="44" rx="44" ry="28"/><rect fill="currentColor" x="112" y="38" width="86" height="14" rx="7"/></symbol>
+      <symbol id="obj-lampara" viewBox="0 0 100 170"><path fill="currentColor" d="M26 8h48l20 52H6z"/><rect fill="currentColor" x="46" y="60" width="8" height="90"/><rect fill="currentColor" x="22" y="150" width="56" height="12" rx="6"/></symbol>
+      <symbol id="obj-planta" viewBox="0 0 100 150"><path fill="currentColor" d="M50 92C20 80 12 46 22 24c18 10 30 34 28 68zM50 92c30-12 38-46 28-68-18 10-30 34-28 68zM50 92c-4-30 0-60 0-86 8 26 6 60 0 86z" opacity=".85"/><path fill="currentColor" d="M22 92h56l-8 54H30z"/></symbol>
+      <symbol id="obj-toalla" viewBox="0 0 120 80"><rect fill="currentColor" x="4" y="8" width="112" height="64" rx="6"/><path fill="none" stroke="var(--violeta)" stroke-opacity=".35" stroke-width="4" d="M4 28h112M4 52h112"/></symbol>
+      <symbol id="obj-pava" viewBox="0 0 160 130"><path fill="currentColor" d="M30 50c0-20 20-30 50-30s50 10 50 30l6 70H24z"/><path fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round" d="M50 22c0-18 60-18 60 0"/><path fill="currentColor" d="M130 64l26-20 2 8-22 26z"/></symbol>
+      <symbol id="obj-cerradura" viewBox="0 0 200 260"><rect fill="none" stroke="currentColor" stroke-width="10" x="8" y="8" width="184" height="244" rx="18"/><circle fill="currentColor" cx="100" cy="104" r="30"/><path fill="currentColor" d="M86 120h28l10 70H76z"/></symbol>
+      <symbol id="obj-torta" viewBox="0 0 140 110"><path fill="currentColor" d="M10 50h120v52H10z"/><path fill="currentColor" opacity=".7" d="M10 50c10-14 22 4 30-6s20 8 30-2 22 8 30-2 20 6 30 10v6H10z"/><rect fill="currentColor" x="66" y="14" width="8" height="28"/><path fill="currentColor" d="M70 0c6 6 6 12 0 14-6-2-6-8 0-14z"/></symbol>
       <symbol id="i-close" viewBox="0 0 16 16"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M3 3l10 10M13 3 3 13"/></symbol>
       <symbol id="i-arrow" viewBox="0 0 16 16"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M8 2v12M3 9l5 5 5-5"/></symbol>
       <symbol id="i-proyector" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="8" width="18" height="9" rx="2"/><circle cx="15" cy="12.5" r="2.4"/><path d="M6 17v2M18 17v2"/></g></symbol>
@@ -406,6 +417,265 @@
             <p class="body" data-dome-sub>La plataforma se eleva. Para pasar a la siguiente etapa, atravesá la puerta.</p>
           </div>
           <div class="e1-dome__flash" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================ E2 ================================= -->
+    <section id="e2" class="stage e2" data-rail data-num="02" data-label="El mundo de los objetos" data-color="fucsia" data-tempo="0.95">
+
+      <!-- La cúpula: los tres objetos, uno en color -->
+      <div class="screen e2-hub" data-voice-zone>
+        <svg class="e2-hub__dome" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+          <g fill="none" stroke="currentColor">
+            <path d="M-40 600A540 540 0 0 1 1040 600"/><path d="M60 600A440 440 0 0 1 940 600"/><path d="M180 600A320 320 0 0 1 820 600"/>
+            <ellipse cx="500" cy="600" rx="140" ry="540"/><ellipse cx="500" cy="600" rx="300" ry="540"/><ellipse cx="500" cy="600" rx="440" ry="540"/>
+          </g>
+        </svg>
+        <div class="wrap e2-hub__grid">
+          <div class="e2-hub__copy">
+            <p class="stage-num">Etapa 02 · Unreal · Dentro de la cúpula</p>
+            <h2 class="display e2-hub__title" data-split>El mundo de los objetos</h2>
+            <p class="lead" data-split>Cada objeto guarda lo que vio, escuchó y vivió con vos. Se entra por una abertura, de a uno.</p>
+            <div data-voice="e2" data-acc="fucsia"></div>
+          </div>
+          <ol class="e2-trio" aria-label="Orden de los mundos">
+            <li class="e2-trio__item is-color" data-trio="llave" style="--c:var(--amarillo)">
+              <svg viewBox="0 0 100 260" aria-hidden="true"><use href="#obj-llave"/></svg>
+              <span class="mono"><b>1</b> La llave · en color</span>
+            </li>
+            <li class="e2-trio__item" data-trio="mate" style="--c:var(--fucsia)">
+              <svg viewBox="0 0 200 240" aria-hidden="true"><use href="#obj-mate"/></svg>
+              <span class="mono"><b>2</b> El mate</span>
+            </li>
+            <li class="e2-trio__item" data-trio="cuaderno" style="--c:var(--celeste)">
+              <svg viewBox="0 0 240 180" aria-hidden="true"><use href="#obj-cuaderno"/></svg>
+              <span class="mono"><b>3</b> El cuaderno</span>
+            </li>
+          </ol>
+          <p class="e2-hub__note mono">El objeto que se recorre primero aparece en color; los demás, en blanco y negro. Al salir de cada mundo se vuelve a la cúpula.</p>
+        </div>
+      </div>
+
+      <!-- ===== Mundo de la llave: una mudanza (recorrido horizontal por 4 puertas) ===== -->
+      <div class="llave" data-world="llave" style="--acc:var(--amarillo)">
+        <div class="pin llave__pin">
+          <div class="llave__hud mono" aria-hidden="true"><span>Mundo de la llave</span><span class="llave__doors"><i></i><i></i><i></i><i></i></span></div>
+          <div class="llave__track">
+
+            <article class="llave__panel llave__panel--intro">
+              <div class="llave__copy">
+                <p class="stage-num">Mundo de la llave · una mudanza</p>
+                <h3 class="title">Llegó el día</h3>
+                <p class="said"><b>Voz</b>—Llegó el día, por fin me voy a mudar.</p>
+                <p class="llave__hint mono">Seguí bajando: el recorrido avanza de puerta en puerta →</p>
+              </div>
+              <div class="door" aria-hidden="true"><span class="door__n mono">Puerta 1</span></div>
+            </article>
+
+            <article class="llave__panel llave__panel--cajas">
+              <figure class="llave__maqueta" aria-hidden="true"><span class="ph">Maqueta · Unreal</span><img src="assets/img/maqueta-llave.webp" width="1812" height="926" alt="" loading="lazy" decoding="async"></figure>
+              <div class="cajas" aria-hidden="true">
+                <svg style="--s:1.4;--r:-4deg"><use href="#obj-caja"/></svg><svg style="--s:1;--r:6deg"><use href="#obj-caja"/></svg><svg style="--s:.7;--r:-10deg"><use href="#obj-caja"/></svg><svg style="--s:1.1;--r:3deg"><use href="#obj-caja"/></svg><svg style="--s:.8;--r:12deg"><use href="#obj-caja"/></svg>
+              </div>
+              <p class="llave__caption mono">Cajas de mudanza de todos los tamaños</p>
+              <div class="door" aria-hidden="true"><span class="door__n mono">Puerta 2</span></div>
+            </article>
+
+            <article class="llave__panel llave__panel--regalos">
+              <div class="llave__voices">
+                <p class="said"><b>Voz</b>—Te voy a extrañar, hijo.</p>
+                <p class="said said--r"><b>Voz</b>—Te regalo esto, espero que te guste.</p>
+              </div>
+              <div class="regalos" aria-hidden="true">
+                <svg class="r1" viewBox="0 0 200 90"><use href="#obj-sarten"/></svg>
+                <svg class="r2" viewBox="0 0 120 80"><use href="#obj-toalla"/></svg>
+                <svg class="r3" viewBox="0 0 100 170"><use href="#obj-lampara"/></svg>
+                <svg class="r4" viewBox="0 0 100 150"><use href="#obj-planta"/></svg>
+              </div>
+              <p class="llave__caption mono">Lo que se regala a quien se muda</p>
+              <div class="door" aria-hidden="true"><span class="door__n mono">Puerta 3</span></div>
+            </article>
+
+            <article class="llave__panel llave__panel--cajones">
+              <div class="llave__copy">
+                <div data-voice="llave2" data-acc="amarillo" data-autoplay="off" class="voice--compact"></div>
+                <p class="llave__ask">Abrí los cajones de la mesita de luz: en uno está la llave.</p>
+              </div>
+              <div class="mesita" role="group" aria-label="Cajones de la mesita de luz">
+                <button class="cajon" type="button" data-cajon="0" aria-label="Abrir el primer cajón"><span class="cajon__front"></span><span class="cajon__in mono">vacío</span></button>
+                <button class="cajon" type="button" data-cajon="1" aria-label="Abrir el segundo cajón"><span class="cajon__front"></span><span class="cajon__in"><svg viewBox="0 0 100 260" aria-hidden="true"><use href="#obj-llave"/></svg></span></button>
+                <button class="cajon" type="button" data-cajon="2" aria-label="Abrir el tercer cajón"><span class="cajon__front"></span><span class="cajon__in mono">papeles</span></button>
+                <span class="mesita__legs" aria-hidden="true"></span>
+              </div>
+              <div class="door" aria-hidden="true"><span class="door__n mono">Puerta 4</span></div>
+            </article>
+
+            <article class="llave__panel llave__panel--cerradura">
+              <div class="cerradura" data-lock>
+                <div class="cerradura__exit" aria-hidden="true"></div>
+                <span class="cerradura__bolt" aria-hidden="true"></span>
+                <svg class="cerradura__lock" viewBox="0 0 200 260" aria-hidden="true"><use href="#obj-cerradura"/></svg>
+              </div>
+              <div class="llave__copy llave__copy--end">
+                <p class="stage-num">La cerradura gigante</p>
+                <p class="llave__inv mono" data-inv>Todavía no encontraste la llave</p>
+                <button class="btn btn--solid" type="button" data-unlock disabled>Usar la llave</button>
+                <p class="said" data-found hidden><b>Voz</b>—¡Sí! Acá están.</p>
+                <div data-voice="llave3" data-acc="amarillo" data-autoplay="off" class="voice--compact" hidden></div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- De vuelta en la cúpula -->
+      <div class="e2-swap" data-swap="mate">
+        <div class="wrap e2-swap__in">
+          <p class="eyebrow">De vuelta en la cúpula</p>
+          <ol class="e2-swap__trio" aria-hidden="true">
+            <li data-k="llave" style="--c:var(--amarillo)"><svg viewBox="0 0 100 260"><use href="#obj-llave"/></svg></li>
+            <li data-k="mate" style="--c:var(--fucsia)"><svg viewBox="0 0 200 240"><use href="#obj-mate"/></svg></li>
+            <li data-k="cuaderno" style="--c:var(--celeste)"><svg viewBox="0 0 240 180"><use href="#obj-cuaderno"/></svg></li>
+          </ol>
+          <p class="e2-swap__txt">La llave pasa a blanco y negro. Ahora se colorea <b class="c-fucsia">el mate</b>: se entra por su base.</p>
+        </div>
+      </div>
+
+      <!-- ===== Mundo del mate · Escenario 1: el último recreo ===== -->
+      <div class="mate1" data-world="mate" style="--acc:var(--fucsia)">
+        <div class="pin mate1__pin">
+          <div class="mate1__copy wrap">
+            <p class="stage-num">Mundo del mate · Escenario 1</p>
+            <h3 class="title">El último recreo</h3>
+            <button class="btn btn--solid mate1__sit" type="button" data-sit>Sentate en la silla de color</button>
+          </div>
+          <div class="charco" aria-hidden="true">
+            <div class="charco__water"><span class="trama" style="--tc:var(--celeste);--ts:44px"></span></div>
+            <div class="charco__hole"></div>
+            <svg class="silla" data-chair="1" style="--x:18%;--y:62%;--r:0deg;--fx:12%;--fy:70%;--fr:70deg"><use href="#obj-silla"/></svg>
+            <svg class="silla" data-chair="2" style="--x:30%;--y:30%;--r:0deg;--fx:78%;--fy:22%;--fr:-80deg"><use href="#obj-silla"/></svg>
+            <svg class="silla" data-chair="3" style="--x:70%;--y:30%;--r:0deg;--fx:88%;--fy:66%;--fr:150deg"><use href="#obj-silla"/></svg>
+            <svg class="silla" data-chair="4" style="--x:82%;--y:62%;--r:0deg;--fx:40%;--fy:12%;--fr:40deg"><use href="#obj-silla"/></svg>
+            <svg class="silla silla--yo" data-chair="yo" style="--x:50%;--y:84%;--r:0deg;--fx:50%;--fy:52%;--fr:0deg"><use href="#obj-silla"/></svg>
+          </div>
+          <ol class="ronda" aria-label="Diálogo de la ronda de mate">
+            <li data-line data-chair="1"><p class="said"><b>Voz 1</b>—Bueno che, al final llegamos. El último recreo del año.</p></li>
+            <li data-line data-chair="2"><p class="said"><b>Voz 2</b>—Y el último mate también, ¿lo armo yo?</p></li>
+            <li data-line data-chair="3" data-drain><p class="said"><b>Voz 3</b>—Uh sí, dale… Espero que este verano no sea como siempre, eh, que nos terminamos viendo de vuelta en marzo en el aula. <span class="onoma">mate tomado</span></p></li>
+            <li data-line><p class="onoma onoma--solo">mate cebándose</p></li>
+            <li data-line data-chair="4" data-drain><p class="said"><b>Voz 4</b>—Sí, loco, hay que hacer algo. <span class="onoma">mate tomado</span></p></li>
+            <li data-line data-chair="2"><p class="said"><b>Voz 2</b>—Dejá, yo no les quiero ver más la cara, después de lo que laburamos este año. <span class="onoma">risas</span></p></li>
+            <li data-line data-chair="3" data-drain><p class="said"><b>Voz 3</b>—Daaa, si después andás diciendo que nos extrañás. <span class="onoma">mate tomado</span></p></li>
+          </ol>
+          <span class="ph">Placeholder · escenario</span>
+        </div>
+      </div>
+
+      <!-- ===== Mundo del mate · Escenario 2: la mañana ===== -->
+      <div class="mate2" style="--acc:var(--fucsia)">
+        <div class="pin mate2__pin">
+          <div class="mate2__sky" aria-hidden="true"></div>
+          <div class="ventanas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="hornalla" aria-hidden="true">
+            <svg class="hornalla__pava" viewBox="0 0 160 130"><use href="#obj-pava"/></svg>
+            <span class="hornalla__fuego"></span>
+            <span class="hornalla__base"></span>
+          </div>
+          <div class="mate2__door" aria-hidden="true"><span></span></div>
+          <div class="mate2__copy wrap">
+            <p class="stage-num">Mundo del mate · Escenario 2</p>
+            <h3 class="title">La mañana</h3>
+          </div>
+          <ol class="manana" aria-label="Diálogo de la mañana">
+            <li data-line><p class="onoma onoma--solo">pájaros · un bostezo · se abren las persianas</p></li>
+            <li data-line><p class="said"><b>Voz 1</b>—Buen día hijo, ¿cómo estás?</p></li>
+            <li data-line><p class="said said--r"><b>Voz 3</b>—Buen día.</p></li>
+            <li data-line><p class="onoma onoma--solo">click · se prende la radio</p></li>
+            <li data-line><p class="said said--r"><b>Voz 2</b>—Pasame un mate que ya me tengo que ir a laburar. <span class="onoma">mate cebándose</span></p></li>
+            <li data-line><p class="said"><b>Voz 1</b>—Obvio amor, tomá.</p></li>
+            <li data-line><p class="said said--r"><b>Voz 2</b>—Gracias amor. <span class="onoma">mate tomado</span></p></li>
+            <li data-line><p class="said"><b>Voz 1</b>—Que tengas un lindo día.</p></li>
+            <li data-line><p class="said said--r"><b>Voz 2</b>—Ustedes también, los amo.</p></li>
+            <li data-line data-door><p class="onoma onoma--solo">pasos · rechina una puerta</p></li>
+            <li data-line><p class="said said--r"><b>Voz 2</b>—Bueno, nos vemos a la noche.</p></li>
+          </ol>
+          <p class="mate2__portazo" aria-hidden="true">¡PAM!</p>
+          <span class="ph">Placeholder · escenario</span>
+        </div>
+      </div>
+
+      <div class="e2-swap" data-swap="cuaderno">
+        <div class="wrap e2-swap__in">
+          <p class="eyebrow">De vuelta en la cúpula</p>
+          <ol class="e2-swap__trio" aria-hidden="true">
+            <li data-k="llave" style="--c:var(--amarillo)"><svg viewBox="0 0 100 260"><use href="#obj-llave"/></svg></li>
+            <li data-k="mate" style="--c:var(--fucsia)"><svg viewBox="0 0 200 240"><use href="#obj-mate"/></svg></li>
+            <li data-k="cuaderno" style="--c:var(--celeste)"><svg viewBox="0 0 240 180"><use href="#obj-cuaderno"/></svg></li>
+          </ol>
+          <p class="e2-swap__txt">El mate pasa a blanco y negro. Último mundo: <b class="c-celeste">el cuaderno</b>.</p>
+        </div>
+      </div>
+
+      <!-- ===== Mundo del cuaderno ===== -->
+      <div class="cuaderno" data-world="cuaderno" style="--acc:var(--celeste)">
+        <div class="pin cuaderno__pin">
+          <div class="cuaderno__bg" aria-hidden="true">
+            <div class="cuaderno__cream"></div>
+            <figure class="cuaderno__maqueta"><span class="ph ph--right">Maqueta · Unreal</span><img src="assets/img/maqueta-cuaderno.webp" width="1580" height="950" alt="" loading="lazy" decoding="async"></figure>
+          </div>
+          <div class="hojas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="polvo" aria-hidden="true"></div>
+          <div class="horno" aria-hidden="true"></div>
+          <div class="cuaderno__copy wrap">
+            <div class="cq-head" data-cq-head="materiales"><p class="stage-num">Mundo del cuaderno · Cuaderno de materiales</p><p class="onoma">martillazos · un taladro · un camión da marcha atrás</p></div>
+            <div class="cq-head cq-head--recetas" data-cq-head="recetas"><p class="stage-num">Mundo del cuaderno · Cuaderno de recetas</p><p class="onoma">algo se bate en un bowl</p></div>
+          </div>
+
+          <div class="cq cq--materiales" data-cq="materiales">
+            <ol class="cq__talk">
+              <li data-line><p class="said"><b>Voz 1</b>—Va a quedar genial todo el escritorio nuevo.</p></li>
+              <li data-line><p class="said said--r"><b>Voz 2</b>—Sí, primero hay que cambiar el piso, pintar, y último el escritorio.</p></li>
+              <li data-line><p class="said"><b>Voz 1</b>—Va a tardar pero va a quedar impecable. ¿Te repaso lo que anoté?</p></li>
+              <li data-line><p class="said said--r"><b>Voz 2</b>—Dale.</p></li>
+              <li data-line data-notas="0,1"><p class="said"><b>Voz 1</b>—Bueno, primero hay que elegir el modelo del piso, y calcular los m².</p></li>
+              <li data-line data-notas="2"><p class="said said--r"><b>Voz 2</b>—Vamos a necesitar un metro, caladora y sellador. Con eso creo que estamos bien.</p></li>
+              <li data-line data-notas="3"><p class="said"><b>Voz 1</b>—Y los zócalos, no te olvides.</p></li>
+            </ol>
+            <ul class="notas" aria-label="Anotaciones del cuaderno de materiales">
+              <li data-nota style="--x:8%;--y:30%;--r:-4deg">elegir el modelo del piso</li>
+              <li data-nota style="--x:56%;--y:22%;--r:3deg">calcular los m²</li>
+              <li data-nota style="--x:62%;--y:62%;--r:-2deg">metro · caladora · sellador</li>
+              <li data-nota style="--x:12%;--y:70%;--r:5deg">¡y los zócalos!</li>
+            </ul>
+          </div>
+
+          <div class="cq cq--recetas" data-cq="recetas">
+            <ol class="cq__talk">
+              <li data-line><p class="said"><b>Voz 1 · abu</b>—¡Hola querido! ¿Vamos a hacer una torta hoy?</p></li>
+              <li data-line><p class="said said--r"><b>Voz 2</b>—¡Obvio abu, eso no se pregunta!</p></li>
+              <li data-line><p class="said"><b>Voz 1 · abu</b>—Bueno, escuchá: ahí en el cajón está mi cuadernito, pasámelo y te voy diciendo.</p></li>
+              <li data-line><p class="said said--r"><b>Voz 2</b>—A ver… <span class="onoma">se abre un cajón</span> ¡Acá está!</p></li>
+              <li data-line data-notas="0,1,2"><p class="said"><b>Voz 1 · abu</b>—Bueno, primero tenés que agarrar 3 huevos, 1 taza de azúcar y 2 tazas de harina.</p></li>
+              <li data-line data-notas="3"><p class="said said--r"><b>Voz 2</b>—¿Y no iba una taza de aceite también?</p></li>
+              <li data-line data-oven data-notas="4"><p class="said"><b>Voz 1 · abu</b>—Tenés razón, casi me olvido. Después la vainilla, un poco de leche y al horno.</p></li>
+            </ol>
+            <ul class="notas notas--receta" aria-label="Anotaciones del cuaderno de recetas">
+              <li data-nota style="--x:8%;--y:26%;--r:-3deg">3 huevos</li>
+              <li data-nota style="--x:58%;--y:20%;--r:4deg">1 taza de azúcar</li>
+              <li data-nota style="--x:64%;--y:48%;--r:-2deg">2 tazas de harina</li>
+              <li data-nota style="--x:10%;--y:58%;--r:3deg">1 taza de aceite</li>
+              <li data-nota style="--x:56%;--y:74%;--r:-4deg">vainilla · leche · ¡al horno!</li>
+            </ul>
+            <svg class="torta" viewBox="0 0 140 110" aria-hidden="true"><use href="#obj-torta"/></svg>
+          </div>
+
+          <div class="cuaderno__final" aria-hidden="true">
+            <div class="libro"><span class="libro__page"></span><span class="libro__page libro__page--r"><svg viewBox="0 0 100 140"><path d="M30 130V60a20 20 0 0 1 40 0v70" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="6 5"/><path d="M14 130h72" stroke="currentColor" stroke-width="3"/></svg></span></div>
+            <p class="mono">La salida está dibujada en sus hojas</p>
+          </div>
+          <span class="ph">Placeholder · escenario</span>
         </div>
       </div>
     </section>
