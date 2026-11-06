@@ -1,0 +1,1 @@
+Nos basamos en la desfamiliarizacion grafica, usamos los elementos graficos con efecto echo, glow, y utlizamos grillas animadas como fondo. El ritmo es acelerado, los textos se revelan tipo SAAS animation. Jugamos con la camara y las perspectivas bajo el concepto de "darle otra mirada a lo habitual. En general el ritmo es, rapido al principio, desacelera hacia el final.
