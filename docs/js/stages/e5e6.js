@@ -1,0 +1,197 @@
+// E5 · Obsesión con la pérdida — E6 · Búsqueda del significado
+import { audio } from '../audio.js';
+import { reduce } from '../ui.js';
+
+const { gsap, ScrollTrigger } = window;
+const OBJS = [['obj-llave', '0 0 100 260'], ['obj-mate', '0 0 200 240'], ['obj-cuaderno', '0 0 240 180']];
+
+export function init() {
+  wireSymbols();
+  e5();
+  e6();
+}
+
+// Versión "wireframe" de los objetos: misma forma, solo contorno.
+function wireSymbols() {
+  OBJS.forEach(([id]) => {
+    const src = document.getElementById(id);
+    const w = src.cloneNode(true);
+    w.id = `${id}-wire`;
+    w.querySelectorAll('*').forEach((n) => {
+      n.setAttribute('fill', 'none');
+      n.setAttribute('stroke', 'currentColor');
+      n.setAttribute('stroke-width', '3');
+      n.setAttribute('vector-effect', 'non-scaling-stroke');
+      n.removeAttribute('opacity');
+    });
+    src.after(w);
+  });
+}
+
+const svgUse = (id, box, cls = '') => `<svg viewBox="${box}" class="${cls}" aria-hidden="true"><use href="#${id}"/></svg>`;
+
+// --- E5 -------------------------------------------------------------------------
+function e5() {
+  const wrap = document.querySelector('[data-hall]');
+  const pin = wrap.querySelector('.hall__pin');
+  const strips = [...wrap.querySelectorAll('.hall__strip')];
+  const end = wrap.querySelector('.hall__end');
+  const floor = wrap.querySelector('.hall__floor');
+  const voice = wrap.querySelector('[data-voice="e5"]');
+
+  // pilas de objetos repetidos: "verlo en todos lados"
+  strips.forEach((s, k) => {
+    let html = '';
+    for (let i = 0; i < 240; i++) {
+      const [id, box] = OBJS[(i * 7 + k) % 3];
+      html += svgUse(id, box, (i * 13 + k * 5) % 29 === 0 ? 'is-acc' : '');
+    }
+    s.innerHTML = html;
+  });
+
+  if (reduce) { end.style.transform = 'none'; return; }
+  let played = false;
+  const tl = gsap.timeline({
+    defaults: { ease: 'none' },
+    scrollTrigger: { trigger: wrap, pin, start: 'top top', end: () => `+=${window.innerHeight * 3.5}`, scrub: 1,
+      onUpdate: (self) => { if (self.progress > 0.55 && !played) { played = true; audio.autoplay('e5', voice); } } },
+  });
+  // la cámara avanza: las pilas pasan junto a nosotros y los Oculus se acercan
+  tl.fromTo(strips[0], { x: -3200 }, { x: 0, duration: 1 }, 0)
+    .fromTo(strips[1], { x: 3200 }, { x: 0, duration: 1 }, 0)
+    .fromTo(floor, { backgroundPosition: '0px 0px' }, { backgroundPosition: '0px 1440px', duration: 1 }, 0)
+    .to(end, { scale: 1, duration: 1, ease: 'power2.in' }, 0)
+    .from(wrap.querySelector('.hall__voice'), { opacity: 0, y: 20, duration: 0.1 }, 0.5)
+    .to(wrap.querySelector('.hall__sub'), { opacity: 0, duration: 0.1 }, 0.5);
+}
+
+// --- E6 -------------------------------------------------------------------------
+function e6() {
+  const sec = document.getElementById('e6');
+  const scan = sec.querySelector('[data-scan]');
+  const dim = scan.querySelector('.scan__field--dim');
+  const lit = scan.querySelector('.scan__field--lit');
+  const orbs = [...scan.querySelectorAll('[data-orb]')];
+  const tray = [...scan.querySelectorAll('[data-tray]')];
+  const signal = scan.querySelector('[data-signal]');
+  const countEl = sec.querySelector('[data-e6-count]');
+  const endBox = scan.querySelector('[data-e6-end]');
+  const deposit = scan.querySelector('[data-deposit]');
+  const said = scan.querySelector('[data-e6-said]');
+  const totem = scan.querySelector('.scan__totem-svg');
+  const guide = scan.querySelector('.scan__guide');
+  const taken = new Set();
+  let done = false;
+  gsap.set(totem, { yPercent: 105 });
+
+  // campo de objetos en wireframe (misma composición en las dos capas)
+  let field = '';
+  const rand = gsap.utils.random;
+  for (let i = 0; i < 26; i++) {
+    const [id, box] = OBJS[i % 3];
+    const w = id === 'obj-llave' ? rand(5, 8) : id === 'obj-mate' ? rand(9, 13) : rand(12, 17);
+    field += `<svg viewBox="${box}" style="--x:${rand(4, 96).toFixed(1)}%;--y:${rand(8, 94).toFixed(1)}%;--w:${w.toFixed(1)}%;--r:${rand(-40, 40).toFixed(0)}deg"><use href="#${id}-wire"/></svg>`;
+  }
+  dim.innerHTML = field;
+  lit.innerHTML = field;
+
+  // el lente del detector
+  const lens = { x: 0.5, y: 0.5 };
+  const setLens = (x, y) => {
+    lens.x = x; lens.y = y;
+    scan.style.setProperty('--lx', `${(x * 100).toFixed(2)}%`);
+    scan.style.setProperty('--ly', `${(y * 100).toFixed(2)}%`);
+    readSignal();
+  };
+  const readSignal = () => {
+    const r = scan.getBoundingClientRect();
+    const lr = parseFloat(getComputedStyle(scan).getPropertyValue('--lr')) || 120;
+    let best = 0;
+    orbs.forEach((o) => {
+      const ox = parseFloat(o.style.getPropertyValue('--x')) / 100, oy = parseFloat(o.style.getPropertyValue('--y')) / 100;
+      const d = Math.hypot((ox - lens.x) * r.width, (oy - lens.y) * r.height);
+      const vis = Math.max(0.18, Math.min(1, 1.25 - d / (lr * 1.6)));
+      o.style.setProperty('--vis', taken.has(o.dataset.orb) ? 1 : vis.toFixed(2));
+      if (!taken.has(o.dataset.orb)) best = Math.max(best, vis);
+    });
+    signal.textContent = Math.round(taken.size === 3 ? 100 : best * 100);
+  };
+  const fromEvent = (e) => {
+    const r = scan.getBoundingClientRect();
+    const p = e.touches ? e.touches[0] : e;
+    return [(p.clientX - r.left) / r.width, (p.clientY - r.top) / r.height];
+  };
+  let sweep = null;
+  const stopSweep = () => { sweep?.kill(); sweep = null; };
+  scan.addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse') { stopSweep(); setLens(...fromEvent(e)); } });
+  scan.addEventListener('touchstart', (e) => { stopSweep(); setLens(...fromEvent(e)); }, { passive: true });
+  scan.addEventListener('touchmove', (e) => setLens(...fromEvent(e)), { passive: true });
+  setLens(0.5, 0.5);
+
+  // si nadie lo mueve, el detector barre solo
+  if (!reduce) {
+    const p = { t: 0 };
+    ScrollTrigger.create({
+      trigger: scan, start: 'top 80%', once: true,
+      onEnter: () => {
+        sweep = gsap.to(p, { t: 1, duration: 9, repeat: -1, ease: 'none', onUpdate: () => setLens(0.5 + Math.sin(p.t * Math.PI * 2) * 0.38, 0.5 + Math.sin(p.t * Math.PI * 4) * 0.28) });
+      },
+    });
+  }
+
+  const collect = (o, animate = true) => {
+    const k = o.dataset.orb;
+    if (taken.has(k)) return;
+    taken.add(k);
+    o.classList.add('is-taken');
+    const slot = tray[taken.size - 1];
+    slot.style.setProperty('--c', getComputedStyle(o).getPropertyValue('--c'));
+    if (animate && !reduce) {
+      const a = o.getBoundingClientRect(), b = slot.getBoundingClientRect();
+      gsap.to(o, { x: b.left - a.left - a.width / 2 + 8, y: b.top - a.top - a.height / 2 + 8, scale: 0.3, opacity: 0, duration: 0.7, ease: 'power3.in', onComplete: () => slot.classList.add('is-on') });
+    } else { o.style.opacity = 0; slot.classList.add('is-on'); }
+    countEl.textContent = taken.size;
+    readSignal();
+    if (taken.size === 3) emerge(animate);
+  };
+
+  // el tótem emerge del suelo, con luces que guían hasta él
+  const emerge = (animate) => {
+    endBox.hidden = false;
+    stopSweep();
+    if (animate && !reduce) {
+      gsap.timeline()
+        .to(totem, { yPercent: 0, duration: 1.2, ease: 'power3.out' })
+        .fromTo(scan, { x: -3 }, { x: 3, duration: 0.05, repeat: 9, yoyo: true, clearProps: 'x' }, 0)
+        .to(guide, { opacity: 1, duration: 0.5 }, 0.6)
+        .from(endBox.children, { opacity: 0, y: 12, stagger: 0.12, duration: 0.4 }, 0.4);
+    } else { gsap.set(totem, { yPercent: 0 }); guide.style.opacity = 1; }
+  };
+
+  const depositAll = (animate = true) => {
+    if (done) return;
+    orbs.forEach((o) => collect(o, false));
+    done = true;
+    deposit.hidden = true;
+    said.hidden = false;
+    // "quitate el detector": los objetos vuelven a verse sólidos
+    const finish = () => {
+      scan.classList.add('is-off');
+      dim.querySelectorAll('use').forEach((u) => u.setAttribute('href', u.getAttribute('href').replace('-wire', '')));
+    };
+    if (animate && !reduce) {
+      gsap.timeline()
+        .to(tray.map((t) => t), { scale: 0, duration: 0.4, stagger: 0.1 })
+        .to(totem, { yPercent: 105, duration: 1, ease: 'power2.in' }, '+=0.3')
+        .to(guide, { opacity: 0, duration: 0.4 }, '<')
+        .from(said, { opacity: 0, y: 12, duration: 0.5 }, '<')
+        .add(finish, '+=0.4');
+    } else { gsap.set(totem, { yPercent: 105 }); finish(); }
+  };
+
+  orbs.forEach((o) => o.addEventListener('click', () => collect(o)));
+  deposit.addEventListener('click', () => depositAll(true));
+
+  // Nunca bloquea: al seguir al cierre, todo se completa solo.
+  ScrollTrigger.create({ trigger: scan, start: 'bottom 35%', onEnter: () => depositAll(!reduce) });
+}

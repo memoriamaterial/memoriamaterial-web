@@ -1,0 +1,71 @@
+/* ==========================================================================
+   E5 · Obsesión con la pérdida · E6 · Búsqueda del significado
+   ========================================================================== */
+
+/* --- E5: el pasillo de objetos ------------------------------------------- */
+.hall__pin { background: radial-gradient(30% 30% at 50% 46%, rgb(252 182 20 / .12), transparent 70%), var(--violeta); }
+.hall__space { position: absolute; inset: 0; perspective: 520px; perspective-origin: 50% 46%; overflow: hidden; }
+.hall__wall { position: absolute; top: 0; height: 100%; width: 3200px; overflow: hidden; }
+.hall__wall--l { left: 0; transform-origin: left center; transform: rotateY(90deg); }
+.hall__wall--r { right: 0; transform-origin: right center; transform: rotateY(-90deg); }
+.hall__strip { position: absolute; top: 0; bottom: 0; left: 0; width: 6400px; display: grid; grid-template-rows: repeat(5, 1fr); grid-auto-flow: column; grid-auto-columns: 120px; gap: 10px 16px; align-items: end; padding: 6% 0 2%; }
+.hall__wall--r .hall__strip { left: auto; right: 0; }
+.hall__strip svg { width: 100%; max-height: 100%; color: rgb(242 237 212 / .34); }
+.hall__strip svg.is-acc { color: var(--amarillo); filter: drop-shadow(0 0 8px rgb(252 182 20 / .6)); }
+.hall__floor { height: 55%; }
+.hall__end { position: absolute; left: 50%; top: 46%; translate: -50% -50%; display: grid; justify-items: center; gap: var(--s-3); transform: scale(.25); }
+.oculus { position: relative; display: grid; justify-items: center; color: var(--amarillo); filter: drop-shadow(0 0 20px var(--amarillo)); }
+.oculus svg { width: clamp(140px, 18vw, 240px); position: relative; z-index: 1; }
+.oculus__pile { width: 150%; height: 44px; margin-top: -8px; border-radius: 50% 50% 8px 8px; background: rgb(242 237 212 / .2); border: 1.5px solid rgb(242 237 212 / .45); }
+.oculus__label { font-size: var(--t-xs); letter-spacing: .2em; text-transform: uppercase; color: var(--amarillo); }
+.hall__copy { position: absolute; z-index: 4; top: calc(var(--s-9) + env(safe-area-inset-top)); left: 0; right: 0; padding-inline: var(--gutter); display: grid; gap: var(--s-3); }
+.hall__title { font-size: var(--t-xl); }
+.hall__sub { max-width: 44ch; text-shadow: 0 0 20px var(--violeta); }
+.hall__voice { position: absolute; z-index: 5; left: var(--gutter); bottom: calc(var(--s-6) + var(--bar-h) + env(safe-area-inset-bottom)); width: min(460px, calc(100% - 2 * var(--gutter))); }
+.hall__pin > .ph, .e6-play .scan > .ph { top: auto; left: auto; right: 10px; bottom: calc(10px + var(--bar-h)); }
+.e6-play .scan > .ph { bottom: 10px; }
+
+/* --- E6: el detector ---------------------------------------------------- */
+.e6-play { display: grid; grid-template-rows: auto 1fr; gap: var(--s-5); padding-bottom: calc(var(--s-6) + var(--bar-h)); }
+.e6-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: var(--s-4); }
+.e6-head > div { display: grid; gap: var(--s-3); }
+.e6-title { font-size: var(--t-xl); }
+.e6-how { max-width: 52ch; }
+.e6-count { font-size: var(--t-sm); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-70); padding: 8px 14px; border: 1px solid var(--ink-20); border-radius: 999px; }
+.e6-count b { color: var(--crema); font-size: 1.2em; }
+
+.scan { --lx: 50%; --ly: 50%; --lr: 120px;
+  position: relative; width: min(1280px, 100%); margin-inline: auto; height: 100%; min-height: 520px; border-radius: 22px; overflow: hidden;
+  background: var(--violeta); border: 1px solid rgb(60 197 242 / .3); touch-action: pan-y; cursor: crosshair; }
+@media (max-width: 899px) { .e6-play { height: 100svh; min-height: 600px; padding-top: calc(var(--s-8) + env(safe-area-inset-top)); } .scan { min-height: 0; --lr: 90px; } .e6-how { font-size: var(--t-sm); } }
+.scan__field { position: absolute; inset: 0; }
+.scan__field svg { position: absolute; left: var(--x); top: var(--y); width: var(--w); translate: -50% -50%; rotate: var(--r); overflow: visible; }
+.scan__field--dim { color: rgb(60 197 242 / .26); }
+.scan__field--lit { color: var(--celeste); filter: drop-shadow(0 0 6px var(--celeste)); clip-path: circle(var(--lr) at var(--lx) var(--ly)); }
+.scan.is-off .scan__field--dim { color: rgb(242 237 212 / .32); transition: color 1s; }
+.scan.is-off .scan__field--lit, .scan.is-off .scan__lens, .scan.is-off .scan__hud { opacity: 0; transition: opacity .8s; }
+.scan__lens { position: absolute; left: var(--lx); top: var(--ly); width: calc(var(--lr) * 2); aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; border: 1.5px solid var(--celeste); box-shadow: 0 0 30px rgb(60 197 242 / .4), inset 0 0 30px rgb(60 197 242 / .2); pointer-events: none; }
+.scan__lens span { position: absolute; inset: 0; background: linear-gradient(var(--celeste), var(--celeste)) center / 1px 30% no-repeat, linear-gradient(var(--celeste), var(--celeste)) center / 30% 1px no-repeat; opacity: .6; }
+.scan__hud { position: absolute; inset: 12px; pointer-events: none; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--celeste); }
+.scan__corner { position: absolute; width: 22px; height: 22px; border: 2px solid var(--celeste); }
+.scan__corner.tl { top: 0; left: 0; border-right: 0; border-bottom: 0; } .scan__corner.tr { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+.scan__corner.bl { bottom: 0; left: 0; border-right: 0; border-top: 0; } .scan__corner.br { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+.scan__read { position: absolute; top: 4px; left: 34px; }
+.scan__read b { font-weight: 600; font-size: 1.3em; font-variant-numeric: tabular-nums; }
+.scan__tray { position: absolute; top: 0; right: 34px; display: flex; gap: 8px; }
+.scan__tray i { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid rgb(60 197 242 / .6); transition: background .4s, box-shadow .4s; }
+.scan__tray i.is-on { background: var(--c); border-color: var(--c); box-shadow: 0 0 12px var(--c); }
+
+.scan__orb { position: absolute; z-index: 3; left: var(--x); top: var(--y); width: 56px; height: 56px; translate: -50% -50%; border-radius: 50%; }
+.scan__orb::before { content: ""; position: absolute; inset: 14px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, var(--crema), var(--c) 45%, rgb(53 42 114 / 0) 75%); opacity: var(--vis, .18); box-shadow: 0 0 calc(30px * var(--vis, .18)) var(--c); transition: opacity .2s; animation: orb 2s ease-in-out infinite; }
+@keyframes orb { 50% { scale: 1.15; } }
+.scan__orb.is-taken { pointer-events: none; }
+.scan__orb.is-taken::before { animation: none; }
+
+.scan__totem { position: absolute; z-index: 2; left: 50%; bottom: 0; width: min(420px, 80%); height: 64%; translate: -50% 0; display: grid; place-items: end center; pointer-events: none; }
+.scan__totem-svg { position: relative; height: 70%; width: auto; color: var(--fucsia); filter: drop-shadow(0 0 24px var(--fucsia)); }
+.scan__guide { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; }
+.scan__guide path { stroke: var(--celeste); stroke-width: 3; stroke-dasharray: 2 12; stroke-linecap: round; animation: led 1.2s linear infinite; }
+.scan__end { position: absolute; z-index: 4; left: 50%; top: 14%; translate: -50% 0; display: grid; justify-items: center; gap: var(--s-4); width: min(520px, calc(100% - 32px)); text-align: center; }
+.scan__end .said { max-width: 100%; text-align: left; }
+.scan.is-off { border-color: var(--ink-20); }

@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="css/e2.css">
   <link rel="stylesheet" href="css/e3.css">
   <link rel="stylesheet" href="css/e4.css">
+  <link rel="stylesheet" href="css/e5-e6.css">
   <!--STAGE-CSS-->
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -897,6 +898,70 @@
             <div class="video__progress" aria-hidden="true"><i></i></div>
           </div>
           <p class="video__note mono">Video proyectado en el aula · habla directamente a los profesores</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================ E5 ================================= -->
+    <section id="e5" class="stage e5" data-rail data-num="05" data-label="Obsesión con la pérdida" data-color="amarillo" data-tempo="1.3">
+      <div class="hall" data-hall>
+        <div class="pin hall__pin">
+          <div class="hall__space" aria-hidden="true">
+            <div class="hall__wall hall__wall--l"><div class="hall__strip"></div></div>
+            <div class="hall__wall hall__wall--r"><div class="hall__strip"></div></div>
+            <div class="floor hall__floor"></div>
+          </div>
+          <div class="hall__end" aria-hidden="true">
+            <div class="oculus">
+              <svg viewBox="0 0 220 110"><g fill="none" stroke="currentColor" stroke-width="5"><rect x="10" y="18" width="200" height="74" rx="30"/><path d="M92 92c6-18 30-18 36 0"/><path d="M10 50H0M210 50h10"/></g><g fill="currentColor" opacity=".25"><rect x="26" y="32" width="70" height="46" rx="18"/><rect x="124" y="32" width="70" height="46" rx="18"/></g></svg>
+              <span class="oculus__pile"></span>
+            </div>
+            <p class="mono oculus__label">Detector de significado</p>
+          </div>
+          <div class="hall__copy wrap">
+            <p class="stage-num">Etapa 05 · Unreal</p>
+            <h2 class="title hall__title">Obsesión con la pérdida</h2>
+            <p class="body hall__sub">Los objetos que parecían perdidos ahora están en todos lados: forman pilas a los costados y un pasillo recto que lleva a los Oculus.</p>
+          </div>
+          <div class="hall__voice"><div data-voice="e5" data-acc="amarillo" data-autoplay="off" class="voice--compact"></div></div>
+          <span class="ph">Placeholder · escenario</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================ E6 ================================= -->
+    <section id="e6" class="stage e6" data-rail data-num="06" data-label="Búsqueda del significado" data-color="celeste" data-tempo="1.4">
+      <div class="screen e6-play">
+        <div class="wrap e6-head">
+          <div>
+            <p class="stage-num">Etapa 06 · Unreal · con los Oculus puestos</p>
+            <h2 class="title e6-title">Búsqueda del significado</h2>
+            <p class="body e6-how">Todo se ve en wireframe. Mové el detector (el cursor o tu dedo) entre los objetos y tocá las esferas que brillan.</p>
+          </div>
+          <p class="e6-count mono" aria-live="polite"><b data-e6-count>0</b>/3 esferas</p>
+        </div>
+        <div class="scan" data-scan>
+          <div class="scan__field scan__field--dim" aria-hidden="true"></div>
+          <div class="scan__field scan__field--lit" aria-hidden="true"></div>
+          <div class="scan__lens" aria-hidden="true"><span></span></div>
+          <div class="scan__hud mono" aria-hidden="true">
+            <span class="scan__corner tl"></span><span class="scan__corner tr"></span><span class="scan__corner bl"></span><span class="scan__corner br"></span>
+            <span class="scan__read">Detector · señal <b data-signal>0</b>%</span>
+            <span class="scan__tray"><i data-tray="0"></i><i data-tray="1"></i><i data-tray="2"></i></span>
+          </div>
+          <button class="scan__orb" type="button" data-orb="0" style="--x:18%;--y:62%;--c:var(--fucsia)" aria-label="Esfera escondida 1"></button>
+          <button class="scan__orb" type="button" data-orb="1" style="--x:58%;--y:30%;--c:var(--amarillo)" aria-label="Esfera escondida 2"></button>
+          <button class="scan__orb" type="button" data-orb="2" style="--x:84%;--y:72%;--c:var(--celeste)" aria-label="Esfera escondida 3"></button>
+          <div class="scan__totem" aria-hidden="true">
+            <svg class="scan__guide" viewBox="0 0 400 200" preserveAspectRatio="none"><path d="M20 190C120 180 160 120 200 60" fill="none"/><path d="M380 190C280 180 240 120 200 60" fill="none"/></svg>
+            <svg class="scan__totem-svg" viewBox="0 0 120 260"><use href="#obj-totem"/></svg>
+          </div>
+          <div class="scan__end" data-e6-end hidden>
+            <p class="onoma" data-e6-onoma>ruido mecánico · un tótem emerge del suelo</p>
+            <button class="btn btn--solid" type="button" data-deposit>Depositar las esferas</button>
+            <p class="said" data-e6-said hidden><b>Voz en off</b>—Encontraste el significado, depositalo en el tótem. Ya podés quitarte el detector e ir en busca de tu objeto.</p>
+          </div>
+          <span class="ph">Placeholder · escenario</span>
         </div>
       </div>
     </section>
