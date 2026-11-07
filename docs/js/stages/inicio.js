@@ -158,10 +158,18 @@ function aula() {
   });
 
   if (reduce) return;
-  gsap.timeline({ scrollTrigger: { trigger: map, start: 'top 80%', once: true } })
-    .from(map.querySelector('img'), { clipPath: 'inset(0 0 100% 0 round 18px)', duration: 1, ease: 'power3.inOut' })
-    .from(spots, { scale: 0, opacity: 0, duration: 0.4, stagger: 0.07, ease: 'back.out(2)' }, '-=0.3')
-    .from(legend.children, { opacity: 0, y: 8, duration: 0.3, stagger: 0.04 }, '-=0.3');
+  // El aula se arma: aristas, piso, objetos y luces que se encienden
+  const iso = map.querySelector('.aula-iso');
+  const q = (sel) => iso.querySelectorAll(sel);
+  gsap.timeline({ defaults: { ease: 'power3.out' }, scrollTrigger: { trigger: map, start: 'top 80%', once: true } })
+    .from(q('.a-edge'), { drawSVG: 0, duration: 0.9, stagger: 0.04, ease: 'power2.inOut' })
+    .from(q('.a-floor-trama, .a-grid-g, .a-wall'), { opacity: 0, duration: 0.8 }, 0.3)
+    .from(q('.a-station, .aula-totem, .aula-holo, .aula-oculus'), { opacity: 0, y: 24, duration: 0.7, stagger: 0.1 }, 0.6)
+    .from(q('.a-mon, .a-mon-glow'), { opacity: 0, duration: 0.08, repeat: 4, yoyo: true, stagger: 0.12, ease: 'steps(1)' }, 1.2)
+    .from(q('.aula-screen'), { opacity: 0, duration: 0.6 }, 1.3)
+    .from(q('.aula-led'), { opacity: 0, duration: 0.6 }, 1.5)
+    .from(spots, { scale: 0, opacity: 0, duration: 0.4, stagger: 0.06, ease: 'back.out(2)' }, 1.6)
+    .from(legend.children, { opacity: 0, y: 8, duration: 0.3, stagger: 0.04 }, 1.7);
 
   const items = sec.querySelectorAll('.circuito__list li');
   gsap.from(items, { opacity: 0, y: 20, duration: 0.5, stagger: 0.08, ease: 'power2.out', scrollTrigger: { trigger: '.circuito', start: 'top 85%', once: true } });
