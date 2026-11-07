@@ -831,30 +831,34 @@
       </div>
 
       <!-- Afuera de Unreal: el tótem del aula, y la puerta con tres íconos -->
-      <div class="screen e3-aula">
-        <div class="wrap e3-aula__grid" data-where="fisico">
-          <div class="e3-aula__copy">
-            <p class="eyebrow">Por un momento, fuera de Unreal</p>
-            <h3 class="title" data-split>Desprenderse del objeto</h3>
-            <p class="body" data-split>Al llegar al final del pasillo, cada participante sale un momento de la experiencia y deposita el objeto elegido en el tótem del aula, guiado por las mismas luces que el pulso del pasillo.</p>
-            <p class="body" data-split>Al depositarlo, un holograma en una mesa cercana proyecta un ícono: la próxima zona del cerebro a transitar.</p>
+      <!-- La secuencia del tótem y el holograma, paso a paso, en el aula -->
+      <div class="holo-seq" data-holo-seq data-where="fisico">
+        <div class="pin holo-seq__pin">
+          <div class="holo-seq__head wrap">
+            <p class="stage-num">Interacción · Etapa 03 · Fuera de Unreal</p>
+            <h3 class="title holo-seq__title">El tótem y el holograma</h3>
           </div>
-          <figure class="e3-totem" aria-label="Ilustración: camino de luces desde la estación hasta el tótem, y el holograma">
-            <span class="ph">Placeholder · foto del tótem</span>
-            <svg class="e3-totem__path" viewBox="0 0 400 300" aria-hidden="true">
-              <path class="led-path" d="M40 260C120 250 140 180 210 170S300 120 300 90" fill="none"/>
-              <g class="e3-totem__pc" fill="none" stroke="currentColor" stroke-width="2"><rect x="14" y="236" width="52" height="34" rx="3"/><path d="M30 280h20"/></g>
-            </svg>
-            <svg class="e3-totem__totem" viewBox="0 0 120 260" aria-hidden="true"><use href="#obj-totem"/></svg>
-            <div class="holo" aria-hidden="true">
-              <span class="holo__beam"></span>
-              <svg class="holo__icon" viewBox="0 0 48 48"><use href="#i-ancla"/></svg>
-              <span class="holo__table"></span>
+          <div class="holo-seq__stage">
+            <div class="holo-seq__aula" data-aula-clone></div>
+            <div class="holo-seq__callout" aria-hidden="true">
+              <svg viewBox="0 0 48 48"><use href="#i-ancla"/></svg>
+              <span class="mono">Próxima zona: las anclas de seguridad</span>
             </div>
-            <figcaption class="mono">Holograma · ícono de la próxima zona</figcaption>
-          </figure>
+          </div>
+          <ol class="holo-seq__steps" aria-label="Secuencia del holograma">
+            <li data-step><b>En su estación, en Unreal</b><span>Llega al final del pasillo. La voz le pide desprenderse simbólicamente del objeto que eligió.</span></li>
+            <li data-step><b>Sale de Unreal</b><span>Se levanta de la computadora. La experiencia queda en pausa, al final del pasillo.</span></li>
+            <li data-step><b>Las luces lo guían</b><span>Se encienden las luces LED del piso, iguales al pulso del pasillo, y marcan el camino hasta el tótem.</span></li>
+            <li data-step><b>Deposita su objeto</b><span>Deja en el tótem el objeto real que eligió.</span></li>
+            <li data-step><b>Se enciende el holograma</b><span>Al recibir el objeto, el tótem enciende el holograma de la mesa cercana. <span class="ph ph--inline">Pendiente</span></span></li>
+            <li data-step><b>Qué muestra</b><span>Un ícono que refiere a la próxima zona del cerebro: un ancla, por las “anclas de seguridad” de la Etapa 4. Hay que recordarlo. <span class="ph ph--inline">Pendiente</span></span></li>
+            <li data-step><b>Vuelve a su estación</b><span>Las luces se apagan y vuelve a Unreal. El holograma sigue encendido. La puerta del pasillo, antes cerrada, ahora muestra tres íconos.</span></li>
+          </ol>
+          <span class="ph">Ilustración · aula</span>
         </div>
+      </div>
 
+      <div class="screen e3-aula">
         <div class="wrap e3-door" data-where="unreal+fisico">
           <div class="e3-door__frame" data-e3door>
             <span class="e3-door__light" aria-hidden="true"></span>

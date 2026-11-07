@@ -70,3 +70,35 @@
 .e3-door__copy { display: grid; gap: var(--s-4); }
 .e3-door__msg { min-height: 1.5em; font-size: var(--t-sm); letter-spacing: .06em; color: var(--celeste); }
 .e3-door__ph { font-size: var(--t-xs); color: var(--ink-50); }
+
+/* --- Secuencia del tótem y el holograma (en el aula) --------------------- */
+.holo-seq__pin { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); grid-template-rows: auto 1fr; gap: var(--s-4) var(--s-7); padding: calc(var(--s-9) + env(safe-area-inset-top)) var(--gutter) calc(var(--s-6) + var(--bar-h)); }
+.holo-seq__head { grid-column: 1 / -1; display: grid; gap: var(--s-3); margin: 0; width: 100%; }
+.holo-seq__title { font-size: var(--t-xl); }
+.holo-seq__stage { position: relative; min-height: 0; display: grid; place-items: center; }
+.holo-seq__aula { width: 100%; height: 100%; display: grid; place-items: center; }
+.holo-seq__aula .aula-iso { width: auto; height: 100%; max-width: 100%; max-height: 66vh; }
+.holo-seq__aula .a-led-glow, .holo-seq__aula .a-led { opacity: 0; }
+.holo-seq__callout { position: absolute; left: 4%; top: 6%; display: flex; align-items: center; gap: 12px; padding: 12px 16px 12px 12px; border-radius: 14px; border: 1px solid var(--celeste); background: rgb(53 42 114 / .85); box-shadow: 0 0 30px rgb(60 197 242 / .35); color: var(--celeste); opacity: 0; }
+.holo-seq__callout svg { width: 44px; height: 44px; filter: drop-shadow(0 0 10px var(--celeste)); }
+.holo-seq__callout span { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--crema); max-width: 18ch; }
+.holo-seq__steps { margin: 0; padding: 0; list-style: none; counter-reset: hs; display: grid; gap: 4px; align-content: center; }
+.holo-seq__steps li { counter-increment: hs; display: grid; grid-template-columns: 34px minmax(0, 1fr); column-gap: 10px; padding: 10px 12px; border-radius: 12px; opacity: .32; transition: opacity .3s, background-color .3s; }
+.holo-seq__steps li::before { content: counter(hs, decimal-leading-zero); grid-row: span 2; font-family: var(--f-mono); font-size: 12px; color: var(--acc); padding-top: 2px; }
+.holo-seq__steps li b { font-weight: 600; }
+.holo-seq__steps li > span { color: var(--ink-70); font-size: var(--t-sm); line-height: 1.4; }
+.holo-seq__steps li.is-on { opacity: 1; background: rgb(60 197 242 / .08); box-shadow: inset 2px 0 0 var(--celeste); }
+.holo-seq__steps li.is-done { opacity: .55; }
+.holo-seq__pin > .ph { top: auto; left: auto; right: 10px; bottom: calc(10px + var(--bar-h)); }
+@media (max-width: 899px) {
+  .holo-seq__pin { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr) auto; }
+  .holo-seq__aula .aula-iso { max-height: 40svh; }
+  .holo-seq__steps { position: relative; min-height: 120px; }
+  .holo-seq__steps li { position: absolute; inset: 0 0 auto 0; opacity: 0; }
+  .holo-seq__steps li.is-on { opacity: 1; }
+  .holo-seq__steps li.is-done { opacity: 0; }
+  .holo-seq__callout { left: 0; top: 0; padding: 8px 10px 8px 8px; }
+  .holo-seq__callout svg { width: 30px; height: 30px; }
+}
+.rm .holo-seq__pin { height: auto; }
+.rm .holo-seq__steps li { position: static; opacity: 1; }

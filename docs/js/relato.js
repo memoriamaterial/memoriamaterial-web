@@ -8,6 +8,13 @@ const FOCUS = { proyector: 'aula-screen', totem: 'aula-totem', holograma: 'aula-
 export function prepare() {
   const src = document.querySelector('#aula .aula-iso');
   if (!src) return;
+  document.querySelectorAll('[data-aula-clone]').forEach((box) => {
+    const svg = src.cloneNode(true);
+    svg.removeAttribute('aria-labelledby');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.querySelector('title')?.remove();
+    box.appendChild(svg);
+  });
   document.querySelectorAll('[data-aula-focus]').forEach((box) => {
     const svg = src.cloneNode(true);
     svg.removeAttribute('aria-labelledby');

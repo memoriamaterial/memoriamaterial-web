@@ -8,6 +8,7 @@ const N = 16;
 export function init() {
   const sec = document.getElementById('e3');
   pasillo(sec);
+  holoSeq(sec);
   puerta(sec);
 }
 
@@ -76,6 +77,79 @@ function pasillo(sec) {
   });
 }
 
+// --- En el aula: del pasillo al tótem y al holograma, paso a paso --------------
+function holoSeq(sec) {
+  const wrap = sec.querySelector('[data-holo-seq]');
+  const pin = wrap.querySelector('.holo-seq__pin');
+  const svg = wrap.querySelector('.aula-iso');
+  const steps = [...wrap.querySelectorAll('[data-step]')];
+  const callout = wrap.querySelector('.holo-seq__callout');
+  if (!svg) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  const station = svg.querySelectorAll('.a-station')[1];
+  const person = station.querySelector('.a-person');
+  const monitor = station.querySelectorAll('.a-mon-glow, .a-mon');
+  const led = svg.querySelectorAll('.a-led, .a-led-glow');
+  const ledPath = svg.querySelector('.a-led');
+  const totemTop = svg.querySelector('.a-totem-top');
+  const totem = svg.querySelector('.aula-totem');
+  const beam = svg.querySelector('.a-holo-beam');
+  const icon = svg.querySelector('.a-holo-icon');
+  const others = svg.querySelectorAll('.a-station:not([data-i="1"]) .a-person');
+
+  // puntos del recorrido (en coordenadas del dibujo)
+  const pb = person.getBBox();
+  const from = { x: pb.x + pb.width / 2, y: pb.y + pb.height };
+  const ledEnd = ledPath.getPointAtLength(ledPath.getTotalLength());
+  const ledMid = ledPath.getPointAtLength(ledPath.getTotalLength() * 0.45);
+  const top = { x: +totemTop.getAttribute('cx'), y: +totemTop.getAttribute('cy') };
+  // el objeto que lleva la persona
+  const obj = document.createElementNS(NS, 'circle');
+  obj.setAttribute('r', '5'); obj.setAttribute('fill', '#FCB614');
+  obj.setAttribute('cx', from.x + 9); obj.setAttribute('cy', from.y - 16);
+  obj.style.filter = 'drop-shadow(0 0 6px #FCB614)';
+  svg.appendChild(obj);
+
+  gsap.set([beam, icon, obj], { opacity: 0 });
+  gsap.set(others, { opacity: 0.35 });
+  const setStep = (i) => steps.forEach((li, k) => { li.classList.toggle('is-on', k === i); li.classList.toggle('is-done', k < i); });
+  setStep(0);
+  if (reduce) { steps.forEach((li) => li.classList.add('is-on')); gsap.set([beam, icon], { opacity: 1 }); gsap.set(led, { opacity: 1 }); return; }
+
+  const tl = gsap.timeline({
+    defaults: { ease: 'power2.inOut' },
+    scrollTrigger: {
+      trigger: wrap, pin, start: 'top top', end: () => `+=${window.innerHeight * 6}`, scrub: 0.7,
+      onUpdate: (self) => setStep(Math.min(steps.length - 1, Math.floor(self.progress * steps.length * 0.999))),
+    },
+  });
+  const seg = 1; // cada paso dura lo mismo
+  // 1 · en la estación: el monitor encendido
+  tl.to(monitor, { opacity: 1, duration: seg * 0.5 }).to({}, { duration: seg * 0.5 });
+  // 2 · sale de Unreal: se levanta, el monitor queda en pausa
+  tl.to(person, { y: -8, duration: seg * 0.4 }).to(monitor, { opacity: 0.45, duration: seg * 0.4 }, '<').to(obj, { opacity: 1, y: -8, duration: seg * 0.3 }, '<0.1').to({}, { duration: seg * 0.3 });
+  // 3 · las luces lo guían
+  tl.to(led, { opacity: 1, duration: seg * 0.6 }).to({}, { duration: seg * 0.4 });
+  // 4 · camina hasta el tótem y deposita el objeto
+  tl.to([person, obj], { x: ledEnd.x - from.x, y: ledEnd.y - from.y - 4, duration: seg * 0.3, ease: 'none' })
+    .to([person, obj], { x: ledMid.x - from.x, y: ledMid.y - from.y - 4, duration: seg * 0.3, ease: 'none' })
+    .to([person, obj], { x: top.x - from.x + 26, y: top.y - from.y + 34, duration: seg * 0.25, ease: 'none' })
+    .to(obj, { x: top.x - (from.x + 9), y: top.y - (from.y - 16), scale: 0.6, transformOrigin: 'center', duration: seg * 0.15 })
+    .to(obj, { opacity: 0, duration: 0.05 })
+    .fromTo(totem, { filter: 'brightness(1)' }, { filter: 'brightness(1.8)', duration: seg * 0.1, yoyo: true, repeat: 1 });
+  // 5 · se enciende el holograma
+  tl.to(beam, { opacity: 1, duration: seg * 0.5 }).to(icon, { opacity: 1, scale: 1.25, transformOrigin: '50% 50%', duration: seg * 0.5 }, '<0.1');
+  // 6 · qué muestra: el ícono, en grande
+  tl.to(callout, { opacity: 1, y: 0, duration: seg * 0.4 }).from(callout, { y: 12, duration: seg * 0.4 }, '<').to({}, { duration: seg * 0.6 });
+  // 7 · vuelve a su estación; las luces se apagan y vuelve a Unreal
+  tl.to(callout, { opacity: 0.6, duration: seg * 0.2 })
+    .to(person, { x: ledMid.x - from.x, y: ledMid.y - from.y - 4, duration: seg * 0.25, ease: 'none' })
+    .to(person, { x: ledEnd.x - from.x, y: ledEnd.y - from.y - 4, duration: seg * 0.25, ease: 'none' })
+    .to(person, { x: 0, y: 0, duration: seg * 0.2, ease: 'none' })
+    .to(led, { opacity: 0, duration: seg * 0.2 }, '<')
+    .to(monitor, { opacity: 1, duration: seg * 0.1 });
+}
+
 function puerta(sec) {
   const box = sec.querySelector('.e3-door');
   const msg = sec.querySelector('[data-e3msg]');
@@ -95,7 +169,7 @@ function puerta(sec) {
     if (ic.dataset.icon === RIGHT) openDoor();
     else {
       ic.classList.add('is-wrong');
-      msg.textContent = 'Ese no es el ícono que proyectó el holograma.';
+      msg.textContent = 'Ese no es el ícono que proyectó el holograma. La puerta sigue cerrada: podés volver a elegir.';
       if (!reduce) gsap.fromTo(ic, { x: 0 }, { x: 6, duration: 0.06, repeat: 5, yoyo: true, clearProps: 'x' });
     }
   }));
@@ -103,7 +177,6 @@ function puerta(sec) {
   ScrollTrigger.create({ trigger: box, start: 'bottom 30%', onEnter: openDoor });
 
   if (!reduce) {
-    gsap.from(sec.querySelectorAll('.e3-totem > *:not(.ph)'), { opacity: 0, y: 20, stagger: 0.1, duration: 0.6, scrollTrigger: { trigger: '.e3-totem', start: 'top 80%', once: true } });
     gsap.from(icons, { scale: 0, opacity: 0, stagger: 0.1, duration: 0.5, ease: 'back.out(2)', clearProps: 'transform', scrollTrigger: { trigger: box, start: 'top 75%', once: true } });
   }
 }

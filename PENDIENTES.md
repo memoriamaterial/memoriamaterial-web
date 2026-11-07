@@ -92,6 +92,18 @@ yo los optimizo y los copio a `docs/assets/`.
 - [ ] **18.** El video de introducción a E5 y el video final se resolvieron como secuencias de
   texto, igual que el de bienvenida (punto 3).
 
+## Secuencia del holograma (E3) — decisiones a confirmar
+
+- [ ] **22.** El guion describe el holograma en una sola frase. Para contar la secuencia completa se decidió:
+  1. **Qué lo enciende:** el tótem detecta que se depositó el objeto (un sensor) y enciende el holograma solo.
+     Alternativa: lo enciende alguien del equipo a mano.
+  2. **Qué muestra:** un ancla, por las "anclas de seguridad" de la Etapa 4 (ver #11 y #16).
+  3. **Cuánto dura:** queda encendido hasta que la puerta de Unreal se abre, para poder volver a mirarlo.
+  4. **Mientras tanto, en Unreal:** la experiencia queda en pausa al final del pasillo.
+  5. **Si se elige el ícono equivocado:** la puerta no se abre y se puede volver a elegir.
+  6. **Tres participantes a la vez:** el mismo tótem recibe los tres objetos y el holograma muestra el mismo ícono.
+  7. **Tipo de holograma** (pirámide, ventilador LED, pantalla): sin definir.
+
 ## Dónde está la persona (indicador "Estás en")
 
 | Bloque | Etiqueta | Por qué (guion) |
