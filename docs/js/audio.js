@@ -1,6 +1,7 @@
 // Audio de Memoria Material
 // - Ruido blanco generado en el navegador (el lugar a oscuras).
 // - Voces en off producidas, con subtítulos sincronizados (tiempos estimados, ver PENDIENTES.md #9).
+// - En E1 y E3 el subtítulo difiere a propósito del audio (sin lenguaje de videojuego): PENDIENTES.md #21.
 
 const ICON_PLAY = '<svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M4 2.5v11l9.5-5.5z"/></svg>';
 const ICON_PAUSE = '<svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M3.5 2.5h3v11h-3zM9.5 2.5h3v11h-3z"/></svg>';
@@ -13,7 +14,7 @@ export const VOICES = {
       [0.9, 4.9, 'Entraste a la etapa de la plasticidad sináptica.'],
       [5.1, 11.9, 'En esta etapa tu cerebro reorganiza la conexión entre los objetos que reconoce visualmente, y el significado que este le evoca.'],
       [12.5, 16.6, 'Cómo esas cosas de tu día a día que, con el tiempo, van cobrando valor.'],
-      [16.8, 21.8, 'Para avanzar vas a tener que reorganizar las conexiones.'],
+      [16.8, 21.8, 'Para continuar con la experiencia, vas a tener que reorganizar las conexiones.'],
     ],
   },
   e2: {
@@ -50,8 +51,8 @@ export const VOICES = {
     cues: [
       [0, 10.1, 'En esta etapa, vas a tener que pensar en un objeto que lleves encima: ¿cuál es aquel que puede tener un significado distinto?'],
       [10.2, 14.1, 'Te vamos a dar tiempo. ¿Lo tenés?'],
-      [14.3, 26.1, 'Ahora que lo tenés en mente, para avanzar vas a tener que depositar ese objeto en nuestro tótem.'],
-      [26.2, 30.8, 'Una vez hecho esto, podrás ingresar a la siguiente etapa.'],
+      [14.3, 26.1, 'Ahora que lo tenés en mente, para continuar con la experiencia vas a tener que depositar ese objeto en nuestro tótem.'],
+      [26.2, 30.8, 'Una vez hecho esto, vas a poder seguir recorriendo la experiencia.'],
     ],
   },
   e4a: {

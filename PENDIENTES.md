@@ -55,6 +55,15 @@ yo los optimizo y los copio a `docs/assets/`.
   ¿Existe una "Voz 1 mundo llave" ("Llegó el día, por fin me voy a mudar" / "Te voy a extrañar hijo" /
   "Te regalo esto…")? *Hoy:* esas frases aparecen escritas.
   Los tiempos de los subtítulos también son estimados.
+- [ ] **21. Regrabar dos audios para que coincidan con sus subtítulos.** Los subtítulos ya no usan
+  lenguaje de videojuego, pero los audios todavía lo dicen:
+
+  | Audio | Dice hoy | Subtítulo (texto a grabar) |
+  |---|---|---|
+  | `Etapa 1 - Voz en off` | "Para avanzar vas a tener que reorganizar las conexiones." | "Para continuar con la experiencia, vas a tener que reorganizar las conexiones." |
+  | `Etapa 3 - Voz en off 2` | "…para avanzar vas a tener que depositar ese objeto en nuestro tótem." | "…para continuar con la experiencia vas a tener que depositar ese objeto en nuestro tótem." |
+  | `Etapa 3 - Voz en off 2` | "Una vez hecho esto, podrás ingresar a la siguiente etapa." | "Una vez hecho esto, vas a poder seguir recorriendo la experiencia." |
+
 - [ ] **10. Efectos de sonido** (llaves, mate, papel, chapoteo, pitido, obra, batido, portazo, ruido mecánico).
   - *Hoy:* onomatopeyas en pantalla. El ruido blanco se genera en el navegador.
 
