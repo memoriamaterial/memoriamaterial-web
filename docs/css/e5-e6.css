@@ -69,3 +69,27 @@
 .scan__end { position: absolute; z-index: 4; left: 50%; top: 14%; translate: -50% 0; display: grid; justify-items: center; gap: var(--s-4); width: min(520px, calc(100% - 32px)); text-align: center; }
 .scan__end .said { max-width: 100%; text-align: left; }
 .scan.is-off { border-color: var(--ink-20); }
+
+/* --- El regreso a Unreal (comienzo de E5) -------------------------------- */
+.regreso__pin { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); grid-template-rows: auto 1fr; gap: var(--s-4) var(--s-7); padding: calc(var(--s-9) + env(safe-area-inset-top)) var(--gutter) calc(var(--s-6) + var(--bar-h)); }
+.regreso__head { grid-column: 1 / -1; display: grid; gap: var(--s-3); margin: 0; width: 100%; }
+.regreso__title { font-size: var(--t-xl); }
+.regreso__stage { position: relative; min-height: 0; display: grid; place-items: center; overflow: hidden; border-radius: 18px; }
+.regreso__aula { width: 100%; height: 100%; display: grid; place-items: center; }
+.regreso__aula .aula-iso { width: auto; height: 100%; max-width: 100%; max-height: 66vh; overflow: hidden; }
+.regreso__steps { margin: 0; padding: 0; list-style: none; counter-reset: rs; display: grid; gap: 6px; align-content: center; }
+.regreso__steps li { counter-increment: rs; display: grid; grid-template-columns: 34px minmax(0, 1fr); column-gap: 10px; padding: 10px 12px; border-radius: 12px; opacity: .32; transition: opacity .3s, background-color .3s; }
+.regreso__steps li::before { content: counter(rs, decimal-leading-zero); grid-row: span 2; font-family: var(--f-mono); font-size: 12px; color: var(--amarillo); padding-top: 2px; }
+.regreso__steps li b { font-weight: 600; }
+.regreso__steps li > span { color: var(--ink-70); font-size: var(--t-sm); line-height: 1.4; }
+.regreso__steps li.is-on { opacity: 1; background: rgb(252 182 20 / .08); box-shadow: inset 2px 0 0 var(--amarillo); }
+.regreso__fade { position: absolute; inset: 0; background: var(--violeta); opacity: 0; pointer-events: none; }
+@media (max-width: 899px) {
+  .regreso__pin { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr) auto; }
+  .regreso__aula .aula-iso { max-height: 42svh; }
+  .regreso__steps { position: relative; min-height: 110px; }
+  .regreso__steps li { position: absolute; inset: 0 0 auto 0; opacity: 0; }
+  .regreso__steps li.is-on { opacity: 1; }
+}
+.rm .regreso__pin { height: auto; }
+.rm .regreso__steps li { position: static; opacity: 1; }

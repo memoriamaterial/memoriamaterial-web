@@ -183,12 +183,14 @@ STAGES = {
     'e5': dict(
         where='unreal', acc='amarillo', num='Etapa 05', title='Obsesión con la pérdida',
         lead='Cuando lo tenías encima ni pensabas en él; ahora que lo perdiste, lo ves en todos lados.',
-        mec='Después del video del proyector, el participante vuelve a su estación y a Unreal. Recorre un pasillo recto entre pilas de objetos hasta encontrar los Oculus.',
+        mec='Vuelve a Unreal cuando termina el video del proyector: las luces lo llevan de nuevo a su estación y la pantalla se enciende en el comienzo de un pasillo. Lo recorre entre pilas de objetos hasta encontrar los Oculus.',
         facts=[('Dónde', lugar('fisico', 'unreal')), ('Dispositivo', 'Computadora de la estación'), ('Qué hace', 'Recorre el pasillo hasta los Oculus')],
         fig=PILAS,
         esc='El escenario está repleto de los objetos que en la etapa anterior parecían perdidos, ahora en su escala normal. Forman pilas a los lados y un pasillo recto que lleva a una pila más chica, donde están apoyados los Oculus, el “Detector de significado”.',
         pasos=[
-            ('Al volver', 'Vuelve a Unreal y aparece en el comienzo del pasillo.'),
+            ('La señal', 'Termina el video del proyector, que les habló a los profesores: es la señal para volver. El proyector se apaga.'),
+            (None, 'Las luces LED vuelven a encenderse, ahora desde el tótem hacia las estaciones, y cada participante vuelve a sentarse frente a su computadora.'),
+            ('La transición', 'La pantalla, que quedó en negro desde que salió de Unreal en la Etapa 4, se enciende con un fundido: aparece el comienzo de un pasillo repleto de objetos. Desde ese momento está otra vez en Unreal.'),
             (None, 'Recorre el pasillo recto entre las pilas de objetos repetidos: llaves, mates y cuadernos por todos lados.'),
             ('Al llegar a los Oculus', 'La voz en off.' + voice('e5', 'amarillo', auto=False)),
         ],

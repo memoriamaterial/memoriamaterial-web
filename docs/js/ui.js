@@ -187,6 +187,7 @@ const PLACES = {
   unreal: { label: 'Unreal', short: 'Unreal', icons: ['i-pc'] },
   oculus: { label: 'Oculus', short: 'Oculus', icons: ['i-oculus'] },
   'unreal+fisico': { label: 'Unreal + espacio físico', short: 'Unreal + físico', icons: ['i-pc', 'i-lugar'] },
+  'fisico>unreal': { label: 'Espacio físico → Unreal', short: 'Físico → Unreal', icons: ['i-lugar', 'i-pc'], sep: '→' },
 };
 function initWhere() {
   const uis = [...document.querySelectorAll('[data-where-ui]')];
@@ -199,7 +200,7 @@ function initWhere() {
       ui.classList.toggle('is-hidden', !place);
       if (!place) return;
       ui.dataset.place = key;
-      ui.querySelector('.where__icons').innerHTML = place.icons.map((id) => `<svg><use href="#${id}"/></svg>`).join('<i>+</i>');
+      ui.querySelector('.where__icons').innerHTML = place.icons.map((id) => `<svg><use href="#${id}"/></svg>`).join(`<i>${place.sep || '+'}</i>`);
       const txt = ui.querySelector('.where__txt');
       const text = ui.classList.contains('where--bar') ? place.short : place.label;
       if (reduce || !txt.textContent) txt.textContent = text;

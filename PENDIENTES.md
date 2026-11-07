@@ -104,6 +104,13 @@ yo los optimizo y los copio a `docs/assets/`.
   6. **Tres participantes a la vez:** el mismo tótem recibe los tres objetos y el holograma muestra el mismo ícono.
   7. **Tipo de holograma** (pirámide, ventilador LED, pantalla): sin definir.
 
+## El regreso a Unreal (E5) — decisión a confirmar
+
+- [ ] **23.** El guion solo dice "Vuelve al Unreal". Se decidió: **lo dispara el final del video del proyector**;
+  las luces LED se encienden del tótem hacia las estaciones, cada participante vuelve a sentarse, y la pantalla
+  (en negro desde que salió de Unreal en la Etapa 4) se enciende con un fundido en el comienzo del pasillo de
+  objetos. En la web, ese tramo muestra "Espacio físico → Unreal" en el indicador.
+
 ## Dónde está la persona (indicador "Estás en")
 
 | Bloque | Etiqueta | Por qué (guion) |
@@ -119,6 +126,7 @@ yo los optimizo y los copio a `docs/assets/`.
 | E4 · Destello, desierto invertido, mundos, preguntas | Unreal | Réplica de E1 y mundos de ausencia |
 | E4 · El tótem con humo | Espacio físico | "Saliendo nuevamente de Unreal por un momento" |
 | E4 · Video antes de la Etapa 5 | Espacio físico | Se proyecta en el aula |
+| E5 · El regreso a Unreal | Espacio físico → Unreal | Termina el video, vuelve a la estación y se enciende la pantalla (#23) |
 | E5 · Obsesión con la pérdida | Unreal | "Vuelve al Unreal" hasta llegar a los Oculus |
 | E6 · Búsqueda del significado | Oculus | "Con los Oculus puestos" |
 | Cierre (esferas, video final, pregunta) | Espacio físico | Tótem del aula, proyector y devolución a los profesores |

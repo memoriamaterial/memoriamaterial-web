@@ -7,6 +7,7 @@ const OBJS = [['obj-llave', '0 0 100 260'], ['obj-mate', '0 0 200 240'], ['obj-c
 
 export function init() {
   wireSymbols();
+  regreso();
   e5();
   e6();
 }
@@ -29,6 +30,56 @@ function wireSymbols() {
 }
 
 const svgUse = (id, box, cls = '') => `<svg viewBox="${box}" class="${cls}" aria-hidden="true"><use href="#${id}"/></svg>`;
+
+// --- E5 · El regreso a Unreal --------------------------------------------------
+// Termina el video del proyector → las luces llevan a la estación → la pantalla se enciende.
+function regreso() {
+  const wrap = document.querySelector('[data-regreso]');
+  const svg = wrap?.querySelector('.aula-iso');
+  if (!svg) return;
+  const pin = wrap.querySelector('.regreso__pin');
+  const steps = [...wrap.querySelectorAll('[data-rstep]')];
+  const fade = wrap.querySelector('.regreso__fade');
+  const screen = svg.querySelector('.aula-screen');
+  const led = svg.querySelectorAll('.a-led, .a-led-glow');
+  const ledPath = svg.querySelector('.a-led');
+  const station = svg.querySelectorAll('.a-station')[1];
+  const person = station.querySelector('.a-person');
+  const mon = station.querySelectorAll('.a-mon, .a-mon-glow');
+  const monBox = station.querySelector('.a-mon').getBBox();
+  const vb = svg.viewBox.baseVal; // el zoom entra en el monitor (origen en % de la ilustración)
+  const origin = `${((monBox.x + monBox.width / 2 - vb.x) / vb.width) * 100}% ${((monBox.y + monBox.height / 2 - vb.y) / vb.height) * 100}%`;
+  const pb = person.getBBox();
+  const from = { x: pb.x + pb.width / 2, y: pb.y + pb.height };
+  const top = svg.querySelector('.a-totem-top');
+  const start = { x: +top.getAttribute('cx') + 26 - from.x, y: +top.getAttribute('cy') + 34 - from.y };
+  const end = ledPath.getPointAtLength(ledPath.getTotalLength());
+  const mid = ledPath.getPointAtLength(ledPath.getTotalLength() * 0.45);
+  const setStep = (i) => steps.forEach((li, k) => li.classList.toggle('is-on', k === i));
+  setStep(0);
+  if (reduce) { steps.forEach((li) => li.classList.add('is-on')); return; }
+
+  // al empezar: la persona está junto al tótem (después del humo y del video) y su monitor, en negro
+  gsap.set(person, { x: start.x, y: start.y });
+  gsap.set(mon, { opacity: 0.08 });
+  gsap.set(led, { opacity: 0 });
+  const tl = gsap.timeline({
+    defaults: { ease: 'power2.inOut' },
+    scrollTrigger: { trigger: wrap, pin, start: 'top top', end: () => `+=${window.innerHeight * 3.4}`, scrub: 0.7,
+      onUpdate: (self) => setStep(Math.min(2, Math.floor(self.progress * 3 * 0.999))) },
+  });
+  tl.to({}, { duration: 0.3 })
+    .to(screen, { opacity: 0.15, duration: 0.5 })                      // 1 · termina el video: el proyector se apaga
+    .to({}, { duration: 0.2 })
+    .to(led, { opacity: 1, duration: 0.3 })                            // 2 · las luces llevan a la estación
+    .to(person, { x: mid.x - from.x, y: mid.y - from.y - 4, duration: 0.3, ease: 'none' })
+    .to(person, { x: end.x - from.x, y: end.y - from.y - 4, duration: 0.3, ease: 'none' })
+    .to(person, { x: 0, y: 0, duration: 0.2, ease: 'none' })
+    .to(led, { opacity: 0, duration: 0.2 })
+    .to(mon, { opacity: 1, duration: 0.25 })                           // 3 · la pantalla se enciende
+    .to(svg, { scale: 7, transformOrigin: origin, duration: 0.8, ease: 'power2.in' })
+    .to(fade, { opacity: 1, duration: 0.25 }, '-=0.25');              // fundido hacia el pasillo
+}
 
 // --- E5 -------------------------------------------------------------------------
 function e5() {
