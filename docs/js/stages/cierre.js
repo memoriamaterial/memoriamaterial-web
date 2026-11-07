@@ -19,7 +19,9 @@ export function init() {
     scrollTrigger: { trigger: '.orbes', start: 'top 80%', once: true },
   });
   gsap.to(sec.querySelectorAll('.orbe__ball'), { y: -10, duration: 3.2, ease: 'sine.inOut', repeat: -1, yoyo: true, stagger: 0.6 });
-  sec.querySelectorAll('.origen, .pregunta, .creditos').forEach((el) => gsap.from(el, {
+  // las preguntas de la devolución entran de a una, como una charla
+  gsap.from(sec.querySelectorAll('.charla__q'), { y: 24, opacity: 0, duration: 1, stagger: 0.18, ease: 'expo.out', scrollTrigger: { trigger: '.charla', start: 'top 80%', once: true } });
+  sec.querySelectorAll('.origen, .creditos').forEach((el) => gsap.from(el, {
     y: 40, opacity: 0, duration: 1.4, ease: 'expo.out',
     scrollTrigger: { trigger: el, start: 'top 85%', once: true },
   }));

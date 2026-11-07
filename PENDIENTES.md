@@ -111,6 +111,17 @@ yo los optimizo y los copio a `docs/assets/`.
   (en negro desde que salió de Unreal en la Etapa 4) se enciende con un fundido en el comienzo del pasillo de
   objetos. En la web, ese tramo muestra "Espacio físico → Unreal" en el indicador.
 
+## Preguntas de la devolución (Cierre)
+
+- [ ] **24.** Al final, al devolver los objetos, el equipo conversa con cada participante. En el guion hay una sola
+  pregunta, que se usa tal cual: *"¿Y ahora, habiendo experimentado nuestro recorrido, te gustaría contarnos por qué
+  elegiste este objeto?"*. Se proponen cinco más (marcadas PENDIENTE en la web). Confirmar, cambiar o sacar:
+  1. ¿Qué objeto te vino a la mente cuando la voz te pidió elegir uno? ¿Por qué ese?
+  2. ¿Qué sentiste cuando fuiste al tótem y tu objeto ya no estaba?
+  3. ¿En qué momento del recorrido te sentiste más cerca de tu propia historia?
+  4. ¿Qué sentiste al recibir tu objeto adentro de la esfera?
+  5. ¿Cambió en algo tu mirada sobre las cosas de todos los días? ¿Hay otro objeto que ahora mirarías distinto?
+
 ## Dónde está la persona (indicador "Estás en")
 
 | Bloque | Etiqueta | Por qué (guion) |
