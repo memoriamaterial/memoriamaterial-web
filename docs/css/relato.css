@@ -1,0 +1,91 @@
+/* ==========================================================================
+   Ficha de relato: el mismo formato al comienzo de cada etapa
+   1 Mecánica · 2 Escenario · 3 Qué sucede · 4 Interacción
+   ========================================================================== */
+
+.relato { position: relative; padding: calc(var(--s-10) + env(safe-area-inset-top)) var(--gutter) var(--s-9); }
+.relato > .wrap { display: grid; gap: var(--s-8); }
+
+/* franja de trama que abre cada etapa, en su color */
+.relato::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 14px;
+  background-color: var(--acc); opacity: .5;
+  -webkit-mask-image: var(--trama-ondas); mask-image: var(--trama-ondas);
+  -webkit-mask-size: 28px 28px; mask-size: 28px 28px;
+}
+
+.relato__head { display: grid; gap: var(--s-4); }
+.relato__title { font-size: clamp(2.5rem, 1rem + 6.6vw, 7.4rem); max-width: 12ch; }
+.relato__lead { max-width: 38ch; color: var(--ink); }
+
+.relato__grid { display: grid; gap: var(--s-7) var(--s-7); }
+@media (min-width: 1000px) {
+  .relato__grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .rel--mec { grid-column: 1 / 6; }
+  .rel--esc { grid-column: 6 / 13; }
+  .rel--seq { grid-column: 1 / 13; }
+}
+
+.rel { display: grid; gap: var(--s-4); align-content: start; padding-top: var(--s-5); border-top: 1px solid var(--ink-20); min-width: 0; }
+.rel__h { display: flex; align-items: center; gap: 12px; margin: 0; font-family: var(--f-mono); font-size: var(--t-xs); font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--ink); }
+.rel__n { display: grid; place-items: center; flex: none; width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--acc); color: var(--acc); font-size: 12px; letter-spacing: 0; box-shadow: 0 0 14px color-mix(in srgb, var(--acc) 35%, transparent); }
+.rel__p { color: var(--ink-70); max-width: 58ch; text-wrap: pretty; }
+
+/* datos de la mecánica */
+.rel__facts { display: grid; gap: 14px; margin: var(--s-2) 0 0; }
+.rel__facts > div { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 12px; align-items: baseline; padding-top: 12px; border-top: 1px dashed var(--ink-10); }
+.rel__facts dt { font-family: var(--f-mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-50); }
+.rel__facts dd { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.rel__place { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border: 1px solid var(--ink-20); border-radius: 999px; font-family: var(--f-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+.rel__place svg { width: 14px; height: 14px; color: var(--acc); }
+.rel__arrow { font-style: normal; color: var(--ink-50); }
+
+/* escenario */
+.rel__fig {
+  position: relative; display: grid; place-items: center; margin: 0; aspect-ratio: 16 / 9; overflow: hidden;
+  border-radius: 16px; border: 1px solid var(--ink-10);
+  background: radial-gradient(60% 70% at 50% 60%, color-mix(in srgb, var(--acc) 14%, transparent), transparent 70%), var(--violeta);
+}
+.rel__fig > img { width: 100%; height: 100%; object-fit: cover; }
+.rel__svg { width: 100%; height: 100%; }
+.rel__pulse { animation: rel-pulse 2.2s cubic-bezier(.3, 0, .9, .6) infinite; }
+@keyframes rel-pulse { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-42px); opacity: 0; } }
+.rel__dome { position: absolute; inset: 0; width: 100%; height: 100%; color: var(--crema); opacity: .14; stroke-width: 1.4; }
+.rel__trio { position: relative; width: 80%; }
+.rel__trio .e2-trio__item svg { height: clamp(70px, 11vw, 150px); }
+.rel__aula { width: 100%; height: 100%; display: grid; place-items: center; padding: 4%; }
+.rel__aula .aula-iso { width: auto; height: 100%; max-width: 100%; }
+.rel__aula .aula-iso > g:not(.aula-room):not(.is-focus) { opacity: .3; }
+.rel__aula .aula-iso > g.is-focus { filter: drop-shadow(0 0 10px color-mix(in srgb, var(--acc) 60%, transparent)); }
+
+/* qué sucede: secuencia numerada */
+.pasos { margin: 0; padding: 0; list-style: none; }
+@media (min-width: 1000px) { .pasos { columns: 2; column-gap: var(--s-8); } }
+.pasos > li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 10px; padding: 14px 0; border-bottom: 1px solid var(--ink-06); break-inside: avoid; }
+.pasos__n { font-family: var(--f-mono); font-size: 12px; font-weight: 500; color: var(--acc); padding-top: 3px; }
+.pasos__when { display: block; margin-bottom: 4px; font-family: var(--f-mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--acc); }
+.pasos__body p { color: rgb(242 237 212 / .86); text-wrap: pretty; }
+.pasos__body .voice { margin-top: var(--s-3); }
+.pasos > li.pasos__grupo { display: block; padding: var(--s-5) 0 6px; border-bottom: 1px solid var(--ink-20); font-family: var(--f-mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--acc); break-after: avoid; }
+.rel__said { color: var(--crema); font-weight: 500; }
+.rel__note { display: block; margin-top: 6px; font-family: var(--f-mono); font-size: 10px; letter-spacing: .08em; color: var(--ink-50); }
+
+/* 4 · interacción: la banda que da paso a la parte interactiva */
+.relato__to4 {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--s-3) var(--s-6);
+  padding: var(--s-5) var(--s-6); border-radius: 20px; border: 1px solid color-mix(in srgb, var(--acc) 45%, transparent);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--acc) 14%, transparent), transparent 70%), var(--violeta);
+  box-shadow: 0 0 40px color-mix(in srgb, var(--acc) 12%, transparent);
+}
+.relato__to4 .rel__p { color: var(--ink); max-width: 62ch; }
+.relato__cue { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--acc); color: var(--acc); animation: cue-bob 1.8s ease-in-out infinite; }
+.relato__cue svg { width: 16px; height: 16px; }
+@keyframes cue-bob { 50% { transform: translateY(5px); } }
+@media (max-width: 699px) {
+  .relato__to4 { grid-template-columns: 1fr; padding: var(--s-5); }
+  .relato__cue { display: none; }
+  .rel__facts > div { grid-template-columns: 1fr; gap: 6px; }
+}
+
+/* la etapa de cierre usa crema como acento */
+.cierre .relato { --acc: var(--crema); }

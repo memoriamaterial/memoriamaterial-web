@@ -22,6 +22,8 @@ export function init() {
 
 function flash(sec) {
   const white = sec.querySelector('.e4-flash__white');
+  // la voz suena durante el destello (su tarjeta está en la ficha de la etapa)
+  ScrollTrigger.create({ trigger: sec.querySelector('.e4-flash'), start: 'top 60%', onEnter: () => audio.autoplay('e4a', document.querySelector('[data-voice="e4a"]')) });
   if (reduce) { white.style.opacity = 0; return; }
   // el destello: de crema a violeta mientras la pantalla entra
   gsap.fromTo(white, { opacity: 1 }, { opacity: 0, ease: 'power2.in', scrollTrigger: { trigger: sec, start: 'top 90%', end: 'top -10%', scrub: true } });
@@ -62,7 +64,7 @@ function eco(sec) {
   const wrap = sec.querySelector('[data-eco]');
   const pin = wrap.querySelector('.eco__pin');
   const lines = [...wrap.querySelectorAll('[data-eco-line]')];
-  const voice = wrap.querySelector('[data-voice="e4b"]');
+  const voice = document.querySelector('[data-voice="e4b"]'); // en la ficha de la etapa
   if (reduce) {
     lines.forEach((l) => { l.style.position = 'relative'; l.style.opacity = 1; });
     pin.style.height = 'auto';

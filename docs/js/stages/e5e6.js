@@ -37,7 +37,7 @@ function e5() {
   const strips = [...wrap.querySelectorAll('.hall__strip')];
   const end = wrap.querySelector('.hall__end');
   const floor = wrap.querySelector('.hall__floor');
-  const voice = wrap.querySelector('[data-voice="e5"]');
+  const voice = document.querySelector('[data-voice="e5"]'); // en la ficha de la etapa
 
   // pilas de objetos repetidos: "verlo en todos lados"
   strips.forEach((s, k) => {
@@ -61,8 +61,7 @@ function e5() {
     .fromTo(strips[1], { x: 3200 }, { x: 0, duration: 1 }, 0)
     .fromTo(floor, { backgroundPosition: '0px 0px' }, { backgroundPosition: '0px 1440px', duration: 1 }, 0)
     .to(end, { scale: 1, duration: 1, ease: 'power2.in' }, 0)
-    .from(wrap.querySelector('.hall__voice'), { opacity: 0, y: 20, duration: 0.1 }, 0.5)
-    .to(wrap.querySelector('.hall__sub'), { opacity: 0, duration: 0.1 }, 0.5);
+    ;
 }
 
 // --- E6 -------------------------------------------------------------------------

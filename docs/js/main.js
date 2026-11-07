@@ -7,6 +7,7 @@ import * as e3 from './stages/e3.js';
 import * as e4 from './stages/e4.js';
 import * as e5e6 from './stages/e5e6.js';
 import * as cierre from './stages/cierre.js';
+import * as relato from './relato.js';
 // Cada escenario nuevo se suma acá, en orden de aparición.
 const stages = [inicio, e1, e2, e3, e4, e5e6, cierre];
 
@@ -31,7 +32,9 @@ function flowOut() {
 const start = () => {
   if (reduce) flowOut();
   // Primero los escenarios (crean los pins), después el riel y las voces.
+  relato.prepare();                 // ilustraciones de las fichas, antes de medir
   stages.forEach((s) => s.init());
+  relato.init();
   initUI();
   autoReveal();
   ScrollTrigger.refresh();

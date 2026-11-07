@@ -38,14 +38,13 @@ function pasillo(sec) {
   const says = [...wrap.querySelectorAll('[data-say]')];
   const ask = wrap.querySelector('.pasillo__ask');
   const btn = wrap.querySelector('[data-lo-tengo]');
-  const [va, vb] = ['e3a', 'e3b'].map((k) => wrap.querySelector(`[data-voice="${k}"]`));
+  const [va, vb] = ['e3a', 'e3b'].map((k) => document.querySelector(`[data-voice="${k}"]`)); // en la ficha de la etapa
 
   main(0); sides.forEach((s) => s(0.3));
   if (reduce) {
     return; // las frases se leen como lista debajo del pasillo (main.js)
   }
 
-  gsap.set(vb, { autoAlpha: 0 });
   let playedA = false, playedB = false;
   const tl = gsap.timeline({
     defaults: { ease: 'power2.inOut' },
@@ -55,7 +54,7 @@ function pasillo(sec) {
         const p = self.progress;
         main(p); sides.forEach((s, i) => s(p * 0.8 + i * 0.4));
         if (p > 0.02 && !playedA) { playedA = true; audio.autoplay('e3a', va); }
-        if (p > 0.3 && !playedB) { playedB = true; gsap.to(va, { autoAlpha: 0 }); gsap.to(vb, { autoAlpha: 1 }); audio.autoplay('e3b', vb); }
+        if (p > 0.3 && !playedB) { playedB = true; audio.autoplay('e3b', vb); }
       },
     },
   });

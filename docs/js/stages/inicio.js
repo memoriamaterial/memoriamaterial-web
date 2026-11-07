@@ -38,7 +38,7 @@ function entrada() {
   // Botones de entrada
   sec.querySelectorAll('[data-enter]').forEach((b) => b.addEventListener('click', () => {
     if (b.dataset.enter === 'sound') audio.enable(); else audio.disable();
-    gsap.to(window, { scrollTo: { y: '#bienvenida' }, duration: reduce ? 0 : 1.2, ease: 'power3.inOut' });
+    gsap.to(window, { scrollTo: { y: '#idea' }, duration: reduce ? 0 : 1.2, ease: 'power3.inOut' });
   }));
 
   if (reduce) return;
