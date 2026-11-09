@@ -229,3 +229,6 @@
   .llave__panel--cerradura .llave__done { margin-top: var(--s-4); }
   .llave__panel--cerradura .llave__inv { font-size: 11px; }
 }
+
+/* línea de la ronda que es solo un sonido */
+.said--sfx { background: none; border: 0; padding: 4px 0; }

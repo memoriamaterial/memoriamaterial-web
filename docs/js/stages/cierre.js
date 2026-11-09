@@ -1,12 +1,15 @@
 // Cierre
+import { audio } from '../audio.js';
 import { reduce } from '../ui.js';
 import { videoSeq } from './inicio.js';
 
-const { gsap } = window;
+const { gsap, ScrollTrigger } = window;
 
 export function init() {
   const sec = document.getElementById('cierre');
   sec.querySelectorAll('[data-video]').forEach(videoSeq);
+  // la voz del video final suena cuando empieza el video (su tarjeta está en la ficha)
+  ScrollTrigger.create({ trigger: sec.querySelector('.video--final'), start: 'top 40%', onEnter: () => audio.autoplay('cierre', document.querySelector('[data-voice="cierre"]')) });
 
   sec.querySelector('[data-restart]').addEventListener('click', () => {
     gsap.to(window, { scrollTo: 0, duration: reduce ? 0 : 2.4, ease: 'power3.inOut' });

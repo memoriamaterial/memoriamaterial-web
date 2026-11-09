@@ -11,73 +11,95 @@ export const VOICES = {
   e1: {
     src: 'assets/audio/e1-voz.mp3', who: 'Voz en off · Etapa 1',
     cues: [
-      [0.9, 4.9, 'Entraste a la etapa de la plasticidad sináptica.'],
-      [5.1, 11.9, 'En esta etapa tu cerebro reorganiza la conexión entre los objetos que reconoce visualmente, y el significado que este le evoca.'],
-      [12.5, 16.6, 'Cómo esas cosas de tu día a día que, con el tiempo, van cobrando valor.'],
-      [16.8, 21.8, 'Para continuar con la experiencia, vas a tener que reorganizar las conexiones.'],
+      [0, 3.12, 'Entraste a la etapa de la plasticidad sináptica.'],
+      [3.12, 10.39, 'En esta etapa tu cerebro reorganiza la conexión entre los objetos que reconoce visualmente, y el significado que este le evoca.'],
+      [10.39, 14.85, 'Cómo esas cosas de tu día a día que, con el tiempo, van cobrando valor.'],
+      [14.85, 19.42, 'Para continuar con la experiencia, vas a tener que reorganizar las conexiones.'],
     ],
   },
   e2: {
     src: 'assets/audio/e2-voz.mp3', who: 'Voz en off · Etapa 2',
     cues: [
-      [2.4, 8.4, 'Cuando el significado de ese objeto tan cotidiano para vos cambia, es porque cambia también el punto de vista desde el que lo mirás.'],
-      [8.9, 11.9, 'En esta etapa, vas a entrar en el mundo de los objetos,'],
-      [12.1, 16.9, 'un lugar en donde vas a experimentar cómo esos objetos cotidianos pueden simbolizar algo distinto,'],
-      [17.3, 21.4, 'por todo lo que ese objeto vio, escuchó, y vivió con vos.'],
-      [21.6, 25.4, 'Todo de lo que ese objeto fue testigo.'],
+      [0, 6.24, 'Cuando el significado de ese objeto tan cotidiano para vos cambia, es porque cambia también el punto de vista desde el que lo mirás.'],
+      [6.24, 9.15, 'En esta etapa, vas a entrar en el mundo de los objetos,'],
+      [9.15, 13.43, 'un lugar en donde vas a experimentar cómo esos objetos cotidianos pueden simbolizar algo distinto,'],
+      [13.43, 18.74, 'por todo lo que ese objeto vio, escuchó, y vivió con vos.'],
+      [18.74, 21.48, 'Todo de lo que ese objeto fue testigo.'],
     ],
+  },
+  // Mundo de la llave: frases asignadas por duración y pausas (a confirmar, PENDIENTES #25)
+  llave1: {
+    src: 'assets/audio/llave-voz-1.mp3', who: 'Voz 1 · Mundo de la llave',
+    cues: [[0, 4.13, '—Llegó el día, por fin me voy a mudar.']],
   },
   llave2: {
-    src: 'assets/audio/llave-voz-2.mp3', who: 'Voces · Mundo de la llave',
-    cues: [
-      [2.2, 4.4, '—¿En dónde quedaron las llaves?'],
-      [4.7, 6.8, '—Me falta lo más importante.'],
-      [7.1, 12.9, '—Creo que la guardaste en la mesita de luz.'],
-    ],
+    src: 'assets/audio/llave-voz-2.mp3', who: 'Voz 2 · Mundo de la llave',
+    cues: [[0, 2.64, '—Te voy a extrañar, hijo.']],
   },
   llave3: {
-    src: 'assets/audio/llave-voz-3.mp3', who: 'Voces · Mundo de la llave',
-    cues: [[0.6, 4.0, '—¡Sí! Acá están.']],
+    src: 'assets/audio/llave-voz-3.mp3', who: 'Voz 3 · Mundo de la llave',
+    cues: [[0, 2.98, '—¡Sí! Acá están.']],
   },
+  // Mundo del mate: efectos de sonido (el subtítulo describe el sonido)
+  mate1: { src: 'assets/audio/mate-tomado-1.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 5.06, '[mate tomado]']] },
+  mate2: { src: 'assets/audio/mate-tomado-2.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 4.03, '[mate tomado]']] },
+  mate3: { src: 'assets/audio/mate-tomado-3.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 7.92, '[mate tomado]']] },
+  mate4: { src: 'assets/audio/mate-tomado-4.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 2.71, '[mate tomado]']] },
+  cebando: { src: 'assets/audio/mate-cebandose.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 10.82, '[mate cebándose]']] },
   e3a: {
     src: 'assets/audio/e3-voz-1.mp3', who: 'Voz en off · Etapa 3',
     cues: [
-      [0, 6.6, 'Ya viviste cómo un objeto puede convertirse en una extensión de nosotros,'],
-      [6.7, 11.2, 'ahora vamos a vivirlo con vos.'],
+      [0, 4.63, 'Ya viviste cómo un objeto puede convertirse en una extensión de nosotros,'],
+      [4.63, 7.15, 'ahora vamos a vivirlo con vos.'],
     ],
   },
   e3b: {
+    // tiempos aproximados: la voz va más rápido de lo esperado para este texto (PENDIENTES #25)
     src: 'assets/audio/e3-voz-2.mp3', who: 'Voz en off · Etapa 3',
     cues: [
-      [0, 10.1, 'En esta etapa, vas a tener que pensar en un objeto que lleves encima: ¿cuál es aquel que puede tener un significado distinto?'],
-      [10.2, 14.1, 'Te vamos a dar tiempo. ¿Lo tenés?'],
-      [14.3, 26.1, 'Ahora que lo tenés en mente, para continuar con la experiencia vas a tener que depositar ese objeto en nuestro tótem.'],
-      [26.2, 30.8, 'Una vez hecho esto, vas a poder seguir recorriendo la experiencia.'],
+      [0, 6.15, 'En esta etapa, vas a tener que pensar en un objeto que lleves encima: ¿cuál es aquel que puede tener un significado distinto?'],
+      [6.15, 10.27, 'Te vamos a dar tiempo. ¿Lo tenés?'],
+      [10.27, 14.04, 'Ahora que lo tenés en mente, para continuar con la experiencia vas a tener que depositar ese objeto en nuestro tótem.'],
+      [14.04, 17.76, 'Una vez hecho esto, vas a poder seguir recorriendo la experiencia.'],
     ],
   },
   e4a: {
     src: 'assets/audio/e4-voz-1.mp3', who: 'Voz en off · Etapa 4',
     cues: [
-      [1.6, 7.7, 'Esos objetos a los que les damos valor, funcionan como anclas de seguridad.'],
-      [7.9, 12.3, 'Cuando nos dimos cuenta que lo perdimos, el cerebro siente que esa seguridad desapareció,'],
-      [12.4, 17.4, 'y comenzamos a preguntarnos sin parar: ¿Dónde estará? ¿Lo voy a recuperar? “Voy a estar todo el día pensando en esto…”'],
-      [17.6, 24.7, 'Empezamos a buscarlo en todos lados, pensando que ya no lo vamos a encontrar.'],
+      [0, 4.32, 'Esos objetos a los que les damos valor, funcionan como anclas de seguridad.'],
+      [4.32, 9.32, 'Cuando nos dimos cuenta que lo perdimos, el cerebro siente que esa seguridad desapareció,'],
+      [9.32, 16.03, 'y comenzamos a preguntarnos sin parar: ¿Dónde estará? ¿Lo voy a recuperar? “Voy a estar todo el día pensando en esto…”'],
+      [16.03, 22.2, 'Empezamos a buscarlo en todos lados, pensando que ya no lo vamos a encontrar.'],
     ],
   },
   e4b: {
     src: 'assets/audio/e4-voz-2.mp3', who: 'Voz en off · Etapa 4',
     cues: [
-      [0.1, 5.4, '¿Te das cuenta lo que sería perder ese objeto?'],
-      [5.9, 8.0, '¿Cómo se sentiría?'],
-      [8.5, 12.6, '¿Cómo te sentís ahora que sabés que no está con vos?'],
-      [12.8, 15.8, 'Sabemos que ahora querés recuperarlo,'],
-      [15.9, 20.4, 'y vos sabés a dónde tenés que ir a buscar.'],
-      [20.5, 22.2, 'Te invitamos a que lo hagas.'],
+      [0, 3.58, '¿Te das cuenta lo que sería perder ese objeto?'],
+      [3.58, 4.86, '¿Cómo se sentiría?'],
+      [4.86, 8.06, '¿Cómo te sentís ahora que sabés que no está con vos?'],
+      [8.06, 10.26, 'Sabemos que ahora querés recuperarlo,'],
+      [10.26, 12.21, 'y vos sabés a dónde tenés que ir a buscar.'],
+      [12.21, 15.0, 'Te invitamos a que lo hagas.'],
     ],
   },
   e5: {
     src: 'assets/audio/e5-voz.mp3', who: 'Voz en off · Etapa 5',
-    cues: [[1.2, 9.4, 'Ahora que tanto pensaste tu objeto, y sentiste su ausencia, tenés una oportunidad de recuperarlo.']],
+    cues: [[0, 7.03, 'Ahora que tanto pensaste tu objeto, y sentiste su ausencia, tenés una oportunidad de recuperarlo.']],
+  },
+  e6: {
+    src: 'assets/audio/e6-voz.mp3', who: 'Voz en off · Etapa 6',
+    cues: [
+      [0, 3.32, 'Encontraste el significado, depositalo en el tótem.'],
+      [3.32, 7.82, 'Ya podés quitarte el detector e ir en busca de tu objeto.'],
+    ],
+  },
+  cierre: {
+    src: 'assets/audio/cierre-voz.mp3', who: 'Voz en off · Video final',
+    cues: [
+      [0, 5.88, 'Esto fue Memoria Material, una experiencia dispuesta a buscar en eso que te resultaba habitual.'],
+      [5.88, 11.42, 'Esperamos haberte hecho notar que en lo cotidiano, hay cosas que pueden cobrar otro significado.'],
+    ],
   },
 };
 
@@ -167,9 +189,21 @@ class AudioManager {
     const id = card.dataset.voice;
     const v = VOICES[id];
     if (!v) return;
-    card.classList.add('voice');
     card.style.setProperty('--acc', card.dataset.acc ? `var(--${card.dataset.acc})` : '');
     const total = Math.round(v.cues.at(-1)[1]);
+    if (v.sfx) {
+      // efecto de sonido: píldora con play/pausa; el subtítulo describe el sonido
+      card.classList.add('sfx');
+      card.innerHTML = `<button class="sfx__play voice__play" type="button" aria-label="Escuchar el sonido: ${v.cues[0][2].replace(/[\[\]]/g, '')}">${ICON_PLAY}${ICON_PAUSE}</button><span class="sfx__label">${v.cues[0][2]}</span>`;
+      card.querySelector('button').addEventListener('click', () => {
+        if (!this.enabled) this.enable();
+        this.playSfx(id, card); // vuelve a tocarlo para pausar
+      });
+      if (!this.cards.has(id)) this.cards.set(id, []);
+      this.cards.get(id).push(card);
+      return;
+    }
+    card.classList.add('voice');
     card.innerHTML = `
       <button class="voice__play" type="button" aria-label="Escuchar la voz en off">${ICON_PLAY}${ICON_PAUSE}</button>
       <div>
@@ -187,6 +221,7 @@ class AudioManager {
   play(id, card) {
     const v = VOICES[id];
     if (!v) return;
+    if (v.sfx) return this.playSfx(id, card);
     if (this.current && this.current.id !== id) this.stop();
     if (!this.current) {
       const el = new Audio(v.src);
@@ -201,6 +236,30 @@ class AudioManager {
     this.fadeNoise(this.noiseLevel * 0.5, 0.6); // la voz manda
     this.showSubbar(true);
     this.emit();
+  }
+
+  // Efectos de sonido: reproductores independientes, para que dos sonidos seguidos no se corten.
+  playSfx(id, card) {
+    const v = VOICES[id];
+    this.sfx = this.sfx || new Map();
+    const prev = this.sfx.get(id);
+    if (prev && !prev.el.paused) { prev.el.pause(); prev.card?.classList.remove('is-playing'); this.sfx.delete(id); this.sfxCaption(); return; }
+    const el = new Audio(v.src);
+    const entry = { el, card };
+    this.sfx.set(id, entry);
+    card?.classList.add('is-playing', 'has-played');
+    el.addEventListener('ended', () => { card?.classList.remove('is-playing'); this.sfx.delete(id); this.sfxCaption(); });
+    el.play().catch(() => {});
+    this.sfxCaption(v);
+  }
+
+  // Subtítulo del sonido en la barra flotante, si no hay una voz sonando.
+  sfxCaption(v) {
+    if (!this.subbar || (this.current && !this.current.el.paused)) return;
+    const on = !!v || (this.sfx && this.sfx.size > 0);
+    const last = v || (this.sfx && [...this.sfx.keys()].map((k) => VOICES[k]).at(-1));
+    if (last) { this.subbar.who.textContent = last.who; this.subbar.txt.textContent = last.cues[0][2]; }
+    this.subbar.el.classList.toggle('is-on', on);
   }
 
   // Reproduce sola solo si el sonido está activado y nunca sonó esta voz.

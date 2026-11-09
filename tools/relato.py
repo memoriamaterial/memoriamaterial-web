@@ -208,7 +208,7 @@ STAGES = {
             (None, 'Al acercarse a cada esfera, puede interactuar para recolectarla.'),
             (None, 'Con las tres, un tótem igual al del aula emerge del suelo, donde antes estaban la pila chica y los Oculus, con un ruido mecánico para llamar la atención.'),
             (None, 'Luces como las que en el aula lo guiaron antes lo llevan hasta ese tótem. Al interactuar, deposita las esferas y el tótem vuelve a meterse en el suelo.'),
-            (None, 'La voz le indica quitarse el detector: ' + said('“Encontraste el significado, depositalo en el tótem. Ya podés quitarte el detector e ir en busca de tu objeto.”') + ' <span class="rel__note">Voz escrita · audio no producido.</span>'),
+            (None, 'La voz le indica quitarse el detector.' + voice('e6', 'celeste', auto=False)),
             (None, 'En el aula, las luces que van hacia el tótem vuelven a encenderse.'),
         ],
         inter='Mové el detector con el cursor o el dedo y tocá las esferas que brillan.'),
@@ -222,7 +222,7 @@ STAGES = {
         esc='El tótem del aula, ahora con esferas físicas como las del recorrido. Cada una tiene un color (rosa, amarillo, celeste) y un nombre; adentro está el objeto de cada participante.',
         pasos=[
             (None, 'Al volver al tótem, encuentra las esferas físicas con su color y su nombre; dentro está su objeto.'),
-            (None, 'Al recibirlas, el proyector reproduce el video final: ' + said('“Esto fue Memoria Material, una experiencia dispuesta a buscar en eso que te resultaba habitual.”') + ' <span class="rel__note">Voz escrita · audio no producido.</span>'),
+            (None, 'Al recibirlas, el proyector reproduce el video final, con la voz en off.' + voice('cierre', 'crema', auto=False)),
             (None, 'El equipo cuenta brevemente cómo nació el proyecto y muestra su objeto de partida.'),
             (None, 'Al devolver los objetos, conversamos con cada participante sobre lo que vivió.'),
         ],

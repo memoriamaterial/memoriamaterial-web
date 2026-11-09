@@ -224,6 +224,7 @@ function e6() {
     done = true;
     deposit.hidden = true;
     said.hidden = false;
+    audio.autoplay('e6', said.querySelector('[data-voice="e6"]')); // la voz del final de E6
     // "quitate el detector": los objetos vuelven a verse sólidos
     const finish = () => {
       scan.classList.add('is-off');

@@ -37,35 +37,55 @@ yo los optimizo y los copio a `docs/assets/`.
 
 ## Audio
 
-- [ ] **9. Qué frase dice cada audio.** No hay transcripción; la asignación es una suposición
-  basada en la duración y las pausas de cada archivo. Confirmar o corregir:
+- [x] **9. Audios nuevos (audios.zip, nov. 2026).** Recortados solo en sus silencios con
+  `tools/recortar_audios.py` (originales intactos en `assets/audio/originales/`) e integrados con
+  subtítulos rehechos sobre las versiones recortadas. Sin transcripción: cada frase se asignó por
+  duración y pausas. Quedan las dudas del punto 25.
 
-  | Archivo | Frase supuesta |
-  |---|---|
-  | `Etapa 1 - Voz en off` | "Entraste a la etapa de la plasticidad sináptica… reorganizar las conexiones." |
-  | `Etapa 2 - Voz en off` | "Cuando el significado de ese objeto… Todo de lo que ese objeto fue testigo." |
-  | `Etapa 3 - Voz en off 1` | "Ya viviste cómo un objeto puede convertirse en una extensión de nosotros, ahora vamos a vivirlo con vos." |
-  | `Etapa 3 - Voz en off 2` | "En esta etapa, vas a tener que pensar en un objeto que lleves encima… podrás ingresar a la siguiente etapa." |
-  | `Etapa 4 - Voz en off 1` | "Esos objetos a los que les damos valor, funcionan como anclas de seguridad… ya no lo vamos a encontrar." |
-  | `Etapa 4 - Voz en off 2` | "¿Te das cuenta lo que sería perder ese objeto?… Te invitamos a que lo hagas." (con reverb) |
-  | `Etapa 5 - Voz en off` | "Ahora que tanto pensaste tu objeto, y sentiste su ausencia, tenés una oportunidad de recuperarlo." (Oculus) |
-  | `Voz 2 mundo llave` | "¿En dónde quedaron las llaves? / Me falta lo más importante / Creo que la guardaste en la mesita de luz" |
-  | `Voz 3 mundo llave` | "¡Sí! Acá están." |
-
-  ¿Existe una "Voz 1 mundo llave" ("Llegó el día, por fin me voy a mudar" / "Te voy a extrañar hijo" /
-  "Te regalo esto…")? *Hoy:* esas frases aparecen escritas.
-  Los tiempos de los subtítulos también son estimados.
-- [ ] **21. Regrabar dos audios para que coincidan con sus subtítulos.** Los subtítulos ya no usan
-  lenguaje de videojuego, pero los audios todavía lo dicen:
-
-  | Audio | Dice hoy | Subtítulo (texto a grabar) |
+  | Archivo | En la web | Frase |
   |---|---|---|
-  | `Etapa 1 - Voz en off` | "Para avanzar vas a tener que reorganizar las conexiones." | "Para continuar con la experiencia, vas a tener que reorganizar las conexiones." |
-  | `Etapa 3 - Voz en off 2` | "…para avanzar vas a tener que depositar ese objeto en nuestro tótem." | "…para continuar con la experiencia vas a tener que depositar ese objeto en nuestro tótem." |
-  | `Etapa 3 - Voz en off 2` | "Una vez hecho esto, podrás ingresar a la siguiente etapa." | "Una vez hecho esto, vas a poder seguir recorriendo la experiencia." |
+  | `etapa-1` | `e1-voz` · E1 | "Entraste a la etapa de la plasticidad sináptica… reorganizar las conexiones." |
+  | `etapa-2` | `e2-voz` · E2 cúpula | "Cuando el significado de ese objeto… fue testigo." |
+  | `Mundo-de-la-llave-1` | `llave-voz-1` · llave, puerta 1 | "Llegó el día, por fin me voy a mudar." (a confirmar, #25) |
+  | `Mundo de la llave 2` | `llave-voz-2` · llave, regalos | "Te voy a extrañar, hijo." (a confirmar, #25) |
+  | `Mundo de la llave 3` | `llave-voz-3` · llave, cerradura | "¡Sí! Acá están." (a confirmar, #25) |
+  | `Mate tomado 1` a `3` | `mate-tomado-1..3` · ronda | los tres mates tomados de la ronda, con el agua que baja |
+  | `Mate-tomado-4` | `mate-tomado-4` · la mañana | "Gracias amor" + mate tomado (a confirmar, #25) |
+  | `Ruido-de-mate-cebandose` | `mate-cebandose` · ronda y mañana | el mate cebándose |
+  | `Etapa-3-Parte-1` / `2` | `e3-voz-1` / `e3-voz-2` · E3 | consigna del pasillo (tiempos de la parte 2 aproximados, #25) |
+  | `Etapa-4-Parte-1` / `2` | `e4-voz-1` / `e4-voz-2` · E4 | destello / último mundo |
+  | `Etapa 5` | `e5-voz` · E5 | "Ahora que tanto pensaste tu objeto…" |
+  | `Etapa 6` | `e6-voz` · E6 | "Encontraste el significado… en busca de tu objeto." (antes escrita) |
+  | `Cierre` | `cierre-voz` · video final | "Esto fue Memoria Material… otro significado." (antes escrita) |
 
-- [ ] **10. Efectos de sonido** (llaves, mate, papel, chapoteo, pitido, obra, batido, portazo, ruido mecánico).
-  - *Hoy:* onomatopeyas en pantalla. El ruido blanco se genera en el navegador.
+  Sigue escrita, sin audio: la voz del video de bienvenida.
+- [ ] **21. Regrabar dos audios para que coincidan con sus subtítulos.** No puedo escuchar los audios
+  nuevos: **¿`etapa-1` y `Etapa-3-Parte-2` ya dicen "para continuar con la experiencia" y "vas a poder
+  seguir recorriendo la experiencia"?** Si siguen diciendo "para avanzar" / "siguiente etapa", hay que
+  regrabarlos con el texto de esta tabla:
+
+  | Audio | Subtítulo (texto a grabar) |
+  |---|---|
+  | E1 | "Para continuar con la experiencia, vas a tener que reorganizar las conexiones." |
+  | E3, parte 2 | "…para continuar con la experiencia vas a tener que depositar ese objeto en nuestro tótem." |
+  | E3, parte 2 | "Una vez hecho esto, vas a poder seguir recorriendo la experiencia." |
+
+- [ ] **10. Efectos de sonido.** Resueltos: los cuatro "mate tomado" y el mate cebándose. Siguen como
+  onomatopeyas escritas: llaves, papel, chapoteo, pitido, obra, batido, portazo, ruido mecánico.
+- [ ] **25. Dudas de los audios nuevos** (no se adivinó: se integraron así y hay que confirmar):
+  1. **Voces del mundo de la llave.** Las duraciones no encajan con seguridad con el guion. Medido con
+     un umbral sensible: voz 1 = tres tramos cortos (~0,6 s cada uno), voz 2 = un tramo de ~0,9 s,
+     voz 3 = un tramo de ~1,2 s. Se asignó: 1 = "Llegó el día, por fin me voy a mudar", 2 = "Te voy a
+     extrañar, hijo" y 3 = "¡Sí! Acá están". En la voz 2 no entran las tres frases de los cajones (como
+     suponía la versión anterior) ni las dos de la despedida. **¿Qué dice cada una?** Las frases sin
+     audio ("Te regalo esto…" y las de los cajones) siguen escritas.
+  2. **Cuatro "mate tomado".** En la ronda del guion hay tres mates tomados; el cuarto está en la
+     mañana ("Gracias amor" + mate tomado). Se ubicó así: 1 a 3 en la ronda (cada uno baja el agua) y
+     4 en la mañana. **¿Va ahí, o la ronda tiene que tener cuatro mates?**
+  3. **Mate cebándose.** El guion lo nombra en la ronda y en la mañana; se usa el mismo sonido en las dos.
+  4. **`Etapa-4-Parte-1` termina con voz justo en el último instante:** puede estar cortado al final.
+  5. **`Etapa-3-Parte-2` va más rápido de lo esperado para su texto:** los tiempos de sus subtítulos son
+     aproximados. Si la grabación usa otras palabras, pasame el texto exacto.
 
 ## Contenido
 

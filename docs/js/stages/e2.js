@@ -1,6 +1,6 @@
 // E2 · El mundo de los objetos
 // Cúpula → mundo de la llave (horizontal) → mate (ronda y mañana) → cuaderno (materiales y recetas).
-import { audio } from '../audio.js';
+import { audio, VOICES } from '../audio.js';
 import { reduce } from '../ui.js';
 
 const { gsap, ScrollTrigger } = window;
@@ -19,6 +19,29 @@ export function init() {
   mate1(sec);
   mate2(sec);
   cuaderno(sec);
+}
+
+// Sonidos de una escena con scroll: cada uno suena una vez, al pasar su paso bajando.
+// `onCue(cue, forward)` permite sincronizar una animación con el sonido (el agua del mate).
+function sfxCues(tl, items, onCue) {
+  const cues = items.map((li, i) => {
+    const id = li.dataset.drain || li.dataset.sfx;
+    if (!id) return null;
+    return { id, li, card: li.querySelector(`[data-voice="${id}"]`), t: tl.labels[`step${i}`] + 0.25, passed: false };
+  }).filter(Boolean);
+  return () => {
+    const now = tl.time();
+    cues.forEach((c) => {
+      if (!c.passed && now >= c.t) {
+        c.passed = true;
+        if (audio.enabled) audio.play(c.id, c.card);
+        onCue?.(c, true);
+      } else if (c.passed && now < c.t) {
+        c.passed = false;
+        onCue?.(c, false);
+      }
+    });
+  };
 }
 
 // Diálogo en pasos: la línea actual entra, la anterior sube y se atenúa.
@@ -43,6 +66,7 @@ function llave(sec) {
   const pips = [...wrap.querySelectorAll('.llave__doors i')];
   const panels = [...track.children];
   const cajones = [...wrap.querySelectorAll('.cajon')];
+  const v1 = wrap.querySelector('[data-voice="llave1"]');
   const v2 = wrap.querySelector('[data-voice="llave2"]');
 
   const distance = () => track.scrollWidth - pin.clientWidth;
@@ -51,6 +75,7 @@ function llave(sec) {
     scrollTrigger: {
       trigger: wrap, pin, start: 'top top', end: () => `+=${Math.max(distance(), vh() * 4.5)}`, scrub: 0.5, invalidateOnRefresh: true,
       onUpdate: (self) => pips.forEach((p, i) => p.classList.toggle('is-on', self.progress >= (i + 0.55) / 4)),
+      onEnter: () => audio.autoplay('llave1', v1),
     },
   });
 
@@ -62,7 +87,7 @@ function llave(sec) {
     if (items.length) gsap.from(items, { y: 40, opacity: 0, stagger: 0.08, duration: 0.6, ease: 'power3.out', scrollTrigger: { trigger: p, containerAnimation: tween, start: 'left 70%', toggleActions: 'play none none reverse' } });
   });
 
-  ScrollTrigger.create({ trigger: panels[3], containerAnimation: tween, start: 'left 55%', onEnter: () => audio.autoplay('llave2', v2) });
+  ScrollTrigger.create({ trigger: panels[2], containerAnimation: tween, start: 'left 55%', onEnter: () => audio.autoplay('llave2', v2) });
 
   cajones.forEach((c, i) => c.addEventListener('click', () => {
     c.classList.toggle('is-open');
@@ -224,20 +249,18 @@ function mate1(sec) {
     scrollTrigger: { trigger: wrap, pin, start: 'top top', end: () => `+=${vh() * 5}`, scrub: 0.6,
       onUpdate: (self) => (self.progress > 0.02 ? bob.pause() : bob.play()) },
   });
+  let syncCues = null;
   tl.to(chairs, {
     left: (i, el) => el.style.getPropertyValue('--x'), top: (i, el) => el.style.getPropertyValue('--y'),
     rotation: 0, y: 0, duration: 1, stagger: 0.05,
   })
     .to(sit, { opacity: 0, y: -10, duration: 0.3 }, 0.1);
 
-  const levels = [0.66, 0.36, 0.04];
-  let drains = 0;
   dialog(tl, lines, {
     onStep: (li, i, at) => {
       const ch = li.dataset.chair && wrap.querySelector(`.silla[data-chair="${li.dataset.chair}"]`);
       chairs.forEach((c) => { if (c !== ch && !c.classList.contains('silla--yo')) tl.set(c, { attr: { 'data-on': 0 } }, at); });
       if (ch) tl.set(ch, { attr: { 'data-on': 1 } }, at);
-      if (li.hasAttribute('data-drain')) tl.to(water, { scaleY: levels[drains++], duration: 0.6, ease: 'power1.inOut' }, `${at}+=0.2`);
     },
   });
   tl.to(lines.slice(-2), { opacity: 0, duration: 0.3 })
@@ -246,6 +269,19 @@ function mate1(sec) {
     .to(charco, { scale: 6, transformOrigin: '50% 58%', duration: 1.2, ease: 'power2.in' }, '+=0.3')
     .to(pin, { backgroundColor: '#352A72', duration: 0.01 })
     .to(charco, { opacity: 0, duration: 0.3 }, '-=0.3');
+
+  // cada mate tomado baja el agua mientras suena su sorbo (al volver para arriba, el agua sube)
+  const levels = { mate1: 0.66, mate2: 0.36, mate3: 0.04 };
+  const before = { mate1: 1, mate2: 0.66, mate3: 0.36 };
+  // se revisa en cada cuadro de la animación (con scrub, sigue avanzando después del scroll)
+  syncCues = sfxCues(tl, lines, (c, forward) => {
+    if (!(c.id in levels)) return;
+    const dur = VOICES[c.id].cues.at(-1)[1];
+    gsap.to(water, forward
+      ? { scaleY: levels[c.id], duration: audio.enabled ? Math.min(dur * 0.8, 4) : 1.4, ease: 'power1.inOut', overwrite: true }
+      : { scaleY: before[c.id], duration: 0.4, ease: 'power2.out', overwrite: true });
+  });
+  tl.eventCallback('onUpdate', syncCues);
 
   sit.addEventListener('click', () => {
     const st = tl.scrollTrigger;
@@ -269,6 +305,7 @@ function mate2(sec) {
     defaults: { ease: 'power2.inOut' },
     scrollTrigger: { trigger: wrap, pin, start: 'top top', end: () => `+=${vh() * 5}`, scrub: 0.6 },
   });
+  let syncCues = null;
   tl.from(wrap.querySelector('.mate2__copy'), { opacity: 0, y: 20, duration: 0.4 })
     .to(fuego, { opacity: 1, duration: 0.4 })
     .to(pava, { color: 'rgb(242 237 212 / .95)', duration: 0.3 }, '<');
@@ -287,6 +324,8 @@ function mate2(sec) {
     .to(door, { scaleX: 0, duration: 0.1 }, '<')
     .to(pam, { opacity: 0, duration: 0.3 }, '+=0.25')
     .to([sky, ...wins], { opacity: 0, duration: 0.4 }, '<');
+  syncCues = sfxCues(tl, lines);
+  tl.eventCallback('onUpdate', syncCues);
 }
 
 // --- Mundo del cuaderno: materiales → recetas → la salida dibujada ------------

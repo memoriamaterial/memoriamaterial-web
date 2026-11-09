@@ -541,7 +541,7 @@
               <div class="llave__copy">
                 <p class="stage-num">Mundo de la llave · una mudanza</p>
                 <h3 class="title">Llegó el día</h3>
-                <p class="said"><b>Voz</b>—Llegó el día, por fin me voy a mudar.</p>
+                <div data-voice="llave1" data-acc="amarillo" data-autoplay="off" class="voice--compact"></div>
                 <p class="llave__hint mono">Seguí bajando para recorrer el camino, de puerta en puerta →</p>
               </div>
               <div class="door" aria-hidden="true"><span class="door__n mono">Puerta 1</span></div>
@@ -558,7 +558,7 @@
 
             <article class="llave__panel llave__panel--regalos">
               <div class="llave__voices">
-                <p class="said"><b>Voz</b>—Te voy a extrañar, hijo.</p>
+                <div data-voice="llave2" data-acc="amarillo" data-autoplay="off" class="voice--compact"></div>
                 <p class="said said--r"><b>Voz</b>—Te regalo esto, espero que te guste.</p>
               </div>
               <div class="regalos" aria-hidden="true">
@@ -573,7 +573,9 @@
 
             <article class="llave__panel llave__panel--cajones">
               <div class="llave__copy">
-                <div data-voice="llave2" data-acc="amarillo" data-autoplay="off" class="voice--compact"></div>
+                <p class="said"><b>Voz</b>—¿En dónde quedaron las llaves?</p>
+                <p class="said said--r"><b>Voz</b>—Me falta lo más importante.</p>
+                <p class="said"><b>Voz</b>—Creo que la guardaste en la mesita de luz.</p>
                 <p class="llave__ask">Abrí los cajones de la mesita de luz: en uno está la llave.</p>
               </div>
               <div class="mesita" role="group" aria-label="Cajones de la mesita de luz">
@@ -644,11 +646,11 @@
           <ol class="ronda" aria-label="Diálogo de la ronda de mate">
             <li data-line data-chair="1"><p class="said"><b>Voz 1</b>—Bueno che, al final llegamos. El último recreo del año.</p></li>
             <li data-line data-chair="2"><p class="said"><b>Voz 2</b>—Y el último mate también, ¿lo armo yo?</p></li>
-            <li data-line data-chair="3" data-drain><p class="said"><b>Voz 3</b>—Uh sí, dale… Espero que este verano no sea como siempre, eh, que nos terminamos viendo de vuelta en marzo en el aula. <span class="onoma">mate tomado</span></p></li>
-            <li data-line><p class="onoma onoma--solo">mate cebándose</p></li>
-            <li data-line data-chair="4" data-drain><p class="said"><b>Voz 4</b>—Sí, loco, hay que hacer algo. <span class="onoma">mate tomado</span></p></li>
+            <li data-line data-chair="3" data-drain="mate1"><p class="said"><b>Voz 3</b>—Uh sí, dale… Espero que este verano no sea como siempre, eh, que nos terminamos viendo de vuelta en marzo en el aula. <span data-voice="mate1" data-acc="fucsia" data-autoplay="off"></span></p></li>
+            <li data-line data-sfx="cebando"><p class="said said--sfx"><span data-voice="cebando" data-acc="fucsia" data-autoplay="off"></span></p></li>
+            <li data-line data-chair="4" data-drain="mate2"><p class="said"><b>Voz 4</b>—Sí, loco, hay que hacer algo. <span data-voice="mate2" data-acc="fucsia" data-autoplay="off"></span></p></li>
             <li data-line data-chair="2"><p class="said"><b>Voz 2</b>—Dejá, yo no les quiero ver más la cara, después de lo que laburamos este año. <span class="onoma">risas</span></p></li>
-            <li data-line data-chair="3" data-drain><p class="said"><b>Voz 3</b>—Daaa, si después andás diciendo que nos extrañás. <span class="onoma">mate tomado</span></p></li>
+            <li data-line data-chair="3" data-drain="mate3"><p class="said"><b>Voz 3</b>—Daaa, si después andás diciendo que nos extrañás. <span data-voice="mate3" data-acc="fucsia" data-autoplay="off"></span></p></li>
           </ol>
           <span class="ph">Placeholder · escenario</span>
         </div>
@@ -674,9 +676,9 @@
             <li data-line><p class="said"><b>Voz 1</b>—Buen día hijo, ¿cómo estás?</p></li>
             <li data-line><p class="said said--r"><b>Voz 3</b>—Buen día.</p></li>
             <li data-line><p class="onoma onoma--solo">click · se prende la radio</p></li>
-            <li data-line><p class="said said--r"><b>Voz 2</b>—Pasame un mate que ya me tengo que ir a laburar. <span class="onoma">mate cebándose</span></p></li>
+            <li data-line data-sfx="cebando"><p class="said said--r"><b>Voz 2</b>—Pasame un mate que ya me tengo que ir a laburar. <span data-voice="cebando" data-acc="fucsia" data-autoplay="off"></span></p></li>
             <li data-line><p class="said"><b>Voz 1</b>—Obvio amor, tomá.</p></li>
-            <li data-line><p class="said said--r"><b>Voz 2</b>—Gracias amor. <span class="onoma">mate tomado</span></p></li>
+            <li data-line data-sfx="mate4"><p class="said said--r"><b>Voz 2</b>—Gracias amor. <span data-voice="mate4" data-acc="fucsia" data-autoplay="off"></span></p></li>
             <li data-line><p class="said"><b>Voz 1</b>—Que tengas un lindo día.</p></li>
             <li data-line><p class="said said--r"><b>Voz 2</b>—Ustedes también, los amo.</p></li>
             <li data-line data-door><p class="onoma onoma--solo">pasos · rechina una puerta</p></li>
@@ -1145,7 +1147,7 @@
       </section>
       <section class="rel rel--seq" aria-label="Qué sucede">
         <h3 class="rel__h"><span class="rel__n">3</span>Qué sucede</h3>
-        <ol class="pasos"><li><span class="pasos__n">01</span><div class="pasos__body"><p>Con los Oculus puestos, recorre el escenario en wireframe. Las esferas brillan y suenan para guiarlo.</p></div></li><li><span class="pasos__n">02</span><div class="pasos__body"><p>Al acercarse a cada esfera, puede interactuar para recolectarla.</p></div></li><li><span class="pasos__n">03</span><div class="pasos__body"><p>Con las tres, un tótem igual al del aula emerge del suelo, donde antes estaban la pila chica y los Oculus, con un ruido mecánico para llamar la atención.</p></div></li><li><span class="pasos__n">04</span><div class="pasos__body"><p>Luces como las que en el aula lo guiaron antes lo llevan hasta ese tótem. Al interactuar, deposita las esferas y el tótem vuelve a meterse en el suelo.</p></div></li><li><span class="pasos__n">05</span><div class="pasos__body"><p>La voz le indica quitarse el detector: <span class="rel__said">“Encontraste el significado, depositalo en el tótem. Ya podés quitarte el detector e ir en busca de tu objeto.”</span> <span class="rel__note">Voz escrita · audio no producido.</span></p></div></li><li><span class="pasos__n">06</span><div class="pasos__body"><p>En el aula, las luces que van hacia el tótem vuelven a encenderse.</p></div></li></ol>
+        <ol class="pasos"><li><span class="pasos__n">01</span><div class="pasos__body"><p>Con los Oculus puestos, recorre el escenario en wireframe. Las esferas brillan y suenan para guiarlo.</p></div></li><li><span class="pasos__n">02</span><div class="pasos__body"><p>Al acercarse a cada esfera, puede interactuar para recolectarla.</p></div></li><li><span class="pasos__n">03</span><div class="pasos__body"><p>Con las tres, un tótem igual al del aula emerge del suelo, donde antes estaban la pila chica y los Oculus, con un ruido mecánico para llamar la atención.</p></div></li><li><span class="pasos__n">04</span><div class="pasos__body"><p>Luces como las que en el aula lo guiaron antes lo llevan hasta ese tótem. Al interactuar, deposita las esferas y el tótem vuelve a meterse en el suelo.</p></div></li><li><span class="pasos__n">05</span><div class="pasos__body"><p>La voz le indica quitarse el detector.<div data-voice="e6" data-acc="celeste" data-autoplay="off" class="voice--compact"></div></p></div></li><li><span class="pasos__n">06</span><div class="pasos__body"><p>En el aula, las luces que van hacia el tótem vuelven a encenderse.</p></div></li></ol>
       </section>
     </div>
     <div class="relato__to4">
@@ -1183,7 +1185,7 @@
           <div class="scan__end" data-e6-end hidden>
             <p class="onoma" data-e6-onoma>ruido mecánico · un tótem emerge del suelo</p>
             <button class="btn btn--solid" type="button" data-deposit>Depositar las esferas</button>
-            <p class="said" data-e6-said hidden><b>Voz en off</b>—Encontraste el significado, depositalo en el tótem. Ya podés quitarte el detector e ir en busca de tu objeto.</p>
+            <div data-e6-said hidden><div data-voice="e6" data-acc="celeste" data-autoplay="off" class="voice--compact"></div></div>
           </div>
           <span class="ph">Placeholder · escenario</span>
         </div>
@@ -1214,7 +1216,7 @@
       </section>
       <section class="rel rel--seq" aria-label="Qué sucede">
         <h3 class="rel__h"><span class="rel__n">3</span>Qué sucede</h3>
-        <ol class="pasos"><li><span class="pasos__n">01</span><div class="pasos__body"><p>Al volver al tótem, encuentra las esferas físicas con su color y su nombre; dentro está su objeto.</p></div></li><li><span class="pasos__n">02</span><div class="pasos__body"><p>Al recibirlas, el proyector reproduce el video final: <span class="rel__said">“Esto fue Memoria Material, una experiencia dispuesta a buscar en eso que te resultaba habitual.”</span> <span class="rel__note">Voz escrita · audio no producido.</span></p></div></li><li><span class="pasos__n">03</span><div class="pasos__body"><p>El equipo cuenta brevemente cómo nació el proyecto y muestra su objeto de partida.</p></div></li><li><span class="pasos__n">04</span><div class="pasos__body"><p>Al devolver los objetos, conversamos con cada participante sobre lo que vivió.</p></div></li></ol>
+        <ol class="pasos"><li><span class="pasos__n">01</span><div class="pasos__body"><p>Al volver al tótem, encuentra las esferas físicas con su color y su nombre; dentro está su objeto.</p></div></li><li><span class="pasos__n">02</span><div class="pasos__body"><p>Al recibirlas, el proyector reproduce el video final, con la voz en off.<div data-voice="cierre" data-acc="crema" data-autoplay="off" class="voice--compact"></div></p></div></li><li><span class="pasos__n">03</span><div class="pasos__body"><p>El equipo cuenta brevemente cómo nació el proyecto y muestra su objeto de partida.</p></div></li><li><span class="pasos__n">04</span><div class="pasos__body"><p>Al devolver los objetos, conversamos con cada participante sobre lo que vivió.</p></div></li></ol>
       </section>
     </div>
     <div class="relato__to4">

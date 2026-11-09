@@ -399,3 +399,13 @@ main { position: relative; z-index: 1; padding-right: var(--rail-w); }
 /* el encabezado gana un fondo al hacer scroll, para que logo e indicador no se mezclen con los títulos */
 .hdr { transition: background-color .3s; }
 .is-past-intro .hdr { background: linear-gradient(to bottom, rgb(53 42 114 / .94) 60%, rgb(53 42 114 / 0)); padding-bottom: 22px; }
+
+/* --- Efecto de sonido: píldora con play/pausa ---------------------------- */
+.sfx { display: inline-flex; align-items: center; gap: 8px; padding: 3px 10px 3px 3px; margin: 4px 0; border-radius: 999px; border: 1px solid var(--acc); vertical-align: middle; }
+.sfx .voice__play { width: 26px; height: 26px; }
+.sfx .voice__play svg { width: 11px; height: 11px; }
+.sfx .i-pause { display: none; }
+.sfx.is-playing .i-pause { display: block; }
+.sfx.is-playing .i-play { display: none; }
+.sfx.is-playing { box-shadow: 0 0 14px var(--acc); }
+.sfx__label { font-family: var(--f-mono); font-size: 11px; font-style: italic; letter-spacing: .04em; color: var(--acc); }
