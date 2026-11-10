@@ -68,6 +68,7 @@ function eco(sec) {
   if (reduce) {
     lines.forEach((l) => { l.style.position = 'relative'; l.style.opacity = 1; });
     pin.style.height = 'auto';
+    ScrollTrigger.create({ trigger: wrap, start: 'top 60%', once: true, onEnter: () => audio.autoplay('e4b', voice) }); // D-01
     return;
   }
   let played = false;

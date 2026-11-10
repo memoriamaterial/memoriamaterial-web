@@ -100,7 +100,7 @@ function e5() {
     s.innerHTML = html;
   });
 
-  if (reduce) { end.style.transform = 'none'; return; }
+  if (reduce) { end.style.transform = 'none'; ScrollTrigger.create({ trigger: end, start: 'top 70%', once: true, onEnter: () => audio.autoplay('e5', voice) }); return; } // D-01
   let played = false;
   const tl = gsap.timeline({
     defaults: { ease: 'none' },

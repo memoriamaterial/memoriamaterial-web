@@ -1,0 +1,49 @@
+/* ==========================================================================
+   D-02 · Fondos de cada sección (js/fondos.js)
+   Tramas y formas de la marca, muy suaves y lentas, detrás del contenido.
+   La "vista" es sticky: acompaña a la pantalla mientras se recorre la sección.
+   ========================================================================== */
+.stage { isolation: isolate; }
+.fondo { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: clip; }
+.fondo__vista { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.fl { position: absolute; }
+
+/* bloques de trama */
+.fl-trama { overflow: hidden; opacity: var(--o, .07); }
+.fl-trama > b { position: absolute; inset: 0; }
+.fl-trama i {
+  --ts: 56px; --tsy: 56px;
+  position: absolute; inset: calc(var(--tsy) * -3) calc(var(--ts) * -3);
+  background-color: var(--c);
+  -webkit-mask-image: var(--trama-ondas); mask-image: var(--trama-ondas);
+  -webkit-mask-size: var(--ts) var(--tsy); mask-size: var(--ts) var(--tsy);
+  animation: fondo-slide 50s linear infinite;
+}
+.fl-trama--densa i { --ts: 42px; --tsy: 28px; -webkit-mask-image: var(--trama-densa); mask-image: var(--trama-densa); }
+.fl-trama--diag > b { inset: -60%; transform: rotate(-66deg); }
+.fl-trama--diag i { --ts: 40px; --tsy: 40px; }
+@keyframes fondo-slide { to { transform: translate(calc(var(--dx) * var(--ts) * 2), calc(var(--dy) * var(--tsy) * 2)); } }
+.fl-trama.is-glitch { animation: fondo-glitch 9s steps(1) infinite; }
+@keyframes fondo-glitch { 0%, 91%, 100% { translate: 0 0; } 92% { translate: 14px -6px; } 94% { translate: -10px 4px; } 96% { translate: 6px 0; } }
+
+/* formas sueltas */
+.fl-forma { opacity: .13; rotate: var(--r); animation: fondo-float 18s ease-in-out infinite alternate; }
+.fl-forma svg { width: 100%; height: auto; overflow: visible; }
+@keyframes fondo-float { to { translate: 1.4vmax -1.8vmax; rotate: calc(var(--r) + 10deg); } }
+.fl-forma.is-fall { animation-name: fondo-fall; animation-timing-function: linear; animation-direction: normal; }
+@keyframes fondo-fall { from { translate: 0 -30vh; rotate: var(--r); } to { translate: 0 120vh; rotate: calc(var(--r) + 60deg); } }
+
+/* arcos concéntricos */
+.fl-arcos { translate: -50% -100%; opacity: .16; }
+.fl-arcos svg { width: 100%; height: auto; overflow: visible; }
+.fl-arcos path { fill: none; stroke: currentColor; stroke-width: 1.4px; vector-effect: non-scaling-stroke; animation: fondo-respira 8s ease-in-out infinite; animation-delay: calc(var(--i) * -1.6s); }
+@keyframes fondo-respira { 50% { opacity: .25; } }
+.fl-arcos.is-radar path { transform-origin: 100px 100px; animation: fondo-radar 10s linear infinite; animation-delay: calc(var(--i) * -2s); }
+@keyframes fondo-radar { from { scale: .25; opacity: 0; } 25% { opacity: 1; } to { scale: 1.15; opacity: 0; } }
+
+/* solo se mueve el fondo de la sección que está en pantalla */
+.fondo:not(.is-on) * { animation-play-state: paused !important; }
+/* reducir movimiento: los fondos quedan quietos */
+.rm .fondo, .rm .fondo * { animation: none !important; }
+@media (prefers-reduced-motion: reduce) { .fondo, .fondo * { animation: none !important; } }
+@media (max-width: 699px) { .fl-forma { opacity: .1; } .fl-trama { opacity: calc(var(--o, .07) * .8); } }

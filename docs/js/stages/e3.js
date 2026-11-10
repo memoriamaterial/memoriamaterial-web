@@ -42,6 +42,8 @@ function pasillo(sec) {
 
   main(0);
   if (reduce) {
+    // D-01: también con movimiento reducido las voces suenan solas al llegar (la segunda espera a la primera)
+    ScrollTrigger.create({ trigger: wrap, start: 'top 60%', once: true, onEnter: () => { audio.autoplay('e3a', va); audio.autoplay('e3b', vb); } });
     return; // las frases se leen como lista debajo del pasillo (main.js)
   }
 

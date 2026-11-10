@@ -91,8 +91,8 @@ function llave(sec) {
 
   // D-05: la primera voz suena entre el primer y el segundo marco de puerta
   ScrollTrigger.create({ trigger: panels[1], containerAnimation: tween, start: 'left 55%', onEnter: () => audio.autoplay('llave1', v1) });
-  ScrollTrigger.create({ trigger: panels[2], containerAnimation: tween, start: 'left 55%', onEnter: () => audio.autoplay('llave2', v2) });
-  document.addEventListener('voice:ended', (e) => { if (e.detail?.id === 'llave2' && tween.scrollTrigger.isActive) audio.autoplay('llave3', v3); });
+  // la voz 3 queda en espera y suena apenas termina la 2
+  ScrollTrigger.create({ trigger: panels[2], containerAnimation: tween, start: 'left 55%', onEnter: () => { audio.autoplay('llave2', v2); audio.autoplay('llave3', v3); } });
 
   cajones.forEach((c, i) => c.addEventListener('click', () => {
     c.classList.toggle('is-open');

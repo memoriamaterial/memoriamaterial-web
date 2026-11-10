@@ -270,11 +270,7 @@ class AudioManager {
     if (!this.enabled) return;
     if (card?.classList.contains('has-played')) return;
     const busy = this.current && !this.current.el.paused && this.current.id !== id && !VOICES[id]?.sfx;
-    if (busy) {
-      if (!this.queue.some((q) => q.id === id)) this.queue.push({ id, card });
-      if (this.queue.length > 2) this.queue.shift(); // si se baja muy rápido, solo esperan las más recientes
-      return;
-    }
+    if (busy) { if (!this.queue.some((q) => q.id === id)) this.queue.push({ id, card }); return; }
     this.play(id, card);
   }
 
@@ -304,10 +300,13 @@ class AudioManager {
     this.showSubbar(false);
     document.dispatchEvent(new CustomEvent('voice:ended', { detail: { id: c?.id } }));
     this.emit();
-    // la siguiente voz en espera, si todavía no sonó
+    // la siguiente voz en espera, si todavía no sonó y la persona sigue en su sección
     while (this.queue.length && !this.current) {
       const q = this.queue.shift();
-      if (!q.card?.classList.contains('has-played')) this.play(q.id, q.card);
+      const zone = q.card?.closest('section');
+      const r = zone?.getBoundingClientRect();
+      const here = !r || (r.top < window.innerHeight && r.bottom > 0);
+      if (here && !q.card?.classList.contains('has-played')) this.play(q.id, q.card);
     }
   }
 
