@@ -209,6 +209,9 @@ function e6() {
   const emerge = (animate) => {
     endBox.hidden = false;
     stopSweep();
+    // C-25: la voz suena al encontrar las tres esferas, antes de depositarlas
+    said.hidden = false;
+    audio.autoplay('e6', said.querySelector('[data-voice="e6"]'));
     if (animate && !reduce) {
       gsap.timeline()
         .to(totem, { yPercent: 0, duration: 1.2, ease: 'power3.out' })
@@ -223,8 +226,6 @@ function e6() {
     orbs.forEach((o) => collect(o, false));
     done = true;
     deposit.hidden = true;
-    said.hidden = false;
-    audio.autoplay('e6', said.querySelector('[data-voice="e6"]')); // la voz del final de E6
     // "quitate el detector": los objetos vuelven a verse sólidos
     const finish = () => {
       scan.classList.add('is-off');
@@ -235,7 +236,6 @@ function e6() {
         .to(tray.map((t) => t), { scale: 0, duration: 0.4, stagger: 0.1 })
         .to(totem, { yPercent: 105, duration: 1, ease: 'power2.in' }, '+=0.3')
         .to(guide, { opacity: 0, duration: 0.4 }, '<')
-        .from(said, { opacity: 0, y: 12, duration: 0.5 }, '<')
         .add(finish, '+=0.4');
     } else { gsap.set(totem, { yPercent: 105 }); finish(); }
   };
