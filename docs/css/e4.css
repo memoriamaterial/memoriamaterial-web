@@ -111,3 +111,7 @@
 @keyframes smoke { 0% { transform: translateY(40%) scale(.4); opacity: 0; } 30% { opacity: .9; } 100% { transform: translateY(-80%) scale(1.5); opacity: 0; } }
 .e4-humo__copy { display: grid; gap: var(--s-5); }
 .e4-humo__copy .title { font-size: var(--t-xl); max-width: 20ch; }
+
+/* C-23: el título "Objetos perdidos" con menos aire alrededor */
+.e4-flash { min-height: 0; padding-block: var(--s-8) var(--s-8); }
+.e4-flash__copy { gap: var(--s-4); }
