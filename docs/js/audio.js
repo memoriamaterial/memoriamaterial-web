@@ -110,6 +110,7 @@ class AudioManager {
     this.noiseGain = null;
     this.noiseLevel = 0.006; // C-03: ruido blanco apenas perceptible (antes 0.022)
     this.current = null;   // { id, el, card }
+    this.queue = [];       // voces que esperan a que termine la que suena
     this.cards = new Map(); // id -> [cards]
     this.listeners = new Set();
     this.subbar = null;
@@ -135,6 +136,7 @@ class AudioManager {
 
   disable() {
     this.enabled = false;
+    this.queue = [];
     this.fadeNoise(0, 0.4);
     if (this.current) this.pause();
     this.emit();
@@ -263,9 +265,16 @@ class AudioManager {
   }
 
   // Reproduce sola solo si el sonido está activado y nunca sonó esta voz.
+  // D-01/D-08: si otra voz está sonando, la nueva espera a que termine (no la corta).
   autoplay(id, card) {
     if (!this.enabled) return;
     if (card?.classList.contains('has-played')) return;
+    const busy = this.current && !this.current.el.paused && this.current.id !== id && !VOICES[id]?.sfx;
+    if (busy) {
+      if (!this.queue.some((q) => q.id === id)) this.queue.push({ id, card });
+      if (this.queue.length > 2) this.queue.shift(); // si se baja muy rápido, solo esperan las más recientes
+      return;
+    }
     this.play(id, card);
   }
 
@@ -295,6 +304,11 @@ class AudioManager {
     this.showSubbar(false);
     document.dispatchEvent(new CustomEvent('voice:ended', { detail: { id: c?.id } }));
     this.emit();
+    // la siguiente voz en espera, si todavía no sonó
+    while (this.queue.length && !this.current) {
+      const q = this.queue.shift();
+      if (!q.card?.classList.contains('has-played')) this.play(q.id, q.card);
+    }
   }
 
   tick() {
