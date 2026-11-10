@@ -89,3 +89,11 @@
 
 /* la etapa de cierre usa crema como acento */
 .cierre .relato { --acc: var(--crema); }
+
+/* C-09: ficha solo con la Mecánica (Bienvenida) */
+@media (min-width: 1000px) { .relato__grid--solo .rel--mec { grid-column: 1 / 9; } }
+
+/* C-10: texto de contexto entre el video de bienvenida y la Etapa 1 */
+.contexto { display: grid; align-items: center; min-height: 80vh; min-height: 80svh; }
+.contexto__in { display: grid; gap: var(--s-5); }
+.contexto__txt { font-size: var(--t-xl); font-weight: 500; line-height: 1.2; letter-spacing: -.015em; max-width: 32ch; text-wrap: balance; }

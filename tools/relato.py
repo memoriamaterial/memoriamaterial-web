@@ -87,15 +87,7 @@ STAGES = {
         lead='Todo empieza en el aula, frente al proyector, antes de sentarse en las estaciones.',
         mec='Los participantes entran al aula y miran el video de bienvenida en el proyector. Todavía no usan ningún dispositivo: miran, escuchan y después cada uno va a su estación.',
         facts=[('Dónde', lugar('fisico')), ('Dispositivo', 'Ninguno: miran el proyector'), ('Qué hace', 'Mira el video y se acerca a su estación')],
-        fig='<div class="rel__aula" data-aula-focus="proyector"></div>',
-        esc='El aula a oscuras, con ruido blanco. Tres computadoras encendidas con luz blanca y el proyector prendido.',
-        pasos=[
-            (None, 'Los participantes entran al aula a oscuras; se escucha ruido blanco.'),
-            (None, 'El proyector muestra el video de bienvenida: un motion de texto con voz en off.'),
-            (None, 'En el video aparecen escenas cotidianas en las que ciertos objetos se resaltan con color, con los recursos gráficos de la marca.'),
-            (None, 'La voz da la bienvenida y explica la experiencia: ' + said('“Bienvenido a Memoria Material, una experiencia donde vas a darle una nueva mirada a lo cotidiano.”') + ' <span class="rel__note">Voz escrita · el audio del video no está producido.</span>'),
-            (None, 'Al terminar, se indica a cada participante que se acerque a su estación. Allí se inicia la experiencia en Unreal.'),
-        ],
+        # C-09: en la Bienvenida quedan solo la Mecánica y la Interacción
         inter='El video de bienvenida, cuadro por cuadro, a medida que bajás.'),
 
     'e1': dict(
@@ -114,7 +106,7 @@ STAGES = {
             (None, 'Con las tres conexiones, la plataforma se eleva y revela la Cúpula del Reencuadre.'),
             (None, 'Se entra a la cúpula por una puerta; al atravesarla empieza la Etapa 2.'),
         ],
-        inter='Tocá una esfera para escucharla y después el objeto que le corresponde. Si seguís bajando, las conexiones se hacen solas.'),
+        inter='Hacé clic en una esfera para escucharla y después en el objeto que le corresponde. Si seguís bajando, las conexiones se hacen solas.'),
 
     'e2': dict(
         where='unreal', acc='fucsia', num='Etapa 02', title='El mundo de los objetos',
@@ -178,7 +170,7 @@ STAGES = {
             (None, 'Las luces del aula y el proyector se apagan; las luces LED vuelven a guiar al tótem. Al acercarse, saliendo de nuevo de Unreal, donde estaban los objetos solo hay humo.'),
             (None, 'El proyector vuelve a encenderse con un video en el que la voz les habla directamente a los profesores y presenta la Etapa 5.'),
         ],
-        inter='Tocá las esferas apagadas y los cajones que no se abren; después, seguí bajando hasta el tótem con humo.'),
+        inter='Hacé clic en las esferas apagadas y en los cajones que no se abren; después, seguí bajando hasta el tótem con humo.'),
 
     'e5': dict(
         where='unreal', acc='amarillo', num='Etapa 05', title='Obsesión con la pérdida',
@@ -211,7 +203,7 @@ STAGES = {
             (None, 'La voz le indica quitarse el detector.' + voice('e6', 'celeste', auto=False)),
             (None, 'En el aula, las luces que van hacia el tótem vuelven a encenderse.'),
         ],
-        inter='Mové el detector con el cursor o el dedo y tocá las esferas que brillan.'),
+        inter='Mové el detector con el cursor y hacé clic en las esferas que brillan.'),
 
     'cierre': dict(
         where='fisico', acc='crema', num='Cierre', title='El reencuentro',
@@ -232,15 +224,28 @@ STAGES = {
 
 def build(key, d):
     acc = d['acc']
-    facts = ''.join(f'<div><dt>{a}</dt><dd>{b}</dd></div>' for a, b in d['facts'])
+    facts = ''.join(f'<div><dt>{a}</dt><dd>{b}</dd></div>' for a, b in d.get('facts', []))
     items, n = [], 0
-    for t, body in d['pasos']:
+    for t, body in d.get('pasos', []):
         if t == 'grupo':
             items.append(f'<li class="pasos__grupo">{body}</li>')
             continue
         n += 1
         when = f'<span class="pasos__when">{t}</span>' if t else ''
         items.append(f'<li><span class="pasos__n">{n:02d}</span><div class="pasos__body">{when}<p>{body}</p></div></li>')
+    facts_html = f'\n        <dl class="rel__facts">{facts}</dl>' if d.get('facts') else ''
+    esc_html = f'''
+      <section class="rel rel--esc" aria-label="Escenario">
+        <h3 class="rel__h"><span class="rel__n">2</span>Escenario</h3>
+        <figure class="rel__fig">{d['fig']}</figure>
+        <p class="rel__p">{d['esc']}</p>
+      </section>''' if d.get('esc') else ''
+    seq_html = f'''
+      <section class="rel rel--seq" aria-label="Qué sucede">
+        <h3 class="rel__h"><span class="rel__n">3</span>Qué sucede</h3>
+        <ol class="pasos">{''.join(items)}</ol>
+      </section>''' if items else ''
+    solo = '' if (esc_html or seq_html) else ' relato__grid--solo'
     return f'''<div class="relato" data-where="{d['where']}" style="--acc:var(--{acc})">
   <div class="wrap">
     <header class="relato__head">
@@ -248,21 +253,11 @@ def build(key, d):
       <h2 class="display relato__title" data-split>{d['title']}</h2>
       <p class="lead relato__lead">{d['lead']}</p>
     </header>
-    <div class="relato__grid">
+    <div class="relato__grid{solo}">
       <section class="rel rel--mec" aria-label="Mecánica">
         <h3 class="rel__h"><span class="rel__n">1</span>Mecánica</h3>
-        <p class="rel__p">{d['mec']}</p>
-        <dl class="rel__facts">{facts}</dl>
-      </section>
-      <section class="rel rel--esc" aria-label="Escenario">
-        <h3 class="rel__h"><span class="rel__n">2</span>Escenario</h3>
-        <figure class="rel__fig">{d['fig']}</figure>
-        <p class="rel__p">{d['esc']}</p>
-      </section>
-      <section class="rel rel--seq" aria-label="Qué sucede">
-        <h3 class="rel__h"><span class="rel__n">3</span>Qué sucede</h3>
-        <ol class="pasos">{''.join(items)}</ol>
-      </section>
+        <p class="rel__p">{d['mec']}</p>{facts_html}
+      </section>{esc_html}{seq_html}
     </div>
     <div class="relato__to4">
       <h3 class="rel__h"><span class="rel__n">4</span>Interacción</h3>

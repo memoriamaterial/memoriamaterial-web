@@ -32,7 +32,8 @@ export function init() {
   if (reduce) return;
   document.querySelectorAll('.relato').forEach((rel) => {
     gsap.from(rel.querySelectorAll('.rel'), { y: 30, opacity: 0, duration: 0.7, stagger: 0.12, ease: 'power3.out', scrollTrigger: { trigger: rel.querySelector('.relato__grid'), start: 'top 82%', once: true } });
-    gsap.from(rel.querySelectorAll('.pasos > li'), { y: 14, opacity: 0, duration: 0.45, stagger: 0.05, ease: 'power2.out', scrollTrigger: { trigger: rel.querySelector('.pasos'), start: 'top 85%', once: true } });
+    const pasos = rel.querySelector('.pasos'); // la Bienvenida no tiene "Qué sucede" (C-09)
+    if (pasos) gsap.from(pasos.children, { y: 14, opacity: 0, duration: 0.45, stagger: 0.05, ease: 'power2.out', scrollTrigger: { trigger: pasos, start: 'top 85%', once: true } });
     gsap.from(rel.querySelector('.relato__to4'), { y: 20, opacity: 0, duration: 0.6, ease: 'power3.out', scrollTrigger: { trigger: rel.querySelector('.relato__to4'), start: 'top 90%', once: true } });
   });
 }
