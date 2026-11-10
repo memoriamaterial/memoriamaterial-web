@@ -12,6 +12,11 @@ export function init() {
     sec.classList.add('is-static');
     staticFallback(sec);
     cerradura(sec.querySelector('.llave'), null); // obligatoria también sin animaciones
+    // D-01: las voces del mundo de la llave también suenan solas (los paneles van uno debajo del otro)
+    const [p1, p2] = [...sec.querySelectorAll('.llave__panel')].slice(1, 3);
+    const v = (k) => sec.querySelector(`[data-voice="${k}"]`);
+    ScrollTrigger.create({ trigger: p1, start: 'top 60%', once: true, onEnter: () => audio.autoplay('llave1', v('llave1')) });
+    ScrollTrigger.create({ trigger: p2, start: 'top 60%', once: true, onEnter: () => { audio.autoplay('llave2', v('llave2')); audio.autoplay('llave3', v('llave3')); } });
     return;
   }
   llave(sec);
