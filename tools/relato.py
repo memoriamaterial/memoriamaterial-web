@@ -196,7 +196,7 @@ STAGES = {
             (None, 'Al volver al tótem, encuentra las esferas físicas con su color y su nombre; dentro está su objeto.'),
             (None, 'Al recibirlas, el proyector reproduce el video final, con la voz en off.' + voice('cierre', 'crema', auto=False)),
             (None, 'El equipo cuenta brevemente cómo nació el proyecto y muestra su objeto de partida.'),
-            (None, 'Al devolver los objetos, conversamos con cada participante sobre lo que vivió.'),
+            (None, 'Al devolver los objetos, les preguntamos a los participantes si quieren contar por qué lo eligieron.'),
         ],
         inter='Las esferas, el video final y la conversación con la que termina la experiencia.'),
 }

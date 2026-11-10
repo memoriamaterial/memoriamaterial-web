@@ -106,7 +106,7 @@ yo los optimizo y los copio a `docs/assets/`.
   - *Hoy:* íconos provisorios (llave, ojo, cerebro). PLACEHOLDER.
 - [ ] **12.** ¿Qué "nombre" lleva cada esfera física del cierre (rosa, amarilla, celeste)?
   - *Hoy:* nombres de ejemplo. PENDIENTE.
-- [ ] **13.** Cierre: cómo nació el proyecto, el objeto de partida (foto), integrantes, materia, cátedra y año.
+- [ ] **13.** Cierre: cómo nació el proyecto y el objeto de partida (foto). (Integrantes, materia, cátedra y año ya no van: C-28.)
   - *Hoy:* textos de ejemplo. PENDIENTE.
 - [x] **14.** Las interacciones nunca bloquean el recorrido. Confirmado, con **una excepción**: la cerradura
   gigante del mundo de la llave, donde el scroll se detiene hasta que la llave entra en la cerradura.
@@ -146,14 +146,9 @@ yo los optimizo y los copio a `docs/assets/`.
 
 ## Preguntas de la devolución (Cierre)
 
-- [ ] **24.** Al final, al devolver los objetos, el equipo conversa con cada participante. En el guion hay una sola
-  pregunta, que se usa tal cual: *"¿Y ahora, habiendo experimentado nuestro recorrido, te gustaría contarnos por qué
-  elegiste este objeto?"*. Se proponen cinco más (marcadas PENDIENTE en la web). Confirmar, cambiar o sacar:
-  1. ¿Qué objeto te vino a la mente cuando la voz te pidió elegir uno? ¿Por qué ese?
-  2. ¿Qué sentiste cuando fuiste al tótem y tu objeto ya no estaba?
-  3. ¿En qué momento del recorrido te sentiste más cerca de tu propia historia?
-  4. ¿Qué sentiste al recibir tu objeto adentro de la esfera?
-  5. ¿Cambió en algo tu mirada sobre las cosas de todos los días? ¿Hay otro objeto que ahora mirarías distinto?
+- [x] **24.** Resuelto por C-27: la parte final termina solo con la pregunta del guion, *"¿Y ahora, habiendo
+  experimentado nuestro recorrido, te gustaría contarnos por qué elegiste este objeto?"*. Se sacaron las cinco
+  preguntas propuestas.
 
 ## Dónde está la persona (indicador "Estás en")
 
