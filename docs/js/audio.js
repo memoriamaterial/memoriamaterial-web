@@ -108,7 +108,7 @@ class AudioManager {
     this.enabled = false;
     this.ctx = null;
     this.noiseGain = null;
-    this.noiseLevel = 0.022;
+    this.noiseLevel = 0.006; // C-03: ruido blanco apenas perceptible (antes 0.022)
     this.current = null;   // { id, el, card }
     this.cards = new Map(); // id -> [cards]
     this.listeners = new Set();
@@ -179,7 +179,7 @@ class AudioManager {
 
   // Nivel del ruido por escenario (E4 lo sube, por ejemplo).
   setAmbience(mult = 1, cutoff = 2200) {
-    this.noiseLevel = 0.022 * mult;
+    this.noiseLevel = 0.006 * mult;
     if (this.noiseFilter) this.noiseFilter.frequency.setTargetAtTime(cutoff, this.ctx.currentTime, 0.4);
     if (this.enabled) this.fadeNoise(this.noiseLevel, 1.2);
   }

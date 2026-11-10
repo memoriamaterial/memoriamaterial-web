@@ -4,6 +4,7 @@
 - Voces: las pausas internas de más de 0,7 s se acortan a ~0,5 s (0,25 s a cada lado).
 - Efectos (mate): solo principio y final.
 - El umbral de silencio se calcula por archivo, según su propio piso de ruido y su nivel.
+- Los originales traen sonido solo en el canal izquierdo: se copia a los dos canales.
 - Exporta MP3 con la misma calidad del original: 128 kbps CBR si el original es CBR,
   VBR de máxima calidad (V0) si el original es VBR.
 
@@ -87,11 +88,8 @@ def recortar(src, dst, tipo):
                 cur = nxt[0] - PAUSA_LADO
                 pausas.append(round(gap, 2))
         keep.append([cur, b])
-    if a < 0.01 and dur - b < 0.01 and len(keep) == 1:   # nada que cortar: se copia sin recodificar
-        shutil.copyfile(src, dst)
-        return dict(umbral=round(thr, 1), antes=round(dur, 2), despues=round(dur, 2), corte_inicio=0.0, corte_final=0.0, pausas_acortadas=[], copiado=True)
     parts = ''.join(f'[0:a]atrim=start={s:.3f}:end={e:.3f},asetpts=PTS-STARTPTS[p{i}];' for i, (s, e) in enumerate(keep))
-    graph = parts + ''.join(f'[p{i}]' for i in range(len(keep))) + f'concat=n={len(keep)}:v=0:a=1[out]'
+    graph = parts + ''.join(f'[p{i}]' for i in range(len(keep))) + f'concat=n={len(keep)}:v=0:a=1,pan=stereo|c0=c0|c1=c0[out]'  # C-04: el canal izquierdo en los dos lados
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', src, '-filter_complex', graph, '-map', '[out]',
                     '-ar', '48000', '-ac', '2', '-c:a', 'libmp3lame', *calidad(src), dst], check=True)
     nueva = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', dst], capture_output=True, text=True).stdout)

@@ -87,6 +87,16 @@ yo los optimizo y los copio a `docs/assets/`.
   5. **`Etapa-3-Parte-2` va más rápido de lo esperado para su texto:** los tiempos de sus subtítulos son
      aproximados. Si la grabación usa otras palabras, pasame el texto exacto.
 
+## Correcciones (correcciones/CORRECCIONES.md) que esperan material
+
+- [ ] **26. C-05 · Subtítulos literales.** La regla nueva es que cada subtítulo diga exactamente lo que
+  dice su audio (reemplaza la de sacar el lenguaje de videojuego). El **Anexo A** de CORRECCIONES.md
+  llegó vacío, así que no se cambió ningún subtítulo: siguen los actuales. Cuando esté la transcripción
+  textual de cada audio, se reemplazan uno por uno (esto también resuelve #21 y #25).
+- [ ] **27. C-06 · Favicon con el logo reducido.** El archivo `referencias/logo-reducido` (SVG o PNG) no
+  vino en la carpeta de correcciones. Sigue el favicon actual; cuando esté el archivo, se generan los
+  tamaños (16, 32, 180, 192 y 512 px, más el SVG).
+
 ## Contenido
 
 - [ ] **11.** Puerta de E3: ¿cuáles son los 3 íconos y cuál es el correcto? ¿Qué muestra el holograma?

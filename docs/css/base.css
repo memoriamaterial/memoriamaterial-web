@@ -151,8 +151,14 @@ body {
 .acc { color: var(--acc); }
 .c-amarillo { color: var(--amarillo); } .c-celeste { color: var(--celeste); } .c-fucsia { color: var(--fucsia); }
 
-/* Para animaciones de texto (SplitText) */
-.split-line { overflow: clip; padding-bottom: .06em; margin-bottom: -.06em; }
+/* Para animaciones de texto (SplitText).
+   C-02: las máscaras recortan a la altura del renglón y el interlineado de los títulos es muy
+   apretado, así que las tildes de las mayúsculas (Á É Í Ó Ú) quedaban cortadas. Cada máscara gana
+   espacio arriba (y abajo, para los descendentes) y lo compensa con margen negativo. */
+.split-line { overflow: visible; }
+[data-split] [style*="overflow: clip"], [data-vsplit] [style*="overflow: clip"], .entrada__promesa [style*="overflow: clip"] {
+  padding-top: .24em; margin-top: -.24em; padding-bottom: .1em; margin-bottom: -.1em;
+}
 
 /* --- Botones -------------------------------------------------------------- */
 .btn {
