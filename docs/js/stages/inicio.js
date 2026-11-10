@@ -72,13 +72,13 @@ function lema() {
   if (reduce) return;
   lines.forEach((line, i) => {
     const w = line.querySelector('.lema__w');
-    const pill = line.querySelector('.lema__pill');
+    const pill = line.querySelector('.lema__forma');
     const note = line.querySelector('.lema__note');
     const tl = gsap.timeline({
       scrollTrigger: { trigger: line, start: 'top 92%', end: 'top 55%', scrub: 0.6 },
     });
     tl.from(w, { yPercent: 40, opacity: 0, ease: 'power2.out' })
-      .from(pill, { scaleX: 0, ease: 'power3.out' }, '<0.15');
+      .from(pill, { scale: 0, transformOrigin: 'left center', ease: 'power3.out' }, '<0.15');
     if (note) tl.from(note, { opacity: 0, y: 6 }, '<0.2');
   });
 }
@@ -171,6 +171,4 @@ function aula() {
     .from(spots, { scale: 0, opacity: 0, duration: 0.4, stagger: 0.06, ease: 'back.out(2)' }, 1.6)
     .from(legend.children, { opacity: 0, y: 8, duration: 0.3, stagger: 0.04 }, 1.7);
 
-  const items = sec.querySelectorAll('.circuito__list li');
-  gsap.from(items, { opacity: 0, y: 20, duration: 0.5, stagger: 0.08, ease: 'power2.out', scrollTrigger: { trigger: '.circuito', start: 'top 85%', once: true } });
 }

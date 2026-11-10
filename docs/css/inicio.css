@@ -199,3 +199,7 @@
   .aula__map .spot { width: 36px; height: 36px; }
   .aula__map .spot__n { width: 22px; height: 22px; font-size: 11px; }
 }
+
+/* C-07: elementos gráficos de la marca (las formas de las tramas) en lugar de círculos y píldoras */
+.lema__forma { flex: none; width: 1.3em; height: .65em; color: var(--c); overflow: visible; filter: drop-shadow(0 0 14px color-mix(in srgb, var(--c) 45%, transparent)); }
+.lema__forma--media { width: 1.1em; height: .55em; }
