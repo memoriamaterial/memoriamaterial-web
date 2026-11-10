@@ -101,3 +101,15 @@
 /* C-12: renglones dentro de un paso (una esfera por renglón) */
 .pasos__linea { display: block; margin-top: 8px; padding-left: 12px; border-left: 2px solid var(--ink-20); }
 .pasos__linea b { font-weight: 600; margin-right: .3em; }
+
+/* C-16: cada mundo de la Etapa 2 como bloque propio, con el mismo formato que la ficha */
+.mundo { position: relative; padding: calc(var(--s-9) + env(safe-area-inset-top)) var(--gutter) var(--s-8); }
+.mundo::before {
+  content: ""; position: absolute; left: var(--gutter); right: var(--gutter); top: var(--s-6); height: 10px;
+  background-color: var(--acc); opacity: .5;
+  -webkit-mask-image: var(--trama-ondas); mask-image: var(--trama-ondas); -webkit-mask-size: 20px 20px; mask-size: 20px 20px;
+}
+.mundo__in { display: grid; gap: var(--s-7); }
+.mundo__head { display: grid; gap: var(--s-3); }
+.mundo__title { font-size: var(--t-2xl); }
+.mundo .rel--seq { grid-column: auto; }

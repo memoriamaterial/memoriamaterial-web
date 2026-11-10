@@ -96,6 +96,9 @@ yo los optimizo y los copio a `docs/assets/`.
 - [ ] **27. C-06 · Favicon con el logo reducido.** El archivo `referencias/logo-reducido` (SVG o PNG) no
   vino en la carpeta de correcciones. Sigue el favicon actual; cuando esté el archivo, se generan los
   tamaños (16, 32, 180, 192 y 512 px, más el SVG).
+- [ ] **28. C-19 · Audio de "¡Sí! Acá están."** No hay ningún audio con esa frase entre los que llegaron
+  (el que estaba como "Voz 3" dice "Te regalo esto, espero que te guste" y ahora suena en los regalos).
+  Al abrir la cerradura la frase queda solo como texto. Cuando se grabe, va en `data-found` (Etapa 2).
 
 ## Contenido
 

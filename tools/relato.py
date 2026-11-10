@@ -116,28 +116,12 @@ STAGES = {
         lead='Cuando cambia el significado de un objeto, es porque cambia el punto de vista desde el que lo mirás.',
         mec='En Unreal, desde la computadora de su estación, el participante se acerca a cada objeto gigante y entra a su mundo por una abertura. Los recorre en un orden fijo (llave, mate y cuaderno) y en cada uno realiza una acción ligada al uso del objeto: encuentra la llave, se sienta en la ronda y sigue las hojas del cuaderno.',
         fig=TRIO,
-        esc='Los tres objetos de la etapa anterior, otra vez gigantes, dentro de la cúpula. El que hay que recorrer primero aparece en color; los demás, en blanco y negro. Al salir de cada mundo se vuelve a la cúpula: el objeto recorrido pasa a blanco y negro y se colorea el siguiente.',
+        # C-15: se eliminó el texto del escenario (los objetos no están dentro de la cúpula)
+        # C-16: en "Qué sucede" queda solo la voz en off; cada mundo tiene su bloque antes de su interacción
         pasos=[
             ('Al ingresar', 'La voz en off presenta la etapa.' + voice('e2', 'fucsia')),
-            ('grupo', 'Mundo de la llave · una mudanza'),
-            (None, 'Al entrar se escucha ' + said('“Llegó el día, por fin me voy a mudar.”') + ' Se recorre un camino a través de cuatro marcos de puerta.'),
-            (None, 'Entre la primera y la segunda puerta, cajas de mudanza de distintos tamaños.'),
-            (None, 'Entre la segunda y la tercera, ' + said('“Te voy a extrañar, hijo”') + ' y ' + said('“Te regalo esto, espero que te guste”') + ', entre objetos que se regalan a quien se muda: sartén, toallas, decoración, lámpara, muebles.'),
-            (None, 'Entre la tercera y la cuarta, ' + said('“¿En dónde quedaron las llaves?”') + ', ' + said('“Me falta lo más importante”') + ', ' + said('“Creo que la guardaste en la mesita de luz”') + '. Hay tres cajones: en uno está la llave.'),
-            (None, 'Tras la cuarta puerta, una cerradura gigante con el pasador cerrado y una última abertura detrás. Con la llave se abre: ' + said('“¡Sí! Acá están.”')),
-            ('grupo', 'Mundo del mate · una ronda'),
-            (None, 'Se entra por la base del mate. El piso es un gran charco (se escucha el chapoteo) con sillas flotando y otras caídas. En el centro, la única silla de pie y en color.'),
-            (None, 'Al sentarse, las sillas se acomodan en ronda y empieza el diálogo del último recreo del año. Cada silla que habla se colorea e ilumina.'),
-            (None, 'Cada vez que se escucha el mate tomado, el agua baja, hasta revelar en el centro de la ronda un hueco iluminado que lleva al segundo escenario.'),
-            (None, 'Todo se oscurece y se escuchan pájaros. Se prende la hornalla con una pava vieja, se oye un bostezo y unas persianas: se abren ventanas rectangulares con una luz anaranjada que sube como la salida del sol.'),
-            (None, 'Una mañana en familia: ' + said('“Buen día hijo, ¿cómo estás?”') + ', se prende la radio, se ceba un mate. Al final, pasos y una puerta que se abre con luz blanca: ' + said('“Bueno, nos vemos a la noche.”') + ' Al pasar, el portazo.'),
-            ('grupo', 'Mundo del cuaderno · anotaciones'),
-            (None, 'Cuadernos y hojas flotantes. Las hojas se ordenan frente al participante y forman un camino de plataformas hacia el siguiente cuaderno.'),
-            (None, 'Cuaderno de materiales: ruido de obra, la cámara tiembla y se levanta polvo. Un diálogo sobre un escritorio nuevo; las anotaciones se escriben flotando a medida que se habla.'),
-            (None, 'Cuaderno de recetas: el escenario pasa de violeta a crema, se escucha algo que se bate y aparecen postres caseros. La abuela dicta la receta; al caer sobre las hojas se levantan nubes de harina, y al nombrar el horno todo se ve más anaranjado.'),
-            (None, 'El último cuaderno, el más grande y abierto de par en par, tiene la salida dibujada en sus hojas: lleva a la Etapa 3.'),
         ],
-        inter='Recorré los tres mundos: abrí los cajones y llevá la llave hasta la cerradura (es la única acción necesaria para continuar), sentate en la ronda y seguí las hojas del cuaderno.'),
+        inter='Cada mundo se explica primero y después se recorre: abrí los cajones y llevá la llave hasta la cerradura (es la única acción necesaria para continuar), sentate en la ronda y seguí las hojas del cuaderno.'),
 
     'e3': dict(
         where='unreal', acc='celeste', num='Etapa 03', title='Una extensión del yo',
@@ -219,6 +203,60 @@ STAGES = {
 }
 
 
+# C-16: los mundos de la Etapa 2, cada uno como bloque propio, antes de su interacción
+MUNDOS = {
+    'llave': dict(acc='amarillo', titulo='Mundo de la llave', sub='Una mudanza',
+        pasos=[
+            (None, 'Al entrar se escucha ' + said('“Llegó el día, por fin me voy a mudar.”') + ' Se recorre un camino a través de cuatro marcos de puerta.'),
+            (None, 'Entre la primera y la segunda puerta, cajas de mudanza de distintos tamaños.'),
+            (None, 'Entre la segunda y la tercera, ' + said('“Te voy a extrañar, hijo”') + ' y ' + said('“Te regalo esto, espero que te guste”') + ', entre objetos que se regalan a quien se muda: sartén, toallas, decoración, lámpara, muebles.'),
+            (None, 'Entre la tercera y la cuarta, ' + said('“¿En dónde quedaron las llaves?”') + ', ' + said('“Me falta lo más importante”') + ', ' + said('“Creo que la guardaste en la mesita de luz”') + '. Hay tres cajones: en uno está la llave.'),
+            (None, 'Tras la cuarta puerta, una cerradura gigante con el pasador cerrado y una última abertura detrás. Con la llave se abre: ' + said('“¡Sí! Acá están.”')),
+        ],
+        inter='Recorré el camino de puerta en puerta, abrí los cajones y llevá la llave hasta la cerradura.'),
+    'mate': dict(acc='fucsia', titulo='Mundo del mate', sub='Una ronda',
+        pasos=[
+            (None, 'Se entra por la base del mate. El piso es un gran charco (se escucha el chapoteo) con sillas flotando y otras caídas. En el centro, la única silla de pie y en color.'),
+            (None, 'Al sentarse, las sillas se acomodan en ronda y empieza el diálogo del último recreo del año. Cada silla que habla se colorea e ilumina.'),
+            (None, 'Cada vez que se escucha el mate tomado, el agua baja, hasta revelar en el centro de la ronda un hueco iluminado que lleva al segundo escenario.'),
+            (None, 'Todo se oscurece y se escuchan pájaros. Se prende la hornalla con una pava vieja, se oye un bostezo y unas persianas: se abren ventanas rectangulares con una luz anaranjada que sube como la salida del sol.'),
+            (None, 'Una mañana en familia: ' + said('“Buen día hijo, ¿cómo estás?”') + ', se prende la radio, se ceba un mate. Al final, pasos y una puerta que se abre con luz blanca: ' + said('“Bueno, nos vemos a la noche.”') + ' Al pasar, el portazo.'),
+        ],
+        inter='Sentate en la silla de color y seguí la ronda; después, la mañana.'),
+    'cuaderno': dict(acc='celeste', titulo='Mundo del cuaderno', sub='Anotaciones',
+        pasos=[
+            (None, 'Cuadernos y hojas flotantes. Las hojas se ordenan frente al participante y forman un camino de plataformas hacia el siguiente cuaderno.'),
+            (None, 'Cuaderno de materiales: ruido de obra, la cámara tiembla y se levanta polvo. Un diálogo sobre un escritorio nuevo; las anotaciones se escriben flotando a medida que se habla.'),
+            (None, 'Cuaderno de recetas: el escenario pasa de violeta a crema, se escucha algo que se bate y aparecen postres caseros. La abuela dicta la receta; al caer sobre las hojas se levantan nubes de harina, y al nombrar el horno todo se ve más anaranjado.'),
+            (None, 'El último cuaderno, el más grande y abierto de par en par, tiene la salida dibujada en sus hojas: lleva a la Etapa 3.'),
+        ],
+        inter='Seguí las hojas: el cuaderno de materiales, el de recetas y la salida dibujada.'),
+}
+
+
+def build_mundo(key, d):
+    items = ''.join(f'<li><span class="pasos__n">{n:02d}</span><div class="pasos__body"><p>{body}</p></div></li>' for n, (t, body) in enumerate(d['pasos'], 1))
+    return f'''<!-- mundo:{key} -->
+      <div class="mundo" style="--acc:var(--{d['acc']})">
+        <div class="wrap mundo__in">
+          <header class="mundo__head">
+            <p class="stage-num">Etapa 02 · {d['titulo']}</p>
+            <h3 class="title mundo__title">{d['sub']}</h3>
+          </header>
+          <section class="rel rel--seq" aria-label="Qué sucede en el {d['titulo'].lower()}">
+            <h4 class="rel__h"><span class="rel__n">3</span>Qué sucede</h4>
+            <ol class="pasos">{items}</ol>
+          </section>
+          <div class="relato__to4">
+            <h4 class="rel__h"><span class="rel__n">4</span>Interacción</h4>
+            <p class="rel__p">{d['inter']}</p>
+            <span class="relato__cue" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+          </div>
+        </div>
+      </div>
+      <!-- /mundo:{key} -->'''
+
+
 def build(key, d):
     acc = d['acc']
     facts = ''.join(f'<div><dt>{a}</dt><dd>{b}</dd></div>' for a, b in d.get('facts', []))
@@ -235,8 +273,8 @@ def build(key, d):
       <section class="rel rel--esc" aria-label="Escenario">
         <h3 class="rel__h"><span class="rel__n">2</span>Escenario</h3>
         <figure class="rel__fig">{d['fig']}</figure>
-        <p class="rel__p">{d['esc']}</p>
-      </section>''' if d.get('esc') else ''
+        {('<p class="rel__p">' + d['esc'] + '</p>') if d.get('esc') else ''}
+      </section>''' if d.get('fig') else ''
     seq_html = f'''
       <section class="rel rel--seq" aria-label="Qué sucede">
         <h3 class="rel__h"><span class="rel__n">3</span>Qué sucede</h3>
@@ -266,4 +304,6 @@ def build(key, d):
 
 
 if __name__ == '__main__':
-    print(json.dumps({k: build(k, d) for k, d in STAGES.items()}, ensure_ascii=False))
+    out = {k: build(k, d) for k, d in STAGES.items()}
+    out.update({f'mundo:{k}': build_mundo(k, d) for k, d in MUNDOS.items()})
+    print(json.dumps(out, ensure_ascii=False))

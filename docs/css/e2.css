@@ -232,3 +232,32 @@
 
 /* línea de la ronda que es solo un sonido */
 .said--sfx { background: none; border: 0; padding: 4px 0; }
+
+/* C-18: la llave del cajón es la que se arrastra (empieza chica y acostada dentro del segundo cajón) */
+.mesita .llave-drag { position: absolute; z-index: 5; left: 50%; top: 120px; margin: -68px 0 0 -26px; width: 52px; height: 136px; }
+.mesita:not(.is-llave) .llave-drag { opacity: 0; pointer-events: none; }
+.mesita.is-dragging { z-index: 30; }
+.llave-drag:not(.is-in) { color: var(--amarillo); filter: drop-shadow(0 0 10px var(--amarillo)); }
+
+/* C-18: cerradura rediseñada: un pasador redondeado que entra en el soporte del marco de la puerta */
+.cerradura__bolt { left: 82%; top: 56%; width: 44%; height: 9%; border-radius: 999px; background: var(--violeta); border: 4px solid var(--crema); box-shadow: inset 0 0 0 4px rgb(242 237 212 / .18); }
+.cerradura__bolt::after { content: ""; position: absolute; left: 14%; right: 14%; top: 50%; height: 2px; translate: 0 -50%; background: rgb(242 237 212 / .45); }
+.cerradura__keeper { position: absolute; z-index: 1; left: 117%; top: calc(56% - 3%); width: 12%; height: 15%; border: 4px solid var(--crema); border-left: 0; border-radius: 0 6px 6px 0; }
+.cerradura.is-open .cerradura__bolt { transform: translateX(-85%); }
+.cerradura.is-open .cerradura__keeper { border-color: var(--amarillo); }
+
+/* C-18 + C-20: en escritorio el panel de la cerradura mide lo que su contenido (texto arriba,
+   cerradura abajo), así el mueble con la llave y la cerradura se ven juntos al final del recorrido */
+.llave-dock { display: none; }
+@media (min-width: 900px) {
+  .llave__panel--cerradura {
+    width: auto; grid-template-columns: auto; align-content: center; justify-items: start; row-gap: var(--s-6);
+    padding-left: calc(7vw + 70px); padding-right: var(--s-8);
+  }
+  .llave__panel--cerradura .llave__copy { order: -1; max-width: 24rem; }
+  .llave__panel--cerradura .cerradura { --lw: clamp(150px, 14vw, 230px); }
+}
+@media (max-width: 899px) {
+  .llave-dock { display: grid; place-items: center; border-style: solid; border-color: transparent; }
+  .llave-dock .llave-drag { position: relative; }
+}

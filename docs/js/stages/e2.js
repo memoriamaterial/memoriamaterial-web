@@ -68,7 +68,10 @@ function llave(sec) {
   const cajones = [...wrap.querySelectorAll('.cajon')];
   const v1 = wrap.querySelector('[data-voice="llave1"]');
   const v2 = wrap.querySelector('[data-voice="llave2"]');
+  const v3 = wrap.querySelector('[data-voice="llave3"]');
+  const mesita = wrap.querySelector('.mesita');
 
+  // C-20: el panel de la cerradura mide lo que su contenido (css), así el recorrido termina con la escena
   const distance = () => track.scrollWidth - pin.clientWidth;
   const tween = gsap.to(track, {
     x: () => -distance(), ease: 'none',
@@ -88,11 +91,15 @@ function llave(sec) {
   });
 
   ScrollTrigger.create({ trigger: panels[2], containerAnimation: tween, start: 'left 55%', onEnter: () => audio.autoplay('llave2', v2) });
+  document.addEventListener('voice:ended', (e) => { if (e.detail?.id === 'llave2' && tween.scrollTrigger.isActive) audio.autoplay('llave3', v3); });
 
   cajones.forEach((c, i) => c.addEventListener('click', () => {
     c.classList.toggle('is-open');
     c.setAttribute('aria-label', `${c.classList.contains('is-open') ? 'Cerrar' : 'Abrir'} el ${['primer', 'segundo', 'tercer'][i]} cajón`);
+    if (i === 1 && !mesita.classList.contains('is-usada')) mesita.classList.toggle('is-llave', c.classList.contains('is-open'));
   }));
+  // al llegar a la cerradura, el cajón de la llave queda abierto para poder llevarla
+  ScrollTrigger.create({ trigger: panels[panels.length - 1], containerAnimation: tween, start: 'left 85%', onEnter: () => { cajones[1].classList.add('is-open'); mesita.classList.add('is-llave'); } });
 
   cerradura(wrap, tween);
 }
@@ -107,7 +114,7 @@ function cerradura(wrap, tween) {
   const hint = wrap.querySelector('[data-lock-hint]');
   const done = wrap.querySelector('[data-lock-done]');
   const found = wrap.querySelector('[data-found]');
-  const v3 = wrap.querySelector('[data-voice="llave3"]');
+  const mesita = wrap.querySelector('.mesita');
   const cajonLlave = wrap.querySelectorAll('.cajon')[1];
   const rm = document.documentElement.classList.contains('rm');
   let opened = false, jumping = false, busy = false;
@@ -127,7 +134,7 @@ function cerradura(wrap, tween) {
     hint.classList.add('is-nudge');
     if (!reduce) {
       gsap.fromTo(hint, { x: 0 }, { x: 6, duration: 0.07, repeat: 5, yoyo: true, clearProps: 'x' });
-      gsap.fromTo(key, { rotation: 0 }, { rotation: 8, duration: 0.1, repeat: 3, yoyo: true, clearProps: 'rotation' });
+      if (!busy) gsap.to(key, { rotation: '+=8', duration: 0.1, repeat: 3, yoyo: true });
     }
     setTimeout(() => hint.classList.remove('is-nudge'), 1200);
   };
@@ -164,18 +171,39 @@ function cerradura(wrap, tween) {
   const magnet = () => Math.max(90, lockSvg.getBoundingClientRect().width * 0.55);
 
   // --- encajar: imán, giro, luz amarilla y la puerta se abre ---------------------
+  const EN_CAJON = { rotation: 90, scale: 0.42 };     // C-18: la llave del cajón, chica y acostada
+  const EN_MANO = { rotation: 0, scale: 1 };
+  gsap.set(key, EN_CAJON);
+  // En celular el mueble y la cerradura no entran juntos: al llegar a la cerradura, la llave
+  // sale del cajón y queda al lado de la cerradura, lista para llevarla.
+  const dock = wrap.querySelector('[data-llave-dock]');
+  const narrow = window.matchMedia('(max-width: 899px)');
+  const home = () => (key.parentElement === dock ? EN_MANO : EN_CAJON);
+  const moveTo = (parent, animate) => {
+    if (key.parentElement === parent || opened || busy) return;
+    const a = key.getBoundingClientRect();
+    parent.appendChild(key);
+    gsap.set(key, { x: 0, y: 0, ...home() });
+    const b = key.getBoundingClientRect();
+    if (animate && !reduce) gsap.from(key, { x: a.left + a.width / 2 - (b.left + b.width / 2), y: a.top + a.height / 2 - (b.top + b.height / 2), ...EN_CAJON, duration: 0.9, ease: 'power3.inOut' });
+  };
+  ScrollTrigger.create({ trigger: panel, containerAnimation: tween, start: 'left 85%', onEnter: () => { if (narrow.matches) moveTo(dock, true); } });
+  narrow.addEventListener('change', () => { if (!narrow.matches) moveTo(mesita, false); });
   const insert = (fromDrag = false) => {
     if (opened || busy) return;
     busy = true;
     drag?.disable();
     cajonLlave.classList.add('is-open');
-    const { dx, dy } = gap();
+    mesita.classList.add('is-llave', 'is-usada', 'is-dragging');
     const t = reduce ? 0 : 1;
-    gsap.timeline({ onComplete: open })
-      .to(key, { x: `+=${dx}`, y: `+=${dy}`, duration: (fromDrag ? 0.3 : 0.7) * t, ease: fromDrag ? 'back.out(2)' : 'power3.inOut' })
-      .to(key, { y: '+=6', duration: 0.12 * t, ease: 'power2.in' })
-      .add(() => key.classList.add('is-in'))
-      .to(key, { rotation: 90, transformOrigin: '50% 92%', duration: 0.55 * t, ease: 'power2.inOut' });
+    gsap.timeline({ onComplete: () => {
+      const { dx, dy } = gap();   // se mide con la llave ya derecha y en su tamaño
+      gsap.timeline({ onComplete: open })
+        .to(key, { x: `+=${dx}`, y: `+=${dy}`, duration: (fromDrag ? 0.3 : 0.8) * t, ease: fromDrag ? 'back.out(2)' : 'power3.inOut' })
+        .to(key, { y: '+=6', duration: 0.12 * t, ease: 'power2.in' })
+        .add(() => key.classList.add('is-in'))
+        .to(key, { rotation: 90, transformOrigin: '50% 92%', duration: 0.55 * t, ease: 'power2.inOut' });
+    } }).to(key, { ...EN_MANO, duration: fromDrag ? 0 : 0.3 * t });
   };
   function open() {
     opened = true;
@@ -184,17 +212,15 @@ function cerradura(wrap, tween) {
     key.setAttribute('aria-disabled', 'true');
     key.setAttribute('aria-label', 'Llave en la cerradura');
     done.hidden = false;
-    found.hidden = false;
-    v3.hidden = false;
-    if (!reduce) gsap.from([done, found, v3], { y: 12, opacity: 0, stagger: 0.1, duration: 0.45, delay: 0.5 });
-    if (audio.enabled) audio.play('llave3', v3);
+    found.hidden = false;  // C-19: "¡Sí! Acá están." queda como texto (no hay audio)
+    if (!reduce) gsap.from([done, found], { y: 12, opacity: 0, stagger: 0.1, duration: 0.45, delay: 0.5 });
     lastY = window.scrollY;
   }
 
   // --- arrastrar con mouse o dedo -----------------------------------------------
   const drag = window.Draggable.create(key, {
     type: 'x,y', zIndexBoost: false, minimumMovement: 4,
-    onPress() { gsap.killTweensOf(key); },
+    onPress() { gsap.killTweensOf(key); mesita.classList.add('is-dragging'); gsap.to(key, { ...EN_MANO, duration: 0.2 }); },
     onDragStart() { key.classList.add('is-dragging'); },
     onDrag() { lock.classList.toggle('is-near', gap().d < magnet()); },
     onDragEnd() {
@@ -202,7 +228,7 @@ function cerradura(wrap, tween) {
       if (gap().d < magnet()) insert(true);
       else {
         lock.classList.remove('is-near');
-        gsap.to(key, { x: 0, y: 0, duration: reduce ? 0 : 0.6, ease: 'elastic.out(1, 0.6)' }); // vuelve a su lugar
+        gsap.to(key, { x: 0, y: 0, ...home(), duration: reduce ? 0 : 0.6, ease: 'elastic.out(1, 0.6)', onComplete: () => mesita.classList.remove('is-dragging') }); // vuelve a su lugar
       }
     },
     onClick() { insert(false); }, // un toque también la lleva

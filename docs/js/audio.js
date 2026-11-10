@@ -38,7 +38,7 @@ export const VOICES = {
   },
   llave3: {
     src: 'assets/audio/llave-voz-3.mp3', who: 'Voz 3 · Mundo de la llave',
-    cues: [[0, 2.98, '—¡Sí! Acá están.']],
+    cues: [[0, 2.98, '—Te regalo esto, espero que te guste.']],
   },
   // Mundo del mate: efectos de sonido (el subtítulo describe el sonido)
   mate1: { src: 'assets/audio/mate-tomado-1.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 5.06, '[mate tomado]']] },
