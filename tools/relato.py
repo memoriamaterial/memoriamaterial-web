@@ -204,7 +204,7 @@ STAGES = {
 
 # C-16: los mundos de la Etapa 2, cada uno como bloque propio, antes de su interacción
 MUNDOS = {
-    'llave': dict(acc='amarillo', titulo='Mundo de la llave', sub='Una mudanza',
+    'llave': dict(acc='amarillo', titulo='Mundo de la llave', sub='Mundo de la llave',
         pasos=[
             (None, 'Al entrar se escucha ' + said('“Llegó el día, por fin me voy a mudar.”') + ' Se recorre un camino a través de cuatro marcos de puerta.'),
             (None, 'Entre la primera y la segunda puerta, cajas de mudanza de distintos tamaños.'),
@@ -213,20 +213,25 @@ MUNDOS = {
             (None, 'Tras la cuarta puerta, una cerradura gigante con el pasador cerrado y una última abertura detrás. Con la llave se abre: ' + said('“¡Sí! Acá están.”')),
         ],
         inter='Recorré el camino de puerta en puerta, abrí los cajones y llevá la llave hasta la cerradura.'),
-    'mate': dict(acc='fucsia', titulo='Mundo del mate', sub='Una ronda',
+    'mate': dict(acc='fucsia', titulo='Mundo del mate', sub='Mundo del mate',
         pasos=[
+            ('grupo', 'Escenario 1'),
             (None, 'Se entra por la base del mate. El piso es un gran charco (se escucha el chapoteo) con sillas flotando y otras caídas. En el centro, la única silla de pie y en color.'),
             (None, 'Al sentarse, las sillas se acomodan en ronda y empieza el diálogo del último recreo del año. Cada silla que habla se colorea e ilumina.'),
             (None, 'Cada vez que se escucha el mate tomado, el agua baja, hasta revelar en el centro de la ronda un hueco iluminado que lleva al segundo escenario.'),
+            ('grupo', 'Escenario 2'),
             (None, 'Todo se oscurece y se escuchan pájaros. Se prende la hornalla con una pava vieja, se oye un bostezo y unas persianas: se abren ventanas rectangulares con una luz anaranjada que sube como la salida del sol.'),
             (None, 'Una mañana en familia: ' + said('“Buen día hijo, ¿cómo estás?”') + ', se prende la radio, se ceba un mate. Al final, pasos y una puerta que se abre con luz blanca: ' + said('“Bueno, nos vemos a la noche.”') + ' Al pasar, el portazo.'),
         ],
         inter='Sentate en la silla de color y seguí la ronda; después, la mañana.'),
-    'cuaderno': dict(acc='celeste', titulo='Mundo del cuaderno', sub='Anotaciones',
+    'cuaderno': dict(acc='celeste', titulo='Mundo del cuaderno', sub='Mundo del cuaderno', cols=True,
         pasos=[
             (None, 'Cuadernos y hojas flotantes. Las hojas se ordenan frente al participante y forman un camino de plataformas hacia el siguiente cuaderno.'),
-            (None, 'Cuaderno de materiales: ruido de obra, la cámara tiembla y se levanta polvo. Un diálogo sobre un escritorio nuevo; las anotaciones se escriben flotando a medida que se habla.'),
-            (None, 'Cuaderno de recetas: el escenario pasa de violeta a crema, se escucha algo que se bate y aparecen postres caseros. La abuela dicta la receta; al caer sobre las hojas se levantan nubes de harina, y al nombrar el horno todo se ve más anaranjado.'),
+            ('grupo', 'Cuaderno de materiales'),
+            (None, 'Ruido de obra, la cámara tiembla y se levanta polvo. Un diálogo sobre un escritorio nuevo; las anotaciones se escriben flotando a medida que se habla.'),
+            ('grupo', 'Cuaderno de recetas'),
+            (None, 'El escenario pasa de violeta a crema, se escucha algo que se bate y aparecen postres caseros. La abuela dicta la receta; al caer sobre las hojas se levantan nubes de harina, y al nombrar el horno todo se ve más anaranjado.'),
+            ('grupo', 'El último cuaderno'),
             (None, 'El último cuaderno, el más grande y abierto de par en par, tiene la salida dibujada en sus hojas: lleva a la Etapa 3.'),
         ],
         inter='Seguí las hojas: el cuaderno de materiales, el de recetas y la salida dibujada.'),
@@ -234,20 +239,31 @@ MUNDOS = {
 
 
 def build_mundo(key, d):
-    items = ''.join(f'<li><span class="pasos__n">{n:02d}</span><div class="pasos__body"><p>{body}</p></div></li>' for n, (t, body) in enumerate(d['pasos'], 1))
+    # D-06/D-07: los pasos pueden ir en grupos con título (escenarios, cuadernos); la numeración sigue de corrido
+    sueltos, grupos, n = [], [], 0
+    for t, body in d['pasos']:
+        if t == 'grupo':
+            grupos.append((body, []))
+            continue
+        n += 1
+        (grupos[-1][1] if grupos else sueltos).append(f'<li><span class="pasos__n">{n:02d}</span><div class="pasos__body"><p>{body}</p></div></li>')
+    items = f'<ol class="pasos">{"".join(sueltos)}</ol>' if sueltos else ''
+    if grupos:
+        cols = ' mundo__grupos--cols' if d.get('cols') else ''
+        items += f'<div class="mundo__grupos{cols}">' + ''.join(f'<div class="mundo__grupo"><h5 class="mundo__grupo-t">{g}</h5><ol class="pasos">{"".join(li)}</ol></div>' for g, li in grupos) + '</div>'
     return f'''<!-- mundo:{key} -->
       <div class="mundo" style="--acc:var(--{d['acc']})">
         <div class="wrap mundo__in">
           <header class="mundo__head">
-            <p class="stage-num">Etapa 02 · {d['titulo']}</p>
+            <p class="stage-num">Etapa 02</p>
             <h3 class="title mundo__title">{d['sub']}</h3>
           </header>
           <section class="rel rel--seq" aria-label="Qué sucede en el {d['titulo'].lower()}">
-            <h4 class="rel__h"><span class="rel__n">3</span>Qué sucede</h4>
-            <ol class="pasos">{items}</ol>
+            <h4 class="rel__h"><span class="rel__n">1</span>Qué sucede</h4>
+            {items}
           </section>
           <div class="relato__to4">
-            <h4 class="rel__h"><span class="rel__n">4</span>Interacción</h4>
+            <h4 class="rel__h"><span class="rel__n">2</span>Interacción</h4>
             <p class="rel__p">{d['inter']}</p>
             <span class="relato__cue" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
           </div>
@@ -268,15 +284,18 @@ def build(key, d):
         when = f'<span class="pasos__when">{t}</span>' if t else ''
         items.append(f'<li><span class="pasos__n">{n:02d}</span><div class="pasos__body">{when}<p>{body}</p></div></li>')
     facts_html = f'\n        <dl class="rel__facts">{facts}</dl>' if d.get('facts') else ''
+    # D-03: los bloques se numeran según los que tiene la ficha (sin saltos)
+    num = iter(range(1, 5))
+    n_mec = next(num); n_esc = next(num) if d.get('fig') else 0; n_seq = next(num) if items else 0; n_int = next(num)
     esc_html = f'''
       <section class="rel rel--esc" aria-label="Escenario">
-        <h3 class="rel__h"><span class="rel__n">2</span>Escenario</h3>
+        <h3 class="rel__h"><span class="rel__n">{n_esc}</span>Escenario</h3>
         <figure class="rel__fig">{d['fig']}</figure>
         {('<p class="rel__p">' + d['esc'] + '</p>') if d.get('esc') else ''}
       </section>''' if d.get('fig') else ''
     seq_html = f'''
       <section class="rel rel--seq" aria-label="Qué sucede">
-        <h3 class="rel__h"><span class="rel__n">3</span>Qué sucede</h3>
+        <h3 class="rel__h"><span class="rel__n">{n_seq}</span>Qué sucede</h3>
         <ol class="pasos">{''.join(items)}</ol>
       </section>''' if items else ''
     solo = '' if (esc_html or seq_html) else ' relato__grid--solo'
@@ -289,12 +308,12 @@ def build(key, d):
     </header>
     <div class="relato__grid{solo}">
       <section class="rel rel--mec" aria-label="Mecánica">
-        <h3 class="rel__h"><span class="rel__n">1</span>Mecánica</h3>
+        <h3 class="rel__h"><span class="rel__n">{n_mec}</span>Mecánica</h3>
         <p class="rel__p">{d['mec']}</p>{facts_html}
       </section>{esc_html}{seq_html}
     </div>
     <div class="relato__to4">
-      <h3 class="rel__h"><span class="rel__n">4</span>Interacción</h3>
+      <h3 class="rel__h"><span class="rel__n">{n_int}</span>Interacción</h3>
       <p class="rel__p">{d['inter']}</p>
       <span class="relato__cue" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
     </div>

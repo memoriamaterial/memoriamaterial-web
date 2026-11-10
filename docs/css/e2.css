@@ -261,3 +261,9 @@
   .llave-dock { display: grid; place-items: center; border-style: solid; border-color: transparent; }
   .llave-dock .llave-drag { position: relative; }
 }
+
+/* D-05: la primera voz, entre la puerta 1 y la 2 */
+.llave__voices--cajas { position: absolute; z-index: 4; top: calc(var(--s-9) + 56px + env(safe-area-inset-top)); left: clamp(24px, 13vw, 220px); width: min(30rem, calc(100% - 2 * clamp(24px, 13vw, 220px))); }
+@media (max-width: 899px) {
+  .llave__voices--cajas { top: auto; bottom: calc(var(--s-9) + var(--bar-h) + 24px); left: 24px; width: calc(100% - 48px); }
+}

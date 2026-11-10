@@ -78,7 +78,6 @@ function llave(sec) {
     scrollTrigger: {
       trigger: wrap, pin, start: 'top top', end: () => `+=${Math.max(distance(), vh() * 4.5)}`, scrub: 0.5, invalidateOnRefresh: true,
       onUpdate: (self) => pips.forEach((p, i) => p.classList.toggle('is-on', self.progress >= (i + 0.55) / 4)),
-      onEnter: () => audio.autoplay('llave1', v1),
     },
   });
 
@@ -90,6 +89,8 @@ function llave(sec) {
     if (items.length) gsap.from(items, { y: 40, opacity: 0, stagger: 0.08, duration: 0.6, ease: 'power3.out', scrollTrigger: { trigger: p, containerAnimation: tween, start: 'left 70%', toggleActions: 'play none none reverse' } });
   });
 
+  // D-05: la primera voz suena entre el primer y el segundo marco de puerta
+  ScrollTrigger.create({ trigger: panels[1], containerAnimation: tween, start: 'left 55%', onEnter: () => audio.autoplay('llave1', v1) });
   ScrollTrigger.create({ trigger: panels[2], containerAnimation: tween, start: 'left 55%', onEnter: () => audio.autoplay('llave2', v2) });
   document.addEventListener('voice:ended', (e) => { if (e.detail?.id === 'llave2' && tween.scrollTrigger.isActive) audio.autoplay('llave3', v3); });
 
