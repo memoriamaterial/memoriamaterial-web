@@ -232,9 +232,27 @@ function e6() {
       dim.querySelectorAll('use').forEach((u) => u.setAttribute('href', u.getAttribute('href').replace('-wire', '')));
     };
     if (animate && !reduce) {
-      gsap.timeline()
-        .to(tray.map((t) => t), { scale: 0, duration: 0.4, stagger: 0.1 })
-        .to(totem, { yPercent: 105, duration: 1, ease: 'power2.in' }, '+=0.3')
+      // D-11: las tres esferas viajan desde la bandeja hasta el tótem y ahí desaparecen
+      const sr = scan.getBoundingClientRect(), tr = totem.getBoundingClientRect();
+      const to = { x: tr.left + tr.width / 2 - sr.left, y: tr.top + tr.height * 0.28 - sr.top };
+      const balls = tray.map((slot) => {
+        const r = slot.getBoundingClientRect();
+        const b = document.createElement('span');
+        b.className = 'scan__viaje';
+        b.style.setProperty('--c', slot.style.getPropertyValue('--c'));
+        b.style.left = `${r.left + r.width / 2 - sr.left}px`;
+        b.style.top = `${r.top + r.height / 2 - sr.top}px`;
+        scan.appendChild(b);
+        return { b, dx: to.x - (r.left + r.width / 2 - sr.left), dy: to.y - (r.top + r.height / 2 - sr.top) };
+      });
+      const tl = gsap.timeline();
+      tl.add(() => tray.forEach((t) => t.classList.remove('is-on')));
+      balls.forEach(({ b, dx, dy }, i) => {
+        tl.fromTo(b, { scale: 0.6 }, { keyframes: [{ x: dx * 0.45, y: dy * 0.2 - 70, scale: 1.25, duration: 0.55, ease: 'power1.out' }, { x: dx, y: dy, scale: 1, duration: 0.6, ease: 'power2.in' }] }, 0.2 + i * 0.22)
+          .to(b, { scale: 0, opacity: 0, duration: 0.3, ease: 'power2.in', onComplete: () => b.remove() }, '>')
+          .fromTo(totem, { filter: 'brightness(1)' }, { filter: 'brightness(1.8)', duration: 0.15, yoyo: true, repeat: 1 }, '<');
+      });
+      tl.to(totem, { yPercent: 105, duration: 1, ease: 'power2.in' }, '+=0.4')
         .to(guide, { opacity: 0, duration: 0.4 }, '<')
         .add(finish, '+=0.4');
     } else { gsap.set(totem, { yPercent: 105 }); finish(); }

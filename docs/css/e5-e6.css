@@ -93,3 +93,6 @@
 }
 .rm .regreso__pin { height: auto; }
 .rm .regreso__steps li { position: static; opacity: 1; }
+
+/* D-11: las esferas que viajan al tótem */
+.scan__viaje { position: absolute; z-index: 6; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; background: var(--c); box-shadow: 0 0 16px var(--c), 0 0 40px var(--c); pointer-events: none; }
