@@ -9,10 +9,15 @@
   position: absolute; inset: 0; border: 1.5px solid var(--crema); border-radius: 2px;
   transform: scale(var(--s, .1)); opacity: var(--o, 0); will-change: transform, opacity;
 }
-.tunel--side { width: 40vmin; height: 52vmin; filter: blur(5px); opacity: .28; }
-.tunel--l { left: 12%; top: 56%; }
-.tunel--r { left: 88%; top: 48%; }
-.tunel__door { position: absolute; left: 50%; top: 50%; width: 100%; height: 100%; translate: -50% -50%; transform: scale(.08); border: 2px solid var(--celeste); border-bottom: 0; background: rgb(60 197 242 / .1); box-shadow: 0 0 30px var(--celeste); }
+.tunel__door {
+  position: absolute; left: 50%; top: 22%; width: 54%; height: 78%; translate: -50% 0;
+  transform: scale(.08); transform-origin: 50% 35.9%; /* el centro del túnel: escala junto con los marcos */
+  border: 2px solid var(--celeste); border-bottom: 0; border-radius: 19.44vmin 19.44vmin 0 0; /* medio punto: radio = mitad del ancho (54% de 72vmin) */
+  background: rgb(60 197 242 / .1); box-shadow: 0 0 30px var(--celeste);
+}
+/* C-21: las mismas diagonales de perspectiva que el dibujo de la ficha */
+.tunel__persp { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; fill: none; stroke: var(--crema); stroke-opacity: .22; stroke-width: 1.2px; vector-effect: non-scaling-stroke; }
+.tunel__persp path { vector-effect: non-scaling-stroke; }
 .tunel__led { position: absolute; left: 50%; bottom: 0; width: 2px; height: 50%; translate: -50% 0; background: linear-gradient(to top, rgb(60 197 242 / .6), transparent); }
 .tunel__led i { position: absolute; left: 50%; width: 10px; height: 10px; translate: -50% 50%; border-radius: 50%; background: var(--celeste); box-shadow: 0 0 16px var(--celeste), 0 0 40px var(--celeste); animation: pulse-run 2.4s cubic-bezier(.3, 0, .9, .6) infinite; }
 @keyframes pulse-run { from { bottom: 0; scale: 1.6; opacity: 1; } to { bottom: 100%; scale: .2; opacity: 0; } }
@@ -28,7 +33,6 @@
 .pasillo__voices > * { grid-area: 1 / 1; }
 .pasillo__pin > .ph { top: auto; left: auto; right: 10px; bottom: calc(10px + var(--bar-h)); }
 @media (max-width: 899px) {
-  .tunel--side { display: none; }
   .pasillo__voices .voice__text { font-size: var(--t-sm); }
   /* en celular, solo la frase que suena (o la primera, antes de escuchar) */
   .pasillo__voices .voice.has-played .cue:not(.is-on) { display: none; }

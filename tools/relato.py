@@ -40,8 +40,7 @@ TRIO = '''<svg class="rel__dome" viewBox="0 0 1000 600" preserveAspectRatio="xMi
 </ol>'''
 
 PASILLO = '''<svg class="rel__svg" viewBox="0 0 400 250" aria-hidden="true">
-<defs><filter id="rel-blur"><feGaussianBlur stdDeviation="3"/></filter><filter id="rel-glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-<g fill="none" stroke="#F2EDD4" filter="url(#rel-blur)" opacity=".3"><rect x="18" y="70" width="70" height="90"/><rect x="34" y="88" width="38" height="52"/><rect x="312" y="60" width="70" height="90"/><rect x="328" y="78" width="38" height="52"/></g>
+<defs><filter id="rel-glow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
 <g fill="none" stroke="#F2EDD4"><rect x="80" y="20" width="240" height="220" stroke-opacity=".5"/><rect x="128" y="62" width="144" height="146" stroke-opacity=".38"/><rect x="160" y="90" width="80" height="96" stroke-opacity=".28"/><rect x="178" y="106" width="44" height="64" stroke-opacity=".2"/>
 <path d="M80 240 178 170M320 240 222 170M80 20 178 106M320 20 222 106" stroke-opacity=".22"/></g>
 <path d="M188 170v-38a12 12 0 0 1 24 0v38Z" fill="#3CC5F2" fill-opacity=".25" stroke="#3CC5F2" stroke-width="2" filter="url(#rel-glow)"/>
@@ -128,7 +127,7 @@ STAGES = {
         lead='Ahora el objeto es tuyo: lo elegís, lo pensás y te desprendés de él.',
         mec='En Unreal, desde la computadora de su estación, el participante recorre un pasillo mientras la voz le pide pensar en un objeto que lleve encima. Al final sale un momento de la experiencia: se levanta, sigue las luces LED del aula hasta el tótem y deposita ahí su objeto real; el holograma de una mesa cercana le muestra un ícono. Después vuelve a Unreal y elige ese ícono para abrir la puerta.',
         fig=PASILLO,
-        esc='Un pasillo con una puerta al fondo. Un pulso de luz lo recorre hacia adelante y, alrededor, se adivinan muy difuminados otros pasillos como este.',
+        esc='Un pasillo con una puerta de arco al fondo. Un pulso de luz lo recorre hacia adelante.',
         pasos=[
             ('Mientras recorre el pasillo', 'La voz en off: ' + said('“Ya viviste cómo un objeto puede convertirse en una extensión de nosotros, ahora vamos a vivirlo con vos.”') + voice('e3a', 'celeste', auto=False)),
             (None, 'La consigna se desarrolla durante el recorrido, para dar tiempo a pensar: elegir, entre lo que lleva encima, un objeto que pueda tener un significado distinto.' + voice('e3b', 'celeste', auto=False)),

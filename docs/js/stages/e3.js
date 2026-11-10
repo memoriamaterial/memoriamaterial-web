@@ -34,14 +34,13 @@ function pasillo(sec) {
   const wrap = sec.querySelector('[data-pasillo]');
   const pin = wrap.querySelector('.pasillo__pin');
   const main = buildTunnel(wrap.querySelector('.tunel--main'));
-  const sides = [...wrap.querySelectorAll('.tunel--side')].map((t) => buildTunnel(t, 10));
   const door = wrap.querySelector('.tunel__door');
   const says = [...wrap.querySelectorAll('[data-say]')];
   const ask = wrap.querySelector('.pasillo__ask');
   const btn = wrap.querySelector('[data-lo-tengo]');
   const [va, vb] = ['e3a', 'e3b'].map((k) => document.querySelector(`[data-voice="${k}"]`)); // en la ficha de la etapa
 
-  main(0); sides.forEach((s) => s(0.3));
+  main(0);
   if (reduce) {
     return; // las frases se leen como lista debajo del pasillo (main.js)
   }
@@ -53,7 +52,7 @@ function pasillo(sec) {
       trigger: wrap, pin, start: 'top top', end: () => `+=${window.innerHeight * 5}`, scrub: 0.8,
       onUpdate: (self) => {
         const p = self.progress;
-        main(p); sides.forEach((s, i) => s(p * 0.8 + i * 0.4));
+        main(p);
         if (p > 0.02 && !playedA) { playedA = true; audio.autoplay('e3a', va); }
         if (p > 0.3 && !playedB) { playedB = true; audio.autoplay('e3b', vb); }
       },
