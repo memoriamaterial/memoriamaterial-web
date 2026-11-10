@@ -115,3 +115,6 @@
 /* C-23: el título "Objetos perdidos" con menos aire alrededor */
 .e4-flash { min-height: 0; padding-block: var(--s-8) var(--s-8); }
 .e4-flash__copy { gap: var(--s-4); }
+
+/* D-10: el glitch va en el título de la ficha (mismo tamaño que los otros títulos de ficha) */
+.e4-glitch--ficha { font-size: clamp(2.5rem, 1rem + 6.6vw, 7.4rem); max-width: 12ch; }

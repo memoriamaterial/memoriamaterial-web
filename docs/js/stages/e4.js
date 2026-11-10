@@ -27,7 +27,8 @@ function flash(sec) {
   if (reduce) { white.style.opacity = 0; return; }
   // el destello: de crema a violeta mientras la pantalla entra
   gsap.fromTo(white, { opacity: 1 }, { opacity: 0, ease: 'power2.in', scrollTrigger: { trigger: sec, start: 'top 90%', end: 'top -10%', scrub: true } });
-  gsap.from(sec.querySelector('.e4-glitch'), { filter: 'blur(20px)', scale: 1.1, opacity: 0, ease: 'power3.out', scrollTrigger: { trigger: sec, start: 'top 50%', end: 'top 0%', scrub: true } });
+  const title = sec.querySelector('.e4-glitch'); // D-10: el título de la ficha, con glitch
+  gsap.from(title, { filter: 'blur(20px)', scale: 1.06, opacity: 0, transformOrigin: '0 50%', ease: 'power3.out', scrollTrigger: { trigger: title, start: 'top 90%', end: 'top 45%', scrub: true } });
 }
 
 function replica(sec) {

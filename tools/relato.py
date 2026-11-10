@@ -139,7 +139,7 @@ STAGES = {
         inter='Recorré el pasillo con el scroll, seguí la secuencia del tótem y del holograma, y elegí el ícono de la puerta.'),
 
     'e4': dict(
-        where='unreal', acc='fucsia', num='Etapa 04', title='Objetos perdidos',
+        where='unreal', acc='fucsia', num='Etapa 04', title='Objetos perdidos', glitch=True,
         lead='Los objetos que valoramos son anclas de seguridad: cuando se pierden, la mente no para de buscarlos.',
         mec='En Unreal, desde la computadora de su estación, el participante recorre una réplica de la primera etapa, ahora sin sus objetos: escucha las esferas apagadas y puede volver a entrar en cada mundo. Al final sale otra vez de Unreal, sigue las luces LED hasta el tótem del aula, donde dejó su objeto, y después mira el video del proyector.',
         fig=img('assets/img/maqueta-e1-inv.webp', 1927, 903, 'Maqueta · invertida'),
@@ -284,6 +284,9 @@ def build(key, d):
         when = f'<span class="pasos__when">{t}</span>' if t else ''
         items.append(f'<li><span class="pasos__n">{n:02d}</span><div class="pasos__body">{when}<p>{body}</p></div></li>')
     facts_html = f'\n        <dl class="rel__facts">{facts}</dl>' if d.get('facts') else ''
+    # D-10: en la Etapa 4 el título lleva el glitch (y ya no se repite más abajo)
+    title_html = (f'<h2 class="display relato__title e4-glitch e4-glitch--ficha" data-text="{d["title"]}">{d["title"]}</h2>' if d.get('glitch')
+                  else f'<h2 class="display relato__title" data-split>{d["title"]}</h2>')
     # D-03: los bloques se numeran según los que tiene la ficha (sin saltos)
     num = iter(range(1, 5))
     n_mec = next(num); n_esc = next(num) if d.get('fig') else 0; n_seq = next(num) if items else 0; n_int = next(num)
@@ -303,7 +306,7 @@ def build(key, d):
   <div class="wrap">
     <header class="relato__head">
       <p class="stage-num">{d['num']}</p>
-      <h2 class="display relato__title" data-split>{d['title']}</h2>
+      {title_html}
       <p class="lead relato__lead">{d['lead']}</p>
     </header>
     <div class="relato__grid{solo}">
