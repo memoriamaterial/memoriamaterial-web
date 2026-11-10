@@ -37,7 +37,6 @@ function pasillo(sec) {
   const door = wrap.querySelector('.tunel__door');
   const says = [...wrap.querySelectorAll('[data-say]')];
   const ask = wrap.querySelector('.pasillo__ask');
-  const btn = wrap.querySelector('[data-lo-tengo]');
   const [va, vb] = ['e3a', 'e3b'].map((k) => document.querySelector(`[data-voice="${k}"]`)); // en la ficha de la etapa
 
   main(0);
@@ -67,14 +66,6 @@ function pasillo(sec) {
     tl.fromTo(s, { opacity: 0, y: 20, filter: 'blur(8px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.4 }, at);
     if (s === ask) tl.to({}, { duration: 0.6 }, at + 0.4); // pausa para pensar
     if (i < says.length - 1) tl.to(s, { opacity: 0, y: -16, filter: 'blur(6px)', duration: 0.3 }, at + (s === ask ? 1.0 : 0.85));
-  });
-
-  btn.addEventListener('click', () => {
-    ask.classList.add('is-answered');
-    btn.textContent = 'Lo tengo ✓';
-    const st = tl.scrollTrigger;
-    const target = st.start + (st.end - st.start) * ((4 * 1.2 + 0.25) / tl.duration());
-    gsap.to(window, { scrollTo: target, duration: 1.2, ease: 'power2.inOut' });
   });
 }
 

@@ -27,8 +27,6 @@
 .pasillo__say { position: absolute; z-index: 4; left: 50%; top: 50%; translate: -50% -50%; width: min(820px, calc(100% - 2 * var(--gutter))); text-align: center; }
 .pasillo__say p { position: absolute; left: 0; right: 0; top: 50%; translate: 0 -50%; font-size: var(--t-xl); font-weight: 500; line-height: 1.15; letter-spacing: -.015em; text-wrap: balance; text-shadow: 0 0 30px var(--violeta), 0 0 60px var(--violeta); opacity: 0; }
 .pasillo__ask { display: grid; justify-items: center; gap: var(--s-5); }
-.pasillo__ask .btn { text-shadow: none; }
-.pasillo__ask.is-answered .btn { background: var(--celeste); border-color: var(--celeste); }
 .pasillo__voices { position: absolute; z-index: 5; left: var(--gutter); bottom: calc(var(--s-6) + var(--bar-h) + env(safe-area-inset-bottom)); width: min(480px, calc(100% - 2 * var(--gutter))); display: grid; }
 .pasillo__voices > * { grid-area: 1 / 1; }
 .pasillo__pin > .ph { top: auto; left: auto; right: 10px; bottom: calc(10px + var(--bar-h)); }
