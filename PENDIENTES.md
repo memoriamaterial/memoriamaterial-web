@@ -140,9 +140,9 @@ yo los optimizo y los copio a `docs/assets/`.
 ## El regreso a Unreal (E5) — decisión a confirmar
 
 - [ ] **23.** El guion solo dice "Vuelve al Unreal". Se decidió: **lo dispara el final del video del proyector**;
-  las luces LED se encienden del tótem hacia las estaciones, cada participante vuelve a sentarse, y la pantalla
-  (en negro desde que salió de Unreal en la Etapa 4) se enciende con un fundido en el comienzo del pasillo de
-  objetos. En la web, ese tramo muestra "Espacio físico → Unreal" en el indicador.
+  las luces LED se encienden del tótem hacia las estaciones y cada participante vuelve a sentarse.
+  Por C-24 se sacó lo de la pantalla en negro y el fundido (no está en el guion): ahora solo dice que vuelve
+  a Unreal. En la web, ese tramo muestra "Espacio físico → Unreal" en el indicador.
 
 ## Preguntas de la devolución (Cierre)
 
