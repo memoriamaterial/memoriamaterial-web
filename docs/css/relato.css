@@ -97,3 +97,7 @@
 .contexto { display: grid; align-items: center; min-height: 80vh; min-height: 80svh; }
 .contexto__in { display: grid; gap: var(--s-5); }
 .contexto__txt { font-size: var(--t-xl); font-weight: 500; line-height: 1.2; letter-spacing: -.015em; max-width: 32ch; text-wrap: balance; }
+
+/* C-12: renglones dentro de un paso (una esfera por renglón) */
+.pasos__linea { display: block; margin-top: 8px; padding-left: 12px; border-left: 2px solid var(--ink-20); }
+.pasos__linea b { font-weight: 600; margin-right: .3em; }

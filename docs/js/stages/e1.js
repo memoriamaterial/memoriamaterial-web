@@ -28,10 +28,18 @@ function play(sec) {
     return { x: r.left - s.left + r.width / 2, y: r.top - s.top + (part === 'top' ? r.height * 0.15 : r.height / 2) };
   };
 
+  // C-13: cada línea llega a un punto del dibujo de su objeto (no de la caja del botón)
+  const ANCHOR = { llave: [0.5, 0.14], cuaderno: [0.5, 0.1], mate: [0.42, 0.4] };
+  const anchor = (key) => {
+    const r = scene.querySelector(`[data-obj="${key}"] use`).getBoundingClientRect(), s = scene.getBoundingClientRect();
+    const [fx, fy] = ANCHOR[key];
+    return { x: r.left - s.left + r.width * fx, y: r.top - s.top + r.height * fy };
+  };
+
   // Curva "sináptica" de la esfera al objeto
   const pathFor = (key) => {
     const a = center(scene.querySelector(`[data-sphere="${key}"]`));
-    const b = center(scene.querySelector(`[data-obj="${key}"]`), 'top');
+    const b = anchor(key);
     const mx = (a.x + b.x) / 2, my = Math.min(a.y, b.y) + Math.abs(b.y - a.y) * 0.25;
     return `M${a.x},${a.y} Q${mx + (b.x - a.x) * 0.25},${my - 40} ${b.x},${b.y}`;
   };
@@ -75,7 +83,7 @@ function play(sec) {
     if (key) showBubble(key); else hideBubble();
   };
 
-  const connect = (key, animate = true) => {
+  const connect = (key, animate = true, auto = false) => {
     if (linked.has(key)) return;
     linked.add(key);
     const sphere = scene.querySelector(`[data-sphere="${key}"]`);
@@ -97,6 +105,11 @@ function play(sec) {
       playScreen.classList.add('is-complete');
       sec.querySelector('.e1-play__how:not(.e1-play__done)').hidden = true;
       sec.querySelector('.e1-play__done').hidden = false;
+      // C-13: con las tres conexiones, la cúpula se eleva (la página baja sola hasta verla arriba)
+      const dome = ScrollTrigger.getById('e1-dome');
+      if (!auto && dome && !reduce) {
+        gsap.delayedCall(0.9, () => gsap.to(window, { scrollTo: dome.start + (dome.end - dome.start) * 0.45, duration: 2.6, ease: 'power2.inOut' }));
+      }
     }
   };
 
@@ -127,7 +140,7 @@ function play(sec) {
     select(null);
     ['llave', 'mate', 'cuaderno'].forEach((k, i) => {
       if (linked.has(k)) return;
-      gsap.delayedCall(reduce ? 0 : i * 0.15, () => connect(k, !reduce));
+      gsap.delayedCall(reduce ? 0 : i * 0.15, () => connect(k, !reduce, true));
     });
   };
   ScrollTrigger.create({ trigger: sec.querySelector('[data-dome]'), start: 'top 75%', onEnter: completeAll });
@@ -156,7 +169,7 @@ function dome(sec) {
 
   const tl = gsap.timeline({
     defaults: { ease: 'power2.inOut' },
-    scrollTrigger: { trigger: wrap, start: 'top top', end: () => `+=${window.innerHeight * 2.2}`, pin, scrub: 0.6 },
+    scrollTrigger: { id: 'e1-dome', trigger: wrap, start: 'top top', end: () => `+=${window.innerHeight * 2.2}`, pin, scrub: 0.6 },
   });
   tl.from(stage, { yPercent: 40, opacity: 0, duration: 0.5, ease: 'power3.out' })
     .from(body, { scaleY: 0.05, transformOrigin: '50% 100%', duration: 0.7, ease: 'power3.out' }, '<0.1')

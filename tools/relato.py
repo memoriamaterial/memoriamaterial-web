@@ -98,7 +98,11 @@ STAGES = {
         esc='Un espacio desértico con estructuras rectangulares que simulan los pliegues del cerebro. Tres objetos gigantes (un manojo de llaves, un mate y un cuaderno) encallados en la arena, esferas flotantes que apenas brillan y, en el cielo, formas de la marca que pasan. En el centro, una plataforma con tres esferas incrustadas.',
         pasos=[
             ('Al comenzar', 'La voz en off presenta la etapa.' + voice('e1', 'amarillo')),
-            (None, 'Al acercarse a una esfera, se ilumina y emite un sonido y una voz vinculados a un objeto. Amarilla: ' + onoma('llaves abriendo una puerta') + ' ' + said('—¿Cómo te fue? ¿Ya comiste?') + ' Fucsia: ' + onoma('alguien toma mate') + ' ' + said('—Gracias, yo ya estoy.') + ' Celeste: ' + onoma('una hoja se arranca') + ' ' + said('—Tomá mi número, hablemos.')),
+            # C-12: un renglón por esfera
+            (None, 'Al acercarse a una esfera, se ilumina y emite un sonido y una voz vinculados a un objeto:'
+                   + '<span class="pasos__linea"><b class="c-amarillo">Amarilla:</b> ' + onoma('llaves abriendo una puerta') + ' ' + said('—¿Cómo te fue? ¿Ya comiste?') + '</span>'
+                   + '<span class="pasos__linea"><b class="c-fucsia">Fucsia:</b> ' + onoma('alguien toma mate') + ' ' + said('—Gracias, yo ya estoy.') + '</span>'
+                   + '<span class="pasos__linea"><b class="c-celeste">Celeste:</b> ' + onoma('una hoja se arranca') + ' ' + said('—Tomá mi número, hablemos.') + '</span>'),
             (None, 'Al interactuar con una esfera, la pantalla toma levemente su color. Se puede volver a tocarla para quitarlo.'),
             (None, 'Para hacer la conexión hay que interactuar con el objeto correspondiente: la esfera, el objeto y la conexión se iluminan del mismo color.'),
             (None, 'Con cada conexión se enciende, del mismo color, una de las tres esferas incrustadas en la plataforma central.'),
