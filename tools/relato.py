@@ -82,11 +82,11 @@ WIRE = ('<svg class="rel__svg" viewBox="0 0 400 250" aria-hidden="true"><defs><r
 
 
 STAGES = {
+    # C-11: sin los bloques Dónde / Dispositivo / Qué hace; la Mecánica explica lugar, dispositivo y acción
     'bienvenida': dict(
         where='fisico', acc='fucsia', num='Antes de empezar', title='Bienvenida',
         lead='Todo empieza en el aula, frente al proyector, antes de sentarse en las estaciones.',
         mec='Los participantes entran al aula y miran el video de bienvenida en el proyector. Todavía no usan ningún dispositivo: miran, escuchan y después cada uno va a su estación.',
-        facts=[('Dónde', lugar('fisico')), ('Dispositivo', 'Ninguno: miran el proyector'), ('Qué hace', 'Mira el video y se acerca a su estación')],
         # C-09: en la Bienvenida quedan solo la Mecánica y la Interacción
         inter='El video de bienvenida, cuadro por cuadro, a medida que bajás.'),
 
@@ -94,7 +94,6 @@ STAGES = {
         where='unreal', acc='amarillo', num='Etapa 01', title='Plasticidad sináptica',
         lead='El cerebro reorganiza la conexión entre los objetos que reconoce y el significado que le evocan.',
         mec='Sentado en su estación, el participante recorre el escenario en Unreal desde la computadora. Se acerca a las esferas para escucharlas y conecta cada una con el objeto que le corresponde.',
-        facts=[('Dónde', lugar('unreal')), ('Dispositivo', 'Computadora de la estación'), ('Qué hace', 'Escucha las esferas y conecta cada una con su objeto')],
         fig=img('assets/img/maqueta-e1.webp', 1927, 903, 'Maqueta · Unreal'),
         esc='Un espacio desértico con estructuras rectangulares que simulan los pliegues del cerebro. Tres objetos gigantes (un manojo de llaves, un mate y un cuaderno) encallados en la arena, esferas flotantes que apenas brillan y, en el cielo, formas de la marca que pasan. En el centro, una plataforma con tres esferas incrustadas.',
         pasos=[
@@ -111,8 +110,7 @@ STAGES = {
     'e2': dict(
         where='unreal', acc='fucsia', num='Etapa 02', title='El mundo de los objetos',
         lead='Cuando cambia el significado de un objeto, es porque cambia el punto de vista desde el que lo mirás.',
-        mec='Dentro de la cúpula, el participante se acerca a cada objeto gigante y entra a su mundo por una abertura. Los recorre en un orden fijo (llave, mate y cuaderno) y en cada uno realiza una acción ligada al uso del objeto.',
-        facts=[('Dónde', lugar('unreal')), ('Dispositivo', 'Computadora de la estación'), ('Qué hace', 'Encuentra la llave, se sienta en la ronda y sigue las hojas del cuaderno')],
+        mec='En Unreal, desde la computadora de su estación, el participante se acerca a cada objeto gigante y entra a su mundo por una abertura. Los recorre en un orden fijo (llave, mate y cuaderno) y en cada uno realiza una acción ligada al uso del objeto: encuentra la llave, se sienta en la ronda y sigue las hojas del cuaderno.',
         fig=TRIO,
         esc='Los tres objetos de la etapa anterior, otra vez gigantes, dentro de la cúpula. El que hay que recorrer primero aparece en color; los demás, en blanco y negro. Al salir de cada mundo se vuelve a la cúpula: el objeto recorrido pasa a blanco y negro y se colorea el siguiente.',
         pasos=[
@@ -140,8 +138,7 @@ STAGES = {
     'e3': dict(
         where='unreal', acc='celeste', num='Etapa 03', title='Una extensión del yo',
         lead='Ahora el objeto es tuyo: lo elegís, lo pensás y te desprendés de él.',
-        mec='En Unreal, el participante recorre un pasillo mientras la voz le pide pensar en un objeto que lleve encima. Al final sale un momento de la experiencia: se levanta de su estación, deposita su objeto real en el tótem del aula y vuelve a Unreal para abrir la puerta.',
-        facts=[('Dónde', lugar('unreal', 'fisico', 'unreal')), ('Dispositivo', 'Computadora de la estación; en el aula, tótem, luces LED y holograma'), ('Qué hace', 'Elige un objeto propio, lo deposita en el tótem y elige un ícono en la puerta')],
+        mec='En Unreal, desde la computadora de su estación, el participante recorre un pasillo mientras la voz le pide pensar en un objeto que lleve encima. Al final sale un momento de la experiencia: se levanta, sigue las luces LED del aula hasta el tótem y deposita ahí su objeto real; el holograma de una mesa cercana le muestra un ícono. Después vuelve a Unreal y elige ese ícono para abrir la puerta.',
         fig=PASILLO,
         esc='Un pasillo con una puerta al fondo. Un pulso de luz lo recorre hacia adelante y, alrededor, se adivinan muy difuminados otros pasillos como este.',
         pasos=[
@@ -157,8 +154,7 @@ STAGES = {
     'e4': dict(
         where='unreal', acc='fucsia', num='Etapa 04', title='Objetos perdidos',
         lead='Los objetos que valoramos son anclas de seguridad: cuando se pierden, la mente no para de buscarlos.',
-        mec='El participante recorre una réplica de la primera etapa, ahora sin sus objetos, y puede volver a entrar en cada mundo. Al final sale otra vez de Unreal y va al tótem del aula, donde dejó su objeto.',
-        facts=[('Dónde', lugar('unreal', 'fisico')), ('Dispositivo', 'Computadora de la estación; en el aula, luces LED, tótem y proyector'), ('Qué hace', 'Escucha las esferas apagadas, recorre los mundos de la ausencia y va al tótem')],
+        mec='En Unreal, desde la computadora de su estación, el participante recorre una réplica de la primera etapa, ahora sin sus objetos: escucha las esferas apagadas y puede volver a entrar en cada mundo. Al final sale otra vez de Unreal, sigue las luces LED hasta el tótem del aula, donde dejó su objeto, y después mira el video del proyector.',
         fig=img('assets/img/maqueta-e1-inv.webp', 1927, 903, 'Maqueta · invertida'),
         esc='La réplica del desierto de la Etapa 1, con los colores invertidos. Donde estaban los objetos solo quedan su silueta y su sombra, que por momentos se glitchean como si el objeto reapareciera.',
         pasos=[
@@ -176,7 +172,6 @@ STAGES = {
         where='unreal', acc='amarillo', num='Etapa 05', title='Obsesión con la pérdida',
         lead='Cuando lo tenías encima ni pensabas en él; ahora que lo perdiste, lo ves en todos lados.',
         mec='Vuelve a Unreal cuando termina el video del proyector: las luces lo llevan de nuevo a su estación y la pantalla se enciende en el comienzo de un pasillo. Lo recorre entre pilas de objetos hasta encontrar los Oculus.',
-        facts=[('Dónde', lugar('fisico', 'unreal')), ('Dispositivo', 'Computadora de la estación'), ('Qué hace', 'Recorre el pasillo hasta los Oculus')],
         fig=PILAS,
         esc='El escenario está repleto de los objetos que en la etapa anterior parecían perdidos, ahora en su escala normal. Forman pilas a los lados y un pasillo recto que lleva a una pila más chica, donde están apoyados los Oculus, el “Detector de significado”.',
         pasos=[
@@ -191,8 +186,7 @@ STAGES = {
     'e6': dict(
         where='oculus', acc='celeste', num='Etapa 06', title='Búsqueda del significado',
         lead='Con el detector puesto, lo que se busca no es el objeto: es su significado.',
-        mec='El participante se pone los Oculus. El escenario es el mismo de la Etapa 5, pero en wireframe, y los Oculus funcionan como detector: busca entre los objetos las esferas que brillan, guiado por sus sonidos, y se acerca para recolectarlas.',
-        facts=[('Dónde', lugar('oculus')), ('Dispositivo', 'Oculus, que funcionan como detector'), ('Qué hace', 'Encuentra tres esferas y las deposita en un tótem')],
+        mec='El participante se pone los Oculus. El escenario es el mismo de la Etapa 5, pero en wireframe, y los Oculus funcionan como detector: busca entre los objetos las esferas que brillan, guiado por sus sonidos, las recolecta y las deposita en un tótem que emerge del suelo.',
         fig=WIRE,
         esc='La réplica del pasillo de la Etapa 5, con todos los objetos en modo wireframe. Entre ellos brillan tres esferas, acompañadas de sonidos que sirven de guía.',
         pasos=[
@@ -208,8 +202,7 @@ STAGES = {
     'cierre': dict(
         where='fisico', acc='crema', num='Cierre', title='El reencuentro',
         lead='El objeto vuelve, pero ya no es el mismo.',
-        mec='El participante se quita los Oculus y vuelve al tótem del aula, guiado por las luces. Ahí recibe su objeto dentro de una esfera. El final es en persona, con el equipo.',
-        facts=[('Dónde', lugar('oculus', 'fisico')), ('Dispositivo', 'Tótem y proyector del aula'), ('Qué hace', 'Recibe su esfera, mira el video final y conversa con el equipo')],
+        mec='El participante se quita los Oculus y vuelve al tótem del aula, guiado por las luces. Ahí recibe su objeto dentro de una esfera y mira el video final en el proyector. El final es en persona, con el equipo.',
         fig='<div class="rel__aula" data-aula-focus="totem"></div>',
         esc='El tótem del aula, ahora con esferas físicas como las del recorrido. Cada una tiene un color (rosa, amarillo, celeste) y un nombre; adentro está el objeto de cada participante.',
         pasos=[
