@@ -87,8 +87,7 @@
   .rel__facts > div { grid-template-columns: 1fr; gap: 6px; }
 }
 
-/* la etapa de cierre usa crema como acento */
-.cierre .relato { --acc: var(--crema); }
+/* D-12: el Reencuentro también lleva color (fucsia, con los tres colores en el fondo) */
 
 /* C-09: ficha solo con la Mecánica (Bienvenida) */
 @media (min-width: 1000px) { .relato__grid--solo .rel--mec { grid-column: 1 / 9; } }

@@ -187,14 +187,14 @@ STAGES = {
         inter='Mové el detector con el cursor y hacé clic en las esferas que brillan.'),
 
     'cierre': dict(
-        where='fisico', acc='crema', num='Cierre', title='El reencuentro',
+        where='fisico', acc='fucsia', num='Cierre', title='El reencuentro',
         lead='El objeto vuelve, pero ya no es el mismo.',
         mec='El participante se quita los Oculus y vuelve al tótem del aula, guiado por las luces. Ahí recibe su objeto dentro de una esfera y mira el video final en el proyector. El final es en persona, con el equipo.',
         fig='<div class="rel__aula" data-aula-focus="totem"></div>',
         esc='El tótem del aula, ahora con esferas físicas como las del recorrido. Cada una tiene un color (rosa, amarillo, celeste) y un nombre; adentro está el objeto de cada participante.',
         pasos=[
             (None, 'Al volver al tótem, encuentra las esferas físicas con su color y su nombre; dentro está su objeto.'),
-            (None, 'Al recibirlas, el proyector reproduce el video final, con la voz en off.' + voice('cierre', 'crema', auto=False)),
+            (None, 'Al recibirlas, el proyector reproduce el video final, con la voz en off.' + voice('cierre', 'fucsia', auto=False)),
             (None, 'El equipo cuenta brevemente cómo nació el proyecto y muestra su objeto de partida.'),
             (None, 'Al devolver los objetos, les preguntamos a los participantes si quieren contar por qué lo eligieron.'),
         ],
