@@ -114,9 +114,15 @@ function play(sec) {
     }
   };
 
-  // al tocar una esfera suena su pista (la de la llave todavía no tiene voz: llegó vacía)
-  const SOUND = { mate: 'esferaMate', cuaderno: 'esferaCuaderno' };
-  const sound = (key) => { if (audio.enabled && SOUND[key]) audio.play(SOUND[key]); };
+  // al tocar una esfera suena su pista: el sonido del objeto y después la voz
+  // (la esfera de la llave todavía no tiene voz: el archivo llegó vacío; suenan solo las llaves)
+  const SOUND = { llave: ['llavesAbriendo', null, 0], mate: ['sorboEsfera', 'esferaMate', 750], cuaderno: [null, 'esferaCuaderno', 0] };
+  const sound = (key) => {
+    if (!audio.enabled) return;
+    const [sfx, voz, delay] = SOUND[key];
+    if (sfx) audio.play(sfx);
+    if (voz) setTimeout(() => audio.play(voz), delay);
+  };
 
   spheres.forEach((s) => s.addEventListener('click', () => {
     const key = s.dataset.sphere;

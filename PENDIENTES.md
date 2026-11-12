@@ -37,68 +37,48 @@ yo los optimizo y los copio a `docs/assets/`.
 
 ## Audio
 
-- [x] **9. Audios nuevos (audios.zip, nov. 2026).** Recortados solo en sus silencios con
-  `tools/recortar_audios.py` (originales intactos en `assets/audio/originales/`) e integrados con
-  subtítulos rehechos sobre las versiones recortadas. Sin transcripción: cada frase se asignó por
-  duración y pausas. Quedan las dudas del punto 25.
-
-  | Archivo | En la web | Frase |
-  |---|---|---|
-  | `etapa-1` | `e1-voz` · E1 | "Entraste a la etapa de la plasticidad sináptica… reorganizar las conexiones." |
-  | `etapa-2` | `e2-voz` · E2 cúpula | "Cuando el significado de ese objeto… fue testigo." |
-  | `Mundo-de-la-llave-1` | `llave-voz-1` · llave, puerta 1 | "Llegó el día, por fin me voy a mudar." (a confirmar, #25) |
-  | `Mundo de la llave 2` | `llave-voz-2` · llave, regalos | "Te voy a extrañar, hijo." (a confirmar, #25) |
-  | `Mundo de la llave 3` | `llave-voz-3` · llave, cerradura | "¡Sí! Acá están." (a confirmar, #25) |
-  | `Mate tomado 1` a `3` | `mate-tomado-1..3` · ronda | los tres mates tomados de la ronda, con el agua que baja |
-  | `Mate-tomado-4` | `mate-tomado-4` · la mañana | "Gracias amor" + mate tomado (a confirmar, #25) |
-  | `Ruido-de-mate-cebandose` | `mate-cebandose` · ronda y mañana | el mate cebándose |
-  | `Etapa-3-Parte-1` / `2` | `e3-voz-1` / `e3-voz-2` · E3 | consigna del pasillo (tiempos de la parte 2 aproximados, #25) |
-  | `Etapa-4-Parte-1` / `2` | `e4-voz-1` / `e4-voz-2` · E4 | destello / último mundo |
-  | `Etapa 5` | `e5-voz` · E5 | "Ahora que tanto pensaste tu objeto…" |
-  | `Etapa 6` | `e6-voz` · E6 | "Encontraste el significado… en busca de tu objeto." (antes escrita) |
-  | `Cierre` | `cierre-voz` · video final | "Esto fue Memoria Material… otro significado." (antes escrita) |
-
-  Sigue escrita, sin audio: la voz del video de bienvenida.
-- [ ] **21. Regrabar dos audios para que coincidan con sus subtítulos.** No puedo escuchar los audios
-  nuevos: **¿`etapa-1` y `Etapa-3-Parte-2` ya dicen "para continuar con la experiencia" y "vas a poder
-  seguir recorriendo la experiencia"?** Si siguen diciendo "para avanzar" / "siguiente etapa", hay que
-  regrabarlos con el texto de esta tabla:
-
-  | Audio | Subtítulo (texto a grabar) |
-  |---|---|
-  | E1 | "Para continuar con la experiencia, vas a tener que reorganizar las conexiones." |
-  | E3, parte 2 | "…para continuar con la experiencia vas a tener que depositar ese objeto en nuestro tótem." |
-  | E3, parte 2 | "Una vez hecho esto, vas a poder seguir recorriendo la experiencia." |
-
-- [ ] **10. Efectos de sonido.** Resueltos: los cuatro "mate tomado" y el mate cebándose. Siguen como
-  onomatopeyas escritas: llaves, papel, chapoteo, pitido, obra, batido, portazo, ruido mecánico.
-- [ ] **25. Dudas de los audios nuevos** (no se adivinó: se integraron así y hay que confirmar):
-  1. **Voces del mundo de la llave.** Las duraciones no encajan con seguridad con el guion. Medido con
-     un umbral sensible: voz 1 = tres tramos cortos (~0,6 s cada uno), voz 2 = un tramo de ~0,9 s,
-     voz 3 = un tramo de ~1,2 s. Se asignó: 1 = "Llegó el día, por fin me voy a mudar", 2 = "Te voy a
-     extrañar, hijo" y 3 = "¡Sí! Acá están". En la voz 2 no entran las tres frases de los cajones (como
-     suponía la versión anterior) ni las dos de la despedida. **¿Qué dice cada una?** Las frases sin
-     audio ("Te regalo esto…" y las de los cajones) siguen escritas.
-  2. **Cuatro "mate tomado".** En la ronda del guion hay tres mates tomados; el cuarto está en la
-     mañana ("Gracias amor" + mate tomado). Se ubicó así: 1 a 3 en la ronda (cada uno baja el agua) y
-     4 en la mañana. **¿Va ahí, o la ronda tiene que tener cuatro mates?**
-  3. **Mate cebándose.** El guion lo nombra en la ronda y en la mañana; se usa el mismo sonido en las dos.
-  4. **`Etapa-4-Parte-1` termina con voz justo en el último instante:** puede estar cortado al final.
-  5. **`Etapa-3-Parte-2` va más rápido de lo esperado para su texto:** los tiempos de sus subtítulos son
-     aproximados. Si la grabación usa otras palabras, pasame el texto exacto.
+- [x] **9, 10, 21 y 25. Audios de la ronda anterior.** Reemplazados por los sonidos nuevos (punto 29).
+  Los archivos viejos quedaron en `Experiencia_MemoriaMaterial_Web/assets/audio/viejos/`.
+- [ ] **29. Sonidos nuevos (nov. 2026: `assets/audio/Voces` y `Sonidos Extras`).** Integrados con
+  `tools/sonidos_nuevos.py`: voces recortadas solo al principio y al final (todas tienen los dos canales
+  parejos) y efectos tomados en fragmentos, más bajos que las voces (y se bajan más mientras habla una voz).
+  Quedan estas dudas:
+  1. **Esfera de la llave (E1):** el archivo `Voz Esfera Llave - Etapa 1` llegó vacío (silencio total).
+     Se omitió: al tocar la esfera suenan solo las llaves abriendo la puerta. Falta el archivo bueno.
+  2. **Voces de los diálogos que todavía no están grabadas** (quedan solo como texto):
+     - Reunión del mate: Voz 1 ("Bueno che, al final llegamos…"), Voz 2 ("Y el último mate también…",
+       "Dejá, yo no les quiero ver más la cara…") y Voz 4 ("Sí, loco, hay que hacer algo").
+     - La mañana del mate: Voz 1 (la mamá: "Buen día hijo…", "Obvio amor, tomá", "Que tengas un lindo
+       día") y Voz 3 (el hijo: "Buen día").
+     - Cuaderno de materiales: Voz 1 ("Va a quedar genial…", "Va a tardar…", "Bueno, primero hay que
+       elegir el modelo del piso…", "Y los zócalos…").
+     - Cuaderno de recetas: Voz 1, la abuela (las cuatro frases).
+  3. **Hoja arrancada (esfera celeste de la E1):** sin sonido todavía; suena solo la voz.
+  4. **Fragmentos de efectos elegidos sin escucharlos** (por los tramos con sonido de cada archivo):
+     sorbos de mate, mate cebándose (de `Ruidos De Mate_Variados`), pájaros, pava, páginas, escritura y
+     llaves. Si alguno no es el momento justo, se cambia el inicio en `tools/sonidos_nuevos.py`.
+  5. **Llaves en el mundo de la llave:** el guion no dice cuándo suenan; se pusieron al aparecer la llave
+     en el cajón, al entrar en la cerradura y al abrirse (llaves abriendo la puerta).
+  6. **Subtítulos de la E4, parte 1:** "¿Dónde estará? ¿Lo voy a recuperar? «Voy a estar todo el día
+     pensando en esto…»" va en un solo subtítulo: las pausas del audio no permiten separar esas frases con
+     seguridad. Todos los subtítulos siguen el texto del guion; si alguna grabación usa otras palabras,
+     pasame el texto exacto (esto reemplaza al punto 26).
+  7. **Voz 7 de la llave** ("¡Sí! Acá están."): dura casi 4 s, bastante para la frase. Se ubicó por el
+     orden de los nombres.
+  8. **Sonidos del guion que no llegaron** (siguen como onomatopeya escrita): chapoteo, risas, bostezo,
+     persianas, click de la radio, pasos, puerta que rechina, portazo, ruido de obra, batido, cajón que se
+     abre, pitido de la E4, cerradura cerrada (mundo de la llave en ausencia), ruido mecánico del tótem y
+     sonidos guía de las esferas de la E6. Tampoco hay audio de las voces de las esferas de la E4.
+  9. **Onomatopeyas:** las que ahora tienen sonido real (llaves, mate tomado, mate cebándose, pájaros) se
+     dejaron como apoyo visual: funcionan como el subtítulo del sonido (para quien navega sin audio).
 
 ## Correcciones (correcciones/CORRECCIONES.md) que esperan material
 
-- [ ] **26. C-05 · Subtítulos literales.** La regla nueva es que cada subtítulo diga exactamente lo que
-  dice su audio (reemplaza la de sacar el lenguaje de videojuego). El **Anexo A** de CORRECCIONES.md
-  llegó vacío, así que no se cambió ningún subtítulo: siguen los actuales. Cuando esté la transcripción
-  textual de cada audio, se reemplazan uno por uno (esto también resuelve #21 y #25).
+- [x] **26. C-05 · Subtítulos literales.** Reemplazado por el punto 29.6 (subtítulos de las voces nuevas).
 - [ ] **27. C-06 · Favicon con el logo reducido.** El archivo `referencias/logo-reducido` (SVG o PNG) no
   vino en la carpeta de correcciones. Sigue el favicon actual; cuando esté el archivo, se generan los
   tamaños (16, 32, 180, 192 y 512 px, más el SVG).
-- [ ] **28. C-19 · Audio de "¡Sí! Acá están."** No hay ningún audio con esa frase entre los que llegaron
-  (el que estaba como "Voz 3" dice "Te regalo esto, espero que te guste" y ahora suena en los regalos).
-  Al abrir la cerradura la frase queda solo como texto. Cuando se grabe, va en `data-found` (Etapa 2).
+- [x] **28. C-19 · Audio de "¡Sí! Acá están."** Llegó con los sonidos nuevos (Voz 7 de la llave).
 
 ## Contenido
 

@@ -3,6 +3,9 @@
 // - Voces (assets/audio/voces, tools/sonidos_nuevos.py) con subtítulos según el guion, sincronizados con
 //   las pausas medidas de cada audio. Efectos (assets/audio/ruidos) más bajos que las voces.
 
+// Los efectos siempre más bajos que las voces, y todavía más mientras habla una voz.
+const SFX_VOL = 0.6;
+const SFX_DUCK = 0.22;
 const ICON_PLAY = '<svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M4 2.5v11l9.5-5.5z"/></svg>';
 const ICON_PAUSE = '<svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M3.5 2.5h3v11h-3zM9.5 2.5h3v11h-3z"/></svg>';
 
@@ -40,12 +43,23 @@ export const VOICES = {
     src: 'assets/audio/voces/llave-3.mp3', who: 'Voz 3 · Mundo de la llave',
     cues: [[0, 2.69, '—Te regalo esto, espero que te guste.']],
   },
-  // Mundo del mate: efectos de sonido (el subtítulo describe el sonido)
-  mate1: { src: 'assets/audio/mate-tomado-1.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 5.06, '[mate tomado]']] },
-  mate2: { src: 'assets/audio/mate-tomado-2.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 4.03, '[mate tomado]']] },
-  mate3: { src: 'assets/audio/mate-tomado-3.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 7.92, '[mate tomado]']] },
-  mate4: { src: 'assets/audio/mate-tomado-4.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 2.71, '[mate tomado]']] },
-  cebando: { src: 'assets/audio/mate-cebandose.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 10.82, '[mate cebándose]']] },
+  // --- Efectos (assets/audio/ruidos, fragmentos de los sonidos nuevos; el subtítulo describe el sonido) ---
+  mate1: { src: 'assets/audio/ruidos/sorbo-1.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 1.13, '[mate tomado]']] },
+  mate2: { src: 'assets/audio/ruidos/sorbo-2.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 1.34, '[mate tomado]']] },
+  mate3: { src: 'assets/audio/ruidos/sorbo-3.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 0.94, '[mate tomado]']] },
+  mate4: { src: 'assets/audio/ruidos/sorbo-4.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 0.74, '[mate tomado]']] },
+  cebando: { src: 'assets/audio/ruidos/cebando-1.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 6.02, '[mate cebándose]']] },
+  cebando2: { src: 'assets/audio/ruidos/cebando-2.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 5.04, '[mate cebándose]']] },
+  pajaros: { src: 'assets/audio/ruidos/pajaros.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 10.03, '[pájaros]']] },
+  pava: { src: 'assets/audio/ruidos/pava.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 10.03, '[la pava en la hornalla]']] },
+  sorboEsfera: { src: 'assets/audio/ruidos/sorbo-esfera.mp3', who: 'Sonido · Esfera fucsia', sfx: true, cues: [[0, 0.74, '[alguien toma un mate]']] },
+  llavesAbriendo: { src: 'assets/audio/ruidos/llaves-abriendo.mp3', who: 'Sonido · Llaves', sfx: true, cues: [[0, 4.03, '[llaves abriendo una puerta]']] },
+  llavesCajon: { src: 'assets/audio/ruidos/llaves-cajon.mp3', who: 'Sonido · Mundo de la llave', sfx: true, cues: [[0, 1.94, '[las llaves en el cajón]']] },
+  llavesMano: { src: 'assets/audio/ruidos/llaves-mano.mp3', who: 'Sonido · Mundo de la llave', sfx: true, cues: [[0, 2.54, '[la llave entra en la cerradura]']] },
+  paginas1: { src: 'assets/audio/ruidos/paginas-1.mp3', who: 'Sonido · Mundo del cuaderno', sfx: true, cues: [[0, 4.03, '[hojas que se ordenan]']] },
+  paginas2: { src: 'assets/audio/ruidos/paginas-2.mp3', who: 'Sonido · Mundo del cuaderno', sfx: true, cues: [[0, 4.03, '[hojas que se ordenan]']] },
+  escribiendo1: { src: 'assets/audio/ruidos/escribiendo-1.mp3', who: 'Sonido · Mundo del cuaderno', sfx: true, cues: [[0, 7.03, '[alguien escribe]']] },
+  escribiendo2: { src: 'assets/audio/ruidos/escribiendo-2.mp3', who: 'Sonido · Mundo del cuaderno', sfx: true, cues: [[0, 7.03, '[alguien escribe]']] },
   // --- Voces nuevas (tools/sonidos_nuevos.py) ---------------------------------------
   bienvenida: { src: 'assets/audio/voces/bienvenida.mp3', who: 'Voz en off · Video de bienvenida', cues: [
       [0, 5.76, 'Bienvenido a Memoria Material, una experiencia donde vas a darle una nueva mirada a lo cotidiano.'],
@@ -246,7 +260,7 @@ class AudioManager {
       card.innerHTML = `<button class="sfx__play voice__play" type="button" aria-label="Escuchar el sonido: ${v.cues[0][2].replace(/[\[\]]/g, '')}">${ICON_PLAY}${ICON_PAUSE}</button><span class="sfx__label">${v.cues[0][2]}</span>`;
       card.querySelector('button').addEventListener('click', () => {
         if (!this.enabled) this.enable();
-        this.playSfx(id, card); // vuelve a tocarlo para pausar
+        this.playSfx(id, card, true); // vuelve a tocarlo para pausar
       });
       if (!this.cards.has(id)) this.cards.set(id, []);
       this.cards.get(id).push(card);
@@ -283,17 +297,22 @@ class AudioManager {
     this.current.el.play().catch(() => {});
     this.current.card?.classList.add('is-playing', 'has-played');
     this.fadeNoise(this.noiseLevel * 0.5, 0.6); // la voz manda
+    this.current.el.addEventListener('playing', () => this.duckSfx(), { once: true });
     this.showSubbar(true);
     this.emit();
   }
 
   // Efectos de sonido: reproductores independientes, para que dos sonidos seguidos no se corten.
-  playSfx(id, card) {
+  playSfx(id, card, toggle = false) {
     const v = VOICES[id];
     this.sfx = this.sfx || new Map();
     const prev = this.sfx.get(id);
-    if (prev && !prev.el.paused) { prev.el.pause(); prev.card?.classList.remove('is-playing'); this.sfx.delete(id); this.sfxCaption(); return; }
+    if (prev && !prev.el.paused) {
+      if (!toggle) { prev.el.currentTime = 0; return; } // si se dispara de nuevo, vuelve a empezar (no se corta)
+      prev.el.pause(); prev.card?.classList.remove('is-playing'); this.sfx.delete(id); this.sfxCaption(); return;
+    }
     const el = new Audio(v.src);
+    el.volume = this.voiceOn() ? SFX_DUCK : SFX_VOL;
     const entry = { el, card };
     this.sfx.set(id, entry);
     card?.classList.add('is-playing', 'has-played');
@@ -301,6 +320,9 @@ class AudioManager {
     el.play().catch(() => {});
     this.sfxCaption(v);
   }
+
+  voiceOn() { return !!(this.current && !this.current.el.paused); }
+  duckSfx() { const vol = this.voiceOn() ? SFX_DUCK : SFX_VOL; this.sfx?.forEach((e) => { e.el.volume = vol; }); }
 
   // Subtítulo del sonido en la barra flotante, si no hay una voz sonando.
   sfxCaption(v) {
@@ -334,6 +356,7 @@ class AudioManager {
     this.current.el.pause();
     this.current.card?.classList.remove('is-playing');
     if (this.enabled) this.fadeNoise(this.noiseLevel, 0.8);
+    this.duckSfx();
     this.showSubbar(false);
     this.emit();
   }
@@ -351,6 +374,7 @@ class AudioManager {
     c?.card?.classList.remove('is-playing');
     c?.card?.querySelectorAll('.cue').forEach((n) => { n.classList.remove('is-on'); n.classList.add('is-past'); });
     this.current = null;
+    this.duckSfx();
     if (this.enabled) this.fadeNoise(this.noiseLevel, 1);
     this.showSubbar(false);
     document.dispatchEvent(new CustomEvent('voice:ended', { detail: { id: c?.id } }));

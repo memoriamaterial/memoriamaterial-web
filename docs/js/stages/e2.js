@@ -116,6 +116,7 @@ function llave(sec) {
     c.classList.toggle('is-open');
     c.setAttribute('aria-label', `${c.classList.contains('is-open') ? 'Cerrar' : 'Abrir'} el ${['primer', 'segundo', 'tercer'][i]} cajón`);
     if (i === 1 && !mesita.classList.contains('is-usada')) mesita.classList.toggle('is-llave', c.classList.contains('is-open'));
+    if (i === 1 && c.classList.contains('is-open') && audio.enabled) audio.play('llavesCajon'); // aparece la llave
   }));
   // al llegar a la cerradura, el cajón de la llave queda abierto para poder llevarla
   ScrollTrigger.create({ trigger: panels[panels.length - 1], containerAnimation: tween, start: 'left 85%', onEnter: () => { cajones[1].classList.add('is-open'); mesita.classList.add('is-llave'); } });
@@ -220,7 +221,7 @@ function cerradura(wrap, tween) {
       gsap.timeline({ onComplete: open })
         .to(key, { x: `+=${dx}`, y: `+=${dy}`, duration: (fromDrag ? 0.3 : 0.8) * t, ease: fromDrag ? 'back.out(2)' : 'power3.inOut' })
         .to(key, { y: '+=6', duration: 0.12 * t, ease: 'power2.in' })
-        .add(() => key.classList.add('is-in'))
+        .add(() => { key.classList.add('is-in'); if (audio.enabled) audio.play('llavesMano'); })
         .to(key, { rotation: 90, transformOrigin: '50% 92%', duration: 0.55 * t, ease: 'power2.inOut' });
     } }).to(key, { ...EN_MANO, duration: fromDrag ? 0 : 0.3 * t });
   };
@@ -232,7 +233,8 @@ function cerradura(wrap, tween) {
     key.setAttribute('aria-label', 'Llave en la cerradura');
     done.hidden = false;
     found.hidden = false;
-    audio.autoplay('llave7', found.querySelector('[data-voice="llave7"]')); // ¡Sí! Acá están.
+    if (audio.enabled) audio.play('llavesAbriendo'); // la cerradura se abre
+    setTimeout(() => audio.autoplay('llave7', found.querySelector('[data-voice="llave7"]')), 1200); // ¡Sí! Acá están.
     if (!reduce) gsap.from([done, found], { y: 12, opacity: 0, stagger: 0.1, duration: 0.45, delay: 0.5 });
     lastY = window.scrollY;
   }
@@ -399,7 +401,8 @@ function cuaderno(sec) {
     defaults: { ease: 'power2.inOut' },
     scrollTrigger: { trigger: wrap, pin, start: 'top top', end: () => `+=${vh() * 8}`, scrub: 0.6 },
   });
-  tl.from(hMat, { opacity: 0, y: 16, duration: 0.3 })
+  tl.addLabel('hojas', 0)
+    .from(hMat, { opacity: 0, y: 16, duration: 0.3 })
     .to(hojas, { ...{ left: (i) => path(i).left, top: (i) => path(i).top, rotation: (i) => path(i).rotation }, duration: 1, stagger: 0.08 }, 0)
     .to(polvo, { opacity: 0.8, y: -30, duration: 0.6 }, 0.4)
     .to(pin, { x: 5, duration: 0.05, repeat: 9, yoyo: true, ease: 'none' }, 0.5)
@@ -442,8 +445,8 @@ function cuaderno(sec) {
     .to(final, { opacity: 0, duration: 0.3 }, '-=0.3')
     .to([cream, horno], { opacity: 0, duration: 0.3 }, '<');
 
-  const syncMat = sfxCues(tl, matLines, { prefix: 'mat-' });
-  const syncRec = sfxCues(tl, recLines, { prefix: 'rec-' });
+  const syncMat = sfxCues(tl, matLines, { prefix: 'mat-', extra: [{ id: 'paginas1', label: 'hojas', offset: 0.05 }] });
+  const syncRec = sfxCues(tl, recLines, { prefix: 'rec-', extra: [{ id: 'paginas2', label: 'recetas', offset: 0.3 }] });
   tl.eventCallback('onUpdate', () => { syncMat(); syncRec(); });
 }
 
