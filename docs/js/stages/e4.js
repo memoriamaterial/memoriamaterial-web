@@ -12,6 +12,9 @@ export function init() {
   ausencias(sec);
   eco(sec);
   sec.querySelectorAll('[data-video]').forEach(videoSeq);
+  // la voz del video que presenta la Etapa 5
+  const vid = sec.querySelector('.video--e5');
+  ScrollTrigger.create({ trigger: vid, start: 'top 40%', onEnter: () => audio.autoplay('e4video', vid.querySelector('[data-voice="e4video"]')) });
 
   // El ruido blanco sube durante toda la etapa
   ScrollTrigger.create({

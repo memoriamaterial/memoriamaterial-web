@@ -1,6 +1,7 @@
 // E1 · Plasticidad sináptica
 // Conectar cada esfera con su objeto. Nunca bloquea: si se sigue de largo, se completa sola.
 import { reduce, echo } from '../ui.js';
+import { audio } from '../audio.js';
 
 const { gsap, ScrollTrigger } = window;
 const COLORS = { llave: 'var(--amarillo)', mate: 'var(--fucsia)', cuaderno: 'var(--celeste)' };
@@ -113,8 +114,13 @@ function play(sec) {
     }
   };
 
+  // al tocar una esfera suena su pista (la de la llave todavía no tiene voz: llegó vacía)
+  const SOUND = { mate: 'esferaMate', cuaderno: 'esferaCuaderno' };
+  const sound = (key) => { if (audio.enabled && SOUND[key]) audio.play(SOUND[key]); };
+
   spheres.forEach((s) => s.addEventListener('click', () => {
     const key = s.dataset.sphere;
+    if (active !== key) sound(key);
     if (linked.has(key)) { showBubble(key); return; }
     select(active === key ? null : key); // volver a tocarla quita el tinte
   }));

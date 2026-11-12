@@ -85,7 +85,11 @@ function lema() {
 
 // --- Video de bienvenida: secuencia de texto animado con el scroll -----------------
 function video() {
-  document.querySelectorAll('#bienvenida [data-video]').forEach(videoSeq);
+  document.querySelectorAll('#bienvenida [data-video]').forEach((w) => {
+    videoSeq(w);
+    // la voz del video de bienvenida suena sola al llegar al video
+    ScrollTrigger.create({ trigger: w, start: 'top 40%', onEnter: () => audio.autoplay('bienvenida', w.querySelector('[data-voice="bienvenida"]')) });
+  });
 }
 
 // Secuencia de texto animado que reemplaza a un video (se usa también en E4).

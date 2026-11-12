@@ -9,7 +9,7 @@ const ICON_PAUSE = '<svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true">
 // Frases por archivo. [inicio, fin, texto] en segundos.
 export const VOICES = {
   e1: {
-    src: 'assets/audio/e1-voz.mp3', who: 'Voz en off · Etapa 1',
+    src: 'assets/audio/voces/e1.mp3', who: 'Voz en off · Etapa 1',
     cues: [
       [0, 3.12, 'Entraste a la etapa de la plasticidad sináptica.'],
       [3.12, 10.39, 'En esta etapa tu cerebro reorganiza la conexión entre los objetos que reconoce visualmente, y el significado que este le evoca.'],
@@ -18,7 +18,7 @@ export const VOICES = {
     ],
   },
   e2: {
-    src: 'assets/audio/e2-voz.mp3', who: 'Voz en off · Etapa 2',
+    src: 'assets/audio/voces/e2.mp3', who: 'Voz en off · Etapa 2',
     cues: [
       [0, 6.24, 'Cuando el significado de ese objeto tan cotidiano para vos cambia, es porque cambia también el punto de vista desde el que lo mirás.'],
       [6.24, 9.15, 'En esta etapa, vas a entrar en el mundo de los objetos,'],
@@ -29,15 +29,15 @@ export const VOICES = {
   },
   // Mundo de la llave: frases asignadas por duración y pausas (a confirmar, PENDIENTES #25)
   llave1: {
-    src: 'assets/audio/llave-voz-1.mp3', who: 'Voz 1 · Mundo de la llave',
+    src: 'assets/audio/voces/llave-1.mp3', who: 'Voz 1 · Mundo de la llave',
     cues: [[0, 4.13, '—Llegó el día, por fin me voy a mudar.']],
   },
   llave2: {
-    src: 'assets/audio/llave-voz-2.mp3', who: 'Voz 2 · Mundo de la llave',
+    src: 'assets/audio/voces/llave-2.mp3', who: 'Voz 2 · Mundo de la llave',
     cues: [[0, 2.64, '—Te voy a extrañar, hijo.']],
   },
   llave3: {
-    src: 'assets/audio/llave-voz-3.mp3', who: 'Voz 3 · Mundo de la llave',
+    src: 'assets/audio/voces/llave-3.mp3', who: 'Voz 3 · Mundo de la llave',
     cues: [[0, 2.98, '—Te regalo esto, espero que te guste.']],
   },
   // Mundo del mate: efectos de sonido (el subtítulo describe el sonido)
@@ -46,8 +46,29 @@ export const VOICES = {
   mate3: { src: 'assets/audio/mate-tomado-3.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 7.92, '[mate tomado]']] },
   mate4: { src: 'assets/audio/mate-tomado-4.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 2.71, '[mate tomado]']] },
   cebando: { src: 'assets/audio/mate-cebandose.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 10.82, '[mate cebándose]']] },
+  // --- Voces nuevas (tools/sonidos_nuevos.py) ---------------------------------------
+  bienvenida: { src: 'assets/audio/voces/bienvenida.mp3', who: 'Voz en off · Video de bienvenida', cues: [[0, 30.94, 'Bienvenido a Memoria Material, una experiencia donde vas a darle una nueva mirada a lo cotidiano.']] },
+  esferaMate: { src: 'assets/audio/voces/e1-esfera-mate.mp3', who: 'Esfera fucsia · Etapa 1', cues: [[0, 2.38, '—Gracias, yo ya estoy.']] },
+  esferaCuaderno: { src: 'assets/audio/voces/e1-esfera-cuaderno.mp3', who: 'Esfera celeste · Etapa 1', cues: [[0, 2.35, '—Tomá mi número, hablemos.']] },
+  llave4: { src: 'assets/audio/voces/llave-4.mp3', who: 'Voz 4 · Mundo de la llave', cues: [[0, 1.51, '—¿En dónde quedaron las llaves?']] },
+  llave5: { src: 'assets/audio/voces/llave-5.mp3', who: 'Voz 5 · Mundo de la llave', cues: [[0, 1.61, '—Me falta lo más importante.']] },
+  llave6: { src: 'assets/audio/voces/llave-6.mp3', who: 'Voz 6 · Mundo de la llave', cues: [[0, 3.14, '—Creo que la guardaste en la mesita de luz.']] },
+  llave7: { src: 'assets/audio/voces/llave-7.mp3', who: 'Voz 7 · Mundo de la llave', cues: [[0, 3.89, '—¡Sí! Acá están.']] },
+  mateR3a: { src: 'assets/audio/voces/mate-reunion-v3a.mp3', who: 'Voz 3 · Mundo del mate', cues: [[0, 8.18, '—Uh, sí, dale… Espero que este verano no sea como siempre, eh, que nos terminamos viendo de vuelta en marzo en el aula.']] },
+  mateR3b: { src: 'assets/audio/voces/mate-reunion-v3b.mp3', who: 'Voz 3 · Mundo del mate', cues: [[0, 3.58, '—Daaa, si después andás diciendo que nos extrañás.']] },
+  mateM2a: { src: 'assets/audio/voces/mate-manana-v2a.mp3', who: 'Voz 2 · Mundo del mate', cues: [[0, 2.23, '—Pasame un mate que ya me tengo que ir a laburar.']] },
+  mateM2b: { src: 'assets/audio/voces/mate-manana-v2b.mp3', who: 'Voz 2 · Mundo del mate', cues: [[0, 1.22, '—Gracias, amor.']] },
+  mateM2c: { src: 'assets/audio/voces/mate-manana-v2c.mp3', who: 'Voz 2 · Mundo del mate', cues: [[0, 1.87, '—Ustedes también, los amo.']] },
+  mateM2d: { src: 'assets/audio/voces/mate-manana-v2d.mp3', who: 'Voz 2 · Mundo del mate', cues: [[0, 3.02, '—Bueno, nos vemos a la noche.']] },
+  cqL2a: { src: 'assets/audio/voces/cuaderno-lista-v2a.mp3', who: 'Voz 2 · Mundo del cuaderno', cues: [[0, 5.52, '—Sí, primero hay que cambiar el piso, pintar, y último el escritorio.']] },
+  cqL2b: { src: 'assets/audio/voces/cuaderno-lista-v2b.mp3', who: 'Voz 2 · Mundo del cuaderno', cues: [[0, 1.8, '—Dale.']] },
+  cqL2c: { src: 'assets/audio/voces/cuaderno-lista-v2c.mp3', who: 'Voz 2 · Mundo del cuaderno', cues: [[0, 6.74, '—Vamos a necesitar un metro, caladora y sellador. Con eso creo que estamos bien.']] },
+  cqR2a: { src: 'assets/audio/voces/cuaderno-receta-v2a.mp3', who: 'Voz 2 · Mundo del cuaderno', cues: [[0, 2.4, '—¡Obvio, abu, eso no se pregunta!']] },
+  cqR2b: { src: 'assets/audio/voces/cuaderno-receta-v2b.mp3', who: 'Voz 2 · Mundo del cuaderno', cues: [[0, 2.42, '—A ver… ¡Acá está!']] },
+  cqR2c: { src: 'assets/audio/voces/cuaderno-receta-v2c.mp3', who: 'Voz 2 · Mundo del cuaderno', cues: [[0, 3.36, '—¿Y no iba una taza de aceite también?']] },
+  e4video: { src: 'assets/audio/voces/e4-video.mp3', who: 'Voz en off · Video antes de la Etapa 5', cues: [[0, 11.28, 'Cuando lo tenías encima ni pensabas en él, ahora que lo perdiste, no podés dejar de pensarlo, de verlo en todos lados.']] },
   e3a: {
-    src: 'assets/audio/e3-voz-1.mp3', who: 'Voz en off · Etapa 3',
+    src: 'assets/audio/voces/e3-1.mp3', who: 'Voz en off · Etapa 3',
     cues: [
       [0, 4.63, 'Ya viviste cómo un objeto puede convertirse en una extensión de nosotros,'],
       [4.63, 7.15, 'ahora vamos a vivirlo con vos.'],
@@ -55,7 +76,7 @@ export const VOICES = {
   },
   e3b: {
     // tiempos aproximados: la voz va más rápido de lo esperado para este texto (PENDIENTES #25)
-    src: 'assets/audio/e3-voz-2.mp3', who: 'Voz en off · Etapa 3',
+    src: 'assets/audio/voces/e3-2.mp3', who: 'Voz en off · Etapa 3',
     cues: [
       [0, 6.15, 'En esta etapa, vas a tener que pensar en un objeto que lleves encima: ¿cuál es aquel que puede tener un significado distinto?'],
       [6.15, 10.27, 'Te vamos a dar tiempo. ¿Lo tenés?'],
@@ -64,7 +85,7 @@ export const VOICES = {
     ],
   },
   e4a: {
-    src: 'assets/audio/e4-voz-1.mp3', who: 'Voz en off · Etapa 4',
+    src: 'assets/audio/voces/e4-1.mp3', who: 'Voz en off · Etapa 4',
     cues: [
       [0, 4.32, 'Esos objetos a los que les damos valor, funcionan como anclas de seguridad.'],
       [4.32, 9.32, 'Cuando nos dimos cuenta que lo perdimos, el cerebro siente que esa seguridad desapareció,'],
@@ -73,7 +94,7 @@ export const VOICES = {
     ],
   },
   e4b: {
-    src: 'assets/audio/e4-voz-2.mp3', who: 'Voz en off · Etapa 4',
+    src: 'assets/audio/voces/e4-2.mp3', who: 'Voz en off · Etapa 4',
     cues: [
       [0, 3.58, '¿Te das cuenta lo que sería perder ese objeto?'],
       [3.58, 4.86, '¿Cómo se sentiría?'],
@@ -84,18 +105,18 @@ export const VOICES = {
     ],
   },
   e5: {
-    src: 'assets/audio/e5-voz.mp3', who: 'Voz en off · Etapa 5',
+    src: 'assets/audio/voces/e5.mp3', who: 'Voz en off · Etapa 5',
     cues: [[0, 7.03, 'Ahora que tanto pensaste tu objeto, y sentiste su ausencia, tenés una oportunidad de recuperarlo.']],
   },
   e6: {
-    src: 'assets/audio/e6-voz.mp3', who: 'Voz en off · Etapa 6',
+    src: 'assets/audio/voces/e6.mp3', who: 'Voz en off · Etapa 6',
     cues: [
       [0, 3.32, 'Encontraste el significado, depositalo en el tótem.'],
       [3.32, 7.82, 'Ya podés quitarte el detector e ir en busca de tu objeto.'],
     ],
   },
   cierre: {
-    src: 'assets/audio/cierre-voz.mp3', who: 'Voz en off · Video final',
+    src: 'assets/audio/voces/cierre.mp3', who: 'Voz en off · Video final',
     cues: [
       [0, 5.88, 'Esto fue Memoria Material, una experiencia dispuesta a buscar en eso que te resultaba habitual.'],
       [5.88, 11.42, 'Esperamos haberte hecho notar que en lo cotidiano, hay cosas que pueden cobrar otro significado.'],
@@ -272,6 +293,14 @@ class AudioManager {
     const busy = this.current && !this.current.el.paused && this.current.id !== id && !VOICES[id]?.sfx;
     if (busy) { if (!this.queue.some((q) => q.id === id)) this.queue.push({ id, card }); return; }
     this.play(id, card);
+  }
+
+  // Ejecuta `fn` cuando termina la voz `id` (si está sonando o en espera); si no, enseguida.
+  after(id, fn) {
+    const pending = (this.current?.id === id && !this.current.el.paused) || this.queue.some((q) => q.id === id);
+    if (!pending) return fn();
+    const h = (e) => { if (e.detail?.id === id) { document.removeEventListener('voice:ended', h); fn(); } };
+    document.addEventListener('voice:ended', h);
   }
 
   pause() {

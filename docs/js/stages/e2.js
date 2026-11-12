@@ -17,6 +17,8 @@ export function init() {
     const v = (k) => sec.querySelector(`[data-voice="${k}"]`);
     ScrollTrigger.create({ trigger: p1, start: 'top 60%', once: true, onEnter: () => audio.autoplay('llave1', v('llave1')) });
     ScrollTrigger.create({ trigger: p2, start: 'top 60%', once: true, onEnter: () => { audio.autoplay('llave2', v('llave2')); audio.autoplay('llave3', v('llave3')); } });
+    const p3 = sec.querySelectorAll('.llave__panel')[3];
+    ScrollTrigger.create({ trigger: p3, start: 'top 60%', once: true, onEnter: () => ['llave4', 'llave5', 'llave6'].forEach((k) => audio.autoplay(k, v(k))) });
     return;
   }
   llave(sec);
@@ -27,32 +29,41 @@ export function init() {
 }
 
 // Sonidos de una escena con scroll: cada uno suena una vez, al pasar su paso bajando.
+// - data-voz: la voz que dice esa línea (si otra voz está sonando, espera su turno).
+// - data-sfx / data-drain: efectos de la línea (varios, separados por espacio). Si la línea tiene voz,
+//   el efecto suena cuando la voz termina (como en el guion: "…frase. — ruido de mate tomado —").
+// - extra: efectos sueltos en un momento de la escena ({ id, label }).
 // `onCue(cue, forward)` permite sincronizar una animación con el sonido (el agua del mate).
-function sfxCues(tl, items, onCue) {
-  const cues = items.map((li, i) => {
-    const id = li.dataset.drain || li.dataset.sfx;
-    if (!id) return null;
-    return { id, li, card: li.querySelector(`[data-voice="${id}"]`), t: tl.labels[`step${i}`] + 0.25, passed: false };
-  }).filter(Boolean);
+function sfxCues(tl, items, { onCue, prefix = '', extra = [] } = {}) {
+  const cues = [];
+  items.forEach((li, i) => {
+    const t = tl.labels[`${prefix}step${i}`] + 0.25;
+    const voz = li.dataset.voz;
+    if (voz) cues.push({ id: voz, voz: true, li, t });
+    (li.dataset.drain || li.dataset.sfx || '').split(/\s+/).filter(Boolean)
+      .forEach((id) => cues.push({ id, li, card: li.querySelector(`[data-voice="${id}"]`), t, after: voz }));
+  });
+  extra.forEach((e) => cues.push({ id: e.id, t: tl.labels[e.label] + (e.offset || 0) }));
+  const fire = (c) => { if (audio.enabled) audio.play(c.id, c.card); onCue?.(c, true); };
   return () => {
     const now = tl.time();
     cues.forEach((c) => {
       if (!c.passed && now >= c.t) {
         c.passed = true;
-        if (audio.enabled) audio.play(c.id, c.card);
-        onCue?.(c, true);
+        if (c.voz) { if (audio.enabled) audio.autoplay(c.id); return; }
+        if (c.after && audio.enabled) audio.after(c.after, () => fire(c)); else fire(c);
       } else if (c.passed && now < c.t) {
         c.passed = false;
-        onCue?.(c, false);
+        if (!c.voz) onCue?.(c, false);
       }
     });
   };
 }
 
 // Diálogo en pasos: la línea actual entra, la anterior sube y se atenúa.
-function dialog(tl, items, { onStep } = {}) {
+function dialog(tl, items, { onStep, prefix = '' } = {}) {
   items.forEach((li, i) => {
-    const at = `step${i}`;
+    const at = `${prefix}step${i}`;
     tl.addLabel(at);
     if (items[i - 2]) tl.to(items[i - 2], { opacity: 0, duration: 0.25 }, at);
     if (items[i - 1]) tl.to(items[i - 1], { yPercent: -112, opacity: 0.35, duration: 0.35 }, at);
@@ -98,6 +109,8 @@ function llave(sec) {
   ScrollTrigger.create({ trigger: panels[1], containerAnimation: tween, start: 'left 55%', onEnter: () => audio.autoplay('llave1', v1) });
   // la voz 3 queda en espera y suena apenas termina la 2
   ScrollTrigger.create({ trigger: panels[2], containerAnimation: tween, start: 'left 55%', onEnter: () => { audio.autoplay('llave2', v2); audio.autoplay('llave3', v3); } });
+  // entre la tercera y la cuarta puerta: "¿En dónde quedaron las llaves?", "Me falta…", "Creo que…"
+  ScrollTrigger.create({ trigger: panels[3], containerAnimation: tween, start: 'left 55%', onEnter: () => ['llave4', 'llave5', 'llave6'].forEach((k) => audio.autoplay(k, wrap.querySelector(`[data-voice="${k}"]`))) });
 
   cajones.forEach((c, i) => c.addEventListener('click', () => {
     c.classList.toggle('is-open');
@@ -218,7 +231,8 @@ function cerradura(wrap, tween) {
     key.setAttribute('aria-disabled', 'true');
     key.setAttribute('aria-label', 'Llave en la cerradura');
     done.hidden = false;
-    found.hidden = false;  // C-19: "¡Sí! Acá están." queda como texto (no hay audio)
+    found.hidden = false;
+    audio.autoplay('llave7', found.querySelector('[data-voice="llave7"]')); // ¡Sí! Acá están.
     if (!reduce) gsap.from([done, found], { y: 12, opacity: 0, stagger: 0.1, duration: 0.45, delay: 0.5 });
     lastY = window.scrollY;
   }
@@ -306,13 +320,13 @@ function mate1(sec) {
   const levels = { mate1: 0.66, mate2: 0.36, mate3: 0.04 };
   const before = { mate1: 1, mate2: 0.66, mate3: 0.36 };
   // se revisa en cada cuadro de la animación (con scrub, sigue avanzando después del scroll)
-  syncCues = sfxCues(tl, lines, (c, forward) => {
+  syncCues = sfxCues(tl, lines, { onCue: (c, forward) => {
     if (!(c.id in levels)) return;
     const dur = VOICES[c.id].cues.at(-1)[1];
     gsap.to(water, forward
       ? { scaleY: levels[c.id], duration: audio.enabled ? Math.min(dur * 0.8, 4) : 1.4, ease: 'power1.inOut', overwrite: true }
       : { scaleY: before[c.id], duration: 0.4, ease: 'power2.out', overwrite: true });
-  });
+  } });
   tl.eventCallback('onUpdate', syncCues);
 
   sit.addEventListener('click', () => {
@@ -393,6 +407,7 @@ function cuaderno(sec) {
 
   const matLines = [...mat.querySelectorAll('[data-line]')];
   dialog(tl, matLines, {
+    prefix: 'mat-',
     onStep: (li, i, at) => notas(mat, li).forEach((n, k) => tl.to(n, { clipPath: 'inset(0 0% 0 0)', duration: 0.5, ease: 'none' }, `${at}+=${0.2 + k * 0.3}`)),
   });
 
@@ -409,6 +424,7 @@ function cuaderno(sec) {
   const recLines = [...rec.querySelectorAll('[data-line]')];
   gsap.set(recLines, { opacity: 0 });
   dialog(tl, recLines, {
+    prefix: 'rec-',
     onStep: (li, i, at) => {
       notas(rec, li).forEach((n, k) => tl.to(n, { clipPath: 'inset(0 0% 0 0)', duration: 0.5, ease: 'none' }, `${at}+=${0.2 + k * 0.3}`));
       if (li.hasAttribute('data-oven')) {
@@ -425,9 +441,24 @@ function cuaderno(sec) {
     .to(libro, { scale: 7, transformOrigin: '75% 62%', duration: 1.2, ease: 'power2.in' }, '+=0.4')
     .to(final, { opacity: 0, duration: 0.3 }, '-=0.3')
     .to([cream, horno], { opacity: 0, duration: 0.3 }, '<');
+
+  const syncMat = sfxCues(tl, matLines, { prefix: 'mat-' });
+  const syncRec = sfxCues(tl, recLines, { prefix: 'rec-' });
+  tl.eventCallback('onUpdate', () => { syncMat(); syncRec(); });
 }
 
 // Movimiento reducido: los diálogos y anotaciones ya salen de los pins (main.js).
 function staticFallback(sec) {
   sec.querySelectorAll('.notas li').forEach((n) => { n.style.clipPath = 'none'; });
+  // movimiento reducido: las voces y efectos de los diálogos suenan al llegar a cada línea
+  sec.querySelectorAll('[data-line]').forEach((li) => {
+    const voz = li.dataset.voz;
+    const sfx = (li.dataset.drain || li.dataset.sfx || '').split(/\s+/).filter(Boolean);
+    if (!voz && !sfx.length) return;
+    ScrollTrigger.create({ trigger: li, start: 'top 75%', once: true, onEnter: () => {
+      if (!audio.enabled) return;
+      if (voz) audio.autoplay(voz);
+      sfx.forEach((id) => (voz ? audio.after(voz, () => audio.play(id)) : audio.play(id)));
+    } });
+  });
 }
