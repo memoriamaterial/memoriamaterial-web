@@ -38,13 +38,14 @@ yo los optimizo y los copio a `docs/assets/`.
 ## Audio
 
 - [x] **9, 10, 21 y 25. Audios de la ronda anterior.** Reemplazados por los sonidos nuevos (punto 29).
-  Los archivos viejos quedaron en `Experiencia_MemoriaMaterial_Web/assets/audio/viejos/`.
+  Los archivos viejos (sueltos, `audios.zip`, `originales/` y `viejos/`) se borraron: en
+  `assets/audio` quedan solo `Voces` y `Sonidos Extras`.
 - [ ] **29. Sonidos nuevos (nov. 2026: `assets/audio/Voces` y `Sonidos Extras`).** Integrados con
   `tools/sonidos_nuevos.py`: voces recortadas solo al principio y al final (todas tienen los dos canales
   parejos) y efectos tomados en fragmentos, más bajos que las voces (y se bajan más mientras habla una voz).
   Quedan estas dudas:
-  1. **Esfera de la llave (E1):** el archivo `Voz Esfera Llave - Etapa 1` llegó vacío (silencio total).
-     Se omitió: al tocar la esfera suenan solo las llaves abriendo la puerta. Falta el archivo bueno.
+  1. ~~Esfera de la llave (E1)~~ **resuelto:** llegó el archivo corregido ("¿Cómo te fue? ¿Ya comiste?",
+     suena después de las llaves abriendo la puerta).
   2. **Voces de los diálogos que todavía no están grabadas** (quedan solo como texto):
      - Reunión del mate: Voz 1 ("Bueno che, al final llegamos…"), Voz 2 ("Y el último mate también…",
        "Dejá, yo no les quiero ver más la cara…") y Voz 4 ("Sí, loco, hay que hacer algo").
@@ -55,8 +56,11 @@ yo los optimizo y los copio a `docs/assets/`.
      - Cuaderno de recetas: Voz 1, la abuela (las cuatro frases).
   3. **Hoja arrancada (esfera celeste de la E1):** sin sonido todavía; suena solo la voz.
   4. **Fragmentos de efectos elegidos sin escucharlos** (por los tramos con sonido de cada archivo):
-     sorbos de mate, mate cebándose (de `Ruidos De Mate_Variados`), pájaros, pava, páginas, escritura y
-     llaves. Si alguno no es el momento justo, se cambia el inicio en `tools/sonidos_nuevos.py`.
+     sorbos de mate, páginas, escritura y llaves. Si alguno no es el momento justo, se cambia el inicio en
+     `tools/sonidos_nuevos.py`. El mate cebándose (`Mate_Cebandose`) y la pava hirviendo
+     (`Ruido_Pava_Hirviendo`) se usan enteros.
+  10. **Pájaros:** en la mañana suena solo `Ruido_Pava_Hirviendo`, que ya trae los pájaros de fondo.
+     `Pajaros.mp3` sigue en `Sonidos Extras` pero no se usa (para no duplicar los pájaros).
   5. **Llaves en el mundo de la llave:** el guion no dice cuándo suenan; se pusieron al aparecer la llave
      en el cajón, al entrar en la cerradura y al abrirse (llaves abriendo la puerta).
   6. **Subtítulos de la E4, parte 1:** "¿Dónde estará? ¿Lo voy a recuperar? «Voy a estar todo el día

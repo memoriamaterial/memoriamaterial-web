@@ -22,6 +22,7 @@ VOCES_OUT, RUIDOS_OUT = 'docs/assets/audio/voces', 'docs/assets/audio/ruidos'
 VOCES = {
     'Voz - Video incial.mp3': 'bienvenida.mp3',
     'Voz en off - Etapa 1.mp3': 'e1.mp3',
+    'Voz Esfera Llave - Etapa 1.mp3': 'e1-esfera-llave.mp3',
     'Voz Esfera Mate- Etapa 1.mp3': 'e1-esfera-mate.mp3',
     'Voz Esfera Cuaderno - Etapa 1.mp3': 'e1-esfera-cuaderno.mp3',
     'Voz en off - Etapa 2.mp3': 'e2.mp3',
@@ -54,7 +55,6 @@ VOCES = {
 }
 E4_PARTE2 = ['Voz en off Parte 2.1 - Etapa 4.mp3', 'Voz en off Parte 2.2 - Etapa 4.mp3',
              'Voz en off Parte 2.3 - Etapa 4.mp3', 'Voz en off Parte 2.4 - Etapa 4.mp3']
-OMITIDAS = ['Voz Esfera Llave - Etapa 1.mp3']  # llegó vacía (silencio total): se reemplaza más adelante
 
 # efecto → (archivo, inicio, duración) en segundos, elegidos sobre los tramos con sonido de cada archivo
 RUIDOS = {
@@ -66,10 +66,8 @@ RUIDOS = {
     'sorbo-3.mp3': ('Ruido_Mate_Sorbos.wav', 13.8, 0.9),               # mate tomado (ronda, voz 3)
     'sorbo-4.mp3': ('Ruido_Mate_Sorbos.wav', 4.1, 0.7),                # mate tomado (la mañana)
     'sorbo-esfera.mp3': ('Ruido_Mate_Sorbos.wav', 15.9, 0.7),          # E1 esfera fucsia
-    'cebando-1.mp3': ('Ruidos De Mate_Variados.m4a', 0.5, 6.0),        # mate cebándose (ronda)
-    'cebando-2.mp3': ('Ruidos De Mate_Variados.m4a', 18.5, 5.0),       # mate cebándose (la mañana)
-    'pajaros.mp3': ('Pajaros.mp3', 14.0, 10.0),                        # la mañana: pájaros
-    'pava.mp3': ('Ruido_Pava.mp3', 9.9, 10.0),                         # la mañana: hornalla y pava
+    'mate-cebandose.mp3': ('Mate_Cebandose.mp3', 0.0, 1.85),           # mate cebándose (la ronda y la mañana)
+    'pava-hirviendo.mp3': ('Ruido_Pava_Hirviendo.mp3', 0.0, 25.9),     # la mañana: la pava hierve y de fondo, pájaros
     'paginas-1.mp3': ('Ruido_Paginas.mp3', 0.0, 4.0),                  # cuaderno: las hojas se ordenan
     'paginas-2.mp3': ('Ruido_Paginas_2.mp3', 0.9, 4.0),                # cuaderno: el camino de hojas de las recetas
     'escribiendo-1.mp3': ('Ruido_Escribiendo.mp3', 2.0, 7.0),          # cuaderno de materiales: anotaciones

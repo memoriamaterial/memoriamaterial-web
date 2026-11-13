@@ -1,4 +1,7 @@
-"""Recorta SOLO los silencios de los audios (sin cambiar volumen ni aplicar efectos).
+"""(Ronda anterior: los originales que procesaba ya no están en el repositorio. Sus funciones de
+análisis de silencio las usa tools/sonidos_nuevos.py.)
+
+Recorta SOLO los silencios de los audios (sin cambiar volumen ni aplicar efectos).
 
 - Principio y final: se corta el silencio dejando 0,1 s de margen.
 - Voces: las pausas internas de más de 0,7 s se acortan a ~0,5 s (0,25 s a cada lado).

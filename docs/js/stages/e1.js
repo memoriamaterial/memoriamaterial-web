@@ -115,8 +115,7 @@ function play(sec) {
   };
 
   // al tocar una esfera suena su pista: el sonido del objeto y después la voz
-  // (la esfera de la llave todavía no tiene voz: el archivo llegó vacío; suenan solo las llaves)
-  const SOUND = { llave: ['llavesAbriendo', null, 0], mate: ['sorboEsfera', 'esferaMate', 750], cuaderno: [null, 'esferaCuaderno', 0] };
+  const SOUND = { llave: ['llavesAbriendo', 'esferaLlave', 1800], mate: ['sorboEsfera', 'esferaMate', 750], cuaderno: [null, 'esferaCuaderno', 0] };
   const sound = (key) => {
     if (!audio.enabled) return;
     const [sfx, voz, delay] = SOUND[key];
