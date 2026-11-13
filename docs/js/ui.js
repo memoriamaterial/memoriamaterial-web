@@ -142,17 +142,34 @@ function initRail() {
     now.innerHTML = label(s);
     document.body.classList.toggle('is-past-intro', i > 0);
   };
-  sections.forEach((s, i) => {
-    ScrollTrigger.create({ trigger: s, start: 'top 55%', end: 'bottom 55%', onToggle: (self) => self.isActive && setActive(i) });
-  });
-  setActive(0);
-
-  ScrollTrigger.create({
-    start: 0, end: 'max',
-    onUpdate: (self) => {
-      fill.style.transform = mqMobile.matches ? `scaleX(${self.progress})` : `scaleY(${self.progress})`;
-    },
-  });
+  // La etapa activa es la sección que ocupa la pantalla (la que pasa por el 55 % de la altura),
+  // medida en cada cuadro con su tamaño real: así no se desfasa con los pins ni con los recorridos
+  // horizontales (que estiran su sección mientras dura la escena fija).
+  const line = document.querySelector('.rail__line');
+  const LINE_Y = 0.55;
+  const update = () => {
+    const y = window.innerHeight * LINE_Y;
+    let i = sections.findIndex((s) => { const r = s.getBoundingClientRect(); return r.top <= y && r.bottom > y; });
+    if (i < 0) i = sections[0].getBoundingClientRect().top > y ? 0 : sections.length - 1;
+    const r = sections[i].getBoundingClientRect();
+    const p = Math.min(1, Math.max(0, (y - r.top) / r.height)); // cuánto se recorrió de esa sección
+    setActive(i);
+    let f;
+    if (mqMobile.matches || !items[0].offsetParent) {
+      f = (i + p) / sections.length; // celular: un tramo igual por etapa
+    } else {
+      // escritorio: la línea llega al punto de la etapa activa y avanza hacia el siguiente
+      const lr = line.getBoundingClientRect();
+      const c = (k) => { const d = items[k].getBoundingClientRect(); return d.top + d.height / 2 - lr.top; };
+      const a = c(i), b = i + 1 < items.length ? c(i + 1) : lr.height;
+      f = (a + (b - a) * p) / lr.height;
+    }
+    f = Math.min(1, Math.max(0, f));
+    fill.style.transform = mqMobile.matches ? `scaleX(${f})` : `scaleY(${f})`;
+  };
+  ScrollTrigger.create({ start: 0, end: 'max', onUpdate: update, onRefresh: update });
+  window.addEventListener('resize', update);
+  update();
 }
 
 // --- Sonido -------------------------------------------------------------------
