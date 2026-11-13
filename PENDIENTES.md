@@ -63,6 +63,10 @@ yo los optimizo y los copio a `docs/assets/`.
      pava hirviendo (`Ruido_Pava_Hirviendo`). Los dos se apagan con un fundido al salir de la escena.
   11. **"¡Sí! Acá están."** suena (y aparece) al abrir el segundo cajón, donde está la llave; al abrir la
      puerta suenan solo las llaves.
+  12. **Voz del eco (E4, partes 2.1 a 2.4):** una voz por frase de la escena, cada una cuando aparece su
+     frase (la 2.4 se cortó en su pausa: "Sabemos…, y vos sabés…" / "Te invitamos…"). Con reverberancia
+     hecha con ffmpeg (ecos múltiples que se apagan, `REVERB` en `tools/sonidos_nuevos.py`); si se quiere
+     más o menos reverberación, se ajusta ahí.
 
 ## Correcciones (correcciones/CORRECCIONES.md) que esperan material
 

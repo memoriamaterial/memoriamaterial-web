@@ -133,17 +133,24 @@ export const VOICES = {
       [17.21, 20.66, 'Empezamos a buscarlo en todos lados, pensando que ya no lo vamos a encontrar.'],
     ],
   },
+  // Etapa 4, último mundo de la ausencia: con reverberancia (guion). Una voz por frase de la escena del eco;
+  // e4b son las cinco seguidas, para la tarjeta de la ficha.
   e4b: {
     src: 'assets/audio/voces/e4-2.mp3', who: 'Voz en off · Etapa 4',
     cues: [
-      [0, 3.6, '¿Te das cuenta lo que sería perder ese objeto?'],
-      [3.6, 5.47, '¿Cómo se sentiría?'],
-      [5.47, 8.49, '¿Cómo te sentís ahora que sabés que no está con vos?'],
-      [8.49, 11.02, 'Sabemos que ahora querés recuperarlo,'],
-      [11.02, 13.12, 'y vos sabés a dónde tenés que ir a buscar.'],
-      [13.12, 14.26, 'Te invitamos a que lo hagas.'],
+      [0, 3.94, '¿Te das cuenta lo que sería perder ese objeto?'],
+      [3.94, 6.22, '¿Cómo se sentiría?'],
+      [6.22, 9.68, '¿Cómo te sentís ahora que sabés que no está con vos?'],
+      [9.68, 12.21, 'Sabemos que ahora querés recuperarlo,'],
+      [12.21, 14.96, 'y vos sabés a dónde tenés que ir a buscar.'],
+      [14.96, 17.04, 'Te invitamos a que lo hagas.'],
     ],
   },
+  e4b1: { src: 'assets/audio/voces/e4-2-1.mp3', who: 'Voz en off · Etapa 4', cues: [[0, 3.94, '¿Te das cuenta lo que sería perder ese objeto?']] },
+  e4b2: { src: 'assets/audio/voces/e4-2-2.mp3', who: 'Voz en off · Etapa 4', cues: [[0, 2.28, '¿Cómo se sentiría?']] },
+  e4b3: { src: 'assets/audio/voces/e4-2-3.mp3', who: 'Voz en off · Etapa 4', cues: [[0, 3.46, '¿Cómo te sentís ahora que sabés que no está con vos?']] },
+  e4b4: { src: 'assets/audio/voces/e4-2-4.mp3', who: 'Voz en off · Etapa 4', cues: [[0, 2.53, 'Sabemos que ahora querés recuperarlo,'], [2.53, 5.28, 'y vos sabés a dónde tenés que ir a buscar.']] },
+  e4b5: { src: 'assets/audio/voces/e4-2-5.mp3', who: 'Voz en off · Etapa 4', cues: [[0, 2.23, 'Te invitamos a que lo hagas.']] },
   e5: {
     src: 'assets/audio/voces/e5.mp3', who: 'Voz en off · Etapa 5',
     cues: [[0, 5.74, 'Ahora que tanto pensaste tu objeto, y sentiste su ausencia, tenés una oportunidad de recuperarlo.']],

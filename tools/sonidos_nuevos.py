@@ -3,7 +3,7 @@
 Voces (assets/audio/Voces → docs/assets/audio/voces/):
   - Se corta SOLO el silencio del principio y del final (0,1 s de margen). Las pausas internas quedan.
   - Si un canal está casi mudo comparado con el otro, se copia el canal con sonido a los dos.
-  - La Etapa 4 (parte 2) llegó en cuatro archivos: se unen en uno, con 0,6 s entre frases.
+  - La Etapa 4 (parte 2): una voz por frase de la escena del eco, con reverberancia (ver e4_eco).
 Efectos (assets/audio/Sonidos Extras → docs/assets/audio/ruidos/):
   - Se toma un fragmento de cada archivo (los originales son largos), con fundido de entrada y salida.
   - Se pasan a estéreo y se bajan a un volumen parejo y suave (-30 LUFS), por debajo de las voces.
@@ -106,25 +106,38 @@ def voz(src, dst):
     return {'antes': round(d, 2), 'despues': round(dur(dst), 2), 'corte': [round(a, 2), round(d - b, 2)], 'canales': [l, r], 'copia_canal': bool(pan)}
 
 
-def e4_unida(dst):
+# La voz del último mundo de la ausencia "se escucha con mucha reverberación" (guion): ecos múltiples que se
+# apagan, con 0,6 s de cola agregada para que la reverberación no se corte.
+REVERB = 'apad=pad_dur=0.6,aecho=0.8:0.72:45|95|150|220|300|390:0.55|0.42|0.32|0.24|0.16|0.1'
+
+
+def e4_eco(out_dir):
+    """Etapa 4, parte 2: una voz por frase de la escena del eco, con reverberancia.
+    La parte 2.4 trae dos frases ("Sabemos…, y vos sabés…" / "Te invitamos…"): se corta en su última pausa.
+    Devuelve las duraciones de las cinco frases y arma también e4-2.mp3 (las cinco seguidas, para la ficha)."""
     with tempfile.TemporaryDirectory() as tmp:
-        parts = []
+        secos = []
         for i, f in enumerate(E4_PARTE2):
-            p = os.path.join(tmp, f'{i}.wav')
-            segs, _ = tramos(niveles(f'{VOCES_IN}/{f}'), 'voz')
-            d = dur(f'{VOCES_IN}/{f}')
+            src = f'{VOCES_IN}/{f}'
+            segs, _ = tramos(niveles(src), 'voz')
+            d = dur(src)
             a, b = max(0.0, segs[0][0] - MARGEN), min(d, segs[-1][1] + MARGEN)
-            run('ffmpeg', '-y', '-v', 'error', '-i', f'{VOCES_IN}/{f}', '-af', f'atrim={a:.3f}:{b:.3f},asetpts=PTS-STARTPTS', '-ar', '48000', '-ac', '2', p)
-            parts.append(p)
-        gap = os.path.join(tmp, 'gap.wav')
-        run('ffmpeg', '-y', '-v', 'error', '-f', 'lavfi', '-i', 'anullsrc=r=48000:cl=stereo', '-t', '0.6', gap)
+            if i < 3:
+                secos.append((src, a, b))
+            else:  # 2.4: se corta en su última pausa (cada mitad con 0,1 s de margen)
+                secos.append((src, a, segs[-2][1] + MARGEN))
+                secos.append((src, segs[-1][0] - MARGEN, b))
+        frases = []
+        for k, (src, a, b) in enumerate(secos, 1):
+            dst = f'{out_dir}/e4-2-{k}.mp3'
+            run('ffmpeg', '-y', '-v', 'error', '-i', src, '-af', f'atrim={a:.3f}:{b:.3f},asetpts=PTS-STARTPTS,{REVERB}', '-ac', '2', '-b:a', '128k', dst)
+            frases.append(round(dur(dst), 2))
         lst = os.path.join(tmp, 'l.txt')
         with open(lst, 'w') as fh:
-            for i, p in enumerate(parts):
-                fh.write(f"file '{p}'\n")
-                if i < len(parts) - 1: fh.write(f"file '{gap}'\n")
-        run('ffmpeg', '-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', lst, '-b:a', '128k', dst)
-        return [round(dur(p), 2) for p in parts]
+            for k in range(1, len(secos) + 1):
+                fh.write(f"file '{os.path.abspath(out_dir)}/e4-2-{k}.mp3'\n")
+        run('ffmpeg', '-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', lst, '-b:a', '128k', f'{out_dir}/e4-2.mp3')
+        return frases
 
 
 def ruido(src, ini, d, dst):
@@ -138,7 +151,7 @@ if __name__ == '__main__':
     informe = {'voces': {}, 'ruidos': {}}
     for src, dst in VOCES.items():
         informe['voces'][dst] = voz(f'{VOCES_IN}/{src}', f'{VOCES_OUT}/{dst}')
-    informe['voces']['e4-2.mp3'] = {'partes': e4_unida(f'{VOCES_OUT}/e4-2.mp3'), 'despues': round(dur(f'{VOCES_OUT}/e4-2.mp3'), 2)}
+    informe['voces']['e4-2 (eco)'] = {'frases': e4_eco(VOCES_OUT), 'unida': round(dur(f'{VOCES_OUT}/e4-2.mp3'), 2)}
     for dst, (src, ini, d) in RUIDOS.items():
         ruido(f'{RUIDOS_IN}/{src}', ini, d, f'{RUIDOS_OUT}/{dst}')
         informe['ruidos'][dst] = round(dur(f'{RUIDOS_OUT}/{dst}'), 2)

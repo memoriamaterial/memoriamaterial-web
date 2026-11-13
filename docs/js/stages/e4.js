@@ -68,17 +68,24 @@ function eco(sec) {
   const wrap = sec.querySelector('[data-eco]');
   const pin = wrap.querySelector('.eco__pin');
   const lines = [...wrap.querySelectorAll('[data-eco-line]')];
-  const voice = document.querySelector('[data-voice="e4b"]'); // en la ficha de la etapa
+  // cada frase suena con su voz (con reverberancia) cuando aparece; si la anterior sigue sonando, espera
+  const voz = (i) => `e4b${i + 1}`;
   if (reduce) {
     lines.forEach((l) => { l.style.position = 'relative'; l.style.opacity = 1; });
     pin.style.height = 'auto';
-    ScrollTrigger.create({ trigger: wrap, start: 'top 60%', once: true, onEnter: () => audio.autoplay('e4b', voice) }); // D-01
+    lines.forEach((l, i) => ScrollTrigger.create({ trigger: l, start: 'top 70%', once: true, onEnter: () => audio.autoplay(voz(i)) })); // D-01
     return;
   }
-  let played = false;
   const tl = gsap.timeline({
-    scrollTrigger: { trigger: wrap, pin, start: 'top top', end: () => `+=${window.innerHeight * 4}`, scrub: 0.8,
-      onUpdate: (self) => { if (self.progress > 0.02 && !played) { played = true; audio.autoplay('e4b', voice); } } },
+    scrollTrigger: { trigger: wrap, pin, start: 'top top', end: () => `+=${window.innerHeight * 4}`, scrub: 0.8 },
+  });
+  const cues = lines.map((l, i) => ({ id: voz(i), t: i * 1.4 + 0.1, passed: false }));
+  tl.eventCallback('onUpdate', () => {
+    const now = tl.time();
+    cues.forEach((c) => {
+      if (!c.passed && now >= c.t) { c.passed = true; audio.autoplay(c.id); }
+      else if (c.passed && now < c.t) c.passed = false; // al volver para arriba, vuelve a sonar al bajar
+    });
   });
   lines.forEach((l, i) => {
     const echoes = echo(l, 3, 0.5);
