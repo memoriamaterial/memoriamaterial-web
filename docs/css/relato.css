@@ -121,3 +121,7 @@
   .mundo__grupos--cols { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-7); }
   .mundo__grupos--cols .pasos { columns: 1; }
 }
+
+/* Fotos de los escenarios en Unreal: enteras, grandes y sin filtros */
+.rel__fig--foto { aspect-ratio: auto; background: none; }
+.rel__fig--foto > .rel__foto { display: block; width: auto; max-width: 100%; height: auto; max-height: 72vh; margin-inline: auto; }

@@ -27,6 +27,11 @@ def onoma(txt):
     return f'<span class="onoma">{txt}</span>'
 
 
+def foto(src, w, h, alt):
+    # foto del escenario en Unreal: entera, sin filtros (la ficha la muestra con su proporción)
+    return f'<img class="rel__foto" src="{src}" width="{w}" height="{h}" alt="{alt}" loading="lazy" decoding="async">'
+
+
 def img(src, w, h, tag):
     return (f'<span class="ph ph--right">{tag}</span>'
             f'<img src="{src}" width="{w}" height="{h}" alt="" loading="lazy" decoding="async">')
@@ -93,7 +98,7 @@ STAGES = {
         where='unreal', acc='amarillo', num='Etapa 01', title='Plasticidad sináptica',
         lead='El cerebro reorganiza la conexión entre los objetos que reconoce y el significado que le evocan.',
         mec='Sentado en su estación, el participante recorre el escenario en Unreal desde la computadora. Se acerca a las esferas para escucharlas y conecta cada una con el objeto que le corresponde.',
-        fig=img('assets/img/maqueta-e1.webp', 1927, 903, 'Maqueta · Unreal'),
+        fig=foto('assets/img/escenarios/e1.webp', 1765, 717, 'El escenario de la Etapa 1 en Unreal: un desierto con la llave, el cuaderno y el mate gigantes y tres esferas'),
         esc='Un espacio desértico con estructuras rectangulares que simulan los pliegues del cerebro. Tres objetos gigantes (un manojo de llaves, un mate y un cuaderno) encallados en la arena, esferas flotantes que apenas brillan y, en el cielo, formas de la marca que pasan. En el centro, una plataforma con tres esferas incrustadas.',
         pasos=[
             ('Al comenzar', 'La voz en off presenta la etapa.' + voice('e1', 'amarillo')),
@@ -114,7 +119,7 @@ STAGES = {
         where='unreal', acc='fucsia', num='Etapa 02', title='El mundo de los objetos',
         lead='Cuando cambia el significado de un objeto, es porque cambia el punto de vista desde el que lo mirás.',
         mec='En Unreal, desde la computadora de su estación, el participante se acerca a cada objeto gigante y entra a su mundo por una abertura. Los recorre en un orden fijo (llave, mate y cuaderno) y en cada uno realiza una acción ligada al uso del objeto: encuentra la llave, se sienta en la ronda y sigue las hojas del cuaderno.',
-        fig=TRIO,
+        fig=foto('assets/img/escenarios/e2.webp', 1829, 793, 'El escenario de la Etapa 2 en Unreal: la llave, el mate y el cuaderno gigantes'),
         # C-15: se eliminó el texto del escenario (los objetos no están dentro de la cúpula)
         # C-16: en "Qué sucede" queda solo la voz en off; cada mundo tiene su bloque antes de su interacción
         pasos=[
@@ -126,7 +131,7 @@ STAGES = {
         where='unreal', acc='celeste', num='Etapa 03', title='Una extensión del yo',
         lead='Ahora el objeto es tuyo: lo elegís, lo pensás y te desprendés de él.',
         mec='En Unreal, desde la computadora de su estación, el participante recorre un pasillo mientras la voz le pide pensar en un objeto que lleve encima. Al final sale un momento de la experiencia: se levanta, sigue las luces LED del aula hasta el tótem y deposita ahí su objeto real; el holograma de una mesa cercana le muestra un ícono. Después vuelve a Unreal y elige ese ícono para abrir la puerta.',
-        fig=PASILLO,
+        fig=foto('assets/img/escenarios/pasillo.webp', 701, 671, 'El pasillo de la Etapa 3 en Unreal, con luces en el techo'),
         esc='Un pasillo con una puerta de arco al fondo. Un pulso de luz lo recorre hacia adelante.',
         pasos=[
             ('Mientras recorre el pasillo', 'La voz en off: ' + said('“Ya viviste cómo un objeto puede convertirse en una extensión de nosotros, ahora vamos a vivirlo con vos.”') + voice('e3a', 'celeste', auto=False)),
@@ -293,7 +298,7 @@ def build(key, d):
     esc_html = f'''
       <section class="rel rel--esc" aria-label="Escenario">
         <h3 class="rel__h"><span class="rel__n">{n_esc}</span>Escenario</h3>
-        <figure class="rel__fig">{d['fig']}</figure>
+        <figure class="rel__fig{' rel__fig--foto' if 'rel__foto' in d['fig'] else ''}">{d['fig']}</figure>
         {('<p class="rel__p">' + d['esc'] + '</p>') if d.get('esc') else ''}
       </section>''' if d.get('fig') else ''
     seq_html = f'''

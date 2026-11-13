@@ -3,7 +3,6 @@ import { audio } from '../audio.js';
 import { reduce } from '../ui.js';
 
 const { gsap, ScrollTrigger } = window;
-const N = 16;
 
 export function init() {
   const sec = document.getElementById('e3');
@@ -12,34 +11,14 @@ export function init() {
   puerta(sec);
 }
 
-// Túnel: marcos que vienen hacia la cámara. "p" es el avance (0 → 1).
-function buildTunnel(el, n = N) {
-  const frames = Array.from({ length: n }, () => {
-    const f = document.createElement('i');
-    f.className = 'frame';
-    el.prepend(f);
-    return f;
-  });
-  return (p) => {
-    frames.forEach((f, i) => {
-      const d = (i / n + p * 3) % 1;         // profundidad 0 (lejos) → 1 (cerca)
-      const s = 0.06 / Math.max(0.04, 1 - d * 0.96);
-      f.style.setProperty('--s', s.toFixed(3));
-      f.style.setProperty('--o', (Math.min(1, d * 3) * (1 - Math.max(0, (s - 1.6) / 1.4)) * 0.45).toFixed(3));
-    });
-  };
-}
-
 function pasillo(sec) {
   const wrap = sec.querySelector('[data-pasillo]');
   const pin = wrap.querySelector('.pasillo__pin');
-  const main = buildTunnel(wrap.querySelector('.tunel--main'));
-  const door = wrap.querySelector('.tunel__door');
+  const foto = wrap.querySelector('.pasillo__foto img'); // la foto del pasillo en Unreal
   const says = [...wrap.querySelectorAll('[data-say]')];
   const ask = wrap.querySelector('.pasillo__ask');
   const [va, vb] = ['e3a', 'e3b'].map((k) => document.querySelector(`[data-voice="${k}"]`)); // en la ficha de la etapa
 
-  main(0);
   if (reduce) {
     // D-01: también con movimiento reducido las voces suenan solas al llegar (la segunda espera a la primera)
     ScrollTrigger.create({ trigger: wrap, start: 'top 60%', once: true, onEnter: () => { audio.autoplay('e3a', va); audio.autoplay('e3b', vb); } });
@@ -53,14 +32,13 @@ function pasillo(sec) {
       trigger: wrap, pin, start: 'top top', end: () => `+=${window.innerHeight * 5}`, scrub: 0.8,
       onUpdate: (self) => {
         const p = self.progress;
-        main(p);
         if (p > 0.02 && !playedA) { playedA = true; audio.autoplay('e3a', va); }
         if (p > 0.3 && !playedB) { playedB = true; audio.autoplay('e3b', vb); }
       },
     },
   });
-  // la puerta del fondo se acerca a lo largo de todo el recorrido
-  tl.to(door, { scale: 0.42, duration: says.length * 1.2 + 0.5, ease: 'power1.in' }, 0);
+  // la cámara avanza por el pasillo a lo largo de todo el recorrido
+  tl.fromTo(foto, { scale: 1 }, { scale: 1.45, transformOrigin: '50% 52%', duration: says.length * 1.2 + 0.5, ease: 'power1.in' }, 0);
   says.forEach((s, i) => {
     const at = i * 1.2 + 0.2;
     tl.fromTo(s, { opacity: 0, y: 20, filter: 'blur(8px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.4 }, at);

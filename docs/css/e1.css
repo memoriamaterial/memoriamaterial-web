@@ -110,3 +110,34 @@
 .e1-dome__copy { position: absolute; top: calc(var(--s-9) + env(safe-area-inset-top)); left: 0; right: 0; display: grid; gap: var(--s-3); padding-inline: var(--gutter); text-align: center; justify-items: center; }
 .e1-dome__copy .title { font-size: var(--t-xl); }
 .e1-dome__flash { position: absolute; inset: 0; background: var(--violeta); opacity: 0; pointer-events: none; }
+
+/* --- Escena de la E1 sobre la foto del escenario en Unreal ------------------------- */
+.e1-scroller { width: min(1280px, 100%); margin-inline: auto; align-self: center; border-radius: 24px; overflow: hidden; }
+.e1-scene--foto { width: 100%; height: auto; min-height: 0; aspect-ratio: 1765 / 717; background: var(--violeta); border-radius: 0; border: 0; }
+.e1-foto { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.e1-scene--foto .e1-node { left: var(--x); top: var(--y); }
+.e1-scene--foto .e1-lines { z-index: 2; }
+/* esferas: un aro de su color sobre la esfera de la foto; al elegirla o conectarla, brilla */
+.e1-scene--foto .e1-sphere { width: var(--s); min-width: 44px; }
+.e1-scene--foto .e1-sphere__core { width: 100%; background: none; border: 2px solid var(--c); opacity: .75; filter: none; box-shadow: 0 0 12px color-mix(in srgb, var(--c) 60%, transparent); animation: aro 2.6s ease-in-out infinite; }
+@keyframes aro { 50% { box-shadow: 0 0 22px var(--c); opacity: 1; } }
+.e1-scene--foto .e1-sphere.is-active .e1-sphere__core, .e1-scene--foto .e1-sphere.is-linked .e1-sphere__core { background: color-mix(in srgb, var(--c) 30%, transparent); border-width: 3px; opacity: 1; }
+/* objetos: zonas transparentes sobre los objetos de la foto; se marcan con un borde al elegir y al conectar */
+.e1-scene--foto .e1-obj { width: var(--w); height: var(--h); min-width: 44px; min-height: 44px; rotate: 0deg; border-radius: 18px; border: 2px dashed transparent; color: transparent; transition: border-color .4s, box-shadow .4s, background-color .4s; }
+.e1-scene.e1-scene--foto.is-choosing .e1-obj:not(.is-linked) { border-color: rgb(242 237 212 / .55); animation: invite-foto 1.6s ease-in-out infinite; }
+@keyframes invite-foto { 50% { border-color: rgb(242 237 212 / .9); } }
+@media (hover: hover) { .e1-scene--foto .e1-obj:not(.is-linked):hover { border-color: rgb(242 237 212 / .7); } }
+.e1-scene--foto .e1-obj.is-linked { border: 2px solid var(--c); filter: none; box-shadow: 0 0 24px var(--c), inset 0 0 24px color-mix(in srgb, var(--c) 40%, transparent); }
+/* la plataforma de la foto: solo se marcan sus tres esferas incrustadas */
+.e1-scene--foto .e1-platform { width: 12%; }
+.e1-scene--foto .e1-platform__disc { border-color: transparent; background: none; box-shadow: none; }
+.e1-scene--foto .e1-slot { width: 16%; }
+@media (max-width: 699px) {
+  .e1-scroller { width: 100%; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; align-self: center; border-radius: 18px; }
+  .e1-scene--foto { width: 230vw; }
+}
+.e1-desliza { display: none; }
+@media (max-width: 699px) {
+  .e1-play { grid-template-rows: auto auto 1fr; }
+  .e1-desliza { display: block; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-50); }
+}

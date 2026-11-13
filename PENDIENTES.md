@@ -15,10 +15,21 @@ yo los optimizo y los copio a `docs/assets/`.
   `afiche3.jpg` y dos `WhatsApp Image 2026-09-27 ...`. Faltan esas fotos y fotos de los objetos reales
   (llaves, mate, cuaderno) y de escenas cotidianas.
   - *Hoy:* escenas ilustradas en duotono violeta con el objeto resaltado (Bienvenida). PLACEHOLDER.
-- [ ] **2. Escenarios.** Solo hay maquetas de E1, mundo de la llave, mundo del cuaderno y espacio físico.
-  Faltan: mundo del mate, cúpula, E3 (pasillo), E4, E5, E6, tótem, Oculus, esferas físicas.
-  ¿Hay capturas o renders finales de Unreal? ¿Se pueden exportar recorridos de cámara (Sequencer)?
-  - *Hoy:* maquetas con duotono donde existen; escenas ilustradas 2,5D en el resto. PLACEHOLDER.
+- [ ] **2. Escenarios.** Llegaron 10 fotos de Unreal (`assets/escenarios/*.PNG`, originales intactos) y ya
+  están en la web, en WebP y sin filtros (`docs/assets/img/escenarios/`):
+  E1 (ficha y escena interactiva), E2 (ficha), mundo de la llave (los cuatro tramos), mundo del mate
+  (charco → ronda, y la mañana) y E3 (ficha y pasillo). A la del mate (estadio 1) se le recortó el borde de
+  abajo para sacar la marca "Activar Windows". La de la E1 conserva las herramientas del editor (flechas y
+  líneas rojas), como se pidió.
+  **Siguen sin foto:** mundo del cuaderno (usa la maqueta vieja), E4 (réplica invertida, las tres
+  ausencias, el humo), E5 (el pasillo de objetos), E6 (el detector), el aula (tótem, holograma), la foto del
+  objeto de partida del cierre y las tres fotos del video de bienvenida.
+  Decisiones al reemplazar (confirmadas): en el mate ya no baja el agua ni se iluminan las sillas que hablan
+  (la foto pasa del charco a la ronda al sentarse); en la mañana ya no se abren las ventanas ni aclara el
+  cielo. La llave, al llegar a la cerradura, sale del cajón y queda al lado de la foto (también en
+  escritorio), porque con la foto grande la mesita y la cerradura no entran juntas en pantalla.
+  El texto del escenario de la ficha de la E3 sigue el guion ("una puerta de arco al fondo… un pulso de
+  luz"); la foto todavía no muestra esa puerta ni el pulso.
 - [ ] **3. Videos** (bienvenida, introducción a E5, final). No hay ninguno.
   - *Hoy:* secuencias de texto animado con el guion.
 

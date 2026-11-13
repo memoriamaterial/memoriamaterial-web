@@ -267,3 +267,69 @@
 @media (max-width: 899px) {
   .llave__voices--cajas { top: auto; bottom: calc(var(--s-9) + var(--bar-h) + 24px); left: 24px; width: calc(100% - 48px); }
 }
+
+/* --- Fotos de los escenarios del mundo de la llave (sin filtros, protagonistas) ------------- */
+.llave__foto { position: absolute; z-index: 1; inset: calc(var(--s-9) + 40px + env(safe-area-inset-top)) clamp(16px, 5vw, 80px) calc(var(--bar-h) + var(--s-8)); margin: 0; border-radius: 20px; overflow: hidden; border: 1px solid var(--ink-10); }
+.llave__foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* lo que va encima de la foto lleva su propio fondo, para leerse sin tocar la foto */
+.llave__panel .llave__voices, .llave__panel .llave__copy, .llave__caption, .door { z-index: 3; }
+.llave__caption { left: clamp(28px, 6vw, 96px); bottom: calc(var(--bar-h) + var(--s-8) + 12px); padding: 6px 10px; border-radius: 8px; background: rgb(53 42 114 / .9); color: var(--ink-70); }
+.llave__panel--cajones .llave__copy { padding: var(--s-5); border-radius: 18px; background: rgb(53 42 114 / .92); border: 1px solid var(--ink-10); }
+.llave__panel--cajones .mesita { background: var(--violeta); }
+.llave__panel--regalos { align-content: start; }
+.llave__panel--regalos .llave__voices { width: min(30rem, 100%); }
+/* la cerradura: la foto, con el ojo de la cerradura y la salida marcados encima */
+.cerradura--foto { position: relative; aspect-ratio: 1473 / 764; color: inherit; border-radius: 20px; overflow: visible; }
+.cerradura__foto { position: absolute; inset: 0; width: 100%; height: 100%; display: block; border-radius: 20px; border: 1px solid var(--ink-10); }
+.cerradura--foto .cerradura__ojo { position: absolute; z-index: 2; left: 40.8%; top: 55.5%; width: 5%; aspect-ratio: 1; translate: -50% -50%; }
+.cerradura--foto .cerradura__target { left: 40.8%; top: 55.5%; width: 10%; height: auto; aspect-ratio: 1; translate: -50% -50%; }
+.cerradura__salida { position: absolute; z-index: 1; left: 51%; top: 39.7%; width: 10%; height: 31%; border-radius: 4px; opacity: 0; transition: opacity .8s, box-shadow .8s; }
+.cerradura--foto.is-open .cerradura__salida { opacity: 1; background: radial-gradient(70% 80% at 50% 90%, rgb(242 237 212 / .9), rgb(252 182 20 / .55) 60%, transparent); box-shadow: 0 0 60px var(--amarillo); }
+.llave__panel--cerradura .cerradura--foto { --lw: auto; width: min(58vw, 960px); margin: 0; }
+@media (min-width: 900px) {
+  .llave__panel--cerradura { grid-template-columns: auto auto; align-items: center; column-gap: var(--s-6); }
+  .llave__panel--cerradura .llave__copy { grid-column: 1 / -1; }
+  .llave__panel--cerradura .llave-dock { display: grid; place-items: center; width: 120px; height: 190px; border-radius: 14px; border: 1.5px dashed var(--ink-20); }
+  .llave-dock .llave-drag { position: relative; left: auto; top: auto; margin: 0; }
+}
+@media (max-width: 899px) {
+  .llave__foto { inset: calc(var(--s-10) + env(safe-area-inset-top)) 16px calc(var(--bar-h) + var(--s-6)); }
+  .llave__panel--cerradura .cerradura--foto { grid-column: 1 / -1; grid-row: auto; width: 100%; margin: var(--s-3) 0 0; justify-self: stretch; }
+  .llave__panel--cerradura .llave-dock { grid-column: 1 / -1; grid-row: auto; justify-self: center; margin-top: var(--s-3); }
+}
+@media (max-width: 899px) {
+  /* cerradura: el texto arriba, después la foto y la llave */
+  .llave__panel--cerradura { grid-template-columns: minmax(0, 1fr); }
+  .llave__panel--cerradura .llave__copy > * { order: -1; }
+  /* mesitas: tarjetas de voz compactas, para que la mesita con la llave entre en la pantalla */
+  .llave__panel--cajones { row-gap: var(--s-3); }
+  .llave__panel--cajones .llave__copy { gap: 6px; padding: 10px 12px; }
+  .llave__panel--cajones .llave__copy .voice__meta { display: none; }
+  .llave__panel--cajones .llave__copy .voice { padding: 6px 10px; gap: 10px; }
+  .llave__panel--cajones .llave__copy .voice__play { width: 32px; height: 32px; }
+  .llave__panel--cajones .llave__copy .voice__text { font-size: var(--t-sm); }
+  .llave__panel--cajones .llave__ask { font-size: var(--t-base); }
+  .llave__panel--cajones .mesita { width: 180px; padding: 10px; gap: 6px; }
+  .llave__panel--cajones .cajon { height: 44px; }
+  .llave__panel--cajones .mesita .llave-drag { top: 82px; }
+}
+@media (max-width: 899px) {
+  /* foto y llave lado a lado, para que la llave quede a la vista */
+  .llave__panel--cerradura { grid-template-columns: minmax(0, 1fr) auto; column-gap: 10px; }
+  .llave__panel--cerradura .llave__copy > * { grid-column: 1 / -1; }
+  .llave__panel--cerradura .cerradura--foto { grid-column: 1; }
+  .llave__panel--cerradura .llave-dock { grid-column: 2; align-self: center; margin-top: var(--s-3); width: 64px; height: 150px; }
+}
+
+/* --- Fotos de los escenarios del mundo del mate (sin filtros) --------------------------- */
+.mate1__fotos, .mate2__foto { position: absolute; z-index: 1; inset: calc(var(--s-9) + 110px + env(safe-area-inset-top)) var(--gutter) calc(var(--bar-h) + var(--s-6)); margin: 0; border-radius: 20px; overflow: hidden; border: 1px solid var(--ink-10); }
+.mate1__foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.mate1__foto--ronda { opacity: 0; }
+.mate2__foto { background: #2a1d6b; }
+.mate2__foto img { width: 100%; height: 100%; object-fit: contain; display: block; } /* foto chica: entera, sin agrandarla de más */
+.mate1__fotos { will-change: transform; }
+/* las onomatopeyas sueltas llevan fondo para leerse sobre la foto */
+.manana .onoma--solo, .ronda .onoma--solo { justify-self: start; padding: 8px 12px; border-radius: 10px; background: rgb(53 42 114 / .9); }
+@media (max-width: 899px) {
+  .mate1__fotos, .mate2__foto { inset: calc(var(--s-10) + 90px + env(safe-area-inset-top)) 16px calc(var(--bar-h) + 150px); }
+}

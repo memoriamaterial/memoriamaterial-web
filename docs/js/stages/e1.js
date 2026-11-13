@@ -30,9 +30,10 @@ function play(sec) {
   };
 
   // C-13: cada línea llega a un punto del dibujo de su objeto (no de la caja del botón)
-  const ANCHOR = { llave: [0.5, 0.14], cuaderno: [0.5, 0.1], mate: [0.42, 0.4] };
+  // sobre la foto: el punto de llegada está dentro de la zona del objeto (el aro de la llave, el cuaderno, la boca del mate)
+  const ANCHOR = { llave: [0.32, 0.3], cuaderno: [0.5, 0.2], mate: [0.5, 0.25] };
   const anchor = (key) => {
-    const r = scene.querySelector(`[data-obj="${key}"] use`).getBoundingClientRect(), s = scene.getBoundingClientRect();
+    const r = scene.querySelector(`[data-obj="${key}"]`).getBoundingClientRect(), s = scene.getBoundingClientRect();
     const [fx, fy] = ANCHOR[key];
     return { x: r.left - s.left + r.width * fx, y: r.top - s.top + r.height * fy };
   };
@@ -56,6 +57,9 @@ function play(sec) {
   };
   const relayout = () => svg.querySelectorAll('path').forEach((p) => p.setAttribute('d', pathFor(p.dataset.key)));
   new ResizeObserver(relayout).observe(scene);
+  // en celular la foto es más ancha que la pantalla: arranca centrada y se desliza de costado
+  const scroller = scene.parentElement;
+  if (scroller.scrollWidth > scroller.clientWidth) scroller.scrollLeft = (scroller.scrollWidth - scroller.clientWidth) / 2;
 
   const showBubble = (key) => {
     const tpl = sec.querySelector(`template[data-said="${key}"]`);
@@ -63,10 +67,21 @@ function play(sec) {
     bubble.style.setProperty('--acc', COLORS[key]);
     bubble.hidden = false;
     const c = center(scene.querySelector(`[data-sphere="${key}"]`));
-    const sw = scene.clientWidth, bw = bubble.offsetWidth;
-    const left = Math.min(Math.max(c.x - bw / 2, 12), sw - bw - 12);
+    const bw = bubble.offsetWidth;
+    // en celular (foto más ancha que la pantalla): la imagen se desliza para centrar la esfera
+    // y el globo queda dentro de la parte que se ve
+    const sc = scene.parentElement;
+    let min = 12, max = scene.clientWidth - bw - 12;
+    if (sc.scrollWidth > sc.clientWidth) {
+      const to = Math.min(Math.max(c.x - sc.clientWidth / 2, 0), sc.scrollWidth - sc.clientWidth);
+      sc.scrollTo({ left: to, behavior: reduce ? 'auto' : 'smooth' });
+      min = to + 12; max = to + sc.clientWidth - bw - 12;
+    }
+    const left = Math.min(Math.max(c.x - bw / 2, min), max);
     bubble.style.left = `${left}px`;
-    bubble.style.top = `${c.y + 52}px`;
+    // debajo de la esfera; si no entra en la escena, arriba
+    const below = c.y + 52, bh = bubble.offsetHeight;
+    bubble.style.top = `${below + bh > scene.clientHeight - 12 ? Math.max(12, c.y - 52 - bh) : below}px`;
     if (!reduce) gsap.fromTo(bubble, { opacity: 0, y: -8, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: 'back.out(2)' });
   };
   const hideBubble = () => { bubble.hidden = true; };

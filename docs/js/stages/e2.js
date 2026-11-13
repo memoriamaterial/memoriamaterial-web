@@ -142,7 +142,7 @@ function llave(sec) {
 function cerradura(wrap, tween) {
   const panel = wrap.querySelector('[data-lock-panel]');
   const lock = wrap.querySelector('[data-lock]');
-  const lockSvg = lock.querySelector('.cerradura__lock');
+  const ojo = lock.querySelector('.cerradura__ojo'); // el ojo de la cerradura en la foto
   const key = wrap.querySelector('[data-llave-drag]');
   const hint = wrap.querySelector('[data-lock-hint]');
   const done = wrap.querySelector('[data-lock-done]');
@@ -198,18 +198,17 @@ function cerradura(wrap, tween) {
 
   // --- geometría: punta de la llave y centro del ojo de la cerradura ------------
   const tip = () => { const r = key.getBoundingClientRect(); return { x: r.left + r.width * 0.5, y: r.top + r.height * 0.92 }; };
-  const hole = () => { const r = lockSvg.getBoundingClientRect(); return { x: r.left + r.width * 0.5, y: r.top + r.height * 0.46 }; };
+  const hole = () => { const r = ojo.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; };
   const gap = () => { const a = tip(), b = hole(); return { dx: b.x - a.x, dy: b.y - a.y, d: Math.hypot(b.x - a.x, b.y - a.y) }; };
-  const magnet = () => Math.max(90, lockSvg.getBoundingClientRect().width * 0.55);
+  const magnet = () => Math.max(90, lock.getBoundingClientRect().width * 0.12);
 
   // --- encajar: imán, giro, luz amarilla y la puerta se abre ---------------------
   const EN_CAJON = { rotation: 90, scale: 0.42 };     // C-18: la llave del cajón, chica y acostada
   const EN_MANO = { rotation: 0, scale: 1 };
   gsap.set(key, EN_CAJON);
-  // En celular el mueble y la cerradura no entran juntos: al llegar a la cerradura, la llave
-  // sale del cajón y queda al lado de la cerradura, lista para llevarla.
+  // Con la foto de la cerradura, el mueble y la cerradura no entran juntos en pantalla: al llegar a la
+  // cerradura, la llave sale del cajón (con una animación desde el cajón) y queda al lado, lista para llevarla.
   const dock = wrap.querySelector('[data-llave-dock]');
-  const narrow = window.matchMedia('(max-width: 899px)');
   const home = () => (key.parentElement === dock ? EN_MANO : EN_CAJON);
   const moveTo = (parent, animate) => {
     if (key.parentElement === parent || opened || busy) return;
@@ -219,8 +218,7 @@ function cerradura(wrap, tween) {
     const b = key.getBoundingClientRect();
     if (animate && !reduce) gsap.from(key, { x: a.left + a.width / 2 - (b.left + b.width / 2), y: a.top + a.height / 2 - (b.top + b.height / 2), ...EN_CAJON, duration: 0.9, ease: 'power3.inOut' });
   };
-  ScrollTrigger.create({ trigger: panel, containerAnimation: tween, start: 'left 85%', onEnter: () => { if (narrow.matches) moveTo(dock, true); } });
-  narrow.addEventListener('change', () => { if (!narrow.matches) moveTo(mesita, false); });
+  ScrollTrigger.create({ trigger: panel, containerAnimation: tween, start: 'left 85%', onEnter: () => moveTo(dock, true) });
   const insert = (fromDrag = false) => {
     if (opened || busy) return;
     busy = true;
@@ -292,55 +290,26 @@ function swaps(sec) {
 function mate1(sec) {
   const wrap = sec.querySelector('.mate1');
   const pin = wrap.querySelector('.mate1__pin');
-  const charco = wrap.querySelector('.charco');
-  const water = wrap.querySelector('.charco__water');
-  const hole = wrap.querySelector('.charco__hole');
-  const chairs = [...wrap.querySelectorAll('.silla')];
+  const fotos = wrap.querySelector('.mate1__fotos');
+  const ronda = wrap.querySelector('.mate1__foto--ronda');
   const lines = [...wrap.querySelectorAll('.ronda [data-line]')];
   const sit = wrap.querySelector('[data-sit]');
 
-  chairs.forEach((c) => gsap.set(c, { rotation: parseFloat(c.style.getPropertyValue('--fr')) || 0 }));
-  // las sillas flotan a la deriva hasta que te sentás
-  const bob = gsap.to(chairs.filter((c) => !c.classList.contains('silla--yo')), { y: '+=8', rotation: '+=6', duration: 2.4, ease: 'sine.inOut', repeat: -1, yoyo: true, stagger: 0.3 });
-
   const tl = gsap.timeline({
     defaults: { ease: 'power2.inOut' },
-    scrollTrigger: { trigger: wrap, pin, start: 'top top', end: () => `+=${vh() * 5}`, scrub: 0.6,
-      onUpdate: (self) => (self.progress > 0.02 ? bob.pause() : bob.play()) },
+    scrollTrigger: { trigger: wrap, pin, start: 'top top', end: () => `+=${vh() * 5}`, scrub: 0.6 },
   });
-  let syncCues = null;
-  tl.to(chairs, {
-    left: (i, el) => el.style.getPropertyValue('--x'), top: (i, el) => el.style.getPropertyValue('--y'),
-    rotation: 0, y: 0, duration: 1, stagger: 0.05,
-  })
+  // al sentarse, el charco con las sillas a la deriva se funde a la ronda (fotos del escenario)
+  tl.to(ronda, { opacity: 1, duration: 1 })
     .to(sit, { opacity: 0, y: -10, duration: 0.3 }, 0.1);
-
-  dialog(tl, lines, {
-    onStep: (li, i, at) => {
-      const ch = li.dataset.chair && wrap.querySelector(`.silla[data-chair="${li.dataset.chair}"]`);
-      chairs.forEach((c) => { if (c !== ch && !c.classList.contains('silla--yo')) tl.set(c, { attr: { 'data-on': 0 } }, at); });
-      if (ch) tl.set(ch, { attr: { 'data-on': 1 } }, at);
-    },
-  });
+  dialog(tl, lines);
+  // al final, la cámara entra por el hueco del centro de la ronda
   tl.to(lines.slice(-2), { opacity: 0, duration: 0.3 })
-    .to(hole, { opacity: 1, scale: 1, duration: 0.6, ease: 'power3.out' }, '<')
-    .to(chairs, { attr: { 'data-on': 0 }, duration: 0.01 }, '<')
-    .to(charco, { scale: 6, transformOrigin: '50% 58%', duration: 1.2, ease: 'power2.in' }, '+=0.3')
+    .to(fotos, { scale: 6, transformOrigin: '51% 45%', duration: 1.2, ease: 'power2.in' }, '+=0.3')
     .to(pin, { backgroundColor: '#352A72', duration: 0.01 })
-    .to(charco, { opacity: 0, duration: 0.3 }, '-=0.3');
-
-  // cada mate tomado baja el agua mientras suena su sorbo (al volver para arriba, el agua sube)
-  const levels = { mate1: 0.66, mate2: 0.36, mate3: 0.04 };
-  const before = { mate1: 1, mate2: 0.66, mate3: 0.36 };
-  // se revisa en cada cuadro de la animación (con scrub, sigue avanzando después del scroll)
-  syncCues = sfxCues(tl, lines, { onCue: (c, forward) => {
-    if (!(c.id in levels)) return;
-    const dur = VOICES[c.id].cues.at(-1)[1];
-    gsap.to(water, forward
-      ? { scaleY: levels[c.id], duration: audio.enabled ? Math.min(dur * 0.8, 4) : 1.4, ease: 'power1.inOut', overwrite: true }
-      : { scaleY: before[c.id], duration: 0.4, ease: 'power2.out', overwrite: true });
-  } });
-  tl.eventCallback('onUpdate', syncCues);
+    .to(fotos, { opacity: 0, duration: 0.3 }, '-=0.3');
+  // los sonidos (voces, sorbos y el mate cebándose) suenan en su línea, como antes
+  tl.eventCallback('onUpdate', sfxCues(tl, lines));
 
   sit.addEventListener('click', () => {
     const st = tl.scrollTrigger;
@@ -353,11 +322,6 @@ function mate2(sec) {
   const wrap = sec.querySelector('.mate2');
   const pin = wrap.querySelector('.mate2__pin');
   const lines = [...wrap.querySelectorAll('.manana [data-line]')];
-  const wins = [...wrap.querySelectorAll('.ventanas i')];
-  const sky = wrap.querySelector('.mate2__sky');
-  const fuego = wrap.querySelector('.hornalla__fuego');
-  const pava = wrap.querySelector('.hornalla__pava');
-  const door = wrap.querySelector('.mate2__door span');
   const pam = wrap.querySelector('.mate2__portazo');
 
   const tl = gsap.timeline({
@@ -370,23 +334,11 @@ function mate2(sec) {
   tl.addLabel('pajaros', 0)
     .from(wrap.querySelector('.mate2__copy'), { opacity: 0, y: 20, duration: 0.4 })
     .addLabel('pava', '+=0.6')
-    .to(fuego, { opacity: 1, duration: 0.4 }, 'pava')
-    .to(pava, { color: 'rgb(242 237 212 / .95)', duration: 0.3 }, '<');
-  dialog(tl, lines, {
-    onStep: (li, i, at) => {
-      if (i === 0) {
-        tl.to(wins, { '--open': 1, duration: 0.5, stagger: 0.18, ease: 'power3.out' }, `${at}+=0.1`);
-        tl.to(sky, { opacity: 0.55, duration: 1.4, ease: 'none' }, at);
-      }
-      if (i > 0) tl.to(sky, { opacity: 0.55 + i * 0.03, duration: 0.4, ease: 'none' }, at);
-      if (li.hasAttribute('data-door')) tl.to(door, { scaleX: 1, duration: 0.6, ease: 'power2.out' }, `${at}+=0.1`);
-    },
-  });
+    .to({}, { duration: 0.4 }, 'pava'); // la pava empieza a sonar un poco después de los pájaros
+  dialog(tl, lines);
   tl.to(lines.slice(-2), { opacity: 0, duration: 0.2 })
     .fromTo(pam, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1.1, duration: 0.15, ease: 'power4.out' })
-    .to(door, { scaleX: 0, duration: 0.1 }, '<')
-    .to(pam, { opacity: 0, duration: 0.3 }, '+=0.25')
-    .to([sky, ...wins], { opacity: 0, duration: 0.4 }, '<');
+    .to(pam, { opacity: 0, duration: 0.3 }, '+=0.25');
   syncCues = sfxCues(tl, lines, { extra: [{ id: 'pajaros', label: 'pajaros', offset: 0.02 }, { id: 'pavaHirviendo', label: 'pava' }] });
   tl.eventCallback('onUpdate', syncCues);
 }

@@ -104,3 +104,9 @@
 }
 .rm .holo-seq__pin { height: auto; }
 .rm .holo-seq__steps li { position: static; opacity: 1; }
+
+/* --- El pasillo: la foto del escenario en Unreal (sin filtros); la cámara avanza con el scroll --- */
+.pasillo__foto { position: absolute; z-index: 1; left: 50%; top: 54%; translate: -50% -50%; height: min(74vh, 92vw * 671 / 701); aspect-ratio: 701 / 671; margin: 0; border-radius: 20px; overflow: hidden; border: 1px solid var(--ink-10); }
+.pasillo__foto img { width: 100%; height: 100%; display: block; will-change: transform; }
+@media (max-width: 899px) { .pasillo__foto { width: calc(100% - 32px); height: auto; top: 50%; } }
+.rm .pasillo__foto { position: relative; left: auto; top: auto; translate: none; margin: var(--s-6) auto 0; }
