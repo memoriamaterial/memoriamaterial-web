@@ -203,4 +203,10 @@
 /* C-07: elementos gráficos de la marca (las formas de las tramas) en lugar de círculos y píldoras */
 .lema__forma { flex: none; width: 1.3em; height: .65em; color: var(--c); overflow: visible; filter: drop-shadow(0 0 14px color-mix(in srgb, var(--c) 45%, transparent)); }
 .lema__forma--media { width: 1.1em; height: .55em; }
-.video__voz { max-width: 34rem; margin-top: var(--s-4); }
+/* La voz del video: tarjeta compacta debajo del proyector, con solo la frase que suena
+   (antes de escuchar, la primera), para no quitarle lugar a la pantalla */
+.video__pin:has(.video__voz) { grid-template-rows: minmax(0, 1fr) auto auto; }
+.video__voz { width: min(34rem, 100%); }
+.video__voz .voice__text { font-size: var(--t-sm); }
+.video__voz.has-played .cue:not(.is-on) { display: none; }
+.video__voz:not(.has-played) .cue:not(:first-child) { display: none; }
