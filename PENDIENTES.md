@@ -59,22 +59,10 @@ yo los optimizo y los copio a `docs/assets/`.
      sorbos de mate, páginas, escritura y llaves. Si alguno no es el momento justo, se cambia el inicio en
      `tools/sonidos_nuevos.py`. El mate cebándose (`Mate_Cebandose`) y la pava hirviendo
      (`Ruido_Pava_Hirviendo`) se usan enteros.
-  10. **Pájaros:** en la mañana suena solo `Ruido_Pava_Hirviendo`, que ya trae los pájaros de fondo.
-     `Pajaros.mp3` sigue en `Sonidos Extras` pero no se usa (para no duplicar los pájaros).
-  5. **Llaves en el mundo de la llave:** el guion no dice cuándo suenan; se pusieron al aparecer la llave
-     en el cajón, al entrar en la cerradura y al abrirse (llaves abriendo la puerta).
-  6. **Subtítulos de la E4, parte 1:** "¿Dónde estará? ¿Lo voy a recuperar? «Voy a estar todo el día
-     pensando en esto…»" va en un solo subtítulo: las pausas del audio no permiten separar esas frases con
-     seguridad. Todos los subtítulos siguen el texto del guion; si alguna grabación usa otras palabras,
-     pasame el texto exacto (esto reemplaza al punto 26).
-  7. **Voz 7 de la llave** ("¡Sí! Acá están."): dura casi 4 s, bastante para la frase. Se ubicó por el
-     orden de los nombres.
-  8. **Sonidos del guion que no llegaron** (siguen como onomatopeya escrita): chapoteo, risas, bostezo,
-     persianas, click de la radio, pasos, puerta que rechina, portazo, ruido de obra, batido, cajón que se
-     abre, pitido de la E4, cerradura cerrada (mundo de la llave en ausencia), ruido mecánico del tótem y
-     sonidos guía de las esferas de la E6. Tampoco hay audio de las voces de las esferas de la E4.
-  9. **Onomatopeyas:** las que ahora tienen sonido real (llaves, mate tomado, mate cebándose, pájaros) se
-     dejaron como apoyo visual: funcionan como el subtítulo del sonido (para quien navega sin audio).
+  10. **La mañana del mate:** primero suenan los pájaros (`Pajaros`) y, cuando se prende la hornalla, la
+     pava hirviendo (`Ruido_Pava_Hirviendo`). Los dos se apagan con un fundido al salir de la escena.
+  11. **"¡Sí! Acá están."** suena (y aparece) al abrir el segundo cajón, donde está la llave; al abrir la
+     puerta suenan solo las llaves.
 
 ## Correcciones (correcciones/CORRECCIONES.md) que esperan material
 

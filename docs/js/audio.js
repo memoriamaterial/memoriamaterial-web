@@ -50,6 +50,7 @@ export const VOICES = {
   mate4: { src: 'assets/audio/ruidos/sorbo-4.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 0.74, '[mate tomado]']] },
   cebando: { src: 'assets/audio/ruidos/mate-cebandose.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 1.87, '[mate cebándose]']] },
   cebando2: { src: 'assets/audio/ruidos/mate-cebandose.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 1.87, '[mate cebándose]']] },
+  pajaros: { src: 'assets/audio/ruidos/pajaros.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 10.03, '[pájaros]']] },
   pavaHirviendo: { src: 'assets/audio/ruidos/pava-hirviendo.mp3', who: 'Sonido · Mundo del mate', sfx: true, cues: [[0, 25.94, '[la pava hierve · de fondo, pájaros]']] },
   sorboEsfera: { src: 'assets/audio/ruidos/sorbo-esfera.mp3', who: 'Sonido · Esfera fucsia', sfx: true, cues: [[0, 0.74, '[alguien toma un mate]']] },
   llavesAbriendo: { src: 'assets/audio/ruidos/llaves-abriendo.mp3', who: 'Sonido · Llaves', sfx: true, cues: [[0, 4.03, '[llaves abriendo una puerta]']] },
@@ -321,8 +322,27 @@ class AudioManager {
     this.sfxCaption(v);
   }
 
+  // Apaga efectos con un fundido corto (por ejemplo, al salir de su escena).
+  stopSfx(ids, fade = 0.8) {
+    [].concat(ids).forEach((id) => {
+      const e = this.sfx?.get(id);
+      if (!e || e.stopping) return;
+      e.stopping = true;
+      const el = e.el, v0 = el.volume, t0 = performance.now();
+      const step = () => {
+        const k = Math.min(1, (performance.now() - t0) / (fade * 1000));
+        el.volume = v0 * (1 - k);
+        if (k < 1) return requestAnimationFrame(step);
+        el.pause(); e.card?.classList.remove('is-playing');
+        if (this.sfx.get(id) === e) this.sfx.delete(id);
+        this.sfxCaption();
+      };
+      step();
+    });
+  }
+
   voiceOn() { return !!(this.current && !this.current.el.paused); }
-  duckSfx() { const vol = this.voiceOn() ? SFX_DUCK : SFX_VOL; this.sfx?.forEach((e) => { e.el.volume = vol; }); }
+  duckSfx() { const vol = this.voiceOn() ? SFX_DUCK : SFX_VOL; this.sfx?.forEach((e) => { if (!e.stopping) e.el.volume = vol; }); }
 
   // Subtítulo del sonido en la barra flotante, si no hay una voz sonando.
   sfxCaption(v) {

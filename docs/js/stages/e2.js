@@ -12,6 +12,7 @@ export function init() {
     sec.classList.add('is-static');
     staticFallback(sec);
     cerradura(sec.querySelector('.llave'), null); // obligatoria también sin animaciones
+    sec.querySelectorAll('.cajon')[1]?.addEventListener('click', () => llaveEncontrada(sec.querySelector('.llave')));
     // D-01: las voces del mundo de la llave también suenan solas (los paneles van uno debajo del otro)
     const [p1, p2] = [...sec.querySelectorAll('.llave__panel')].slice(1, 3);
     const v = (k) => sec.querySelector(`[data-voice="${k}"]`);
@@ -74,6 +75,15 @@ function dialog(tl, items, { onStep, prefix = '' } = {}) {
   return tl;
 }
 
+// "¡Sí! Acá están.": aparece y suena cuando se abre el segundo cajón (donde está la llave), una sola vez.
+function llaveEncontrada(wrap) {
+  const found = wrap.querySelector('[data-found]');
+  if (!found || !found.hidden) return;
+  found.hidden = false;
+  if (!reduce) gsap.from(found, { y: 12, opacity: 0, duration: 0.45, delay: 0.3 });
+  setTimeout(() => audio.autoplay('llave7', found.querySelector('[data-voice="llave7"]')), 900);
+}
+
 // --- Mundo de la llave ---------------------------------------------------------
 function llave(sec) {
   const wrap = sec.querySelector('.llave');
@@ -116,10 +126,13 @@ function llave(sec) {
     c.classList.toggle('is-open');
     c.setAttribute('aria-label', `${c.classList.contains('is-open') ? 'Cerrar' : 'Abrir'} el ${['primer', 'segundo', 'tercer'][i]} cajón`);
     if (i === 1 && !mesita.classList.contains('is-usada')) mesita.classList.toggle('is-llave', c.classList.contains('is-open'));
-    if (i === 1 && c.classList.contains('is-open') && audio.enabled) audio.play('llavesCajon'); // aparece la llave
+    if (i === 1 && c.classList.contains('is-open')) {
+      if (audio.enabled) audio.play('llavesCajon'); // aparece la llave
+      llaveEncontrada(wrap);
+    }
   }));
   // al llegar a la cerradura, el cajón de la llave queda abierto para poder llevarla
-  ScrollTrigger.create({ trigger: panels[panels.length - 1], containerAnimation: tween, start: 'left 85%', onEnter: () => { cajones[1].classList.add('is-open'); mesita.classList.add('is-llave'); } });
+  ScrollTrigger.create({ trigger: panels[panels.length - 1], containerAnimation: tween, start: 'left 85%', onEnter: () => { cajones[1].classList.add('is-open'); mesita.classList.add('is-llave'); llaveEncontrada(wrap); } });
 
   cerradura(wrap, tween);
 }
@@ -133,7 +146,6 @@ function cerradura(wrap, tween) {
   const key = wrap.querySelector('[data-llave-drag]');
   const hint = wrap.querySelector('[data-lock-hint]');
   const done = wrap.querySelector('[data-lock-done]');
-  const found = wrap.querySelector('[data-found]');
   const mesita = wrap.querySelector('.mesita');
   const cajonLlave = wrap.querySelectorAll('.cajon')[1];
   const rm = document.documentElement.classList.contains('rm');
@@ -232,10 +244,9 @@ function cerradura(wrap, tween) {
     key.setAttribute('aria-disabled', 'true');
     key.setAttribute('aria-label', 'Llave en la cerradura');
     done.hidden = false;
-    found.hidden = false;
+    llaveEncontrada(wrap); // por si la llave se usó sin abrir el cajón a mano
     if (audio.enabled) audio.play('llavesAbriendo'); // la cerradura se abre
-    setTimeout(() => audio.autoplay('llave7', found.querySelector('[data-voice="llave7"]')), 1200); // ¡Sí! Acá están.
-    if (!reduce) gsap.from([done, found], { y: 12, opacity: 0, stagger: 0.1, duration: 0.45, delay: 0.5 });
+    if (!reduce) gsap.from(done, { y: 12, opacity: 0, duration: 0.45, delay: 0.5 });
     lastY = window.scrollY;
   }
 
@@ -351,11 +362,15 @@ function mate2(sec) {
 
   const tl = gsap.timeline({
     defaults: { ease: 'power2.inOut' },
-    scrollTrigger: { trigger: wrap, pin, start: 'top top', end: () => `+=${vh() * 5}`, scrub: 0.6 },
+    scrollTrigger: { trigger: wrap, pin, start: 'top top', end: () => `+=${vh() * 5}`, scrub: 0.6,
+      // al salir de la escena (para abajo o para arriba) los pájaros y la pava dejan de sonar
+      onLeave: () => audio.stopSfx(['pajaros', 'pavaHirviendo']), onLeaveBack: () => audio.stopSfx(['pajaros', 'pavaHirviendo']) },
   });
   let syncCues = null;
-  tl.from(wrap.querySelector('.mate2__copy'), { opacity: 0, y: 20, duration: 0.4 })
-    .to(fuego, { opacity: 1, duration: 0.4 })
+  tl.addLabel('pajaros', 0)
+    .from(wrap.querySelector('.mate2__copy'), { opacity: 0, y: 20, duration: 0.4 })
+    .addLabel('pava', '+=0.6')
+    .to(fuego, { opacity: 1, duration: 0.4 }, 'pava')
     .to(pava, { color: 'rgb(242 237 212 / .95)', duration: 0.3 }, '<');
   dialog(tl, lines, {
     onStep: (li, i, at) => {
@@ -372,7 +387,7 @@ function mate2(sec) {
     .to(door, { scaleX: 0, duration: 0.1 }, '<')
     .to(pam, { opacity: 0, duration: 0.3 }, '+=0.25')
     .to([sky, ...wins], { opacity: 0, duration: 0.4 }, '<');
-  syncCues = sfxCues(tl, lines);
+  syncCues = sfxCues(tl, lines, { extra: [{ id: 'pajaros', label: 'pajaros', offset: 0.02 }, { id: 'pavaHirviendo', label: 'pava' }] });
   tl.eventCallback('onUpdate', syncCues);
 }
 

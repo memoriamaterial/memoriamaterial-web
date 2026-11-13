@@ -67,6 +67,7 @@ RUIDOS = {
     'sorbo-4.mp3': ('Ruido_Mate_Sorbos.wav', 4.1, 0.7),                # mate tomado (la mañana)
     'sorbo-esfera.mp3': ('Ruido_Mate_Sorbos.wav', 15.9, 0.7),          # E1 esfera fucsia
     'mate-cebandose.mp3': ('Mate_Cebandose.mp3', 0.0, 1.85),           # mate cebándose (la ronda y la mañana)
+    'pajaros.mp3': ('Pajaros.mp3', 14.0, 10.0),                        # la mañana: primero los pájaros
     'pava-hirviendo.mp3': ('Ruido_Pava_Hirviendo.mp3', 0.0, 25.9),     # la mañana: la pava hierve y de fondo, pájaros
     'paginas-1.mp3': ('Ruido_Paginas.mp3', 0.0, 4.0),                  # cuaderno: las hojas se ordenan
     'paginas-2.mp3': ('Ruido_Paginas_2.mp3', 0.9, 4.0),                # cuaderno: el camino de hojas de las recetas
