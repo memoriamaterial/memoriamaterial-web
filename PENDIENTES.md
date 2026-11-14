@@ -85,9 +85,13 @@ yo los optimizo y los copio a `docs/assets/`.
   WHY: portada, presentación, manifiesto y botón), 3 tramas y 4 elementos gráficos. **No llegaron:**
   capturas de las páginas de Bienvenida y de Fases de WHY (la plantilla por etapa se toma del análisis
   escrito), screens nuevos de escenarios ni videos de mecánica.
-- [ ] **31. Escenarios sin screen** (en la versión 2 van con placeholder PENDIENTE y la animación encima):
-  Etapa 4 (réplica invertida, aula con humo), Etapa 5 (pasillo de objetos), Etapa 6 (wireframe con el
-  detector) y el mundo del cuaderno (hay solo una maqueta anterior).
+- [ ] **31. Escenarios sin screen.** En la versión 2 van con un recuadro "Screen pendiente" y la animación de la
+  mecánica dibujada encima: Etapa 4 (destello, la primera etapa invertida con siluetas, el tótem con humo),
+  Etapa 5 (pasillo entre pilas de objetos hasta los Oculus) y Etapa 6 (detector en wireframe, tres esferas y
+  el tótem). El mundo del cuaderno usa la maqueta anterior, marcada "foto pendiente". Cuando lleguen los
+  screens (o videos de la mecánica), reemplazan esos recuadros.
+- [ ] **34. Sonidos de fondo sin archivo (versión 2).** Marcados "pendiente" en su pop-up: el pitido de la
+  Etapa 4, los sonidos que guían hasta las esferas y el ruido mecánico del tótem de la Etapa 6.
 - [ ] **32. Subtítulo con lenguaje de juego.** La voz de la Etapa 1 dice "Para avanzar vas a tener que
   reorganizar las conexiones" (es la frase del guion). Como el subtítulo tiene que decir exactamente lo que
   dice el audio, queda así; para sacar "avanzar" habría que regrabar esa frase.
