@@ -79,6 +79,16 @@ yo los optimizo y los copio a `docs/assets/`.
      hecha con ffmpeg (ecos múltiples que se apagan, `REVERB` en `tools/sonidos_nuevos.py`); si se quiere
      más o menos reverberación, se ajusta ahí.
 
+## Versión 2 (rama `claude/version-2`): material que falta
+
+- [ ] **30. Material del paquete `Subidas.rar`.** Llegaron el análisis de WHY, 4 capturas (solo el Home de
+  WHY: portada, presentación, manifiesto y botón), 3 tramas y 4 elementos gráficos. **No llegaron:**
+  capturas de las páginas de Bienvenida y de Fases de WHY (la plantilla por etapa se toma del análisis
+  escrito), screens nuevos de escenarios ni videos de mecánica.
+- [ ] **31. Escenarios sin screen** (en la versión 2 van con placeholder PENDIENTE y la animación encima):
+  Etapa 4 (réplica invertida, aula con humo), Etapa 5 (pasillo de objetos), Etapa 6 (wireframe con el
+  detector) y el mundo del cuaderno (hay solo una maqueta anterior).
+
 ## Correcciones (correcciones/CORRECCIONES.md) que esperan material
 
 - [x] **26. C-05 · Subtítulos literales.** Reemplazado por el punto 29.6 (subtítulos de las voces nuevas).
