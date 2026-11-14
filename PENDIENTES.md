@@ -15,7 +15,7 @@ yo los optimizo y los copio a `docs/assets/`.
   `afiche3.jpg` y dos `WhatsApp Image 2026-09-27 ...`. Faltan esas fotos y fotos de los objetos reales
   (llaves, mate, cuaderno) y de escenas cotidianas.
   - *Hoy:* escenas ilustradas en duotono violeta con el objeto resaltado (Bienvenida). PLACEHOLDER.
-- [ ] **2. Escenarios.** Llegaron 10 fotos de Unreal (`assets/escenarios/*.PNG`, originales intactos) y ya
+- [ ] **2. Escenarios.** Llegaron 10 fotos de Unreal (`assets/escenarios/`, originales intactos, renombrados con la etapa: `e1-desierto.png`, `e2-mundo-llave-1-cajas.png`…) y ya
   están en la web, en WebP y sin filtros (`docs/assets/img/escenarios/`):
   E1 (ficha y escena interactiva), E2 (ficha), mundo de la llave (los cuatro tramos), mundo del mate
   (charco → ronda, y la mañana) y E3 (ficha y pasillo). A la del mate (estadio 1) se le recortó el borde de
