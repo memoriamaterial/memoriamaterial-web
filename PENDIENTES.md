@@ -88,6 +88,11 @@ yo los optimizo y los copio a `docs/assets/`.
 - [ ] **31. Escenarios sin screen** (en la versión 2 van con placeholder PENDIENTE y la animación encima):
   Etapa 4 (réplica invertida, aula con humo), Etapa 5 (pasillo de objetos), Etapa 6 (wireframe con el
   detector) y el mundo del cuaderno (hay solo una maqueta anterior).
+- [ ] **32. Subtítulo con lenguaje de juego.** La voz de la Etapa 1 dice "Para avanzar vas a tener que
+  reorganizar las conexiones" (es la frase del guion). Como el subtítulo tiene que decir exactamente lo que
+  dice el audio, queda así; para sacar "avanzar" habría que regrabar esa frase.
+- [ ] **33. Favicon con el logo reducido.** Sigue el favicon anterior: el archivo del logo reducido no llegó
+  (ver #27).
 
 ## Correcciones (correcciones/CORRECCIONES.md) que esperan material
 
