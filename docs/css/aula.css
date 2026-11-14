@@ -1,0 +1,18 @@
+/* Ilustración isométrica del aula vista desde arriba (tools/aula_iso.py). Compartida por la versión 2. */
+.aula-iso { display: block; width: 100%; height: auto; overflow: visible; }
+.aula-iso .f-top { fill: var(--crema); fill-opacity: .16; stroke: var(--crema); stroke-opacity: .55; stroke-width: 1; }
+.aula-iso .f-front { fill: var(--crema); fill-opacity: .08; stroke: var(--crema); stroke-opacity: .45; stroke-width: 1; }
+.aula-iso .f-side { fill: var(--crema); fill-opacity: .04; stroke: var(--crema); stroke-opacity: .4; stroke-width: 1; }
+.aula-iso .a-proj { fill-opacity: .5; }
+.aula-iso .a-grid { stroke: var(--crema); stroke-opacity: .07; stroke-width: 1; }
+.aula-iso .a-edge { stroke: var(--crema); stroke-opacity: .5; stroke-width: 1.5; }
+.aula-iso .a-leg, .aula-iso .a-stand { stroke: var(--crema); stroke-opacity: .45; stroke-width: 1.4; }
+.aula-iso .a-led { animation: led 1.1s linear infinite; }
+.aula-iso .a-holo-icon { animation: holo 3s ease-in-out infinite; }
+.aula-iso .a-mon-glow { animation: breathe 4s ease-in-out infinite; }
+.aula-iso .a-station:nth-child(2) .a-mon-glow { animation-delay: -1.3s; }
+.aula-iso .a-station:nth-child(3) .a-mon-glow { animation-delay: -2.6s; }
+.aula-iso .a-screen-glow { animation: breathe 5s ease-in-out infinite; }
+@keyframes breathe { 50% { opacity: .25; } }
+@keyframes led { to { stroke-dashoffset: -32; } }
+@keyframes holo { 50% { transform: translateY(-6px); opacity: .7; } }
