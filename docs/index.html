@@ -185,6 +185,74 @@
       </ol>
     </section>
 
+    <!-- ===================== 3 · ETAPA 1 (plantilla de etapa) ===================== -->
+    <section id="e1" class="v2-sec etapa" data-rail="1 · Plasticidad sináptica" style="--acc:var(--amarillo)">
+      <div class="deco" aria-hidden="true">
+        <img class="deco__el d-banda-dientes d-tl" src="assets/graficos/elemento-banda-dientes.svg" alt="">
+        <img class="deco__el d-trama-02 d-br2" src="assets/graficos/trama-02.svg" alt="">
+      </div>
+      <header class="etapa__head">
+        <p class="etapa__meta"><span class="etapa__n">Etapa 1</span><span class="plat"><svg aria-hidden="true"><use href="#i-pc"/></svg>Unreal</span></p>
+        <h2 class="v2-title">Plasticidad sináptica</h2>
+        <p class="etapa__sub">Reorganizar las conexiones</p>
+      </header>
+
+      <div class="etapa__grid">
+        <aside class="pp pp--voz" aria-label="Voz en off">
+          <p class="pp__lbl"><svg aria-hidden="true"><use href="#i-cerebro"/></svg>Voz en off</p>
+          <div data-voice="e1" data-acc="amarillo" class="voice--compact pp__card"></div>
+          <button class="pp__leer" type="button" aria-expanded="false" data-leer>Leer</button>
+        </aside>
+
+        <figure class="escena" data-escena="e1">
+          <img class="escena__foto" src="assets/img/escenarios/e1.webp" width="1765" height="717" alt="El escenario de la Etapa 1 en Unreal: un desierto con la llave, el cuaderno y el mate gigantes, tres esferas y una plataforma en el centro">
+          <!-- animación de la mecánica, encima del screen (viewBox con la proporción de la foto) -->
+          <svg class="escena__anim" viewBox="0 0 1000 406.2" aria-hidden="true">
+            <g class="e1a-objs">
+              <rect data-o="llave" x="97" y="160.4" width="230" height="117.8" rx="14" style="--c:var(--amarillo)"/>
+              <rect data-o="cuaderno" x="525.5" y="117.8" width="85" height="105.6" rx="12" style="--c:var(--celeste)"/>
+              <rect data-o="mate" x="635" y="243.7" width="170" height="146.2" rx="16" style="--c:var(--fucsia)"/>
+            </g>
+            <g class="e1a-lines">
+              <path data-l="llave" d="M748 229.5 Q470 120 171 195.8" style="--c:var(--amarillo)"/>
+              <path data-l="mate" d="M469 205.1 Q640 150 720 280.3" style="--c:var(--fucsia)"/>
+              <path data-l="cuaderno" d="M442 333.1 Q520 230 568 138.9" style="--c:var(--celeste)"/>
+            </g>
+            <g class="e1a-spheres">
+              <circle data-s="llave" cx="748" cy="229.5" r="30" style="--c:var(--amarillo)"/>
+              <circle data-s="mate" cx="469" cy="205.1" r="30" style="--c:var(--fucsia)"/>
+              <circle data-s="cuaderno" cx="442" cy="333.1" r="42" style="--c:var(--celeste)"/>
+            </g>
+            <g class="e1a-slots">
+              <circle data-p="llave" cx="487" cy="270.5" r="6" style="--c:var(--amarillo)"/>
+              <circle data-p="mate" cx="503" cy="263" r="6" style="--c:var(--fucsia)"/>
+              <circle data-p="cuaderno" cx="519" cy="270.5" r="6" style="--c:var(--celeste)"/>
+            </g>
+            <g class="e1a-cupula">
+              <path d="M413 268A90 90 0 0 1 593 268"/>
+              <path d="M443 268A60 60 0 0 1 563 268"/>
+              <path d="M473 268A30 30 0 0 1 533 268"/>
+            </g>
+          </svg>
+          <figcaption class="escena__cap"><span class="escena__n" data-e1-count>0 de 3 conexiones</span><span class="mono">Screen de Unreal · animación de la mecánica</span></figcaption>
+        </figure>
+
+        <aside class="pp pp--fondo" aria-label="Lo que se escucha de fondo">
+          <p class="pp__lbl"><svg aria-hidden="true"><use href="#i-ojo"/></svg>Lo que se escucha de fondo</p>
+          <p class="pp__note">Cada esfera, al acercarse:</p>
+          <ul class="pp__list">
+            <li style="--c:var(--amarillo)"><button class="pp__play" type="button" data-seq="llavesAbriendo,esferaLlave:1800" aria-label="Escuchar la esfera amarilla"></button><span><b>Esfera amarilla</b><em>llaves abriendo una puerta</em> “¿Cómo te fue? ¿Ya comiste?”</span></li>
+            <li style="--c:var(--fucsia)"><button class="pp__play" type="button" data-seq="sorboEsfera,esferaMate:750" aria-label="Escuchar la esfera fucsia"></button><span><b>Esfera fucsia</b><em>alguien toma un mate</em> “Gracias, yo ya estoy.”</span></li>
+            <li style="--c:var(--celeste)"><button class="pp__play" type="button" data-seq="esferaCuaderno" aria-label="Escuchar la esfera celeste"></button><span><b>Esfera celeste</b> “Tomá mi número, hablemos.”</span></li>
+          </ul>
+        </aside>
+      </div>
+
+      <div class="etapa__txt">
+        <p class="v2-txt">Un desierto con tres objetos gigantes: llaves, mate y cuaderno. Cada esfera flotante suena a uno de ellos; al conectarla con su objeto, los dos se iluminan del mismo color.</p>
+        <p class="etapa__fin">Con las tres conexiones, se eleva la cúpula.</p>
+      </div>
+    </section>
 
   </main>
 
