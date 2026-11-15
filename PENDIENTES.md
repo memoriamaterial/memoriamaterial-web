@@ -97,6 +97,16 @@ yo los optimizo y los copio a `docs/assets/`.
   dice el audio, queda así; para sacar "avanzar" habría que regrabar esa frase.
 - [ ] **33. Favicon con el logo reducido.** Sigue el favicon anterior: el archivo del logo reducido no llegó
   (ver #27).
+- [ ] **35. Frase de contexto del cierre (BORRADOR).** Antes de la última pregunta: "Esta última pregunta es
+  para vos, que hiciste el recorrido: queremos saber qué hay detrás del objeto que elegiste, porque ahí
+  empieza la relectura de lo cotidiano." Propuesta, a confirmar o reescribir (en el HTML está marcada con
+  `data-borrador`).
+- [ ] **36. "aula" que queda a propósito.** La voz del mundo del mate dice "…en marzo en el aula" (habla de un
+  aula de la escuela): el subtítulo y el texto de "Leer" la conservan porque tienen que decir lo que dice el
+  audio. En todo lo demás, "aula" pasó a "espacio físico".
+- [ ] **37. Audio automático.** Las voces suenan solas al llegar a cada sección, pero recién después del
+  primer clic, tecla o toque en la página: los navegadores no dejan sonar audio antes (el scroll no cuenta
+  como gesto).
 
 ## Correcciones (correcciones/CORRECCIONES.md) que esperan material
 

@@ -9,7 +9,7 @@ const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 
-// --- Sonido: el botón del encabezado prende el ruido blanco suave del aula ------------
+// --- Sonido: el botón del encabezado prende el ruido blanco suave del espacio físico ------------
 function sonido() {
   const btn = $('[data-sound-toggle]');
   const lbl = $('[data-sound-label]', btn);
@@ -24,11 +24,30 @@ function sonido() {
 function popups() {
   audio.mountSubbar();
   $$('[data-voice]').forEach((card) => { audio.registerCard(card); audio.observeCard(card); });
-  // "Leer": muestra el texto de la voz (los subtítulos, que siguen al audio)
-  $$('[data-leer]').forEach((b) => b.addEventListener('click', () => {
+  // "Leer": muestra el texto de la voz (los subtítulos, que siguen al audio).
+  // El texto se abre DENTRO del pop-up sin cambiar el alto de la sección: en las etapas, el pop-up crece
+  // como mucho hasta el alto de su fila (y si no entra, scrollea por dentro); en los pop-ups sueltos,
+  // el texto se despliega encima de lo que sigue. Así la página no salta.
+  $$('[data-leer]').forEach((b) => b.addEventListener('click', (e) => {
+    e.preventDefault();
     const pp = b.closest('.pp');
     const on = !pp.classList.contains('is-leyendo');
+    const fila = pp.closest('.etapa__grid');
+    const altoFila = fila?.getBoundingClientRect().height;
+    if (on && fila) {
+      // lo que queda libre en la fila, repartido entre los textos del pop-up (cada uno scrollea por dentro)
+      const textos = $$('.voice__text, .pp__txt', pp).length || 1;
+      const libre = altoFila - pp.getBoundingClientRect().height - 10 * textos;
+      pp.style.setProperty('--leer-max', `${Math.max(textos > 1 ? 64 : 96, Math.floor(libre / textos))}px`);
+    }
+    pp.style.marginBlock = ''; pp.style.alignSelf = '';
     pp.classList.toggle('is-leyendo', on);
+    // si aun así no entra (varias voces), el pop-up se agranda por encima de lo que lo rodea
+    // con márgenes negativos: la fila conserva su alto y nada se corre
+    if (on && fila) {
+      const sobra = pp.getBoundingClientRect().height - altoFila;
+      if (sobra > 0) { pp.style.marginBlock = `0 ${-sobra}px`; pp.style.alignSelf = 'start'; }
+    }
     b.setAttribute('aria-expanded', String(on));
     b.textContent = on ? 'Ocultar texto' : 'Leer';
   }));
@@ -60,17 +79,122 @@ function popups() {
     b.classList.add('is-playing');
     b._timers = [setTimeout(() => b.classList.remove('is-playing'), fin)];
   }));
-  // el ruido blanco del aula (el mismo que prende el botón del encabezado)
+  // el ruido blanco del espacio físico (el mismo que prende el botón del encabezado)
   const ruidos = $$('[data-ruido]');
   ruidos.forEach((b) => b.addEventListener('click', () => audio.toggle()));
   audio.on((a) => ruidos.forEach((b) => b.setAttribute('aria-pressed', String(a.enabled))));
-  // "Leer" en las fichas de los mundos
-  $$('[data-leer-ficha]').forEach((b) => b.addEventListener('click', () => {
-    const txt = $('.ficha__txt', b.closest('.ficha'));
-    txt.hidden = !txt.hidden;
-    b.setAttribute('aria-expanded', String(!txt.hidden));
-    b.textContent = txt.hidden ? 'Leer' : 'Ocultar';
-  }));
+}
+
+// --- Las voces suenan solas al llegar a cada sección (como en la versión 1) ----------------------
+// Los navegadores no dejan sonar audio hasta que la persona toca algo (un clic, una tecla o un toque;
+// el scroll no cuenta). Por eso el primer gesto en cualquier lugar de la página activa el sonido,
+// y desde ahí cada sección reproduce su voz una sola vez al entrar en pantalla.
+function vocesSolas() {
+  const secs = $$('.v2-sec').filter((s) => $('.pp--voz [data-voice]', s));
+  const sonar = (s) => {
+    const cards = $$('.pp--voz [data-voice]', s);
+    const ids = cards.map((c) => c.dataset.voice);
+    audio.queue = audio.queue.filter((q) => ids.includes(q.id)); // las voces de secciones que ya pasaron no esperan más
+    cards.forEach((card) => audio.autoplay(card.dataset.voice, card));
+  };
+  let visible = null;
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) { visible = e.target; sonar(e.target); }
+  }), { threshold: 0.5 });
+  secs.forEach((s) => io.observe(s));
+
+  const gestos = ['pointerdown', 'keydown', 'touchend'];
+  const desbloquear = (e) => {
+    gestos.forEach((g) => removeEventListener(g, desbloquear, true));
+    // si el primer gesto es el botón de sonido (o el del ruido), ese botón decide
+    if (e.target.closest?.('[data-sound-toggle], [data-ruido]')) return;
+    if (!audio.enabled) {
+      try { audio.enable(); } catch { return; }
+    }
+    if (visible) sonar(visible);
+  };
+  gestos.forEach((g) => addEventListener(g, desbloquear, { capture: true, passive: true }));
+}
+
+// --- Dónde está la persona: espacio físico · Unreal · Oculus (arriba a la derecha) ---------------
+const LUGARES = {
+  fisico: { txt: 'Espacio físico', ico: ['i-lugar'] },
+  unreal: { txt: 'Unreal', ico: ['i-pc'] },
+  'unreal+fisico': { txt: 'Unreal + espacio físico', ico: ['i-pc', 'i-lugar'] },
+  'fisico>unreal': { txt: 'Espacio físico → Unreal', ico: ['i-lugar', 'i-pc'], sep: '→' },
+  'oculus+fisico': { txt: 'Oculus + espacio físico', ico: ['i-oculus', 'i-lugar'] },
+};
+function dondeEstas() {
+  const ui = $('[data-where-ui]');
+  if (!ui) return;
+  const icos = $('.where__icons', ui), txt = $('.where__txt', ui);
+  const secs = $$('.v2-sec');
+  let actual;
+  const poner = (k) => {
+    if (k === actual) return;
+    actual = k;
+    const l = LUGARES[k];
+    ui.classList.toggle('is-hidden', !l);
+    if (!l) return;
+    icos.innerHTML = l.ico.map((id) => `<svg><use href="#${id}"/></svg>`).join(`<i>${l.sep || '+'}</i>`);
+    txt.textContent = l.txt;
+    if (!reduce) gsap.fromTo(ui, { opacity: 0.2 }, { opacity: 1, duration: 0.4 });
+  };
+  const update = () => {
+    const y = innerHeight * 0.5;
+    const s = secs.find((el) => { const r = el.getBoundingClientRect(); return r.top <= y && r.bottom > y; });
+    poner(s?.dataset.where);
+    // el logo chico del encabezado aparece al dejar el inicio (ahí ya está el grande)
+    document.body.classList.toggle('is-past-intro', scrollY > innerHeight * 0.6);
+  };
+  addEventListener('scroll', update, { passive: true });
+  update();
+}
+
+// --- El logo se arma uniendo sus mitades, con eco, y aparece el lema (de la versión 1) ------------
+function logo() {
+  const svg = $('#inicio .logo');
+  if (!svg || reduce) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  const parte = (k) => $(`[data-p="${k}"]`, svg);
+  // eco: cada mitad deja dos estelas que se apagan al encajar
+  const ecos = {};
+  ['topCrema', 'topFucsia', 'botCeleste', 'botCrema'].forEach((k) => {
+    const p = parte(k);
+    ecos[k] = [1, 2].map((n) => {
+      const c = document.createElementNS(NS, 'use');
+      c.setAttribute('href', p.getAttribute('href'));
+      c.setAttribute('class', 'is-echo');
+      c.style.opacity = (0.35 / n).toFixed(2);
+      p.before(c);
+      return c;
+    });
+  });
+  const grupo = (k) => [parte(k), ...ecos[k]];
+  const tag = $('.logo__tag', svg);
+  const resto = $$('#inicio .inicio__txt, #inicio .inicio__q, #inicio .inicio__cta');
+  const tl = gsap.timeline({ defaults: { ease: 'expo.out', duration: 0.9 }, delay: 0.15 });
+  tl.from(grupo('topCrema'), { x: -140, opacity: 0, stagger: 0.06 }, 0.1)
+    .from(grupo('topFucsia'), { x: 160, opacity: 0, stagger: 0.06 }, 0.18)
+    .from(grupo('botCeleste'), { x: -160, opacity: 0, stagger: 0.06 }, 0.24)
+    .from(grupo('botCrema'), { x: 140, opacity: 0, stagger: 0.06 }, 0.3)
+    .to(Object.values(ecos).flat(), { opacity: 0, duration: 0.5, ease: 'power1.out' }, 0.9)
+    .from(tag, { clipPath: 'inset(0 100% 0 0)', duration: 0.8, ease: 'power3.inOut' }, 0.85)
+    .from(resto, { y: 16, opacity: 0, duration: 0.5, stagger: 0.08, ease: 'power2.out' }, 1.1);
+}
+
+// --- La idea: el lema como afiche, línea por línea (de la versión 1) ------------------------------
+function idea() {
+  const sec = $('#idea');
+  if (!sec || reduce) return;
+  const lineas = $$('.lema__line', sec);
+  const tl = gsap.timeline({ paused: true });
+  lineas.forEach((l, i) => {
+    tl.from($('.lema__w', l), { yPercent: 40, opacity: 0, duration: 0.6, ease: 'power2.out' }, i * 0.14)
+      .from($('.lema__forma', l), { scale: 0, transformOrigin: 'left center', duration: 0.6, ease: 'power3.out' }, i * 0.14 + 0.15);
+  });
+  tl.from($$('.lema__copy > *', sec), { y: 16, opacity: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }, 0.5);
+  alVer(sec, () => tl.play());
 }
 
 // --- Navegación: los enlaces internos se desplazan suave ------------------------------
@@ -107,7 +231,7 @@ function entradas() {
   $$('.v2-sec').forEach((s) => alVer(s, () => s.classList.add('is-in')));
 }
 
-// --- La experiencia en una pantalla: los lugares del aula se nombran de a uno ------------
+// --- El espacio físico en una pantalla: sus lugares se nombran de a uno ------------
 function aula() {
   const sec = $('#experiencia');
   if (!sec) return;
@@ -128,33 +252,28 @@ function etapa1() {
   const sec = $('#e1');
   if (!sec) return;
   const svg = $('.escena__anim', sec);
-  const count = $('[data-e1-count]', sec);
   const ORDEN = ['llave', 'mate', 'cuaderno'];
   const q = (sel) => $(sel, svg);
   const arcos = $$('.e1a-cupula path', svg);
-  const setCount = (n) => { count.textContent = `${n} de 3 conexiones`; };
 
   if (reduce) { // todo conectado, sin movimiento
     ORDEN.forEach((k) => { q(`[data-o="${k}"]`).style.opacity = 1; q(`[data-s="${k}"]`).style.opacity = 1; q(`[data-p="${k}"]`).style.fill = `var(--${k === 'llave' ? 'amarillo' : k === 'mate' ? 'fucsia' : 'celeste'})`; });
     arcos.forEach((a) => { a.style.opacity = 1; });
-    setCount(3);
     return;
   }
-  const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.6, paused: true, onRepeat: () => setCount(0) });
+  const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.6, paused: true });
   tl.set($$('.e1a-lines path', svg), { drawSVG: '0%' })
     .set($$('.e1a-objs rect', svg), { opacity: 0 })
     .set($$('.e1a-spheres circle', svg), { opacity: 0.55, scale: 1, transformOrigin: 'center' })
     .set($$('.e1a-slots circle', svg), { fill: 'var(--violeta)' })
-    .set(arcos, { opacity: 0, drawSVG: '0%' })
-    .call(() => setCount(0));
-  ORDEN.forEach((k, n) => {
+    .set(arcos, { opacity: 0, drawSVG: '0%' });
+  ORDEN.forEach((k) => {
     const c = getComputedStyle(q(`[data-s="${k}"]`)).getPropertyValue('--c');
     tl.to(q(`[data-s="${k}"]`), { opacity: 1, scale: 1.25, duration: 0.35, yoyo: true, repeat: 1, ease: 'power2.out' }, '+=0.5')   // la esfera suena
       .to(q(`[data-l="${k}"]`), { drawSVG: '100%', duration: 0.9, ease: 'power2.inOut' })                                          // se conecta
       .to(q(`[data-o="${k}"]`), { opacity: 1, duration: 0.3 }, '-=0.1')                                                            // el objeto se ilumina
       .to(q(`[data-s="${k}"]`), { opacity: 1, duration: 0.3 }, '<')
-      .to(q(`[data-p="${k}"]`), { fill: c, duration: 0.3 }, '<')                                                                   // y su esfera en la plataforma
-      .call(() => setCount(n + 1));
+      .to(q(`[data-p="${k}"]`), { fill: c, duration: 0.3 }, '<');                                                                  // y su esfera en la plataforma
   });
   tl.to(arcos, { opacity: 1, drawSVG: '100%', duration: 1, stagger: 0.18, ease: 'power2.out' }, '+=0.4')                       // se eleva la cúpula
     .to({}, { duration: 1.6 })
@@ -171,7 +290,10 @@ const DECO = {
   experiencia: [['trama-02', 'fucsia', 120, '47%', '9%', -6, 'a', 14], ['elemento-banda-dientes', 'celeste', 150, '72%', '11%', 4, 'b', 16], ['trama-01', 'amarillo', 34, '93%', '42%', 0, 'c', 13]],
   e1: [['elemento-banda-dientes', 'amarillo', 170, '62%', '12%', -4, 'a', 15], ['trama-03', 'celeste', 110, '3%', '86%', 8, 'b', 13], ['trama-01', 'fucsia', 40, '88%', '80%', 12, 'c', 16]],
   e2: [['trama-02', 'celeste', 150, '58%', '13%', 6, 'b', 14], ['elemento-cuadrado-curvo', 'fucsia', 80, '84%', '18%', -8, 'a', 17], ['elemento-banda-muesca', 'amarillo', 160, '2%', '88%', -3, 'c', 15]],
-  'e2-mundos': [['elemento-banda-curva', 'celeste', 200, '50%', '5%', -3, 'a', 16], ['trama-03', 'amarillo', 100, '80%', '6%', 6, 'b', 13]],
+  idea: [['elemento-banda-muesca', 'celeste', 170, '44%', '8%', 4, 'a', 15], ['trama-01', 'amarillo', 40, '92%', '74%', -8, 'b', 14], ['trama-03', 'fucsia', 110, '4%', '88%', 6, 'c', 13]],
+  'e2-llave': [['elemento-banda-curva', 'amarillo', 190, '60%', '10%', -3, 'a', 16], ['trama-03', 'celeste', 100, '4%', '87%', 6, 'b', 13]],
+  'e2-mate': [['trama-02', 'fucsia', 130, '62%', '12%', 5, 'b', 14], ['elemento-cuadrado-curvo', 'celeste', 70, '90%', '84%', -8, 'a', 17]],
+  'e2-cuaderno': [['elemento-banda-dientes', 'celeste', 160, '60%', '11%', 4, 'c', 15], ['trama-01', 'fucsia', 38, '5%', '82%', 10, 'a', 16]],
   e3: [['trama-01', 'celeste', 42, '70%', '10%', -10, 'a', 14], ['elemento-banda-curva', 'amarillo', 180, '78%', '87%', 3, 'b', 16], ['trama-02', 'fucsia', 120, '3%', '86%', -6, 'c', 13]],
   e4: [['elemento-banda-dientes', 'fucsia', 160, '64%', '12%', 5, 'c', 15], ['trama-03', 'crema', 100, '4%', '87%', -4, 'a', 14], ['elemento-cuadrado-curvo', 'celeste', 74, '88%', '84%', 12, 'b', 18]],
   e5: [['trama-02', 'amarillo', 140, '60%', '12%', -5, 'a', 13], ['elemento-banda-muesca', 'fucsia', 150, '79%', '86%', 4, 'b', 15], ['trama-01', 'celeste', 38, '5%', '82%', 8, 'c', 16]],
@@ -187,61 +309,81 @@ function decoracion() {
   });
 }
 
-// --- Etapa 2: los objetos se recorren en orden ------------------------------------------
+// --- Etapa 2: se eleva la Cúpula del Reencuadre, se entra por la puerta y los objetos se recorren en orden ---
+// (la animación de la cúpula viene de la versión 1, js/stages/e1.js · dome)
 function etapa2() {
   const sec = $('#e2');
   if (!sec) return;
   const gs = $$('.e2a g[data-k]', sec);
-  const cap = $('[data-e2-paso]', sec);
-  const TXT = ['Primero, la llave', 'Después, el mate', 'Por último, el cuaderno'];
-  let i = 0, t = null;
-  const paso = () => { gs.forEach((g, k) => g.classList.toggle('is-on', k === i)); cap.textContent = TXT[i]; i = (i + 1) % 3; };
-  paso();
-  if (reduce) return;
-  alVer(sec, () => { if (!t) t = setInterval(paso, 1900); }, () => { clearInterval(t); t = null; });
+  const cup = $('.cupula', sec);
+  const stage = $('.cupula__stage', cup), body = $('.dome__body', cup), frame = $('.door__frame', cup);
+  const glow = $('.door__glow', cup), gems = $$('.dome__gems circle', cup), flash = $('.cupula__flash', cup);
+  const marco = (i) => () => gs.forEach((g, k) => g.classList.toggle('is-on', k === i));
+  if (reduce) { cup.style.display = 'none'; gs.forEach((g) => g.classList.add('is-on')); return; }
+  const tl = gsap.timeline({ repeat: -1, paused: true, defaults: { ease: 'power2.inOut' } });
+  tl.call(marco(-1))
+    .set(cup, { opacity: 1 }).set(stage, { scale: 1 }).set(flash, { opacity: 0 }).set(glow, { opacity: 0 })
+    .fromTo(stage, { yPercent: 40, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.8, ease: 'power3.out' })
+    .fromTo(body, { scaleY: 0.05, svgOrigin: '300 320' }, { scaleY: 1, svgOrigin: '300 320', duration: 1.1, ease: 'power3.out' }, '<0.1')
+    .fromTo(gems, { scale: 0, transformOrigin: '50% 50%' }, { scale: 1, transformOrigin: '50% 50%', stagger: 0.15, duration: 0.45, ease: 'back.out(3)' }, '-=0.4')
+    .fromTo(frame, { drawSVG: '50% 50%' }, { drawSVG: '0% 100%', duration: 0.8 })
+    .to(glow, { opacity: 1, duration: 0.6 })
+    // la cámara entra por la puerta
+    .to(stage, { scale: 9, transformOrigin: '50% 80%', duration: 1.6, ease: 'power2.in' }, '+=0.4')
+    .to(flash, { opacity: 1, duration: 0.45 }, '-=0.45')
+    .to(cup, { opacity: 0, duration: 0.6 })
+    // adentro: los tres objetos, en orden
+    .call(marco(0)).to({}, { duration: 1.9 })
+    .call(marco(1)).to({}, { duration: 1.9 })
+    .call(marco(2)).to({}, { duration: 1.9 });
+  alVer(sec, () => tl.play(), () => tl.pause());
 }
 
-// --- Los tres mundos: cada ficha muestra su secuencia ---------------------------------------
-function fichas() {
-  const sec = $('#e2-mundos');
-  if (!sec) return;
-  const ciclos = [];
-  // fotos que se suceden
-  const fundido = (ficha, cada) => {
-    const fotos = $$('.ficha__foto', ficha);
-    let i = 0;
-    return { fotos, next() { fotos.forEach((f, k) => f.classList.toggle('is-on', k === i)); const cur = i; i = (i + 1) % fotos.length; return cur; }, cada };
-  };
-  // mundo de la llave: cajas → regalos → mesitas → la llave entra en la cerradura y se abre la salida
-  const fl = $('[data-ficha="llave"]', sec);
-  const llave = $('.fa-llave', fl), salida = $('.fa-salida', fl);
-  const sl = fundido(fl, 2300);
-  const tlLlave = gsap.timeline({ paused: true })
-    .set(llave, { opacity: 1, x: 120, y: 330, rotation: -30, transformOrigin: '20px 96px' })
-    .to(llave, { x: 388, y: 192, rotation: 0, duration: 1.1, ease: 'power2.inOut' })
-    .to(llave, { rotation: 90, duration: 0.5, ease: 'power2.inOut' })
-    .to(salida, { opacity: 0.75, duration: 0.5 }, '-=0.1')
-    .to({}, { duration: 0.9 })
-    .to([llave, salida], { opacity: 0, duration: 0.3 });
-  ciclos.push(() => { const k = sl.next(); if (k === 3 && !reduce) tlLlave.restart(); });
-  // mundo del mate: el charco → la ronda → la mañana
-  const sm = fundido($('[data-ficha="mate"]', sec), 2300);
-  ciclos.push(() => sm.next());
-  // mundo del cuaderno: las hojas sueltas se ordenan en un camino
-  const fc = $('[data-ficha="cuaderno"]', sec);
-  const g = $('.fa-hojas', fc);
-  const NS = 'http://www.w3.org/2000/svg';
-  const hojas = Array.from({ length: 7 }, () => { const r = document.createElementNS(NS, 'rect'); r.setAttribute('width', 70); r.setAttribute('height', 44); r.setAttribute('rx', 4); g.appendChild(r); return r; });
-  const tlCq = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 0.8 });
-  hojas.forEach((h, k) => tlCq.fromTo(h, { x: gsap.utils.random(80, 860), y: gsap.utils.random(60, 420), rotation: gsap.utils.random(-50, 50), opacity: 0.85 }, { x: 120 + k * 112, y: 430 - k * 48, rotation: gsap.utils.random(-5, 5), duration: 1, ease: 'power2.inOut' }, k * 0.12));
-  tlCq.to({}, { duration: 1.4 }).to(hojas, { opacity: 0, duration: 0.4 });
+// --- Los tres mundos: cada uno en su sección, con su secuencia -----------------------------------
+const fundido = (fig) => {
+  const fotos = $$('.ficha__foto', fig);
+  let i = 0;
+  return () => { fotos.forEach((f, k) => f.classList.toggle('is-on', k === i)); const cur = i; i = (i + 1) % fotos.length; return cur; };
+};
+function ciclo(sec, tick, cada) {
   let t = null;
-  const tick = () => ciclos.forEach((c) => c());
+  alVer(sec, () => { if (!t) { tick(); t = setInterval(tick, cada); } }, () => { clearInterval(t); t = null; });
+}
+function mundos() {
   if (reduce) return;
-  alVer(sec, () => { if (!t) { tick(); t = setInterval(tick, 2300); tlCq.play(); } }, () => { clearInterval(t); t = null; tlCq.pause(); });
+  // mundo de la llave: cajas → regalos → mesitas → la llave entra en la cerradura y se abre la salida
+  const sl = $('#e2-llave');
+  if (sl) {
+    const fig = $('[data-ficha="llave"]', sl);
+    const llave = $('.fa-llave', fig), salida = $('.fa-salida', fig);
+    const next = fundido(fig);
+    const tlLlave = gsap.timeline({ paused: true })
+      .set(llave, { opacity: 1, x: 120, y: 330, rotation: -30, transformOrigin: '20px 96px' })
+      .to(llave, { x: 388, y: 192, rotation: 0, duration: 1.1, ease: 'power2.inOut' })
+      .to(llave, { rotation: 90, duration: 0.5, ease: 'power2.inOut' })
+      .to(salida, { opacity: 0.75, duration: 0.5 }, '-=0.1')
+      .to({}, { duration: 0.9 })
+      .to([llave, salida], { opacity: 0, duration: 0.3 });
+    ciclo(sl, () => { if (next() === 3) tlLlave.restart(); }, 2300);
+  }
+  // mundo del mate: el charco → la ronda → la mañana
+  const sm = $('#e2-mate');
+  if (sm) ciclo(sm, fundido($('[data-ficha="mate"]', sm)), 2300);
+  // mundo del cuaderno: las hojas sueltas se ordenan en un camino
+  const sc = $('#e2-cuaderno');
+  if (sc) {
+    const g = $('.fa-hojas', sc);
+    const NS = 'http://www.w3.org/2000/svg';
+    const hojas = Array.from({ length: 7 }, () => { const r = document.createElementNS(NS, 'rect'); r.setAttribute('width', 70); r.setAttribute('height', 44); r.setAttribute('rx', 4); g.appendChild(r); return r; });
+    const tlCq = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 0.8 });
+    hojas.forEach((h, k) => tlCq.fromTo(h, { x: gsap.utils.random(80, 860), y: gsap.utils.random(60, 420), rotation: gsap.utils.random(-50, 50), opacity: 0.85 }, { x: 120 + k * 112, y: 430 - k * 48, rotation: gsap.utils.random(-5, 5), duration: 1, ease: 'power2.inOut' }, k * 0.12));
+    tlCq.to({}, { duration: 1.4 }).to(hojas, { opacity: 0, duration: 0.4 });
+    alVer(sc, () => tlCq.play(), () => tlCq.pause());
+  }
 }
 
-// --- Etapa 3: el pasillo (la cámara avanza) y después, en el aula, las luces hasta el tótem -------
+// --- Etapa 3: el pasillo (la cámara avanza y aparece la consigna, como en la versión 1) ----------------
+// y después, en el espacio físico, las luces hasta el tótem y el holograma
 function etapa3() {
   const sec = $('#e3');
   if (!sec) return;
@@ -257,22 +399,23 @@ function etapa3() {
   const len = led.getTotalLength();
   const ir = (p) => { const pt = led.getPointAtLength(len * (1 - p)); yo.setAttribute('cx', pt.x); yo.setAttribute('cy', pt.y - 10); };
   ir(0);
-  const foto = $('.e3-pasillo .escena__foto', sec), pulso = $('.e3-pulso', sec), pasillo = $('.e3-pasillo', sec);
+  const foto = $('.e3-pasillo .escena__foto', sec), pasillo = $('.e3-pasillo', sec);
+  const says = $$('[data-say]', sec), ask = $('.pasillo__ask', sec);
   const holo = $('.a-holo-icon', svg);
-  const lugar = $('[data-e3-lugar]', sec), cap = $('[data-e3-paso]', sec);
-  const texto = (l, c) => () => { lugar.textContent = l; cap.textContent = c; };
-  if (reduce) { box.style.opacity = 0; return; }
+  if (reduce) { box.style.opacity = 0; says.at(-1).style.opacity = 1; return; }
   const p = { v: 0 };
   const tl = gsap.timeline({ repeat: -1, paused: true });
-  tl.call(texto('En Unreal · el pasillo', 'La voz pide pensar en un objeto'))
-    .set(pasillo, { opacity: 1 }).set(box, { opacity: 0 }).set(foto, { scale: 1 })
-    .to(foto, { scale: 1.3, duration: 4.5, ease: 'power1.in' }, '<')
-    .fromTo(pulso, { opacity: 1, bottom: '6%', scale: 1.4 }, { bottom: '46%', scale: 0.3, opacity: 0, duration: 1.5, repeat: 2, ease: 'power1.in' }, '<')
-    .call(texto('En el aula · el camino de luces', 'Sale de Unreal y sigue las luces hasta el tótem'))
-    .to(pasillo, { opacity: 0, duration: 0.6 })
+  tl.set(pasillo, { opacity: 1 }).set(box, { opacity: 0 }).set(says, { opacity: 0 })
+    // la cámara avanza por el pasillo mientras aparecen las frases (js/stages/e3.js · pasillo, versión 1)
+    .fromTo(foto, { scale: 1 }, { scale: 1.45, transformOrigin: '50% 52%', duration: says.length * 2.2 + 0.6, ease: 'power1.in' }, 0);
+  says.forEach((s, i) => {
+    const at = i * 2.2 + 0.3;
+    tl.fromTo(s, { opacity: 0, y: 20, filter: 'blur(8px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.6 }, at);
+    if (i < says.length - 1) tl.to(s, { opacity: 0, y: -16, filter: 'blur(6px)', duration: 0.45 }, at + (s === ask ? 1.9 : 1.6));
+  });
+  tl.to(pasillo, { opacity: 0, duration: 0.6 }, '+=1.2')
     .to(box, { opacity: 1, duration: 0.6 }, '<')
     .fromTo(p, { v: 0 }, { v: 1, duration: 3, ease: 'power1.inOut', onUpdate: () => ir(p.v) })
-    .call(texto('En el aula · el holograma', 'El holograma muestra el ícono de la puerta'))
     .fromTo(holo, { scale: 1 }, { scale: 1.8, transformOrigin: '14px 14px', duration: 0.5, yoyo: true, repeat: 3 })
     .to(box, { opacity: 0, duration: 0.5 }, '+=0.4')
     .set(p, { v: 0, onComplete: () => ir(0) });
@@ -284,18 +427,13 @@ function etapa4() {
   const sec = $('#e4');
   if (!sec) return;
   const flash = $('.e4-flash', sec), sil = $('.e4-sil', sec), aula = $('.e4-aula', sec), humo = $$('.e4-humo circle', sec);
-  const lugar = $('[data-e4-lugar]', sec), cap = $('[data-e4-paso]', sec);
-  const texto = (l, c) => () => { lugar.textContent = l; cap.textContent = c; };
   if (reduce) return;
   const tl = gsap.timeline({ repeat: -1, paused: true });
-  tl.call(texto('En Unreal · la primera etapa, invertida', 'El destello'))
-    .set(aula, { opacity: 0 })
+  tl.set(aula, { opacity: 0 })
     .fromTo(flash, { opacity: 1 }, { opacity: 0, duration: 1.1, ease: 'power2.in' })
-    .call(texto('En Unreal · la primera etapa, invertida', 'Solo quedan las siluetas'))
     .to(sil, { x: 8, duration: 0.06, repeat: 7, yoyo: true, ease: 'steps(1)' }, '+=0.6')
     .to(sil, { opacity: 0.35, duration: 0.08, repeat: 5, yoyo: true, ease: 'steps(1)' }, '+=0.8')
-    .call(texto('En el aula · el tótem', 'El tótem está vacío, con humo'), null, '+=0.8')
-    .to(aula, { opacity: 1, duration: 0.7 })
+    .to(aula, { opacity: 1, duration: 0.7 }, '+=0.8')
     .fromTo(humo, { y: 30, opacity: 0, scale: 0.6, transformOrigin: 'center' }, { y: -60, opacity: 0.35, scale: 1.3, duration: 2.4, stagger: 0.35, ease: 'power1.out' })
     .to(humo, { opacity: 0, duration: 0.8 })
     .to(aula, { opacity: 0, duration: 0.5 }, '+=0.3');
@@ -330,31 +468,130 @@ function etapa5() {
   alVer(sec, () => tl.play(), () => tl.pause());
 }
 
-// --- Etapa 6: el detector encuentra las tres esferas y emerge el tótem ------------------------------
+// --- Etapa 6: el detector (animación de la versión 1, js/stages/e5e6.js · e6) ----------------------
+// Con los Oculus, el campo se ve en wireframe; el lente barre, junta las tres esferas en la bandeja,
+// emerge el tótem con las luces que guían, las esferas viajan hasta él, se hunde y los objetos
+// vuelven a verse sólidos. Pasando el mouse por encima, el lente lo sigue.
 function etapa6() {
   const sec = $('#e6');
   if (!sec) return;
-  const campo = $('.e6-campo', sec);
-  const OBJ = [['obj-llave', '0 0 100 260', 30, 78], ['obj-mate', '0 0 200 240', 62, 74], ['obj-cuaderno', '0 0 240 180', 80, 60]];
-  let html = '';
-  for (let k = 0; k < 24; k++) { const [id, vb, w, h] = OBJ[k % 3]; html += `<svg x="${(k * 137) % 940}" y="${40 + ((k * 89) % 440)}" width="${w}" height="${h}" viewBox="${vb}"><use href="#${id}"/></svg>`; }
-  campo.innerHTML = html;
-  const esf = $$('.e6-esferas circle', sec), lente = $('.e6-lente', sec), totem = $('.e6-totem', sec), n = $('[data-e6-n]', sec);
-  const cuenta = (k) => () => { n.textContent = `${k} de 3 esferas`; };
-  if (reduce) { esf.forEach((e) => { e.style.opacity = 1; }); totem.style.opacity = 1; n.textContent = '3 de 3 esferas'; return; }
-  const tl = gsap.timeline({ repeat: -1, paused: true });
-  tl.set(esf, { opacity: 0, x: 0, y: 0, scale: 1 }).set(totem, { opacity: 0, y: 120 }).set(lente, { attr: { cx: 500, cy: 281 } }).call(cuenta(0));
-  esf.forEach((e, k) => {
-    tl.to(lente, { attr: { cx: +e.getAttribute('cx'), cy: +e.getAttribute('cy') }, duration: 1.3, ease: 'power2.inOut' })
-      .to(e, { opacity: 1, scale: 1.5, transformOrigin: 'center', duration: 0.3, yoyo: true, repeat: 1 })
-      .set(e, { opacity: 1 })
-      .call(cuenta(k + 1));
+  const scan = $('[data-scan]', sec);
+  const dim = $('.scan__field--dim', scan), lit = $('.scan__field--lit', scan);
+  const orbs = $$('[data-orb]', scan), tray = $$('[data-tray]', scan), signal = $('[data-signal]', scan);
+  const totem = $('.scan__totem-svg', scan), guide = $('.scan__guide', scan);
+  const OBJ = [['obj-llave', '0 0 100 260'], ['obj-mate', '0 0 200 240'], ['obj-cuaderno', '0 0 240 180']];
+
+  // versión wireframe de los objetos: misma forma, solo contorno
+  OBJ.forEach(([id]) => {
+    if (document.getElementById(`${id}-wire`)) return;
+    const w = document.getElementById(id).cloneNode(true);
+    w.id = `${id}-wire`;
+    w.querySelectorAll('*').forEach((n) => { n.setAttribute('fill', 'none'); n.setAttribute('stroke', 'currentColor'); n.setAttribute('stroke-width', '3'); n.setAttribute('vector-effect', 'non-scaling-stroke'); n.removeAttribute('opacity'); });
+    document.getElementById(id).after(w);
   });
-  tl.to(lente, { attr: { cx: 500, cy: 281 }, duration: 1 })
-    .to(totem, { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' })
-    .to(esf, { x: (i, el) => 500 - el.getAttribute('cx'), y: (i, el) => 330 - el.getAttribute('cy'), scale: 0.4, duration: 1, stagger: 0.2, ease: 'power2.in' })
-    .to(esf, { opacity: 0, duration: 0.3 })
-    .to(totem, { y: 120, opacity: 0, duration: 0.9, ease: 'power2.in' }, '+=0.5');
+  // el campo de objetos (la misma composición en las dos capas; fija, para que no cambie en cada visita)
+  let field = '';
+  let semilla = 7;
+  const azar = (a, b) => { semilla = (semilla * 9301 + 49297) % 233280; return a + (semilla / 233280) * (b - a); };
+  for (let i = 0; i < 26; i++) {
+    const [id, box] = OBJ[i % 3];
+    const w = id === 'obj-llave' ? azar(5, 8) : id === 'obj-mate' ? azar(9, 13) : azar(12, 17);
+    field += `<svg viewBox="${box}" style="--x:${azar(4, 96).toFixed(1)}%;--y:${azar(8, 94).toFixed(1)}%;--w:${w.toFixed(1)}%;--r:${azar(-40, 40).toFixed(0)}deg"><use href="#${id}-wire"/></svg>`;
+  }
+  dim.innerHTML = field;
+  lit.innerHTML = field;
+  const solidos = (si) => $$('use', dim).forEach((u) => u.setAttribute('href', si ? u.getAttribute('href').replace('-wire', '') : u.getAttribute('href').replace(/(-wire)?$/, '-wire')));
+
+  // el lente y la señal
+  const taken = new Set();
+  const lens = { x: 0.5, y: 0.5 };
+  const leer = () => {
+    const r = scan.getBoundingClientRect();
+    const lr = parseFloat(getComputedStyle(scan).getPropertyValue('--lr')) || 120;
+    let best = 0;
+    orbs.forEach((o) => {
+      const ox = parseFloat(o.style.getPropertyValue('--x')) / 100, oy = parseFloat(o.style.getPropertyValue('--y')) / 100;
+      const d = Math.hypot((ox - lens.x) * r.width, (oy - lens.y) * r.height);
+      const vis = Math.max(0.18, Math.min(1, 1.25 - d / (lr * 1.6)));
+      o.style.setProperty('--vis', taken.has(o.dataset.orb) ? 1 : vis.toFixed(2));
+      if (!taken.has(o.dataset.orb)) best = Math.max(best, vis);
+    });
+    signal.textContent = Math.round(taken.size === 3 ? 100 : best * 100);
+  };
+  const setLens = () => { scan.style.setProperty('--lx', `${(lens.x * 100).toFixed(2)}%`); scan.style.setProperty('--ly', `${(lens.y * 100).toFixed(2)}%`); leer(); };
+  setLens();
+  const pos = (o) => ({ x: parseFloat(o.style.getPropertyValue('--x')) / 100, y: parseFloat(o.style.getPropertyValue('--y')) / 100 });
+
+  if (reduce) { orbs.forEach((o) => { o.style.opacity = 0; }); tray.forEach((t, k) => { t.style.setProperty('--c', getComputedStyle(orbs[k]).getPropertyValue('--c')); t.classList.add('is-on'); }); return; }
+
+  // la esfera vuela a la bandeja
+  const juntar = (o, k) => () => {
+    taken.add(o.dataset.orb);
+    const slot = tray[k];
+    slot.style.setProperty('--c', getComputedStyle(o).getPropertyValue('--c'));
+    const a = o.getBoundingClientRect(), b = slot.getBoundingClientRect();
+    gsap.to(o, { x: b.left - a.left - a.width / 2 + 8, y: b.top - a.top - a.height / 2 + 8, scale: 0.3, opacity: 0, duration: 0.7, ease: 'power3.in', onComplete: () => slot.classList.add('is-on') });
+    leer();
+  };
+  // las tres esferas viajan de la bandeja al tótem y desaparecen en él
+  const depositar = () => {
+    const sr = scan.getBoundingClientRect(), tr = totem.getBoundingClientRect();
+    const to = { x: tr.left + tr.width / 2 - sr.left, y: tr.top + tr.height * 0.28 - sr.top };
+    const t2 = gsap.timeline();
+    t2.add(() => tray.forEach((t) => t.classList.remove('is-on')));
+    tray.forEach((slot, i) => {
+      const r = slot.getBoundingClientRect();
+      const b = document.createElement('span');
+      b.className = 'scan__viaje';
+      b.style.setProperty('--c', slot.style.getPropertyValue('--c'));
+      const x0 = r.left + r.width / 2 - sr.left, y0 = r.top + r.height / 2 - sr.top;
+      b.style.left = `${x0}px`; b.style.top = `${y0}px`;
+      scan.appendChild(b);
+      const dx = to.x - x0, dy = to.y - y0;
+      t2.fromTo(b, { scale: 0.6 }, { keyframes: [{ x: dx * 0.45, y: dy * 0.2 - 70, scale: 1.25, duration: 0.55, ease: 'power1.out' }, { x: dx, y: dy, scale: 1, duration: 0.6, ease: 'power2.in' }] }, 0.2 + i * 0.22)
+        .to(b, { scale: 0, opacity: 0, duration: 0.3, ease: 'power2.in', onComplete: () => b.remove() }, '>')
+        .fromTo(totem, { filter: 'brightness(1)' }, { filter: 'brightness(1.8)', duration: 0.15, yoyo: true, repeat: 1 }, '<');
+    });
+  };
+
+  let manual = false; // pasando el mouse, el lente lo sigue
+  scan.addEventListener('pointermove', (e) => {
+    if (e.pointerType !== 'mouse') return;
+    const r = scan.getBoundingClientRect();
+    manual = true; lens.x = (e.clientX - r.left) / r.width; lens.y = (e.clientY - r.top) / r.height; setLens();
+  });
+  scan.addEventListener('pointerleave', () => { manual = false; });
+  const mover = (x, y, d) => ({ x, y, duration: d, ease: 'sine.inOut', onUpdate: () => { if (!manual) setLens(); } });
+
+  const tl = gsap.timeline({ repeat: -1, paused: true });
+  tl.call(() => {
+    taken.clear();
+    scan.classList.remove('is-off');
+    solidos(false);
+    tray.forEach((t) => t.classList.remove('is-on'));
+    gsap.set(orbs, { x: 0, y: 0, scale: 1, opacity: 1 });
+    gsap.set(totem, { yPercent: 105 }); gsap.set(guide, { opacity: 0 });
+    leer();
+  })
+    .to(lens, mover(0.3, 0.4, 1.4));
+  // el lente barre el campo y encuentra cada esfera
+  orbs.forEach((o, k) => {
+    const { x, y } = pos(o);
+    tl.to(lens, mover(x + (k % 2 ? -0.12 : 0.1), y + 0.14, 1.3))
+      .to(lens, mover(x, y, 1))
+      .call(juntar(o, k), null, '+=0.35');
+  });
+  // con las tres, el tótem emerge del suelo con las luces que guían
+  tl.to(lens, mover(0.5, 0.5, 1), '+=0.5')
+    .to(totem, { yPercent: 0, duration: 1.2, ease: 'power3.out' })
+    .fromTo(scan, { x: -3 }, { x: 3, duration: 0.05, repeat: 9, yoyo: true, clearProps: 'x' }, '<')
+    .to(guide, { opacity: 1, duration: 0.5 }, '<0.6')
+    .call(depositar, null, '+=0.8')
+    .to(totem, { yPercent: 105, duration: 1, ease: 'power2.in' }, '+=1.6')
+    .to(guide, { opacity: 0, duration: 0.4 }, '<')
+    // "quitate el detector": los objetos vuelven a verse sólidos
+    .call(() => { scan.classList.add('is-off'); solidos(true); }, null, '+=0.3')
+    .to({}, { duration: 2.4 });
   alVer(sec, () => tl.play(), () => tl.pause());
 }
 
@@ -372,13 +609,17 @@ function cierre() {
 decoracion();
 sonido();
 popups();
+vocesSolas();
+dondeEstas();
 navegar();
 riel();
 entradas();
+logo();
+idea();
 aula();
 etapa1();
 etapa2();
-fichas();
+mundos();
 etapa3();
 etapa4();
 etapa5();

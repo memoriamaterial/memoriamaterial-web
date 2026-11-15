@@ -6,6 +6,8 @@
 
 .v2 { --rail-w: 64px; min-width: 1100px; }
 .v2 .hdr { position: fixed; right: calc(var(--rail-w) + var(--gutter)); }
+.v2 .hdr__mark { width: 176px; }
+.v2 .where__icons { color: var(--celeste); }
 
 /* --- secciones: una pantalla cada una ---------------------------------------- */
 .v2-sec {
@@ -53,9 +55,9 @@ a.btn { text-decoration: none; }
 /* ============================ 1 · INICIO ============================ */
 .inicio { place-items: center; text-align: center; }
 .inicio__in { display: grid; justify-items: center; gap: var(--s-5); max-width: 760px; }
-.inicio__logo { margin: 0; width: min(560px, 46vw); }
+.inicio__logo { margin: 0; width: min(860px, 64vw); }
+.logo { overflow: visible; }
 .inicio__logo svg { width: 100%; height: auto; display: block; }
-.inicio__lema { margin: 0; font-size: var(--t-xl); font-weight: 700; letter-spacing: -.02em; line-height: 1.1; padding-top: .08em; }
 .inicio__txt { margin: 0; max-width: 40ch; font-size: var(--t-lg); line-height: 1.35; color: var(--ink-70); }
 .inicio__q { margin: 0; font-family: var(--f-mono); font-size: var(--t-sm); letter-spacing: .06em; color: var(--ink); }
 .inicio__q em { font-style: normal; color: var(--fucsia); }
@@ -77,8 +79,9 @@ a.btn { text-decoration: none; }
 .lugares li b { color: var(--ink); font-weight: 600; margin-right: .35em; }
 .lugares li.is-on { background: rgb(60 197 242 / .12); color: var(--ink); }
 .lugares li.is-on::before { background: var(--celeste); color: var(--violeta); }
-.antes { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: var(--s-3); align-items: center; width: 100%; padding-top: var(--s-3); border-top: 1px solid var(--ink-10); }
-.antes__txt { margin: 0; font-family: var(--f-mono); font-size: 12px; letter-spacing: .06em; color: var(--ink-70); }
+.antes { width: 100%; padding-top: var(--s-3); border-top: 1px solid var(--ink-10); }
+.antes .pp { width: min(420px, 100%); }
+.exp__info .eyebrow { --acc: var(--celeste); }
 
 .exp__aula { position: relative; margin: 0; }
 .lugar-pin { position: absolute; left: var(--x); top: var(--y); translate: -50% -50%; display: flex; align-items: center; gap: 6px; pointer-events: none; }
@@ -113,9 +116,7 @@ a.btn { text-decoration: none; }
 /* el escenario, en el centro */
 .escena { position: relative; margin: 0; }
 .escena__foto { display: block; width: 100%; height: auto; border-radius: 18px; border: 1px solid var(--ink-10); }
-.escena__anim { position: absolute; inset: 0; width: 100%; height: calc(100% - 30px); overflow: visible; pointer-events: none; }
-.escena__cap { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 10px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-50); }
-.escena__n { font-family: var(--f-mono); color: var(--acc); }
+.escena__anim { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
 
 /* pop-ups a los costados: la voz en off y lo que se escucha de fondo */
 .pp {
@@ -129,11 +130,12 @@ a.btn { text-decoration: none; }
 .pp--inline::before { display: none; }
 .pp__lbl { margin: 0; display: flex; align-items: center; gap: 8px; font-family: var(--f-mono); font-size: 11px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--acc); }
 .pp__lbl svg { width: 16px; height: 16px; }
-.pp__note { margin: 0; font-size: 12px; color: var(--ink-50); }
 /* la tarjeta de la voz: play y progreso; el texto se abre con "Leer" */
 .pp__card.voice { padding: 8px; border: 0; background: none; }
 .pp__card .voice__text { display: none; }
 .pp.is-leyendo .pp__card .voice__text { display: block; font-size: var(--t-sm); }
+.pp__txt { display: none; margin: 0; padding: 0 6px 0 18px; font-size: var(--t-sm); line-height: 1.45; color: var(--ink-70); }
+.pp.is-leyendo .pp__txt { display: grid; gap: 4px; }
 .pp__leer { justify-self: start; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--ink-20); font-family: var(--f-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-70); }
 .pp__leer:hover, .pp__leer[aria-expanded="true"] { border-color: var(--acc); color: var(--acc); }
 .pp--inline { padding: 10px 12px; }
@@ -166,7 +168,12 @@ a.btn { text-decoration: none; }
 /* "Leer": el texto de la voz ocupa todo el ancho del pop-up, con su propio scroll */
 .pp__card.voice { grid-template-columns: 48px minmax(0, 1fr); align-items: center; }
 .pp__card.voice > div { display: contents; }
-.pp.is-leyendo .pp__card .voice__text { grid-column: 1 / -1; max-height: 38vh; overflow-y: auto; padding-right: 6px; line-height: 1.45; }
+.pp.is-leyendo .pp__card .voice__text { grid-column: 1 / -1; padding-right: 6px; line-height: 1.45; }
+.pp.is-leyendo .voice__text, .pp.is-leyendo .pp__txt { max-height: var(--leer-max, 30vh); overflow-y: auto; overscroll-behavior: contain; }
+/* en los pop-ups sueltos (el espacio físico y el cierre) el texto se despliega encima, hacia arriba */
+.pp--inline .pp__card { position: static; }
+.pp--inline.is-leyendo .pp__card .voice__text { position: absolute; z-index: 6; left: 0; right: 0; bottom: calc(100% + 8px); max-height: 34vh; margin: 0; padding: 12px 14px; border-radius: 12px; background: rgb(53 42 114 / .97); border: 1px solid color-mix(in srgb, var(--acc) 45%, transparent); box-shadow: 0 18px 40px rgb(20 14 60 / .45); text-align: left; }
+html { overflow-anchor: none; }
 
 /* ============================ ETAPA 2: CÚPULA Y MUNDOS ============================ */
 .e2a rect { fill: none; stroke: var(--c); stroke-width: 3; opacity: .25; filter: drop-shadow(0 0 8px var(--c)); transition: opacity .4s; }
@@ -177,24 +184,13 @@ a.btn { text-decoration: none; }
 .pp__ruido, .pp__btn { display: inline-flex; align-items: center; gap: 8px; justify-self: start; padding: 6px 12px 6px 6px; border-radius: 999px; border: 1px solid var(--acc); font-family: var(--f-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); }
 .pp__ruido::before, .pp__btn i { content: ""; width: 22px; height: 22px; border-radius: 50%; background: var(--acc) center / 9px no-repeat; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 12'%3E%3Cpath d='M0 0v12l10-6z' fill='%23352A72'/%3E%3C/svg%3E"); }
 .pp__ruido[aria-pressed="true"]::before, .pp__btn.is-playing i { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 12'%3E%3Cpath d='M0 0h3.5v12H0zM6.5 0H10v12H6.5z' fill='%23352A72'/%3E%3C/svg%3E"); }
-.pp__btn { --acc: var(--c); }
-.pp__sub { margin: 4px 0 -6px; font-family: var(--f-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-50); }
 .pp__pend { margin: 0; font-size: 12px; color: var(--ink-70); }
 .pp__pend b { font-family: var(--f-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--amarillo); }
-.mundos { gap: var(--s-5); }
-.fichas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-5); }
-.ficha { display: grid; gap: 8px; align-content: start; padding: 14px; border-radius: 18px; background: rgb(53 42 114 / .85); border: 1px solid color-mix(in srgb, var(--c) 40%, transparent); box-shadow: 0 0 30px color-mix(in srgb, var(--c) 10%, transparent); }
-.ficha__img { position: relative; margin: 0 0 4px; aspect-ratio: 1473 / 764; border-radius: 12px; overflow: hidden; background: #2a1d6b; }
+.ficha__img { position: relative; margin: 0; aspect-ratio: 1473 / 764; border-radius: 18px; overflow: hidden; background: #2a1d6b; border: 1px solid var(--ink-10); }
 .ficha__foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .9s; }
 .ficha__foto--contain { object-fit: contain; }
 .ficha__foto.is-on { opacity: 1; }
 .ficha__anim { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.ficha__nom { margin: 0; font-family: var(--f-mono); font-size: 13px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--c); }
-.ficha__frase { margin: 0; font-size: var(--t-base); font-weight: 500; line-height: 1.3; }
-.ficha__que { margin: 0; font-size: 13px; line-height: 1.4; color: var(--ink-70); }
-.ficha__audio { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
-.ficha__txt { margin: 0; padding: 10px 0 0 18px; border-top: 1px solid var(--ink-10); display: grid; gap: 4px; font-size: 12.5px; line-height: 1.35; color: var(--ink-70); max-height: 150px; overflow-y: auto; }
-.ficha__txt .ficha__ruido { list-style: none; margin-left: -18px; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .06em; color: var(--c); }
 .fa-salida { fill: var(--amarillo); opacity: 0; filter: drop-shadow(0 0 18px var(--amarillo)); }
 .fa-llave { color: var(--amarillo); filter: drop-shadow(0 0 8px var(--amarillo)); opacity: 0; }
 .fa-hojas rect { fill: #F2EDD4; stroke: #352A72; stroke-width: 2; }
@@ -205,17 +201,13 @@ a.btn { text-decoration: none; }
 .escena__marco { position: relative; aspect-ratio: 16 / 10; border-radius: 18px; overflow: hidden; border: 1px solid var(--ink-10); background: #2b2068; }
 .e3-pasillo, .e3-aula { position: absolute; inset: 0; display: grid; place-items: center; }
 .e3-pasillo .escena__foto { height: 100%; width: auto; border: 0; border-radius: 0; }
-.e3-pulso { position: absolute; left: 50%; bottom: 6%; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: var(--celeste); box-shadow: 0 0 16px var(--celeste), 0 0 40px var(--celeste); opacity: 0; }
 .e3-aula { opacity: 0; padding: 4% 12%; }
 .e3-aula .aula-iso { width: 100%; height: 100%; }
 .e3-caminante { fill: var(--crema); filter: drop-shadow(0 0 8px var(--crema)); }
-.escena__lugar { position: absolute; left: 12px; bottom: 12px; padding: 4px 10px; border-radius: 999px; background: rgb(53 42 114 / .9); border: 1px solid var(--acc); font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--acc); }
-.escena--dos .escena__cap { margin-top: 10px; }
 
 /* ============================ ETAPAS SIN SCREEN (PENDIENTE) ============================ */
 .escena--pend { position: relative; }
 .pend-anim { display: block; width: 100%; height: auto; border-radius: 18px; border: 1px dashed color-mix(in srgb, var(--amarillo) 60%, transparent); }
-.escena--pend .escena__lugar { bottom: 46px; }
 .e4-aula, .e4-flash { opacity: 0; }
 .e6-campo use { opacity: .35; }
 .e6-esferas circle { opacity: 0; filter: drop-shadow(0 0 10px currentColor); }
@@ -241,3 +233,98 @@ a.btn { text-decoration: none; }
 .cierre__esferas span { width: 84px; }
 .cierre__q { font-size: clamp(1.4rem, 1rem + 1.2vw, 2.1rem); max-width: 30ch; }
 .cierre__logo { width: 220px; margin-top: var(--s-2); }
+
+/* ============================ CORRECCIONES · RONDA 2 ============================ */
+
+/* --- La idea (recuperada de la versión 1): el lema como afiche --------------------- */
+.idea .lema__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: var(--s-8); align-items: center; }
+.lema__words { margin: 0; display: grid; gap: .1em; container-type: inline-size; font-weight: 700; text-transform: uppercase; }
+.lema__line { display: grid; justify-items: start; font-size: clamp(1.75rem, 10.6cqi, 6.2rem); line-height: .9; letter-spacing: -.04em; }
+.lema__row { display: flex; align-items: center; gap: .16em; max-width: 100%; }
+.lema__w { white-space: nowrap; }
+.lema__forma { flex: none; width: 1.3em; height: .65em; color: var(--c); overflow: visible; filter: drop-shadow(0 0 14px color-mix(in srgb, var(--c) 45%, transparent)); }
+.lema__forma--media { width: 1.1em; height: .55em; }
+.lema__copy { display: grid; gap: var(--s-5); align-content: center; }
+.lema__copy .lead, .lema__copy .body { margin: 0; }
+
+/* --- Etapa 2: la escena sin pop-up de fondo ocupa también esa columna ---------------------- */
+.etapa__grid--sin-fondo .escena { grid-column: 2 / -1; }
+
+/* --- Etapa 2: la Cúpula del Reencuadre (de la versión 1), encima del screen ----------------- */
+.escena--cupula { overflow: hidden; border-radius: 18px; }
+.cupula { position: absolute; inset: 0; z-index: 2; overflow: hidden; border-radius: 18px; pointer-events: none;
+  background: radial-gradient(60% 50% at 50% 92%, rgb(60 197 242 / .16), transparent 70%), linear-gradient(to top, #2b2068 0 22%, var(--violeta) 22%); }
+.cupula__stage { position: absolute; left: 50%; bottom: 8%; width: 66%; translate: -50% 0; }
+.cupula__svg { display: block; width: 100%; height: auto; overflow: visible; }
+.dome__gems circle { filter: drop-shadow(0 0 8px currentColor); }
+.cupula__flash { position: absolute; inset: 0; background: var(--crema); opacity: 0; }
+
+/* --- Etapa 3: las frases del pasillo (de la versión 1), encima de la foto -------------------- */
+.e3-pasillo { overflow: hidden; }
+.pasillo__say { position: absolute; inset: 0; display: grid; place-items: center; padding: 0 14%; text-align: center; pointer-events: none; }
+.pasillo__say p { grid-area: 1 / 1; margin: 0; font-size: var(--t-lg); font-weight: 500; line-height: 1.2; letter-spacing: -.015em; text-wrap: balance; text-shadow: 0 0 24px var(--violeta), 0 0 48px var(--violeta), 0 2px 6px rgb(20 14 60 / .8); opacity: 0; }
+.pasillo__say .pasillo__ask { font-size: var(--t-xl); font-weight: 700; }
+.pasillo__say .acc { color: var(--celeste); }
+
+/* --- Etapa 4: título con glitch (de la versión 1, css/e4.css) ------------------------------- */
+.e4-glitch { position: relative; }
+.e4-glitch::before, .e4-glitch::after { content: attr(data-text); position: absolute; inset: 0; padding-top: inherit; pointer-events: none; mix-blend-mode: screen; }
+.e4-glitch::before { color: var(--fucsia); translate: -4px 0; animation: glitch-a 2.8s steps(1) infinite; }
+.e4-glitch::after { color: var(--celeste); translate: 4px 0; animation: glitch-b 3.4s steps(1) infinite; }
+@keyframes glitch-a { 0%, 86%, 100% { clip-path: inset(0 0 0 0); translate: -3px 0; } 88% { clip-path: inset(20% 0 55% 0); translate: -14px 0; } 92% { clip-path: inset(62% 0 10% 0); translate: 10px 0; } }
+@keyframes glitch-b { 0%, 80%, 100% { clip-path: inset(0 0 0 0); translate: 3px 0; } 83% { clip-path: inset(40% 0 30% 0); translate: 16px 0; } 89% { clip-path: inset(5% 0 75% 0); translate: -10px 0; } }
+@media (prefers-reduced-motion: reduce) { .e4-glitch::before, .e4-glitch::after { animation: none; } }
+
+/* --- Etapa 6: el detector (de la versión 1, css/e5-e6.css) ---------------------------------- */
+.scan { --lx: 50%; --ly: 50%; --lr: 92px;
+  position: relative; aspect-ratio: 1000 / 562; border-radius: 18px; overflow: hidden;
+  background: var(--violeta); border: 1px solid rgb(60 197 242 / .3); cursor: crosshair; }
+.scan__field { position: absolute; inset: 0; }
+.scan__field svg { position: absolute; left: var(--x); top: var(--y); width: var(--w); translate: -50% -50%; rotate: var(--r); overflow: visible; }
+.scan__field--dim { color: rgb(60 197 242 / .26); }
+.scan__field--lit { color: var(--celeste); filter: drop-shadow(0 0 6px var(--celeste)); clip-path: circle(var(--lr) at var(--lx) var(--ly)); }
+.scan.is-off .scan__field--dim { color: rgb(242 237 212 / .32); transition: color 1s; }
+.scan.is-off .scan__field--lit, .scan.is-off .scan__lens, .scan.is-off .scan__hud { opacity: 0; transition: opacity .8s; }
+.scan__field--lit, .scan__lens, .scan__hud { transition: opacity .6s; }
+.scan__lens { position: absolute; left: var(--lx); top: var(--ly); width: calc(var(--lr) * 2); aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; border: 1.5px solid var(--celeste); box-shadow: 0 0 30px rgb(60 197 242 / .4), inset 0 0 30px rgb(60 197 242 / .2); pointer-events: none; }
+.scan__lens span { position: absolute; inset: 0; background: linear-gradient(var(--celeste), var(--celeste)) center / 1px 30% no-repeat, linear-gradient(var(--celeste), var(--celeste)) center / 30% 1px no-repeat; opacity: .6; }
+.scan__hud { position: absolute; inset: 12px; pointer-events: none; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--celeste); }
+.scan__corner { position: absolute; width: 22px; height: 22px; border: 2px solid var(--celeste); }
+.scan__corner.tl { top: 0; left: 0; border-right: 0; border-bottom: 0; } .scan__corner.tr { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+.scan__corner.bl { bottom: 0; left: 0; border-right: 0; border-top: 0; } .scan__corner.br { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+.scan__read { position: absolute; top: 4px; left: 34px; }
+.scan__read b { font-weight: 600; font-size: 1.3em; font-variant-numeric: tabular-nums; }
+.scan__tray { position: absolute; top: 0; right: 34px; display: flex; gap: 8px; }
+.scan__tray i { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid rgb(60 197 242 / .6); transition: background .4s, box-shadow .4s; }
+.scan__tray i.is-on { background: var(--c); border-color: var(--c); box-shadow: 0 0 12px var(--c); }
+.scan__orb { position: absolute; z-index: 3; left: var(--x); top: var(--y); width: 56px; height: 56px; translate: -50% -50%; border-radius: 50%; pointer-events: none; }
+.scan__orb::before { content: ""; position: absolute; inset: 14px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, var(--crema), var(--c) 45%, rgb(53 42 114 / 0) 75%); opacity: var(--vis, .18); box-shadow: 0 0 calc(30px * var(--vis, .18)) var(--c); transition: opacity .2s; animation: orb 2s ease-in-out infinite; }
+@keyframes orb { 50% { scale: 1.15; } }
+.scan__totem { position: absolute; z-index: 2; left: 50%; bottom: 0; width: min(420px, 80%); height: 64%; translate: -50% 0; display: grid; place-items: end center; pointer-events: none; }
+.scan__totem-svg { position: relative; height: 70%; width: auto; color: var(--fucsia); filter: drop-shadow(0 0 24px var(--fucsia)); }
+.scan__guide { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; }
+.scan__guide path { stroke: var(--celeste); stroke-width: 3; stroke-dasharray: 2 12; stroke-linecap: round; animation: led 1.2s linear infinite; }
+.scan__viaje { position: absolute; z-index: 6; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; background: var(--c); box-shadow: 0 0 16px var(--c), 0 0 40px var(--c); pointer-events: none; }
+.scan.is-off { border-color: var(--ink-20); }
+.escena--pend .pend { z-index: 7; top: auto; bottom: 14px; left: 42px; }
+
+/* --- Búsqueda del significado (Etapa 6): más aire ------------------------------------------ */
+#e6 { padding-top: 136px; padding-bottom: 104px; gap: var(--s-7); }
+#e6 .etapa__head { gap: 12px; }
+#e6 .etapa__grid { gap: var(--s-6); grid-template-columns: 230px minmax(0, 1fr) 260px; }
+#e6 .pp { padding: 20px; gap: 14px; }
+#e6 .etapa__txt { gap: 14px; margin-top: var(--s-2); }
+
+/* --- Cierre: más aire, logo grande y la frase de contexto ------------------------------------ */
+.cierre { padding-top: 120px; padding-bottom: 96px; }
+.cierre__in { gap: var(--s-5); max-width: 880px; }
+.cierre__esferas { margin: var(--s-2) 0; }
+.cierre__ctx { margin: var(--s-4) 0 0; max-width: 54ch; font-size: var(--t-base); line-height: 1.45; color: var(--ink-70); text-wrap: pretty; }
+.cierre__q { margin: 0; }
+.cierre__logo { width: min(520px, 60vw); margin-top: var(--s-5); }
+.cierre .btn { margin-top: var(--s-2); }
+.pp.is-leyendo { z-index: 5; }
+/* el espacio físico sigue entrando en una pantalla con la intro recuperada */
+.experiencia { padding-top: 80px; gap: var(--s-4); }
+.exp__info { gap: 10px; }
+.exp__info .v2-title { font-size: clamp(1.6rem, 1.1rem + 1.2vw, 2.3rem); }
