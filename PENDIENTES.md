@@ -206,9 +206,10 @@ yo los optimizo y los copio a `docs/assets/`.
 
 ## Publicación
 
-- [ ] **GitHub Pages.** El repo es **privado** y Pages no está activado. Opciones:
-  1. Hacer el repo público → Settings → Pages → *Deploy from a branch* → rama
-     `claude/interactive-web-experience-plan-r34fzm` (o `main` cuando se mergee) → carpeta `/docs` → Save.
-  2. Mantenerlo privado: requiere que la organización tenga un plan pago (GitHub Team/Enterprise).
-
-  Queda en `https://memoriamaterial.github.io/memoriamaterial-web/`.
+- [ ] **GitHub Pages con la versión 2.** El repo es público y Pages está activado. Para publicar la versión 2
+  sin perder la 1: Settings → Pages → *Build and deployment* → *Deploy from a branch* → rama
+  `claude/version-2`, carpeta `/docs` → Save.
+  - Versión 2: `https://memoriamaterial.github.io/memoriamaterial-web/`
+  - Versión 1 (de respaldo): `https://memoriamaterial.github.io/memoriamaterial-web/v1.html`
+  - La rama `claude/interactive-web-experience-plan-r34fzm` queda intacta como copia de la versión 1;
+    para volver a publicarla, se elige esa rama en el mismo lugar.
