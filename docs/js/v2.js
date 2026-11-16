@@ -320,7 +320,7 @@ function alScroll(trigger, build, { start = 'top bottom', end = 'bottom top' } =
   tl.to({}, { duration: Math.max(0, 1 - tl.duration()) });
 }
 // en las esquinas (a la altura del título y del texto final), donde nunca hay contenido a los costados
-const ONDAS = [['amarillo', 'left:-56px;top:15%'], ['fucsia', 'left:-56px;top:86%'], ['celeste', 'right:calc(var(--rail-w) - 56px);top:15%']];
+const ONDAS = [['amarillo', 'left:-56px;top:15%'], ['fucsia', 'left:-56px;top:86%'], ['celeste', 'right:-56px;top:15%']];
 
 function narrativa() {
   // Etapa 1 · las tres ondas llegan desde los costados y se conectan (al irse, se juntan: va a subir la cúpula)
@@ -336,7 +336,7 @@ function narrativa() {
   // Etapa 2 · la cúpula: dos curvas suben desde abajo, enfrentadas
   const cupula = (sec, trigger = sec) => {
     const a = forma(capa(sec), 'elemento-cuadrado-curvo', 'crema', 120, 'left:-24px;bottom:-30px', true);
-    const b = forma(capa(sec), 'elemento-cuadrado-curvo', 'crema', 120, 'right:calc(var(--rail-w) - 24px);bottom:-30px');
+    const b = forma(capa(sec), 'elemento-cuadrado-curvo', 'crema', 120, 'right:-24px;bottom:-30px');
     alScroll(trigger, (tl) => tl.fromTo([a, b], { y: 220, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: 'power3.out' }, 0)
       .to([a, b], { y: -40, opacity: 0, duration: 0.25 }, 0.75));
   };
@@ -354,7 +354,7 @@ function narrativa() {
   const e3 = $('#e3');
   if (e3) {
     const l = forma(capa(e3), 'elemento-banda-muesca', 'celeste', 260, 'left:-180px;top:46%', true);
-    const r = forma(capa(e3), 'elemento-banda-muesca', 'celeste', 260, 'right:calc(var(--rail-w) - 180px);top:46%');
+    const r = forma(capa(e3), 'elemento-banda-muesca', 'celeste', 260, 'right:-180px;top:46%');
     alScroll(e3, (tl) => tl.fromTo(l, { x: -160, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4, ease: 'power2.out' }, 0)
       .fromTo(r, { x: 160, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4, ease: 'power2.out' }, 0)
       .to(l, { x: -160, opacity: 0, duration: 0.3 }, 0.7).to(r, { x: 160, opacity: 0, duration: 0.3 }, 0.7));
@@ -372,7 +372,7 @@ function narrativa() {
   // Etapa 6 · la búsqueda: las tres ondas aparecen sueltas en los márgenes y se juntan abajo, en el centro
   const e6 = $('#e6');
   if (e6) {
-    const pos = [['amarillo', 'left:-30px;top:18%'], ['fucsia', 'right:calc(var(--rail-w) - 30px);top:16%'], ['celeste', 'left:-30px;top:70%']];
+    const pos = [['amarillo', 'left:-30px;top:18%'], ['fucsia', 'right:-30px;top:16%'], ['celeste', 'left:-30px;top:70%']];
     const ondas = pos.map(([c, css]) => forma(capa(e6), 'trama-02', c, 96, css));
     alScroll(e6, (tl) => {
       tl.fromTo(ondas, { opacity: 0 }, { opacity: 1, duration: 0.12, stagger: 0.04 }, 0.1);
@@ -386,7 +386,7 @@ function narrativa() {
   const ci = $('#cierre');
   if (ci) {
     const bandas = [forma(capa(ci), 'elemento-banda-dientes', 'amarillo', 220, 'left:-120px;top:30%', true),
-      forma(capa(ci), 'elemento-banda-curva', 'fucsia', 260, 'right:calc(var(--rail-w) - 150px);top:46%'),
+      forma(capa(ci), 'elemento-banda-curva', 'fucsia', 260, 'right:-150px;top:46%'),
       forma(capa(ci), 'elemento-banda-muesca', 'celeste', 220, 'left:-120px;top:62%', true)];
     alScroll(ci, (tl) => bandas.forEach((b, k) => tl.fromTo(b, { x: (k === 1 ? 1 : -1) * 240, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, ease: 'power3.out' }, 0.1 + k * 0.1)), { start: 'top bottom', end: 'center center' });
   }

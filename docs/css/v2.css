@@ -8,7 +8,7 @@
 /* encabezado: una sola fila (logo · "Estás en" · sonido), del borde izquierdo hasta el riel, con el mismo
    alto en todo el scroll. Antes empezaba 64 px a la derecha (quedaba un hueco), su fondo era un degradé de
    22 px que se fundía con el contenido y "Estás en" caía en una segunda fila, suelto debajo del botón. */
-.v2 .hdr { left: 0; right: var(--rail-w); height: 76px; padding: 0 var(--gutter) 0 calc(var(--rail-w) + var(--gutter)); gap: var(--s-4); flex-wrap: nowrap; }
+.v2 .hdr { left: 0; right: var(--rail-w); height: 76px; padding: 0 var(--gutter); gap: var(--s-4); flex-wrap: nowrap; }
 .v2.is-past-intro .hdr { background: rgb(53 42 114 / .95); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); box-shadow: 0 1px 0 rgb(242 237 212 / .08); padding-bottom: 0; }
 .v2 .hdr__mark { width: 176px; flex: none; margin-right: auto; }
 .v2 .hdr .where--desk { position: static; flex: none; order: 1; }
@@ -19,7 +19,7 @@
 /* --- secciones: una pantalla cada una ---------------------------------------- */
 .v2-sec {
   position: relative; isolation: isolate; min-height: 100vh;
-  padding: 104px calc(var(--rail-w) + var(--gutter)) 56px var(--gutter);
+  padding: 104px var(--gutter) 56px;
   display: grid; align-content: center; gap: var(--s-6);
   overflow: hidden;
 }
@@ -345,18 +345,17 @@ html { overflow-anchor: none; }
 .hall__copy { position: absolute; z-index: 4; top: calc(var(--s-9) + env(safe-area-inset-top)); left: 0; right: 0; padding-inline: var(--gutter); display: grid; gap: var(--s-3); }
 .hall__title { margin: 0; font-size: var(--t-xl); }
 .hall__voice { position: absolute; z-index: 5; left: var(--gutter); bottom: var(--s-6); width: min(400px, calc(100% - 2 * var(--gutter))); }
-.hall__pin > .pend { top: auto; left: auto; right: calc(var(--rail-w) + 16px); bottom: 16px; }
+.hall__pin > .pend { top: auto; left: auto; right: 16px; bottom: 16px; }
 
 /* --- Cierre: el contenido arriba y un pie ordenado con el logo entero y "Volver al inicio" ------------ */
 .cierre { padding-bottom: 0; gap: var(--s-8); }
 .cierre__pie { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: var(--s-6); padding: var(--s-6) 0 var(--s-7); border-top: 1px solid var(--ink-10); }
 .cierre__logo { display: block; width: min(420px, 40vw); height: auto; margin: 0; }
-#e3 .escena__marco { aspect-ratio: 2.15 / 1; }
 /* el encabezado de la v2 es más alto: la barra del mundo de la llave baja un poco */
 .llave__hud { top: 104px; }
 /* mundos del mate y del cuaderno: el escenario a la izquierda y el diálogo en su columna, a la derecha,
    para que se lea cada línea y se entienda qué audio suena en cada momento */
-.cq__talk { right: calc(var(--rail-w) + var(--gutter)); bottom: 44%; width: 420px; }
+.cq__talk { right: var(--gutter); bottom: 44%; width: 420px; }
 .ronda .said, .manana .said, .cq__talk .said { font-size: var(--t-base); line-height: 1.4; padding: 12px 16px; }
 .ronda .said b, .manana .said b, .cq__talk .said b { font-size: 11px; margin-bottom: 4px; }
 .manana .onoma--solo, .ronda .onoma--solo { font-size: var(--t-sm); }
@@ -368,11 +367,11 @@ html { overflow-anchor: none; }
    a la derecha (base.css) y cada sección lo volvía a reservar solo de ese lado. Ahora <main> no reserva
    nada y las secciones dejan el mismo margen a los dos lados (riel + margen), así todo queda centrado
    en la pantalla y nada pasa por debajo del riel. */
-.v2 main { padding-right: 0; }
-.v2-sec { padding-left: calc(var(--rail-w) + var(--gutter)); padding-right: calc(var(--rail-w) + var(--gutter)); }
-.mundo-v1 .wrap { width: min(1280px, calc(100% - 2 * (var(--rail-w) + var(--gutter)))); }
-.mate1__copy, .mate2__copy, .hall__copy { padding-inline: calc(var(--rail-w) + var(--gutter)); }
-.e2-swap { position: relative; isolation: isolate; overflow: hidden; padding-inline: calc(var(--rail-w) + var(--gutter)); }
+.v2 main { padding-right: var(--rail-w); }   /* el área visible termina donde empieza el riel */
+.v2-sec { padding-left: var(--gutter); padding-right: var(--gutter); }
+.mundo-v1 .wrap { width: min(1280px, calc(100% - 2 * var(--gutter))); }
+.mate1__copy, .mate2__copy, .hall__copy { padding-inline: var(--gutter); }
+.e2-swap { position: relative; isolation: isolate; overflow: hidden; padding-inline: var(--gutter); }
 
 /* --- 2 · Títulos de sección: más grandes y centrados ------------------------------------------ */
 .etapa__head { justify-items: center; text-align: center; gap: 10px; }
@@ -402,7 +401,7 @@ html { overflow-anchor: none; }
    foto en otra; las puertas van en el espacio entre panel y panel; abajo, el carril de la llave. */
 .llave__panel {
   --puerta: clamp(110px, 12vw, 190px);
-  width: 100vw; height: 100%;
+  width: calc(100vw - var(--rail-w)); height: 100%;
   display: grid; grid-template-columns: minmax(280px, 360px) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto;
   column-gap: 32px; row-gap: 12px; align-items: center; align-content: stretch;
   padding: 168px calc(var(--puerta) / 2 + 40px) 96px;
@@ -418,10 +417,10 @@ html { overflow-anchor: none; }
 .llave__panel--cajones { grid-template-columns: minmax(280px, 340px) minmax(0, 1fr) 200px; }
 .llave__panel--cajones .llave__copy { grid-column: 1; grid-row: 1 / -1; align-self: center; max-width: none; }
 .llave__panel--cajones .mesita { position: relative; grid-column: 3; grid-row: 1 / -1; align-self: center; justify-self: center; margin: 0; }
-.llave__panel--cerradura { width: 100vw; grid-template-columns: minmax(200px, 300px) minmax(0, 1fr); padding-left: calc(var(--puerta) / 2 + 40px); padding-right: calc(var(--rail-w) + var(--gutter)); row-gap: 0; justify-items: stretch; }
+.llave__panel--cerradura { width: calc(100vw - var(--rail-w)); grid-template-columns: minmax(200px, 300px) minmax(0, 1fr); padding-left: calc(var(--puerta) / 2 + 40px); padding-right: calc(var(--gutter) + 40px); row-gap: 0; justify-items: stretch; }
 .llave__panel--cerradura .llave__copy { grid-column: 1; grid-row: 1 / -1; order: 0; align-self: center; }
 .llave__panel--cerradura .cerradura--foto { grid-column: 2; grid-row: 1 / -1; width: 100%; max-height: 100%; align-self: center; justify-self: center; }
-.llave__carril { position: absolute; z-index: 4; left: calc(var(--rail-w) + var(--gutter)); right: calc(var(--rail-w) + var(--gutter)); bottom: 22px; height: 44px; border-bottom: 1px solid var(--ink-10); }
+.llave__carril { position: absolute; z-index: 4; left: var(--gutter); right: var(--gutter); bottom: 22px; height: 44px; border-bottom: 1px solid var(--ink-10); }
 .llave__carril .tr { position: absolute; top: 0; }
 
 /* --- e · El último recreo y La mañana: centrados (escenario + diálogo, con el mismo margen a cada lado) */
@@ -429,11 +428,11 @@ html { overflow-anchor: none; }
    subtítulos (antes el escenario iba a la izquierda y el diálogo en una columna a la derecha: cuando no había
    ninguna línea en pantalla, todo se veía corrido) */
 .mate1__fotos, .mate2__foto {
-  --ancho: min(calc(100vw - 2 * (var(--rail-w) + var(--gutter))), calc((100vh - 510px) * 2.2));
-  inset: 140px auto 370px calc(50% - var(--ancho) / 2); width: var(--ancho);
+  --ancho: min(calc(100vw - var(--rail-w) - 2 * var(--gutter)), calc((100vh - 354px) * 2.4));
+  inset: 124px auto 230px calc(50% - var(--ancho) / 2); width: var(--ancho);
 }
-.ronda, .manana { --ancho: min(760px, calc(100vw - 2 * (var(--rail-w) + var(--gutter)))); left: calc(50% - var(--ancho) / 2); right: auto; bottom: 96px; width: var(--ancho); }
-.cq__talk { right: calc(var(--rail-w) + var(--gutter)); }
+.ronda, .manana { --ancho: min(760px, calc(100vw - var(--rail-w) - 2 * var(--gutter))); left: calc(50% - var(--ancho) / 2); right: auto; bottom: 84px; width: var(--ancho); }
+.cq__talk { right: var(--gutter); }
 .mate1__copy, .mate2__copy { top: 100px; justify-items: center; text-align: center; }
 
 /* --- i · Cierre: bastante más aire entre los elementos ------------------------------------------- */
@@ -482,4 +481,13 @@ html { overflow-anchor: none; }
 .llave__panel--cerradura .cerradura--foto { width: min(100%, calc((100vh - 290px) * 1473 / 764)); max-height: none; }
 
 /* la barra de subtítulos, centrada en la pantalla (base.css le restaba medio riel) */
-.v2 .subbar { translate: -50% 0; width: min(720px, calc(100vw - 2 * (var(--rail-w) + var(--gutter)))); }
+
+/* La mañana: la foto es casi cuadrada; el marco toma su proporción para que la imagen se vea grande */
+.mate2__foto { --ancho: min(calc(100vw - var(--rail-w) - 2 * var(--gutter)), calc((100vh - 354px) * 1.45)); }
+.mate1__copy, .mate2__copy { top: 92px; }
+
+/* Etapa 3: la escena del pasillo y del espacio físico, grande y centrada (como estaba antes, en 16:10) */
+#e3 .etapa__grid { grid-template-columns: 200px minmax(0, 1fr) 200px; }
+#e3 .escena__marco { aspect-ratio: 16 / 10; }
+/* Etapa 3: la escena, lo más grande posible sin que la sección se pase de la pantalla */
+#e3 .escena { width: min(100%, max(720px, calc((100vh - 330px) * 1.6))); justify-self: center; }

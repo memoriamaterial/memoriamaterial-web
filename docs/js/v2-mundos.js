@@ -50,12 +50,13 @@ function sfxCues(tl, items, { prefix = '', extra = [] } = {}) {
 }
 
 // Diálogo en pasos: la línea actual entra, la anterior sube y se atenúa.
-function dialog(tl, items, { onStep, prefix = '' } = {}) {
+function dialog(tl, items, { onStep, prefix = '', previa = true } = {}) {
   items.forEach((li, i) => {
     const at = `${prefix}step${i}`;
     tl.addLabel(at);
     if (items[i - 2]) tl.to(items[i - 2], { opacity: 0, duration: 0.25 }, at);
-    if (items[i - 1]) tl.to(items[i - 1], { yPercent: -112, opacity: 0.35, duration: 0.35 }, at);
+    // la línea anterior sube atenuada; en el mate (previa: false) se va, así el escenario puede ser grande
+    if (items[i - 1]) tl.to(items[i - 1], previa ? { yPercent: -112, opacity: 0.35, duration: 0.35 } : { yPercent: -30, opacity: 0, duration: 0.3 }, at);
     tl.fromTo(li, { yPercent: 50, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.4, ease: 'power3.out' }, at);
     onStep?.(li, i, at);
     tl.to({}, { duration: 0.5 }); // tiempo de lectura
@@ -176,7 +177,7 @@ function mate1() {
   });
   // al sentarse, el charco con las sillas a la deriva se funde a la ronda
   tl.to(ronda, { opacity: 1, duration: 1 });
-  dialog(tl, lines);
+  dialog(tl, lines, { previa: false });
   // al final, la cámara entra por el hueco del centro de la ronda
   tl.to(lines.slice(-2), { opacity: 0, duration: 0.3 })
     .to(fotos, { scale: 6, transformOrigin: '51% 45%', duration: 1.2, ease: 'power2.in' }, '+=0.3')
@@ -200,7 +201,7 @@ function mate2() {
     .from($('.mate2__copy', wrap), { opacity: 0, y: 20, duration: 0.4 })
     .addLabel('pava', '+=0.6')
     .to({}, { duration: 0.4 }, 'pava'); // la pava empieza a sonar un poco después de los pájaros
-  dialog(tl, lines);
+  dialog(tl, lines, { previa: false });
   tl.to(lines.slice(-2), { opacity: 0, duration: 0.2 });
   const sync = sfxCues(tl, lines, { extra: [{ id: 'pajaros', label: 'pajaros', offset: 0.02 }, { id: 'pavaHirviendo', label: 'pava' }] });
   // la pava suena solo hasta el siguiente diálogo: cuando entra "Buen día hijo…", se apaga con un fundido corto
