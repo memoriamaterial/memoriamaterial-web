@@ -104,6 +104,12 @@ yo los optimizo y los copio a `docs/assets/`.
 - [ ] **36. "aula" que queda a propósito.** La voz del mundo del mate dice "…en marzo en el aula" (habla de un
   aula de la escuela): el subtítulo y el texto de "Leer" la conservan porque tienen que decir lo que dice el
   audio. En todo lo demás, "aula" pasó a "espacio físico".
+- [ ] **38. Mundos y Etapa 5 como en la versión 1.** Se recorren con el scroll (de puerta en puerta en la llave,
+  línea por línea en el mate y en el cuaderno, el pasillo de objetos en la E5) y cada audio suena en su lugar.
+  Lo que en la v1 era juego (arrastrar la llave, abrir los cajones, "Sentate en la silla de color") ahora
+  sucede solo al avanzar, y se sacaron sus instrucciones. Revisar si se quiere recuperar algo de eso.
+- [ ] **39. Voz de la bienvenida en "Antes de empezar".** La pantalla quedó como en la v1, pero se mantuvo el
+  pop-up de la voz del video de bienvenida debajo de la indicación, para no perder ese audio. Sacarlo si no va.
 - [ ] **37. Audio automático.** Las voces suenan solas al llegar a cada sección, pero recién después del
   primer clic, tecla o toque en la página: los navegadores no dejan sonar audio antes (el scroll no cuenta
   como gesto).

@@ -11,6 +11,7 @@
   <link rel="preload" href="assets/fonts/ibm-plex-mono-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/aula.css">
+  <link rel="stylesheet" href="css/e2.css">
   <link rel="stylesheet" href="css/v2.css">
   <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -99,6 +100,12 @@
   <!-- Riel: las secciones en orden (se arma con las secciones que tienen data-rail) -->
   <nav class="v2-rail" aria-label="Secciones"><ol></ol></nav>
 
+  <dialog class="pop" id="pop" aria-labelledby="pop-title">
+    <div class="pop__accent"></div>
+    <div class="pop__head"><div><span class="eyebrow" data-pop-eyebrow></span><h2 class="pop__title" id="pop-title" data-pop-title></h2></div><button class="pop__close" type="button" data-close aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div>
+    <div class="pop__body" data-pop-body></div>
+  </dialog>
+
   <main id="contenido">
 
     <!-- ===================== 1 · INICIO ===================== -->
@@ -134,38 +141,19 @@
     <!-- ===================== 2 · LA EXPERIENCIA EN UNA PANTALLA ===================== -->
     <section id="experiencia" class="v2-sec experiencia" data-rail="El espacio físico" data-where="fisico" style="--acc:var(--celeste)">
       <div class="deco" aria-hidden="true"></div>
-      <div class="exp">
-        <div class="exp__info">
+      <div class="aula__grid">
+        <div class="aula__copy">
           <p class="eyebrow">Antes de empezar · El espacio físico</p>
-          <h2 class="v2-title">Un lugar a oscuras, tres pantallas encendidas.</h2>
-          <p class="v2-txt">El lugar está a oscuras, con ruido blanco. Tres computadoras encendidas con luz blanca y el proyector prendido. Cada participante tiene su estación con la experiencia en Unreal; un tótem y un camino de luces conectan lo que pasa en pantalla con el espacio físico.</p>
-
-          <ul class="plataformas" aria-label="Plataformas">
-            <li><svg aria-hidden="true"><use href="#i-lugar"/></svg>Espacio físico</li>
-            <li><svg aria-hidden="true"><use href="#i-pc"/></svg>Unreal</li>
-            <li><svg aria-hidden="true"><use href="#i-totem"/></svg>Tótem</li>
-            <li><svg aria-hidden="true"><use href="#i-oculus"/></svg>Oculus</li>
-          </ul>
-
-          <ol class="lugares" aria-label="Qué hay en el espacio físico">
-            <li data-lugar="1"><b>Proyector</b> los videos de bienvenida, de la Etapa 5 y final.</li>
-            <li data-lugar="2"><b>Tótem</b> recibe el objeto de cada uno y lo devuelve al final.</li>
-            <li data-lugar="3"><b>Camino de luces</b> lleva de la estación al tótem.</li>
-            <li data-lugar="4"><b>Estaciones</b> una computadora por participante, con Unreal.</li>
-            <li data-lugar="5"><b>Holograma</b> muestra el ícono de la etapa siguiente.</li>
-            <li data-lugar="6"><b>Oculus</b> el detector de significado.</li>
-          </ol>
-
-          <div class="antes">
-            <div class="pp pp--voz pp--inline">
+          <h2 class="title">Un lugar a oscuras, tres pantallas encendidas.</h2>
+          <p class="body">El lugar está a oscuras, con ruido blanco. Tres computadoras encendidas con luz blanca y el proyector prendido. Cada participante tiene su estación con la experiencia en Unreal; un tótem y un camino de luces conectan lo que pasa en pantalla con el espacio físico.</p>
+          <p class="aula__hint mono">Hacé clic en los puntos para conocer cada parte</p>
+          <div class="pp pp--voz pp--inline">
               <p class="pp__lbl">Voz en off</p>
               <div data-voice="bienvenida" data-acc="celeste" class="voice--compact pp__card"></div>
               <button class="pp__leer" type="button" aria-expanded="false" data-leer>Leer</button>
             </div>
-          </div>
         </div>
-
-        <figure class="exp__aula" aria-label="El espacio físico visto desde arriba">
+        <figure class="aula__map" aria-label="El espacio físico visto desde arriba">
           <svg class="aula-iso" viewBox="-330 -183 720 593" aria-hidden="true"><title id="aula-iso-t">El espacio físico: pantalla de proyección en la pared, el tótem con su camino de luces, el holograma y tres estaciones con las computadoras encendidas.</title><defs>
   <filter id="aula-glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
   <filter id="aula-soft" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="14"/></filter>
@@ -175,12 +163,12 @@
   <linearGradient id="aula-holo" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#3CC5F2" stop-opacity=".55"/><stop offset="1" stop-color="#3CC5F2" stop-opacity="0"/></linearGradient>
   <radialGradient id="aula-pool" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#F2EDD4" stop-opacity=".16"/><stop offset="1" stop-color="#F2EDD4" stop-opacity="0"/></radialGradient>
 </defs><g class="aula-room"><polygon class="a-floor" points="0.0,0.0 353.3,204.0 58.9,374.0 -294.4,170.0" fill="#F2EDD4" fill-opacity=".035"/><polygon class="a-floor-trama" points="0.0,0.0 353.3,204.0 58.9,374.0 -294.4,170.0" fill="url(#aula-trama)"/><g class="a-grid-g"><line class="a-grid" x1="29.4" y1="17.0" x2="-265.0" y2="187.0" /><line class="a-grid" x1="58.9" y1="34.0" x2="-235.6" y2="204.0" /><line class="a-grid" x1="88.3" y1="51.0" x2="-206.1" y2="221.0" /><line class="a-grid" x1="117.8" y1="68.0" x2="-176.7" y2="238.0" /><line class="a-grid" x1="147.2" y1="85.0" x2="-147.2" y2="255.0" /><line class="a-grid" x1="176.7" y1="102.0" x2="-117.8" y2="272.0" /><line class="a-grid" x1="206.1" y1="119.0" x2="-88.3" y2="289.0" /><line class="a-grid" x1="235.6" y1="136.0" x2="-58.9" y2="306.0" /><line class="a-grid" x1="265.0" y1="153.0" x2="-29.4" y2="323.0" /><line class="a-grid" x1="294.4" y1="170.0" x2="0.0" y2="340.0" /><line class="a-grid" x1="323.9" y1="187.0" x2="29.4" y2="357.0" /><line class="a-grid" x1="-29.4" y1="17.0" x2="323.9" y2="221.0" /><line class="a-grid" x1="-58.9" y1="34.0" x2="294.4" y2="238.0" /><line class="a-grid" x1="-88.3" y1="51.0" x2="265.0" y2="255.0" /><line class="a-grid" x1="-117.8" y1="68.0" x2="235.6" y2="272.0" /><line class="a-grid" x1="-147.2" y1="85.0" x2="206.1" y2="289.0" /><line class="a-grid" x1="-176.7" y1="102.0" x2="176.7" y2="306.0" /><line class="a-grid" x1="-206.1" y1="119.0" x2="147.2" y2="323.0" /><line class="a-grid" x1="-235.6" y1="136.0" x2="117.8" y2="340.0" /><line class="a-grid" x1="-265.0" y1="153.0" x2="88.3" y2="357.0" /></g><polygon class="a-wall" points="0.0,0.0 353.3,204.0 353.3,57.0 0.0,-147.0" fill="url(#aula-wall)"/><polygon class="a-wall" points="0.0,0.0 -294.4,170.0 -294.4,23.0 0.0,-147.0" fill="url(#aula-wall)"/><g class="a-edges"><line class="a-edge" x1="-294.4" y1="170.0" x2="0.0" y2="0.0" /><line class="a-edge" x1="0.0" y1="0.0" x2="353.3" y2="204.0" /><line class="a-edge" x1="0.0" y1="0.0" x2="0.0" y2="-147.0" /><line class="a-edge" x1="0.0" y1="-147.0" x2="353.3" y2="57.0" /><line class="a-edge" x1="0.0" y1="-147.0" x2="-294.4" y2="23.0" /><line class="a-edge" x1="353.3" y1="204.0" x2="58.9" y2="374.0" /><line class="a-edge" x1="58.9" y1="374.0" x2="-294.4" y2="170.0" /><line class="a-edge" x1="353.3" y1="204.0" x2="353.3" y2="57.0" /><line class="a-edge" x1="-294.4" y1="170.0" x2="-294.4" y2="23.0" /></g></g><g class="aula-screen"><polygon class="a-beam" points="58.9,51.2 -38.3,-104.6 -167.8,-29.8" fill="url(#aula-beam)"/><polygon class="a-beam" points="58.9,51.2 -167.8,-29.8 -167.8,51.5 -38.3,-23.3" fill="url(#aula-beam)" fill-opacity=".6"/><polygon class="a-proj f-top" points="57.4,32.3 78.0,44.2 60.4,54.4 39.8,42.5" /><polygon class="a-proj f-front" points="39.8,51.9 60.4,63.8 60.4,54.4 39.8,42.5" /><polygon class="a-proj f-side" points="78.0,53.6 60.4,63.8 60.4,54.4 78.0,44.2" /><polygon class="a-screen-glow" points="-38.3,-23.3 -167.8,51.5 -167.8,-29.8 -38.3,-104.6" fill="#ED4380" filter="url(#aula-soft)" opacity=".45"/><polygon class="a-screen" points="-38.3,-23.3 -167.8,51.5 -167.8,-29.8 -38.3,-104.6" fill="#352A72" stroke="#F2EDD4" stroke-width="1.6"/><g transform="matrix(29.445,-17.000,0,31.280,-167.8,-29.8)"><svg x=".35" y=".75" width="3.70" height="1.10" viewBox="0 0 710 216" preserveAspectRatio="xMidYMid meet"><use href="#logo-mark"/></svg></g></g><g class="aula-led"><path class="a-led-glow" d="M-159.0 159.8 Q-144.3 178.5 -128.1 196.3 Q-111.9 214.2 -79.5 222.7 Q-47.1 231.2 -19.1 238.8 Q8.8 246.5 22.1 259.2 Q35.3 272.0 42.7 284.7 L50.1 297.5" fill="none" stroke="#FCB614" stroke-width="7" stroke-opacity=".18" stroke-linecap="round"/><path class="a-led" d="M-159.0 159.8 Q-144.3 178.5 -128.1 196.3 Q-111.9 214.2 -79.5 222.7 Q-47.1 231.2 -19.1 238.8 Q8.8 246.5 22.1 259.2 Q35.3 272.0 42.7 284.7 L50.1 297.5" fill="none" stroke="#FCB614" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 13" filter="url(#aula-glow)"/></g><g class="aula-stations"><g class="a-station" data-i="0"><ellipse class="a-pool" cx="73.6" cy="151.3" rx="95" ry="48" fill="url(#aula-pool)"/><polygon class="a-desk f-top" points="82.4,68.5 159.0,112.7 120.7,134.8 44.2,90.6" /><polygon class="a-desk f-front" points="44.2,94.4 120.7,138.6 120.7,134.8 44.2,90.6" /><polygon class="a-desk f-side" points="159.0,116.5 120.7,138.6 120.7,134.8 159.0,112.7" /><line class="a-leg" x1="51.5" y1="123.2" x2="51.5" y2="93.5" /><line class="a-leg" x1="119.3" y1="162.3" x2="119.3" y2="132.6" /><line class="a-leg" x1="151.6" y1="143.6" x2="151.6" y2="113.9" /><polygon class="a-mon-glow" points="88.3,81.3 132.5,106.8 132.5,78.7 88.3,53.2" fill="#F2EDD4" filter="url(#aula-soft)" opacity=".5"/><polygon class="a-mon" points="88.3,81.3 132.5,106.8 132.5,78.7 88.3,53.2" fill="#F2EDD4"/><circle class="a-orb" cx="99.5" cy="73.7" r="3.2" fill="#FCB614"/><circle class="a-orb" cx="110.4" cy="74.4" r="3.2" fill="#ED4380"/><circle class="a-orb" cx="121.3" cy="86.3" r="3.2" fill="#3CC5F2"/><line class="a-stand" x1="110.4" y1="96.6" x2="110.4" y2="94.1" /><polygon class="a-chair f-top" points="58.9,126.5 82.4,140.1 61.8,152.0 38.3,138.4" /><polygon class="a-chair f-front" points="38.3,140.9 61.8,154.5 61.8,152.0 38.3,138.4" /><polygon class="a-chair f-side" points="82.4,142.6 61.8,154.5 61.8,152.0 82.4,140.1" /><polygon class="a-chair f-front" points="38.3,138.4 61.8,152.0 61.8,129.5 38.3,115.9" /><g class="a-person"><ellipse cx="60.4" cy="125.5" rx="9" ry="12" fill="#F2EDD4" fill-opacity=".55"/><circle cx="60.4" cy="107.5" r="6.5" fill="#F2EDD4" fill-opacity=".8"/></g></g><g class="a-station" data-i="1"><ellipse class="a-pool" cx="91.3" cy="215.9" rx="95" ry="48" fill="url(#aula-pool)"/><polygon class="a-desk f-top" points="100.1,133.1 176.7,177.3 138.4,199.4 61.8,155.2" /><polygon class="a-desk f-front" points="61.8,159.0 138.4,203.2 138.4,199.4 61.8,155.2" /><polygon class="a-desk f-side" points="176.7,181.1 138.4,203.2 138.4,199.4 176.7,177.3" /><line class="a-leg" x1="69.2" y1="187.8" x2="69.2" y2="158.1" /><line class="a-leg" x1="136.9" y1="226.9" x2="136.9" y2="197.2" /><line class="a-leg" x1="169.3" y1="208.2" x2="169.3" y2="178.5" /><polygon class="a-mon-glow" points="106.0,145.9 150.2,171.4 150.2,143.3 106.0,117.8" fill="#F2EDD4" filter="url(#aula-soft)" opacity=".5"/><polygon class="a-mon" points="106.0,145.9 150.2,171.4 150.2,143.3 106.0,117.8" fill="#F2EDD4"/><circle class="a-orb" cx="117.2" cy="138.3" r="3.2" fill="#FCB614"/><circle class="a-orb" cx="128.1" cy="139.0" r="3.2" fill="#ED4380"/><circle class="a-orb" cx="139.0" cy="150.9" r="3.2" fill="#3CC5F2"/><line class="a-stand" x1="128.1" y1="161.2" x2="128.1" y2="158.7" /><polygon class="a-chair f-top" points="76.6,191.1 100.1,204.7 79.5,216.6 55.9,203.0" /><polygon class="a-chair f-front" points="55.9,205.5 79.5,219.1 79.5,216.6 55.9,203.0" /><polygon class="a-chair f-side" points="100.1,207.2 79.5,219.1 79.5,216.6 100.1,204.7" /><polygon class="a-chair f-front" points="55.9,203.0 79.5,216.6 79.5,194.1 55.9,180.5" /><g class="a-person"><ellipse cx="78.0" cy="190.1" rx="9" ry="12" fill="#F2EDD4" fill-opacity=".55"/><circle cx="78.0" cy="172.1" r="6.5" fill="#F2EDD4" fill-opacity=".8"/></g></g><g class="a-station" data-i="2"><ellipse class="a-pool" cx="108.9" cy="280.5" rx="95" ry="48" fill="url(#aula-pool)"/><polygon class="a-desk f-top" points="117.8,197.7 194.3,241.9 156.1,264.0 79.5,219.8" /><polygon class="a-desk f-front" points="79.5,223.6 156.1,267.8 156.1,264.0 79.5,219.8" /><polygon class="a-desk f-side" points="194.3,245.7 156.1,267.8 156.1,264.0 194.3,241.9" /><line class="a-leg" x1="86.9" y1="252.4" x2="86.9" y2="222.7" /><line class="a-leg" x1="154.6" y1="291.5" x2="154.6" y2="261.8" /><line class="a-leg" x1="187.0" y1="272.8" x2="187.0" y2="243.1" /><polygon class="a-mon-glow" points="123.7,210.5 167.8,236.0 167.8,207.9 123.7,182.4" fill="#F2EDD4" filter="url(#aula-soft)" opacity=".5"/><polygon class="a-mon" points="123.7,210.5 167.8,236.0 167.8,207.9 123.7,182.4" fill="#F2EDD4"/><circle class="a-orb" cx="134.9" cy="202.9" r="3.2" fill="#FCB614"/><circle class="a-orb" cx="145.8" cy="203.6" r="3.2" fill="#ED4380"/><circle class="a-orb" cx="156.6" cy="215.5" r="3.2" fill="#3CC5F2"/><line class="a-stand" x1="145.8" y1="225.8" x2="145.8" y2="223.3" /><polygon class="a-chair f-top" points="94.2,255.7 117.8,269.3 97.2,281.2 73.6,267.6" /><polygon class="a-chair f-front" points="73.6,270.1 97.2,283.7 97.2,281.2 73.6,267.6" /><polygon class="a-chair f-side" points="117.8,271.8 97.2,283.7 97.2,281.2 117.8,269.3" /><polygon class="a-chair f-front" points="73.6,267.6 97.2,281.2 97.2,258.7 73.6,245.1" /><g class="a-person"><ellipse cx="95.7" cy="254.7" rx="9" ry="12" fill="#F2EDD4" fill-opacity=".55"/><circle cx="95.7" cy="236.7" r="6.5" fill="#F2EDD4" fill-opacity=".8"/></g></g></g><g class="aula-oculus" filter="url(#aula-glow)"><rect x="143.1" y="239.7" width="26" height="12" rx="6" fill="none" stroke="#FCB614" stroke-width="2.4"/><rect x="147.1" y="242.7" width="7" height="6" rx="2" fill="#FCB614" fill-opacity=".5"/><rect x="158.1" y="242.7" width="7" height="6" rx="2" fill="#FCB614" fill-opacity=".5"/></g><g class="aula-totem"><ellipse cx="-159.0" cy="159.8" rx="46" ry="20" fill="#ED4380" opacity=".22" filter="url(#aula-soft)"/><path class="a-totem-body" d="M-168.0 86.3 L-150.0 86.3 L-142.0 159.8 L-176.0 159.8Z" fill="#ED4380" filter="url(#aula-glow)"/><path d="M-159.0 86.3 L-150.0 86.3 L-142.0 159.8 L-159.0 159.8Z" fill="#352A72" opacity=".3"/><ellipse cx="-159.0" cy="159.8" rx="17" ry="7" fill="#ED4380"/><ellipse class="a-totem-top" cx="-159.0" cy="86.3" rx="21" ry="9" fill="#ED4380" stroke="#F2EDD4" stroke-width="1.2"/></g><g class="aula-holo"><polygon class="a-holo-table f-top" points="-229.7,137.2 -203.2,152.5 -226.7,166.1 -253.2,150.8" /><polygon class="a-holo-table f-front" points="-253.2,153.3 -226.7,168.6 -226.7,166.1 -253.2,150.8" /><polygon class="a-holo-table f-side" points="-203.2,155.0 -226.7,168.6 -226.7,166.1 -203.2,152.5" /><line class="a-leg" x1="-228.2" y1="177.6" x2="-228.2" y2="154.2" /><path class="a-holo-beam" d="M-232.2 151.1 L-224.2 151.1 L-206.2 96.3 L-250.2 96.3Z" fill="url(#aula-holo)"/><g transform="translate(-242.2 78.3)"><g class="a-holo-icon" filter="url(#aula-glow)"><svg width="28" height="28" viewBox="0 0 48 48" style="color:#3CC5F2"><use href="#i-ancla"/></svg></g></g></g></svg>
-          <span class="lugar-pin" style="--x:31.6%;--y:17.2%" data-pin="1"><b>1</b><i>Proyector</i></span>
-          <span class="lugar-pin lugar-pin--r" style="--x:23.8%;--y:41.4%" data-pin="2"><b>2</b><i>Tótem</i></span>
-          <span class="lugar-pin lugar-pin--b" style="--x:32.0%;--y:69.3%" data-pin="3"><b>3</b><i>Camino de luces</i></span>
-          <span class="lugar-pin" style="--x:63.7%;--y:50.5%" data-pin="4"><b>4</b><i>Estaciones</i></span>
-          <span class="lugar-pin lugar-pin--l" style="--x:14.2%;--y:42.0%" data-pin="5"><b>5</b><i>Holograma</i></span>
-          <span class="lugar-pin lugar-pin--r" style="--x:67.6%;--y:69.3%" data-pin="6"><b>6</b><i>Oculus</i></span>
+          <button class="spot" style="--x:31.6%;--y:17.2%" data-pop-open="proyector"><span class="spot__n">1</span><span class="spot__l">Proyector</span></button>
+            <button class="spot spot--r" style="--x:23.8%;--y:41.4%" data-pop-open="totem"><span class="spot__n">2</span><span class="spot__l">Tótem</span></button>
+            <button class="spot spot--b" style="--x:32.0%;--y:69.3%" data-pop-open="luces"><span class="spot__n">3</span><span class="spot__l">Luces LED</span></button>
+            <button class="spot" style="--x:63.7%;--y:50.5%" data-pop-open="estaciones"><span class="spot__n">4</span><span class="spot__l">Estaciones</span></button>
+            <button class="spot spot--l" style="--x:14.2%;--y:42.0%" data-pop-open="holograma"><span class="spot__n">5</span><span class="spot__l">Holograma</span></button>
+            <button class="spot spot--r" style="--x:67.6%;--y:69.3%" data-pop-open="oculus"><span class="spot__n">6</span><span class="spot__l">Oculus</span></button>
         </figure>
       </div>
 
@@ -193,6 +181,34 @@
         <li style="--c:var(--amarillo)"><a href="#e5" data-go><b>5</b><span>Obsesión con la pérdida</span><em><svg aria-hidden="true"><use href="#i-lugar"/></svg><svg aria-hidden="true"><use href="#i-pc"/></svg></em></a></li>
         <li style="--c:var(--celeste)"><a href="#e6" data-go><b>6</b><span>Búsqueda del significado</span><em><svg aria-hidden="true"><use href="#i-oculus"/></svg><svg aria-hidden="true"><use href="#i-totem"/></svg></em></a></li>
       </ol>
+
+      <template data-pop="proyector" data-eyebrow="Espacio físico · 1" data-acc="celeste">
+        <h3 data-title>Proyector</h3>
+        <p>Abre la experiencia con el video de bienvenida: motion de texto y voz en off, con escenas cotidianas donde ciertos objetos se resaltan con color.</p>
+        <p>Vuelve a encenderse antes de la Etapa 5 y al final, con el video de cierre.</p>
+      </template>
+      <template data-pop="totem" data-eyebrow="Espacio físico · 2" data-acc="fucsia">
+        <h3 data-title>Tótem</h3>
+        <p>En la Etapa 3 cada participante sale un momento de Unreal y deposita acá el objeto que eligió. En la Etapa 4, al volver, solo encuentra humo.</p>
+        <p>Al final, el tótem guarda esferas físicas (rosa, amarilla y celeste) con los objetos adentro.</p>
+        <figure class="pop__figure pop__figure--totem"><span class="ph">Placeholder · foto</span><svg viewBox="0 0 120 260" aria-hidden="true"><use href="#obj-totem"/></svg></figure>
+      </template>
+      <template data-pop="luces" data-eyebrow="Espacio físico · 3" data-acc="amarillo">
+        <h3 data-title>Camino de luces LED</h3>
+        <p>Un camino de luces en el piso une las estaciones con el tótem. Se enciende cada vez que hay que salir de Unreal: es el mismo pulso de luz que recorre el pasillo de la Etapa 3.</p>
+      </template>
+      <template data-pop="estaciones" data-eyebrow="Espacio físico · 4" data-acc="celeste">
+        <h3 data-title>Tres estaciones</h3>
+        <p>Tres computadoras con luz blanca. En cada una, un participante recorre las seis etapas en Unreal: del desierto de la plasticidad sináptica a la búsqueda del significado.</p>
+      </template>
+      <template data-pop="holograma" data-eyebrow="Espacio físico · 5" data-acc="fucsia">
+        <h3 data-title>Holograma <span class="ph ph--inline">Pendiente</span></h3>
+        <p>En una mesa cercana al tótem. Cuando se deposita el objeto, proyecta un ícono que anticipa la próxima zona del cerebro a transitar: el ícono que permite abrir la puerta de la Etapa 3.</p>
+      </template>
+      <template data-pop="oculus" data-eyebrow="Espacio físico · 6" data-acc="amarillo">
+        <h3 data-title>Oculus · Detector de significado</h3>
+        <p>En la Etapa 5 aparecen apoyados al final del pasillo. Con ellos puestos, en la Etapa 6 los objetos se ven en wireframe y hay que encontrar las esferas que brillan.</p>
+      </template>
     </section>
 
     <!-- ===================== 3 · ETAPA 1 (plantilla de etapa) ===================== -->
@@ -317,99 +333,210 @@
       </div>
     </section>
 
-    <!-- ===================== 4b · ETAPA 2: MUNDO DE LA LLAVE ===================== -->
-    <section id="e2-llave" class="v2-sec etapa mundo" data-rail="2 · Mundo de la llave" data-where="unreal" style="--acc:var(--amarillo)">
-      <div class="deco" aria-hidden="true"></div>
-      <header class="etapa__head">
-        <p class="etapa__meta"><span class="etapa__n">Etapa 2 · Mundo 1</span><span class="plat"><svg aria-hidden="true"><use href="#i-pc"/></svg>Unreal</span></p>
-        <h2 class="v2-title">Mundo de la llave</h2>
-        <p class="etapa__sub">“Llegó el día, por fin me voy a mudar.”</p>
-      </header>
-      <div class="etapa__grid">
-        <aside class="pp pp--voz" aria-label="Voces">
-          <p class="pp__lbl"><svg aria-hidden="true"><use href="#i-cerebro"/></svg>Voces</p>
-          <button class="pp__btn" type="button" data-seqv="llave1,llave2,llave3,llave4,llave5,llave6,llave7"><i></i>Voces</button>
-          <button class="pp__leer" type="button" aria-expanded="false" data-leer>Leer</button>
-          <ol class="pp__txt"><li>“Llegó el día, por fin me voy a mudar.”</li><li>“Te voy a extrañar, hijo.”</li><li>“Te regalo esto, espero que te guste.”</li><li>“¿En dónde quedaron las llaves?”</li><li>“Me falta lo más importante.”</li><li>“Creo que la guardaste en la mesita de luz.”</li><li>“¡Sí! ¡Acá están!”</li></ol>
-        </aside>
-        <figure class="escena ficha__img" data-ficha="llave">
-          <img class="ficha__foto is-on" src="assets/img/escenarios/llave-1.webp" alt="Cajas de mudanza flotando" loading="lazy">
-          <img class="ficha__foto" src="assets/img/escenarios/llave-2.webp" alt="Los regalos para quien se muda" loading="lazy">
-          <img class="ficha__foto" src="assets/img/escenarios/llave-3.webp" alt="Las mesitas de luz con los cajones" loading="lazy">
-          <img class="ficha__foto" src="assets/img/escenarios/llave-4.webp" alt="La cerradura gigante y la última puerta" loading="lazy">
-          <svg class="ficha__anim" viewBox="0 0 1000 518.7" aria-hidden="true">
-            <rect class="fa-salida" x="510" y="206" width="100" height="161" rx="4"/>
-            <g class="fa-llave"><svg x="0" y="0" width="40" height="104" viewBox="0 0 100 260"><use href="#obj-llave"/></svg></g>
-          </svg>
-        </figure>
-        <aside class="pp pp--fondo" aria-label="Lo que se escucha de fondo">
-          <p class="pp__lbl"><svg aria-hidden="true"><use href="#i-ojo"/></svg>Lo que se escucha de fondo</p>
-          <button class="pp__btn" type="button" data-seq="llavesCajon,llavesMano:2400,llavesAbriendo:5200"><i></i>De fondo</button>
-        </aside>
+    <!-- ===================== 4b · ETAPA 2: LOS TRES MUNDOS (como en la versión 1: se avanza con el scroll) ===================== -->
+    <section id="e2-llave" class="mundo-v1" data-rail="2 · Mundo de la llave" data-where="unreal" style="--acc:var(--amarillo)">
+      <div class="llave" data-world="llave" style="--acc:var(--amarillo)">
+        <div class="pin llave__pin">
+          <div class="llave__hud mono" aria-hidden="true"><span>Mundo de la llave</span><span class="llave__doors"><i></i><i></i><i></i><i></i></span></div>
+          <div class="llave__track">
+
+            <article class="llave__panel llave__panel--intro">
+              <div class="llave__copy">
+                <p class="stage-num">Mundo de la llave</p>
+                <h3 class="title">Llegó el día</h3>
+              </div>
+              <div class="door" aria-hidden="true"><span class="door__n mono">Puerta 1</span></div>
+            </article>
+
+            <article class="llave__panel llave__panel--cajas">
+              <div class="llave__voices llave__voices--cajas">
+                <div data-voice="llave1" data-acc="amarillo" data-autoplay="off" class="voice--compact"></div>
+              </div>
+              <figure class="llave__foto"><img src="assets/img/escenarios/llave-1.webp" width="1805" height="784" alt="Cajas de mudanza de todos los tamaños flotando entre la primera y la segunda puerta" loading="lazy" decoding="async"></figure>
+              <p class="llave__caption mono">Cajas de mudanza de todos los tamaños</p>
+              <div class="door" aria-hidden="true"><span class="door__n mono">Puerta 2</span></div>
+            </article>
+
+            <article class="llave__panel llave__panel--regalos">
+              <div class="llave__voices">
+                <div data-voice="llave2" data-acc="amarillo" data-autoplay="off" class="voice--compact"></div>
+                <div data-voice="llave3" data-acc="amarillo" data-autoplay="off" class="voice--compact"></div>
+              </div>
+              <figure class="llave__foto"><img src="assets/img/escenarios/llave-2.webp" width="1839" height="700" alt="Regalos para quien se muda: cubiertos, plantas, cuadros y una alfombra que dice Welcome" loading="lazy" decoding="async"></figure>
+              <p class="llave__caption mono">Lo que se regala a quien se muda</p>
+              <div class="door" aria-hidden="true"><span class="door__n mono">Puerta 3</span></div>
+            </article>
+
+            <article class="llave__panel llave__panel--cajones">
+              <figure class="llave__foto"><img src="assets/img/escenarios/llave-3.webp" width="1518" height="621" alt="Mesitas de luz flotando con los cajones abiertos, y al fondo la cuarta puerta" loading="lazy" decoding="async"></figure>
+              <div class="llave__copy">
+                <div data-voice="llave4" data-acc="amarillo" data-autoplay="off" class="voice--compact"></div>
+                <div data-voice="llave5" data-acc="amarillo" data-autoplay="off" class="voice--compact"></div>
+                <div data-voice="llave6" data-acc="amarillo" data-autoplay="off" class="voice--compact"></div>
+                <div data-found hidden><div data-voice="llave7" data-acc="amarillo" data-autoplay="off" class="voice--compact"></div></div>
+              </div>
+              <div class="mesita" aria-hidden="true">
+                <span class="cajon" data-cajon="0"><span class="cajon__front"></span><span class="cajon__in mono">vacío</span></span>
+                <span class="cajon" data-cajon="1"><span class="cajon__front"></span><span class="cajon__in"></span></span>
+                <span class="cajon" data-cajon="2"><span class="cajon__front"></span><span class="cajon__in mono">papeles</span></span>
+                <span class="mesita__legs" aria-hidden="true"></span>
+                <span class="llave-drag" data-llave-drag aria-hidden="true">
+                  <svg viewBox="0 0 100 260" aria-hidden="true"><use href="#obj-llave"/></svg>
+                </span>
+              </div>
+              <div class="door" aria-hidden="true"><span class="door__n mono">Puerta 4</span></div>
+            </article>
+
+            <article class="llave__panel llave__panel--cerradura" data-lock-panel>
+              <div class="cerradura cerradura--foto" data-lock>
+                <img class="cerradura__foto" src="assets/img/escenarios/llave-4.webp" width="1473" height="764" alt="La cerradura gigante y, al lado, el último marco de puerta" loading="lazy" decoding="async">
+                <span class="cerradura__salida" aria-hidden="true"></span>
+                <span class="cerradura__ojo" aria-hidden="true"></span>
+                <span class="cerradura__target" aria-hidden="true"></span>
+              </div>
+              <div class="llave-dock" data-llave-dock aria-hidden="true"></div>
+              <div class="llave__copy llave__copy--end">
+                <p class="stage-num">La cerradura gigante</p>
+              </div>
+            </article>
+
+          </div>
+        </div>
       </div>
-      <div class="etapa__txt">
-        <p class="v2-txt">Una mudanza a través de cuatro puertas; en un cajón está la llave que abre la cerradura de la salida.</p>
-      </div>
+
     </section>
 
-    <!-- ===================== 4c · ETAPA 2: MUNDO DEL MATE ===================== -->
-    <section id="e2-mate" class="v2-sec etapa mundo" data-rail="2 · Mundo del mate" data-where="unreal" style="--acc:var(--fucsia)">
-      <div class="deco" aria-hidden="true"></div>
-      <header class="etapa__head">
-        <p class="etapa__meta"><span class="etapa__n">Etapa 2 · Mundo 2</span><span class="plat"><svg aria-hidden="true"><use href="#i-pc"/></svg>Unreal</span></p>
-        <h2 class="v2-title">Mundo del mate</h2>
-        <p class="etapa__sub">“El último recreo del año.”</p>
-      </header>
-      <div class="etapa__grid">
-        <aside class="pp pp--voz" aria-label="Voces">
-          <p class="pp__lbl"><svg aria-hidden="true"><use href="#i-cerebro"/></svg>Voces</p>
-          <button class="pp__btn" type="button" data-seqv="mateR3a,mateR3b,mateM2a,mateM2b,mateM2c,mateM2d"><i></i>Voces</button>
-          <button class="pp__leer" type="button" aria-expanded="false" data-leer>Leer</button>
-          <ol class="pp__txt"><li>“Uh, sí, dale… Espero que este verano no sea como siempre, eh, que nos terminamos viendo de vuelta en marzo en el aula.”</li><li>“Daaa, si después andás diciendo que nos extrañás.”</li><li>“Pasame un mate que ya me tengo que ir a laburar.”</li><li>“Gracias, amor.”</li><li>“Ustedes también, los amo.”</li><li>“Bueno, nos vemos a la noche.”</li></ol>
-        </aside>
-        <figure class="escena ficha__img" data-ficha="mate">
-          <img class="ficha__foto is-on" src="assets/img/escenarios/mate-1a.webp" alt="El charco con sillas flotando" loading="lazy">
-          <img class="ficha__foto" src="assets/img/escenarios/mate-1b.webp" alt="Las sillas en ronda alrededor del hueco" loading="lazy">
-          <img class="ficha__foto ficha__foto--contain" src="assets/img/escenarios/mate-2.webp" alt="La pava en la hornalla, con ventanas de luz" loading="lazy">
-        </figure>
-        <aside class="pp pp--fondo" aria-label="Lo que se escucha de fondo">
-          <p class="pp__lbl"><svg aria-hidden="true"><use href="#i-ojo"/></svg>Lo que se escucha de fondo</p>
-          <button class="pp__btn" type="button" data-seq="mate1,cebando:1600,mate2:8000,mate3:9800,pajaros:11500,pavaHirviendo:14000,mate4:19000"><i></i>De fondo</button>
-        </aside>
+    <section id="e2-mate" class="mundo-v1" data-rail="2 · Mundo del mate" data-where="unreal" style="--acc:var(--fucsia)">
+      <div class="e2-swap" data-swap="mate">
+        <div class="wrap e2-swap__in">
+          <p class="eyebrow">De vuelta en la cúpula</p>
+          <ol class="e2-swap__trio" aria-hidden="true">
+            <li data-k="llave" style="--c:var(--amarillo)"><svg viewBox="0 0 100 260"><use href="#obj-llave"/></svg></li>
+            <li data-k="mate" style="--c:var(--fucsia)"><svg viewBox="0 0 200 240"><use href="#obj-mate"/></svg></li>
+            <li data-k="cuaderno" style="--c:var(--celeste)"><svg viewBox="0 0 240 180"><use href="#obj-cuaderno"/></svg></li>
+          </ol>
+          <p class="e2-swap__txt">La llave pasa a blanco y negro. Ahora se colorea <b class="c-fucsia">el mate</b>: se entra por su base.</p>
+        </div>
       </div>
-      <div class="etapa__txt">
-        <p class="v2-txt">Al sentarse, las sillas forman una ronda y con cada mate baja el agua; después, una mañana en familia.</p>
+
+      <div class="mate1" data-world="mate" style="--acc:var(--fucsia)">
+        <div class="pin mate1__pin">
+          <div class="mate1__copy wrap">
+            <p class="stage-num">Mundo del mate · Escenario 1</p>
+            <h3 class="title">El último recreo</h3>
+          </div>
+          <div class="mate1__fotos">
+            <img class="mate1__foto" src="assets/img/escenarios/mate-1a.webp" width="1661" height="795" alt="Un gran charco con sillas flotando y caídas; en el centro, la única silla de pie y en color" loading="lazy" decoding="async">
+            <img class="mate1__foto mate1__foto--ronda" src="assets/img/escenarios/mate-1b.webp" width="1802" height="685" alt="Las sillas acomodadas en ronda alrededor de un hueco en el centro" loading="lazy" decoding="async">
+          </div>
+          <ol class="ronda" aria-label="Diálogo de la ronda de mate">
+            <li data-line data-chair="1"><p class="said"><b>Voz 1</b>—Bueno che, al final llegamos. El último recreo del año.</p></li>
+            <li data-line data-chair="2"><p class="said"><b>Voz 2</b>—Y el último mate también, ¿lo armo yo?</p></li>
+            <li data-line data-voz="mateR3a" data-chair="3" data-drain="mate1"><p class="said"><b>Voz 3</b>—Uh sí, dale… Espero que este verano no sea como siempre, eh, que nos terminamos viendo de vuelta en marzo en el aula. <span data-voice="mate1" data-acc="fucsia" data-autoplay="off"></span></p></li>
+            <li data-line data-sfx="cebando"><p class="said said--sfx"><span data-voice="cebando" data-acc="fucsia" data-autoplay="off"></span></p></li>
+            <li data-line data-chair="4" data-drain="mate2"><p class="said"><b>Voz 4</b>—Sí, loco, hay que hacer algo. <span data-voice="mate2" data-acc="fucsia" data-autoplay="off"></span></p></li>
+            <li data-line data-chair="2"><p class="said"><b>Voz 2</b>—Dejá, yo no les quiero ver más la cara, después de lo que laburamos este año. <span class="onoma">risas</span></p></li>
+            <li data-line data-voz="mateR3b" data-chair="3" data-drain="mate3"><p class="said"><b>Voz 3</b>—Daaa, si después andás diciendo que nos extrañás. <span data-voice="mate3" data-acc="fucsia" data-autoplay="off"></span></p></li>
+          </ol>
+        </div>
       </div>
+
+      <div class="mate2" style="--acc:var(--fucsia)">
+        <div class="pin mate2__pin">
+          <figure class="mate2__foto"><img src="assets/img/escenarios/mate-2.webp" width="649" height="492" alt="Una pava sobre la hornalla en el centro de un espacio oscuro, rodeada de ventanas de luz de colores" loading="lazy" decoding="async"></figure>
+          <div class="mate2__copy wrap">
+            <p class="stage-num">Mundo del mate · Escenario 2</p>
+            <h3 class="title">La mañana</h3>
+          </div>
+          <ol class="manana" aria-label="Diálogo de la mañana">
+            <li data-line><p class="onoma onoma--solo">pájaros · un bostezo · se abren las persianas</p></li>
+            <li data-line><p class="said"><b>Voz 1</b>—Buen día hijo, ¿cómo estás?</p></li>
+            <li data-line><p class="said said--r"><b>Voz 3</b>—Buen día.</p></li>
+            <li data-line><p class="onoma onoma--solo">click · se prende la radio</p></li>
+            <li data-line data-voz="mateM2a" data-sfx="cebando2"><p class="said said--r"><b>Voz 2</b>—Pasame un mate que ya me tengo que ir a laburar. <span data-voice="cebando2" data-acc="fucsia" data-autoplay="off"></span></p></li>
+            <li data-line><p class="said"><b>Voz 1</b>—Obvio amor, tomá.</p></li>
+            <li data-line data-voz="mateM2b" data-sfx="mate4"><p class="said said--r"><b>Voz 2</b>—Gracias amor. <span data-voice="mate4" data-acc="fucsia" data-autoplay="off"></span></p></li>
+            <li data-line><p class="said"><b>Voz 1</b>—Que tengas un lindo día.</p></li>
+            <li data-line data-voz="mateM2c"><p class="said said--r"><b>Voz 2</b>—Ustedes también, los amo.</p></li>
+            <li data-line data-door><p class="onoma onoma--solo">pasos · rechina una puerta</p></li>
+            <li data-line data-voz="mateM2d"><p class="said said--r"><b>Voz 2</b>—Bueno, nos vemos a la noche.</p></li>
+          </ol>
+          <p class="mate2__portazo" aria-hidden="true">¡PAM!</p>
+        </div>
+      </div>
+
     </section>
 
-    <!-- ===================== 4d · ETAPA 2: MUNDO DEL CUADERNO ===================== -->
-    <section id="e2-cuaderno" class="v2-sec etapa mundo" data-rail="2 · Mundo del cuaderno" data-where="unreal" style="--acc:var(--celeste)">
-      <div class="deco" aria-hidden="true"></div>
-      <header class="etapa__head">
-        <p class="etapa__meta"><span class="etapa__n">Etapa 2 · Mundo 3</span><span class="plat"><svg aria-hidden="true"><use href="#i-pc"/></svg>Unreal</span></p>
-        <h2 class="v2-title">Mundo del cuaderno</h2>
-        <p class="etapa__sub">“¿Te repaso lo que anoté?”</p>
-      </header>
-      <div class="etapa__grid">
-        <aside class="pp pp--voz" aria-label="Voces">
-          <p class="pp__lbl"><svg aria-hidden="true"><use href="#i-cerebro"/></svg>Voces</p>
-          <button class="pp__btn" type="button" data-seqv="cqL2a,cqL2b,cqL2c,cqR2a,cqR2b,cqR2c"><i></i>Voces</button>
-          <button class="pp__leer" type="button" aria-expanded="false" data-leer>Leer</button>
-          <ol class="pp__txt"><li>“Sí, primero hay que cambiar el piso, pintar, y último el escritorio.”</li><li>“Dale.”</li><li>“Vamos a necesitar un metro, caladora y sellador. Con eso creo que estamos bien.”</li><li>“¡Obvio, abu, eso no se pregunta!”</li><li>“A ver… ¡Acá está!”</li><li>“¿Y no iba una taza de aceite también?”</li></ol>
-        </aside>
-        <figure class="escena ficha__img ficha__img--maqueta" data-ficha="cuaderno">
-          <img class="ficha__foto is-on" src="assets/img/maqueta-cuaderno.webp" alt="Maqueta anterior del mundo del cuaderno: cuadernos y hojas flotantes" loading="lazy">
-          <svg class="ficha__anim" viewBox="0 0 1000 562" aria-hidden="true"><g class="fa-hojas"></g></svg>
-          <span class="pend">Maqueta anterior · foto pendiente</span>
-        </figure>
-        <aside class="pp pp--fondo" aria-label="Lo que se escucha de fondo">
-          <p class="pp__lbl"><svg aria-hidden="true"><use href="#i-ojo"/></svg>Lo que se escucha de fondo</p>
-          <button class="pp__btn" type="button" data-seq="paginas1,escribiendo1:3200,paginas2:10500,escribiendo2:13500"><i></i>De fondo</button>
-        </aside>
+    <section id="e2-cuaderno" class="mundo-v1" data-rail="2 · Mundo del cuaderno" data-where="unreal" style="--acc:var(--celeste)">
+      <div class="e2-swap" data-swap="cuaderno">
+        <div class="wrap e2-swap__in">
+          <p class="eyebrow">De vuelta en la cúpula</p>
+          <ol class="e2-swap__trio" aria-hidden="true">
+            <li data-k="llave" style="--c:var(--amarillo)"><svg viewBox="0 0 100 260"><use href="#obj-llave"/></svg></li>
+            <li data-k="mate" style="--c:var(--fucsia)"><svg viewBox="0 0 200 240"><use href="#obj-mate"/></svg></li>
+            <li data-k="cuaderno" style="--c:var(--celeste)"><svg viewBox="0 0 240 180"><use href="#obj-cuaderno"/></svg></li>
+          </ol>
+          <p class="e2-swap__txt">El mate pasa a blanco y negro. Último mundo: <b class="c-celeste">el cuaderno</b>.</p>
+        </div>
       </div>
-      <div class="etapa__txt">
-        <p class="v2-txt">Las hojas arman un camino entre un cuaderno de materiales y uno de recetas; el último tiene la salida dibujada.</p>
-        <p class="etapa__fin">La salida del cuaderno lleva a la tercera etapa.</p>
+
+      <div class="cuaderno" data-world="cuaderno" style="--acc:var(--celeste)">
+        <div class="pin cuaderno__pin">
+          <div class="cuaderno__bg" aria-hidden="true">
+            <div class="cuaderno__cream"></div>
+            <figure class="cuaderno__maqueta"><span class="pend">Maqueta anterior · foto pendiente</span><img src="assets/img/maqueta-cuaderno.webp" width="1580" height="950" alt="" loading="lazy" decoding="async"></figure>
+          </div>
+          <div class="hojas" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="polvo" aria-hidden="true"></div>
+          <div class="horno" aria-hidden="true"></div>
+          <div class="cuaderno__copy wrap">
+            <div class="cq-head" data-cq-head="materiales"><p class="stage-num">Mundo del cuaderno · Cuaderno de materiales</p><p class="onoma">martillazos · un taladro · un camión da marcha atrás</p></div>
+            <div class="cq-head cq-head--recetas" data-cq-head="recetas"><p class="stage-num">Mundo del cuaderno · Cuaderno de recetas</p><p class="onoma">algo se bate en un bowl</p></div>
+          </div>
+
+          <div class="cq cq--materiales" data-cq="materiales">
+            <ol class="cq__talk">
+              <li data-line><p class="said"><b>Voz 1</b>—Va a quedar genial todo el escritorio nuevo.</p></li>
+              <li data-line data-voz="cqL2a"><p class="said said--r"><b>Voz 2</b>—Sí, primero hay que cambiar el piso, pintar, y último el escritorio.</p></li>
+              <li data-line><p class="said"><b>Voz 1</b>—Va a tardar pero va a quedar impecable. ¿Te repaso lo que anoté?</p></li>
+              <li data-line data-voz="cqL2b"><p class="said said--r"><b>Voz 2</b>—Dale.</p></li>
+              <li data-line data-notas="0,1" data-sfx="escribiendo1"><p class="said"><b>Voz 1</b>—Bueno, primero hay que elegir el modelo del piso, y calcular los m².</p></li>
+              <li data-line data-voz="cqL2c" data-notas="2"><p class="said said--r"><b>Voz 2</b>—Vamos a necesitar un metro, caladora y sellador. Con eso creo que estamos bien.</p></li>
+              <li data-line data-notas="3"><p class="said"><b>Voz 1</b>—Y los zócalos, no te olvides.</p></li>
+            </ol>
+            <ul class="notas" aria-label="Anotaciones del cuaderno de materiales">
+              <li data-nota style="--x:8%;--y:30%;--r:-4deg">elegir el modelo del piso</li>
+              <li data-nota style="--x:56%;--y:22%;--r:3deg">calcular los m²</li>
+              <li data-nota style="--x:62%;--y:62%;--r:-2deg">metro · caladora · sellador</li>
+              <li data-nota style="--x:12%;--y:70%;--r:5deg">¡y los zócalos!</li>
+            </ul>
+          </div>
+
+          <div class="cq cq--recetas" data-cq="recetas">
+            <ol class="cq__talk">
+              <li data-line><p class="said"><b>Voz 1 · abu</b>—¡Hola querido! ¿Vamos a hacer una torta hoy?</p></li>
+              <li data-line data-voz="cqR2a"><p class="said said--r"><b>Voz 2</b>—¡Obvio abu, eso no se pregunta!</p></li>
+              <li data-line><p class="said"><b>Voz 1 · abu</b>—Bueno, escuchá: ahí en el cajón está mi cuadernito, pasámelo y te voy diciendo.</p></li>
+              <li data-line data-voz="cqR2b"><p class="said said--r"><b>Voz 2</b>—A ver… <span class="onoma">se abre un cajón</span> ¡Acá está!</p></li>
+              <li data-line data-notas="0,1,2" data-sfx="escribiendo2"><p class="said"><b>Voz 1 · abu</b>—Bueno, primero tenés que agarrar 3 huevos, 1 taza de azúcar y 2 tazas de harina.</p></li>
+              <li data-line data-voz="cqR2c" data-notas="3"><p class="said said--r"><b>Voz 2</b>—¿Y no iba una taza de aceite también?</p></li>
+              <li data-line data-oven data-notas="4"><p class="said"><b>Voz 1 · abu</b>—Tenés razón, casi me olvido. Después la vainilla, un poco de leche y al horno.</p></li>
+            </ol>
+            <ul class="notas notas--receta" aria-label="Anotaciones del cuaderno de recetas">
+              <li data-nota style="--x:8%;--y:26%;--r:-3deg">3 huevos</li>
+              <li data-nota style="--x:58%;--y:20%;--r:4deg">1 taza de azúcar</li>
+              <li data-nota style="--x:64%;--y:48%;--r:-2deg">2 tazas de harina</li>
+              <li data-nota style="--x:10%;--y:58%;--r:3deg">1 taza de aceite</li>
+              <li data-nota style="--x:56%;--y:74%;--r:-4deg">vainilla · leche · ¡al horno!</li>
+            </ul>
+            <svg class="torta" viewBox="0 0 140 110" aria-hidden="true"><use href="#obj-torta"/></svg>
+          </div>
+
+          <div class="cuaderno__final" aria-hidden="true">
+            <div class="libro"><span class="libro__page"></span><span class="libro__page libro__page--r"><svg viewBox="0 0 100 140"><path d="M30 130V60a20 20 0 0 1 40 0v70" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="6 5"/><path d="M14 130h72" stroke="currentColor" stroke-width="3"/></svg></span></div>
+            <p class="mono">La salida está dibujada en sus hojas</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -421,7 +548,7 @@
         <h2 class="v2-title">Una extensión del yo</h2>
         <p class="etapa__sub">El objeto que llevás encima</p>
       </header>
-      <div class="etapa__grid">
+      <div class="etapa__grid etapa__grid--sin-fondo">
         <aside class="pp pp--voz" aria-label="Voz en off">
           <p class="pp__lbl"><svg aria-hidden="true"><use href="#i-cerebro"/></svg>Voz en off</p>
           <div data-voice="e3a" data-acc="celeste" class="voice--compact pp__card"></div>
@@ -444,10 +571,6 @@
             <div class="e3-aula" data-aula-clone></div>
           </div>
         </figure>
-        <aside class="pp pp--fondo" aria-label="Lo que se escucha de fondo">
-          <p class="pp__lbl"><svg aria-hidden="true"><use href="#i-ojo"/></svg>Lo que se escucha de fondo</p>
-          <button class="pp__ruido" type="button" data-ruido>Ruido blanco del espacio físico</button>
-        </aside>
       </div>
       <div class="etapa__txt">
         <p class="v2-txt">En un pasillo, la voz pide pensar en un objeto que se lleve encima. Hay que salir de Unreal, seguir las luces hasta el tótem y dejarlo ahí. Un holograma muestra el ícono de la puerta.</p>
@@ -494,7 +617,6 @@
         </figure>
         <aside class="pp pp--fondo" aria-label="Lo que se escucha de fondo">
           <p class="pp__lbl"><svg aria-hidden="true"><use href="#i-ojo"/></svg>Lo que se escucha de fondo</p>
-          <button class="pp__ruido" type="button" data-ruido>Ruido blanco del espacio físico</button>
           <p class="pp__pend">Pitido intenso y sostenido · <b>pendiente</b></p>
         </aside>
       </div>
@@ -504,37 +626,33 @@
       </div>
     </section>
 
-    <!-- ===================== 7 · ETAPA 5 ===================== -->
-    <section id="e5" class="v2-sec etapa" data-rail="5 · Obsesión con la pérdida" data-where="fisico>unreal" style="--acc:var(--amarillo)">
-      <div class="deco" aria-hidden="true"></div>
-      <header class="etapa__head">
-        <p class="etapa__meta"><span class="etapa__n">Etapa 5</span><span class="plat"><svg aria-hidden="true"><use href="#i-lugar"/></svg>Espacio físico</span><span class="plat"><svg aria-hidden="true"><use href="#i-pc"/></svg>Unreal</span></p>
-        <h2 class="v2-title">Obsesión con la pérdida</h2>
-        <p class="etapa__sub">Verlo en todos lados</p>
-      </header>
-      <div class="etapa__grid">
-        <aside class="pp pp--voz" aria-label="Voz en off">
-          <p class="pp__lbl"><svg aria-hidden="true"><use href="#i-cerebro"/></svg>Voz en off</p>
-          <div data-voice="e5" data-acc="amarillo" class="voice--compact pp__card"></div>
-          <button class="pp__leer" type="button" aria-expanded="false" data-leer>Leer</button>
-        </aside>
-        <figure class="escena escena--pend" data-escena="e5">
-          <svg class="pend-anim" viewBox="0 0 1000 562" aria-hidden="true">
-            <rect width="1000" height="562" fill="#2a2160"/>
-            <g class="e5-piso" stroke="#F2EDD4" stroke-opacity=".18" fill="none"><path d="M0 562 470 300M1000 562 530 300M250 562 485 300M750 562 515 300M470 300H530"/></g>
-            <g class="e5-pilas"></g>
-            <g class="e5-oculus" style="color:#FCB614"><svg x="470" y="270" width="60" height="60" viewBox="0 0 24 24"><use href="#i-oculus"/></svg></g>
-          </svg>
+    <!-- ===================== 7 · ETAPA 5 (como en la versión 1: el pasillo de objetos) ===================== -->
+    <section id="e5" class="mundo-v1 e5-hall" data-rail="5 · Obsesión con la pérdida" data-where="fisico>unreal" style="--acc:var(--amarillo)">
+      <div class="hall" data-hall>
+        <div class="pin hall__pin">
+          <div class="hall__space" aria-hidden="true">
+            <div class="hall__wall hall__wall--l"><div class="hall__strip"></div></div>
+            <div class="hall__wall hall__wall--r"><div class="hall__strip"></div></div>
+            <div class="floor hall__floor"></div>
+          </div>
+          <div class="hall__end" aria-hidden="true">
+            <div class="oculus">
+              <svg viewBox="0 0 220 110"><g fill="none" stroke="currentColor" stroke-width="5"><rect x="10" y="18" width="200" height="74" rx="30"/><path d="M92 92c6-18 30-18 36 0"/><path d="M10 50H0M210 50h10"/></g><g fill="currentColor" opacity=".25"><rect x="26" y="32" width="70" height="46" rx="18"/><rect x="124" y="32" width="70" height="46" rx="18"/></g></svg>
+              <span class="oculus__pile"></span>
+            </div>
+            <p class="mono oculus__label">Detector de significado</p>
+          </div>
+          <div class="hall__copy wrap">
+            <p class="stage-num">Interacción · Etapa 05</p>
+            <h3 class="title hall__title">El pasillo de objetos</h3>
+          </div>
           <span class="pend">Screen pendiente</span>
-        </figure>
-        <aside class="pp pp--fondo" aria-label="Lo que se escucha de fondo">
-          <p class="pp__lbl"><svg aria-hidden="true"><use href="#i-ojo"/></svg>Lo que se escucha de fondo</p>
-          <button class="pp__ruido" type="button" data-ruido>Ruido blanco del espacio físico</button>
-        </aside>
-      </div>
-      <div class="etapa__txt">
-        <p class="v2-txt">De vuelta en Unreal, un pasillo recto entre pilas de los objetos que parecían perdidos, ahora repetidos por todos lados. Al final, sobre una pila más chica, están los Oculus.</p>
-        <p class="etapa__fin">Con los Oculus puestos empieza la última etapa.</p>
+          <div class="hall__voice pp pp--voz pp--inline" style="--acc:var(--amarillo)">
+            <p class="pp__lbl"><svg aria-hidden="true"><use href="#i-cerebro"/></svg>Voz en off</p>
+            <div data-voice="e5" data-acc="amarillo" class="voice--compact pp__card"></div>
+            <button class="pp__leer" type="button" aria-expanded="false" data-leer>Leer</button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -605,9 +723,11 @@
         <!-- BORRADOR: frase de contexto propuesta, a confirmar -->
         <p class="cierre__ctx" data-borrador>Esta última pregunta es para vos, que hiciste el recorrido: queremos saber qué hay detrás del objeto que elegiste, porque ahí empieza la relectura de lo cotidiano.</p>
         <p class="cierre__q">¿Y ahora, habiendo experimentado nuestro recorrido, te gustaría contarnos por qué elegiste este objeto?</p>
-        <svg class="cierre__logo" viewBox="66 190 710 284" role="img" aria-label="Memoria Material. Lo habitual desde otro lugar"><use href="#logo-full"/></svg>
-        <a class="btn btn--ghost" href="#inicio" data-go>Volver al inicio</a>
       </div>
+      <footer class="cierre__pie">
+        <svg class="cierre__logo" viewBox="0 0 710 284" role="img" aria-label="Memoria Material. Lo habitual desde otro lugar"><use href="#logo-full"/></svg>
+        <a class="btn btn--ghost" href="#inicio" data-go>Volver al inicio</a>
+      </footer>
     </section>
 
   </main>
@@ -615,6 +735,7 @@
   <script src="js/vendor/gsap.min.js"></script>
   <script src="js/vendor/ScrollToPlugin.min.js"></script>
   <script src="js/vendor/DrawSVGPlugin.min.js"></script>
+  <script src="js/vendor/ScrollTrigger.min.js"></script>
   <script type="module" src="js/v2.js"></script>
 </body>
 </html>

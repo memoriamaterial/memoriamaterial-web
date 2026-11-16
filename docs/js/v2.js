@@ -2,9 +2,10 @@
 // Una web para EXPLICAR la experiencia. Lo único que se toca: abrir los pop-ups, dar play a un audio,
 // pasar el mouse. Las animaciones muestran la mecánica: el visitante la mira, no la juega.
 import { audio, VOICES } from './audio.js';
+import { mundosV1 } from './v2-mundos.js';
 
-const { gsap, ScrollToPlugin, DrawSVGPlugin } = window;
-gsap.registerPlugin(ScrollToPlugin, DrawSVGPlugin);
+const { gsap, ScrollToPlugin, DrawSVGPlugin, ScrollTrigger } = window;
+gsap.registerPlugin(ScrollToPlugin, DrawSVGPlugin, ScrollTrigger);
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -128,7 +129,7 @@ function dondeEstas() {
   const ui = $('[data-where-ui]');
   if (!ui) return;
   const icos = $('.where__icons', ui), txt = $('.where__txt', ui);
-  const secs = $$('.v2-sec');
+  const secs = $$('main > section');
   let actual;
   const poner = (k) => {
     if (k === actual) return;
@@ -231,20 +232,29 @@ function entradas() {
   $$('.v2-sec').forEach((s) => alVer(s, () => s.classList.add('is-in')));
 }
 
-// --- El espacio físico en una pantalla: sus lugares se nombran de a uno ------------
-function aula() {
-  const sec = $('#experiencia');
-  if (!sec) return;
-  const items = $$('[data-lugar]', sec);
-  const pins = $$('[data-pin]', sec);
-  let i = 0, timer = null;
-  const paso = () => {
-    items.forEach((li, k) => li.classList.toggle('is-on', k === i));
-    pins.forEach((p, k) => p.classList.toggle('is-on', k === i));
-    i = (i + 1) % items.length;
-  };
-  if (reduce) return;
-  alVer(sec, () => { if (!timer) { paso(); timer = setInterval(paso, 1800); } }, () => { clearInterval(timer); timer = null; });
+// --- El espacio físico: cada punto abre su ficha (como en la versión 1, js/ui.js · openPop) ---------
+function espacio() {
+  const dlg = $('#pop');
+  if (!dlg) return;
+  dlg.addEventListener('click', (e) => { if (e.target === dlg || e.target.closest('[data-close]')) dlg.close(); });
+  $$('[data-pop-open]').forEach((btn) => btn.addEventListener('click', () => {
+    btn.classList.add('is-seen');
+    const tpl = $(`template[data-pop="${btn.dataset.popOpen}"]`);
+    if (!tpl) return;
+    const frag = tpl.content.cloneNode(true);
+    const titulo = frag.querySelector('[data-title]');
+    $('[data-pop-title]', dlg).innerHTML = titulo ? titulo.innerHTML : '';
+    titulo?.remove();
+    $('[data-pop-eyebrow]', dlg).textContent = tpl.dataset.eyebrow || '';
+    const body = $('[data-pop-body]', dlg);
+    body.replaceChildren(frag);
+    dlg.style.setProperty('--acc', `var(--${tpl.dataset.acc || 'crema'})`);
+    dlg.showModal();
+    if (!reduce) {
+      gsap.fromTo(dlg, { opacity: 0, y: 24, clipPath: 'inset(8% 4% 8% 4% round 18px)' }, { opacity: 1, y: 0, clipPath: 'inset(0% 0% 0% 0% round 18px)', duration: 0.45, ease: 'expo.out' });
+      gsap.from(body.children, { opacity: 0, y: 10, stagger: 0.05, duration: 0.4, delay: 0.1, ease: 'power2.out' });
+    }
+  }));
 }
 
 // --- Etapa 1: cada esfera se conecta con su objeto y se eleva la cúpula -------------------
@@ -291,12 +301,8 @@ const DECO = {
   e1: [['elemento-banda-dientes', 'amarillo', 170, '62%', '12%', -4, 'a', 15], ['trama-03', 'celeste', 110, '3%', '86%', 8, 'b', 13], ['trama-01', 'fucsia', 40, '88%', '80%', 12, 'c', 16]],
   e2: [['trama-02', 'celeste', 150, '58%', '13%', 6, 'b', 14], ['elemento-cuadrado-curvo', 'fucsia', 80, '84%', '18%', -8, 'a', 17], ['elemento-banda-muesca', 'amarillo', 160, '2%', '88%', -3, 'c', 15]],
   idea: [['elemento-banda-muesca', 'celeste', 170, '44%', '8%', 4, 'a', 15], ['trama-01', 'amarillo', 40, '92%', '74%', -8, 'b', 14], ['trama-03', 'fucsia', 110, '4%', '88%', 6, 'c', 13]],
-  'e2-llave': [['elemento-banda-curva', 'amarillo', 190, '60%', '10%', -3, 'a', 16], ['trama-03', 'celeste', 100, '4%', '87%', 6, 'b', 13]],
-  'e2-mate': [['trama-02', 'fucsia', 130, '62%', '12%', 5, 'b', 14], ['elemento-cuadrado-curvo', 'celeste', 70, '90%', '84%', -8, 'a', 17]],
-  'e2-cuaderno': [['elemento-banda-dientes', 'celeste', 160, '60%', '11%', 4, 'c', 15], ['trama-01', 'fucsia', 38, '5%', '82%', 10, 'a', 16]],
   e3: [['trama-01', 'celeste', 42, '70%', '10%', -10, 'a', 14], ['elemento-banda-curva', 'amarillo', 180, '78%', '87%', 3, 'b', 16], ['trama-02', 'fucsia', 120, '3%', '86%', -6, 'c', 13]],
   e4: [['elemento-banda-dientes', 'fucsia', 160, '64%', '12%', 5, 'c', 15], ['trama-03', 'crema', 100, '4%', '87%', -4, 'a', 14], ['elemento-cuadrado-curvo', 'celeste', 74, '88%', '84%', 12, 'b', 18]],
-  e5: [['trama-02', 'amarillo', 140, '60%', '12%', -5, 'a', 13], ['elemento-banda-muesca', 'fucsia', 150, '79%', '86%', 4, 'b', 15], ['trama-01', 'celeste', 38, '5%', '82%', 8, 'c', 16]],
   e6: [['elemento-banda-curva', 'celeste', 190, '58%', '11%', -4, 'b', 16], ['trama-03', 'fucsia', 110, '81%', '86%', 6, 'a', 13], ['elemento-cuadrado-curvo', 'amarillo', 70, '4%', '86%', -10, 'c', 15]],
   cierre: [['trama-01', 'fucsia', 44, '10%', '24%', -8, 'a', 15], ['elemento-banda-dientes', 'celeste', 170, '78%', '20%', 4, 'b', 16], ['trama-02', 'amarillo', 140, '8%', '76%', 6, 'c', 14], ['elemento-banda-muesca', 'fucsia', 160, '79%', '74%', -4, 'a', 17]],
 };
@@ -337,49 +343,6 @@ function etapa2() {
     .call(marco(1)).to({}, { duration: 1.9 })
     .call(marco(2)).to({}, { duration: 1.9 });
   alVer(sec, () => tl.play(), () => tl.pause());
-}
-
-// --- Los tres mundos: cada uno en su sección, con su secuencia -----------------------------------
-const fundido = (fig) => {
-  const fotos = $$('.ficha__foto', fig);
-  let i = 0;
-  return () => { fotos.forEach((f, k) => f.classList.toggle('is-on', k === i)); const cur = i; i = (i + 1) % fotos.length; return cur; };
-};
-function ciclo(sec, tick, cada) {
-  let t = null;
-  alVer(sec, () => { if (!t) { tick(); t = setInterval(tick, cada); } }, () => { clearInterval(t); t = null; });
-}
-function mundos() {
-  if (reduce) return;
-  // mundo de la llave: cajas → regalos → mesitas → la llave entra en la cerradura y se abre la salida
-  const sl = $('#e2-llave');
-  if (sl) {
-    const fig = $('[data-ficha="llave"]', sl);
-    const llave = $('.fa-llave', fig), salida = $('.fa-salida', fig);
-    const next = fundido(fig);
-    const tlLlave = gsap.timeline({ paused: true })
-      .set(llave, { opacity: 1, x: 120, y: 330, rotation: -30, transformOrigin: '20px 96px' })
-      .to(llave, { x: 388, y: 192, rotation: 0, duration: 1.1, ease: 'power2.inOut' })
-      .to(llave, { rotation: 90, duration: 0.5, ease: 'power2.inOut' })
-      .to(salida, { opacity: 0.75, duration: 0.5 }, '-=0.1')
-      .to({}, { duration: 0.9 })
-      .to([llave, salida], { opacity: 0, duration: 0.3 });
-    ciclo(sl, () => { if (next() === 3) tlLlave.restart(); }, 2300);
-  }
-  // mundo del mate: el charco → la ronda → la mañana
-  const sm = $('#e2-mate');
-  if (sm) ciclo(sm, fundido($('[data-ficha="mate"]', sm)), 2300);
-  // mundo del cuaderno: las hojas sueltas se ordenan en un camino
-  const sc = $('#e2-cuaderno');
-  if (sc) {
-    const g = $('.fa-hojas', sc);
-    const NS = 'http://www.w3.org/2000/svg';
-    const hojas = Array.from({ length: 7 }, () => { const r = document.createElementNS(NS, 'rect'); r.setAttribute('width', 70); r.setAttribute('height', 44); r.setAttribute('rx', 4); g.appendChild(r); return r; });
-    const tlCq = gsap.timeline({ paused: true, repeat: -1, repeatDelay: 0.8 });
-    hojas.forEach((h, k) => tlCq.fromTo(h, { x: gsap.utils.random(80, 860), y: gsap.utils.random(60, 420), rotation: gsap.utils.random(-50, 50), opacity: 0.85 }, { x: 120 + k * 112, y: 430 - k * 48, rotation: gsap.utils.random(-5, 5), duration: 1, ease: 'power2.inOut' }, k * 0.12));
-    tlCq.to({}, { duration: 1.4 }).to(hojas, { opacity: 0, duration: 0.4 });
-    alVer(sc, () => tlCq.play(), () => tlCq.pause());
-  }
 }
 
 // --- Etapa 3: el pasillo (la cámara avanza y aparece la consigna, como en la versión 1) ----------------
@@ -437,34 +400,6 @@ function etapa4() {
     .fromTo(humo, { y: 30, opacity: 0, scale: 0.6, transformOrigin: 'center' }, { y: -60, opacity: 0.35, scale: 1.3, duration: 2.4, stagger: 0.35, ease: 'power1.out' })
     .to(humo, { opacity: 0, duration: 0.8 })
     .to(aula, { opacity: 0, duration: 0.5 }, '+=0.3');
-  alVer(sec, () => tl.play(), () => tl.pause());
-}
-
-// --- Etapa 5: las pilas de objetos repetidos pasan a los costados hasta los Oculus ---------------
-function etapa5() {
-  const sec = $('#e5');
-  if (!sec) return;
-  const g = $('.e5-pilas', sec);
-  const NS = 'http://www.w3.org/2000/svg';
-  const OBJ = [['obj-llave', '0 0 100 260', 26, 68], ['obj-mate', '0 0 200 240', 56, 66], ['obj-cuaderno', '0 0 240 180', 70, 52]];
-  const COL = ['#FCB614', '#ED4380', '#3CC5F2'];
-  const items = Array.from({ length: 18 }, (_, k) => {
-    const [id, vb, w, h] = OBJ[k % 3];
-    const s = document.createElementNS(NS, 'svg');
-    s.setAttribute('viewBox', vb); s.setAttribute('width', w); s.setAttribute('height', h); s.style.color = COL[(k + 1) % 3];
-    s.innerHTML = `<use href="#${id}"/>`;
-    const w2 = document.createElementNS(NS, 'g'); w2.appendChild(s); g.appendChild(w2);
-    return { el: w2, lado: k % 2 ? 1 : -1, w, h };
-  });
-  const oc = $('.e5-oculus', sec);
-  if (reduce) return;
-  const tl = gsap.timeline({ repeat: -1, paused: true });
-  items.forEach(({ el, lado, w, h }, k) => {
-    tl.fromTo(el, { x: 500 - w / 2 + lado * 20, y: 300 - h / 2, scale: 0.15, opacity: 0, transformOrigin: 'center' },
-      { x: 500 + lado * gsap.utils.random(260, 470) - w / 2, y: gsap.utils.random(330, 470) - h / 2, scale: gsap.utils.random(1.2, 1.9), opacity: 0.9, duration: 3.2, ease: 'power2.in' }, k * 0.35)
-      .to(el, { opacity: 0, duration: 0.4 }, k * 0.35 + 2.8);
-  });
-  tl.fromTo(oc, { scale: 0.8, transformOrigin: '500px 300px' }, { scale: 1.6, duration: 1.2, yoyo: true, repeat: 4, ease: 'sine.inOut' }, 0);
   alVer(sec, () => tl.play(), () => tl.pause());
 }
 
@@ -616,12 +551,11 @@ riel();
 entradas();
 logo();
 idea();
-aula();
+espacio();
 etapa1();
 etapa2();
-mundos();
+mundosV1();
 etapa3();
 etapa4();
-etapa5();
 etapa6();
 cierre();
