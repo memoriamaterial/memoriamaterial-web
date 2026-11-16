@@ -190,7 +190,6 @@ function mate2() {
   if (!wrap) return;
   const pin = $('.mate2__pin', wrap);
   const lines = $$('.manana [data-line]', wrap);
-  const pam = $('.mate2__portazo', wrap);
   const tl = gsap.timeline({
     defaults: { ease: 'power2.inOut' },
     scrollTrigger: { trigger: wrap, pin, start: 'top top', end: () => `+=${vh() * 5}`, scrub: 0.6,
@@ -202,10 +201,16 @@ function mate2() {
     .addLabel('pava', '+=0.6')
     .to({}, { duration: 0.4 }, 'pava'); // la pava empieza a sonar un poco después de los pájaros
   dialog(tl, lines);
-  tl.to(lines.slice(-2), { opacity: 0, duration: 0.2 })
-    .fromTo(pam, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1.1, duration: 0.15, ease: 'power4.out' })
-    .to(pam, { opacity: 0, duration: 0.3 }, '+=0.25');
-  tl.eventCallback('onUpdate', sfxCues(tl, lines, { extra: [{ id: 'pajaros', label: 'pajaros', offset: 0.02 }, { id: 'pavaHirviendo', label: 'pava' }] }));
+  tl.to(lines.slice(-2), { opacity: 0, duration: 0.2 });
+  const sync = sfxCues(tl, lines, { extra: [{ id: 'pajaros', label: 'pajaros', offset: 0.02 }, { id: 'pavaHirviendo', label: 'pava' }] });
+  // la pava suena solo hasta el siguiente diálogo: cuando entra "Buen día hijo…", se apaga con un fundido corto
+  const corte = tl.labels.step1;
+  let cortada = false;
+  tl.eventCallback('onUpdate', () => {
+    sync();
+    if (!cortada && tl.time() >= corte) { cortada = true; audio.stopSfx('pavaHirviendo', 0.4); }
+    else if (cortada && tl.time() < corte) cortada = false;
+  });
 }
 
 // --- Mundo del cuaderno: materiales → recetas → la salida dibujada ----------------------------------

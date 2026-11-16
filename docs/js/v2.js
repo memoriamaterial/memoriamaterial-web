@@ -248,6 +248,7 @@ function espacio() {
     $('[data-pop-eyebrow]', dlg).textContent = tpl.dataset.eyebrow || '';
     const body = $('[data-pop-body]', dlg);
     body.replaceChildren(frag);
+    $$('[data-voice]', body).forEach((card) => audio.registerCard(card));
     dlg.style.setProperty('--acc', `var(--${tpl.dataset.acc || 'crema'})`);
     dlg.showModal();
     if (!reduce) {
@@ -292,27 +293,103 @@ function etapa1() {
   alVer(sec, () => tl.play(), () => tl.pause());
 }
 
-// --- Decoración: tramas y elementos de la marca, recoloreados, flotando, sin superponerse --------
-// [archivo, color, ancho px, x, y, giro, movimiento a|b|c, duración s]
+// --- Elementos gráficos: acompañan la historia y marcan el avance del scroll ----------------------
+// Salen de las letras del logo y cada uno tiene un papel:
+// · tres ondas (trama-02), una por objeto (amarillo llave, fucsia mate, celeste cuaderno): en la Etapa 1 se
+//   conectan desde los costados; en la Etapa 4 parpadean y se pierden; en la Etapa 6 se reencuentran.
+// · la curva (cuadrado-curvo) sube desde abajo como la cúpula (Etapa 2 y cada vuelta a la cúpula).
+// · la banda con dientes es la llave: avanza puerta por puerta en el mundo de la llave.
+// · la banda con muesca se cierra desde los costados como las paredes del pasillo (Etapa 3).
+// · en el cierre, las tres bandas (llave, mate, cuaderno) vuelven a encontrarse.
+// Van siempre en los márgenes, sin tocar el contenido. Con movimiento reducido quedan quietas.
 const AR = { 'trama-01': 147.76 / 378.53, 'trama-02': 210.85 / 91.77, 'trama-03': 120.86 / 54.91, 'elemento-cuadrado-curvo': 190.06 / 185.54, 'elemento-banda-muesca': 446.17 / 172.59, 'elemento-banda-curva': 662.51 / 185.54, 'elemento-banda-dientes': 531.32 / 175.09 };
-const DECO = {
-  inicio: [['elemento-banda-curva', 'fucsia', 230, '-2%', '14%', -6, 'a', 16], ['trama-01', 'celeste', 46, '12%', '52%', 8, 'b', 13], ['trama-02', 'amarillo', 140, '6%', '80%', -8, 'c', 12], ['elemento-banda-muesca', 'celeste', 190, '80%', '15%', 5, 'a', 15], ['elemento-cuadrado-curvo', 'amarillo', 96, '84%', '48%', 10, 'b', 17], ['trama-03', 'fucsia', 130, '76%', '80%', -5, 'c', 14]],
-  experiencia: [['trama-02', 'fucsia', 120, '47%', '9%', -6, 'a', 14], ['elemento-banda-dientes', 'celeste', 150, '72%', '11%', 4, 'b', 16], ['trama-01', 'amarillo', 34, '93%', '42%', 0, 'c', 13]],
-  e1: [['elemento-banda-dientes', 'amarillo', 170, '62%', '12%', -4, 'a', 15], ['trama-03', 'celeste', 110, '3%', '86%', 8, 'b', 13], ['trama-01', 'fucsia', 40, '88%', '80%', 12, 'c', 16]],
-  e2: [['trama-02', 'celeste', 150, '58%', '13%', 6, 'b', 14], ['elemento-cuadrado-curvo', 'fucsia', 80, '84%', '18%', -8, 'a', 17], ['elemento-banda-muesca', 'amarillo', 160, '2%', '88%', -3, 'c', 15]],
-  idea: [['elemento-banda-muesca', 'celeste', 170, '44%', '8%', 4, 'a', 15], ['trama-01', 'amarillo', 40, '92%', '74%', -8, 'b', 14], ['trama-03', 'fucsia', 110, '4%', '88%', 6, 'c', 13]],
-  e3: [['trama-01', 'celeste', 42, '70%', '10%', -10, 'a', 14], ['elemento-banda-curva', 'amarillo', 180, '78%', '87%', 3, 'b', 16], ['trama-02', 'fucsia', 120, '3%', '86%', -6, 'c', 13]],
-  e4: [['elemento-banda-dientes', 'fucsia', 160, '64%', '12%', 5, 'c', 15], ['trama-03', 'crema', 100, '4%', '87%', -4, 'a', 14], ['elemento-cuadrado-curvo', 'celeste', 74, '88%', '84%', 12, 'b', 18]],
-  e6: [['elemento-banda-curva', 'celeste', 190, '58%', '11%', -4, 'b', 16], ['trama-03', 'fucsia', 110, '81%', '86%', 6, 'a', 13], ['elemento-cuadrado-curvo', 'amarillo', 70, '4%', '86%', -10, 'c', 15]],
-  cierre: [['trama-01', 'fucsia', 44, '10%', '24%', -8, 'a', 15], ['elemento-banda-dientes', 'celeste', 170, '78%', '20%', 4, 'b', 16], ['trama-02', 'amarillo', 140, '8%', '76%', 6, 'c', 14], ['elemento-banda-muesca', 'fucsia', 160, '79%', '74%', -4, 'a', 17]],
-};
-function decoracion() {
-  Object.entries(DECO).forEach(([id, items]) => {
-    const box = $(`#${id} .deco`);
-    if (!box) return;
-    box.innerHTML = items.map(([f, c, w, x, y, r, a, d], k) =>
-      `<span class="tr" style="--ar:${AR[f].toFixed(3)};--c:var(--${c});--w:${w}px;--x:${x};--y:${y};--r:${r}deg;--anim:flota-${a};--d:${d}s;--dl:${-k * 3.1}s"><i style="-webkit-mask-image:url(assets/graficos/${f}.svg);mask-image:url(assets/graficos/${f}.svg)"></i></span>`).join('');
-  });
+function forma(box, f, c, w, css, espejo = false) {
+  const el = document.createElement('span');
+  el.className = 'tr tr--n';
+  el.style.cssText = `--ar:${AR[f].toFixed(3)};--c:var(--${c});--w:${w}px;${css}`;
+  el.innerHTML = `<i style="-webkit-mask-image:url(assets/graficos/${f}.svg);mask-image:url(assets/graficos/${f}.svg)${espejo ? ';transform:scaleX(-1)' : ''}"></i>`;
+  box.appendChild(el);
+  return el;
+}
+const capa = (sec) => $('.deco', sec) || sec.appendChild(Object.assign(document.createElement('div'), { className: 'deco' }));
+// una línea de tiempo atada al recorrido de la sección por la pantalla (0 = asoma abajo, 1 = se va arriba)
+function alScroll(trigger, build, { start = 'top bottom', end = 'bottom top' } = {}) {
+  if (reduce) return;
+  const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger, start, end, scrub: 0.8 } });
+  build(tl);
+  tl.to({}, { duration: Math.max(0, 1 - tl.duration()) });
+}
+// en las esquinas (a la altura del título y del texto final), donde nunca hay contenido a los costados
+const ONDAS = [['amarillo', 'left:-56px;top:15%'], ['fucsia', 'left:-56px;top:86%'], ['celeste', 'right:calc(var(--rail-w) - 56px);top:15%']];
+
+function narrativa() {
+  // Etapa 1 · las tres ondas llegan desde los costados y se conectan (al irse, se juntan: va a subir la cúpula)
+  const e1 = $('#e1');
+  if (e1) {
+    const ondas = ONDAS.map(([c, css], k) => forma(capa(e1), 'trama-02', c, 150, css, k === 2));
+    alScroll(e1, (tl) => ondas.forEach((o, k) => {
+      const lado = k === 2 ? 1 : -1;
+      tl.fromTo(o, { x: lado * 200, opacity: 0 }, { x: 0, opacity: 1, duration: 0.35, ease: 'power2.out' }, k * 0.04)
+        .to(o, { x: -lado * 70, scale: 0.6, opacity: 0, duration: 0.3, ease: 'power2.in' }, 0.7);
+    }));
+  }
+  // Etapa 2 · la cúpula: dos curvas suben desde abajo, enfrentadas
+  const cupula = (sec, trigger = sec) => {
+    const a = forma(capa(sec), 'elemento-cuadrado-curvo', 'crema', 120, 'left:-24px;bottom:-30px', true);
+    const b = forma(capa(sec), 'elemento-cuadrado-curvo', 'crema', 120, 'right:calc(var(--rail-w) - 24px);bottom:-30px');
+    alScroll(trigger, (tl) => tl.fromTo([a, b], { y: 220, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: 'power3.out' }, 0)
+      .to([a, b], { y: -40, opacity: 0, duration: 0.25 }, 0.75));
+  };
+  if ($('#e2')) cupula($('#e2'));
+  // cada vuelta a la cúpula entre los mundos
+  $$('[data-swap]').forEach((sw) => { sw.style.position = 'relative'; cupula(sw); });
+  // Mundo de la llave · la llave (banda con dientes) avanza de puerta en puerta, abajo, en su propio carril
+  const pinLlave = $('#e2-llave .llave__pin');
+  if (pinLlave) {
+    const carril = pinLlave.appendChild(Object.assign(document.createElement('div'), { className: 'llave__carril' }));
+    const llave = forma(carril, 'elemento-banda-dientes', 'amarillo', 74, 'left:0;top:0', true);
+    if (!reduce) gsap.fromTo(llave, { left: '0%' }, { left: 'calc(100% - 74px)', ease: 'none', scrollTrigger: { trigger: '#e2-llave .llave', start: 'top top', end: () => ScrollTrigger.getAll().find((t) => t.pin === pinLlave)?.end ?? '+=4000', scrub: 0.5 } });
+  }
+  // Etapa 3 · el pasillo: dos bandas con muesca se cierran desde los costados y, al salir, se abren
+  const e3 = $('#e3');
+  if (e3) {
+    const l = forma(capa(e3), 'elemento-banda-muesca', 'celeste', 260, 'left:-180px;top:46%', true);
+    const r = forma(capa(e3), 'elemento-banda-muesca', 'celeste', 260, 'right:calc(var(--rail-w) - 180px);top:46%');
+    alScroll(e3, (tl) => tl.fromTo(l, { x: -160, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4, ease: 'power2.out' }, 0)
+      .fromTo(r, { x: 160, opacity: 0 }, { x: 0, opacity: 1, duration: 0.4, ease: 'power2.out' }, 0)
+      .to(l, { x: -160, opacity: 0, duration: 0.3 }, 0.7).to(r, { x: 160, opacity: 0, duration: 0.3 }, 0.7));
+  }
+  // Etapa 4 · objetos perdidos: las tres ondas están, parpadean y se pierden de a una
+  const e4 = $('#e4');
+  if (e4) {
+    const ondas = ONDAS.map(([c, css], k) => forma(capa(e4), 'trama-02', c, 150, css, k === 2));
+    alScroll(e4, (tl) => {
+      tl.fromTo(ondas, { opacity: 0 }, { opacity: 1, duration: 0.15 }, 0.05);
+      ondas.forEach((o, k) => tl.to(o, { opacity: 0.15, duration: 0.02, repeat: 5, yoyo: true, ease: 'steps(1)' }, 0.3 + k * 0.12)
+        .to(o, { opacity: 0, x: (k === 2 ? 1 : -1) * 30, duration: 0.06 }, 0.42 + k * 0.12));
+    });
+  }
+  // Etapa 6 · la búsqueda: las tres ondas aparecen sueltas en los márgenes y se juntan abajo, en el centro
+  const e6 = $('#e6');
+  if (e6) {
+    const pos = [['amarillo', 'left:-30px;top:18%'], ['fucsia', 'right:calc(var(--rail-w) - 30px);top:16%'], ['celeste', 'left:-30px;top:70%']];
+    const ondas = pos.map(([c, css]) => forma(capa(e6), 'trama-02', c, 96, css));
+    alScroll(e6, (tl) => {
+      tl.fromTo(ondas, { opacity: 0 }, { opacity: 1, duration: 0.12, stagger: 0.04 }, 0.1);
+      ondas.forEach((o, k) => tl.to(o, {
+        x: () => { const r = o.getBoundingClientRect(), s = e6.getBoundingClientRect(); return s.left + s.width / 2 + (k - 1) * 112 - r.width / 2 - (r.left - (gsap.getProperty(o, 'x') || 0)); },
+        y: () => { const r = o.getBoundingClientRect(), s = e6.getBoundingClientRect(); return s.bottom - 72 - r.height / 2 - (r.top - (gsap.getProperty(o, 'y') || 0)) - r.height / 2; },
+        duration: 0.35, ease: 'power2.inOut' }, 0.3));
+    }, { start: 'top 90%', end: 'bottom 60%' });
+  }
+  // Cierre · el reencuentro: llave, mate y cuaderno (las tres bandas) entran desde los costados y se encuentran
+  const ci = $('#cierre');
+  if (ci) {
+    const bandas = [forma(capa(ci), 'elemento-banda-dientes', 'amarillo', 220, 'left:-120px;top:30%', true),
+      forma(capa(ci), 'elemento-banda-curva', 'fucsia', 260, 'right:calc(var(--rail-w) - 150px);top:46%'),
+      forma(capa(ci), 'elemento-banda-muesca', 'celeste', 220, 'left:-120px;top:62%', true)];
+    alScroll(ci, (tl) => bandas.forEach((b, k) => tl.fromTo(b, { x: (k === 1 ? 1 : -1) * 240, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, ease: 'power3.out' }, 0.1 + k * 0.1)), { start: 'top bottom', end: 'center center' });
+  }
 }
 
 // --- Etapa 2: se eleva la Cúpula del Reencuadre, se entra por la puerta y los objetos se recorren en orden ---
@@ -541,7 +618,6 @@ function cierre() {
   alVer(sec, () => { if (!t) { paso(); t = setInterval(paso, 1400); } }, () => { clearInterval(t); t = null; });
 }
 
-decoracion();
 sonido();
 popups();
 vocesSolas();
@@ -555,6 +631,7 @@ espacio();
 etapa1();
 etapa2();
 mundosV1();
+narrativa();
 etapa3();
 etapa4();
 etapa6();

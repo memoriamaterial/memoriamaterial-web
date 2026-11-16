@@ -354,3 +354,117 @@ html { overflow-anchor: none; }
 .ronda .said, .manana .said, .cq__talk .said { font-size: var(--t-base); line-height: 1.4; padding: 12px 16px; }
 .ronda .said b, .manana .said b, .cq__talk .said b { font-size: 11px; margin-bottom: 4px; }
 .manana .onoma--solo, .ronda .onoma--solo { font-size: var(--t-sm); }
+
+/* ============================ CORRECCIONES · RONDA 4 ============================ */
+
+/* --- Layout base: centrado respecto de la pantalla ------------------------------------------
+   La causa común de que todo estuviera corrido a la izquierda: <main> ya reservaba el ancho del riel
+   a la derecha (base.css) y cada sección lo volvía a reservar solo de ese lado. Ahora <main> no reserva
+   nada y las secciones dejan el mismo margen a los dos lados (riel + margen), así todo queda centrado
+   en la pantalla y nada pasa por debajo del riel. */
+.v2 main { padding-right: 0; }
+.v2-sec { padding-left: calc(var(--rail-w) + var(--gutter)); padding-right: calc(var(--rail-w) + var(--gutter)); }
+.v2 .hdr { left: var(--rail-w); right: var(--rail-w); }
+.mundo-v1 .wrap { width: min(1280px, calc(100% - 2 * (var(--rail-w) + var(--gutter)))); }
+.mate1__copy, .mate2__copy, .hall__copy { padding-inline: calc(var(--rail-w) + var(--gutter)); }
+.e2-swap { position: relative; isolation: isolate; overflow: hidden; padding-inline: calc(var(--rail-w) + var(--gutter)); }
+
+/* --- 2 · Títulos de sección: más grandes y centrados ------------------------------------------ */
+.etapa__head { justify-items: center; text-align: center; gap: 10px; }
+.etapa__meta { justify-content: center; }
+.etapa__head .v2-title { font-size: clamp(2.6rem, 1.3rem + 2.9vw, 4.4rem); }
+.etapa__sub { text-align: center; }
+.cierre__in .v2-title { font-size: clamp(2.8rem, 1.4rem + 3.2vw, 4.8rem); }
+.aula__copy .title { font-size: clamp(2.4rem, 1.3rem + 2.2vw, 3.6rem); max-width: 20ch; }
+.hall__copy { justify-items: center; text-align: center; }
+.hall__title { font-size: clamp(2.6rem, 1.3rem + 2.9vw, 4.4rem); }
+.e2-swap__txt { font-size: var(--t-lg); }
+.llave__panel--intro { justify-items: center; }
+.llave__panel--intro .llave__copy { justify-items: center; text-align: center; max-width: none; }
+.llave__panel--intro .title { font-size: clamp(3rem, 1.6rem + 3.4vw, 5.2rem); }
+
+/* --- etapas: las columnas de los costados miden lo mismo, así la escena queda en el centro ------- */
+.etapa__grid, #e6 .etapa__grid { grid-template-columns: 240px minmax(0, 1fr) 240px; }
+.etapa__grid--sin-fondo .escena { grid-column: 2; }
+
+/* --- a · Espacio físico: la composición de la captura, centrada ---------------------------------- */
+.experiencia .aula__grid { width: min(1320px, 100%); margin-inline: auto; }
+.experiencia .mapa { width: min(1320px, 100%); margin-inline: auto; }
+.pop__voz { margin-top: var(--s-4); max-width: none; }
+
+/* --- c · Mundo de la llave: cada cosa en su lugar, sin tocarse --------------------------------
+   arriba, el indicador (en su propia franja, centrado); en cada panel, las voces en una columna y la
+   foto en otra; las puertas van en el espacio entre panel y panel; abajo, el carril de la llave. */
+.llave__panel {
+  --puerta: clamp(110px, 12vw, 190px);
+  width: 100vw; height: 100%;
+  display: grid; grid-template-columns: minmax(280px, 360px) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto;
+  column-gap: 32px; row-gap: 12px; align-items: center; align-content: stretch;
+  padding: 168px calc(var(--puerta) / 2 + 40px) 96px;
+}
+.door { width: var(--puerta); top: 168px; bottom: 96px; }
+.door__n { top: -24px; }
+.llave__hud { top: 100px; left: 50%; translate: -50% 0; }
+.llave__panel .llave__foto { position: relative; inset: auto; grid-column: 2; grid-row: 1; height: 100%; min-height: 0; }
+.llave__panel .llave__voices, .llave__panel .llave__voices--cajas { position: relative; inset: auto; grid-column: 1; grid-row: 1 / -1; width: auto; align-self: center; }
+.llave__panel .llave__caption { position: static; grid-column: 2; grid-row: 2; justify-self: start; }
+.llave__panel--intro { grid-template-columns: 1fr; grid-template-rows: 1fr; }
+.llave__panel--intro .llave__copy { grid-column: 1; }
+.llave__panel--cajones { grid-template-columns: minmax(280px, 340px) minmax(0, 1fr) 200px; }
+.llave__panel--cajones .llave__copy { grid-column: 1; grid-row: 1 / -1; align-self: center; max-width: none; }
+.llave__panel--cajones .mesita { position: relative; grid-column: 3; grid-row: 1 / -1; align-self: center; justify-self: center; margin: 0; }
+.llave__panel--cerradura { width: 100vw; grid-template-columns: minmax(200px, 300px) minmax(0, 1fr); padding-left: calc(var(--puerta) / 2 + 40px); padding-right: calc(var(--rail-w) + var(--gutter)); row-gap: 0; justify-items: stretch; }
+.llave__panel--cerradura .llave__copy { grid-column: 1; grid-row: 1 / -1; order: 0; align-self: center; }
+.llave__panel--cerradura .cerradura--foto { grid-column: 2; grid-row: 1 / -1; width: 100%; max-height: 100%; align-self: center; justify-self: center; }
+.llave__carril { position: absolute; z-index: 4; left: calc(var(--rail-w) + var(--gutter)); right: calc(var(--rail-w) + var(--gutter)); bottom: 22px; height: 44px; border-bottom: 1px solid var(--ink-10); }
+.llave__carril .tr { position: absolute; top: 0; }
+
+/* --- e · El último recreo y La mañana: centrados (escenario + diálogo, con el mismo margen a cada lado) */
+.mate1__fotos, .mate2__foto { inset: 150px calc(var(--rail-w) + var(--gutter) + 460px) 56px calc(var(--rail-w) + var(--gutter)); }
+.ronda, .manana, .cq__talk { right: calc(var(--rail-w) + var(--gutter)); }
+.mate1__copy, .mate2__copy { top: 100px; justify-items: center; text-align: center; }
+
+/* --- i · Cierre: bastante más aire entre los elementos ------------------------------------------- */
+.cierre { padding-top: 168px; gap: var(--s-9); }
+.cierre__in { gap: var(--s-7); }
+.cierre__esferas { margin: var(--s-4) 0; }
+.cierre__ctx { margin-top: var(--s-6); }
+.cierre__q { margin-bottom: var(--s-4); }
+.cierre__pie { padding: var(--s-7) 0 var(--s-8); }
+
+/* --- 1 · Elementos gráficos de la narrativa (js: narrativa) ------------------------------------ */
+.tr--n { left: auto; top: auto; rotate: 0deg; animation: none; opacity: .62; }
+.tr--n > i { transform-origin: center; }
+@media (prefers-reduced-motion: reduce) { .tr--n { opacity: .45; } }
+
+/* --- 3 · Variedad entre secciones: el mismo sistema, distintos tonos ------------------------------ */
+.tono-acento { background:
+  radial-gradient(60% 46% at 50% 0%, color-mix(in srgb, var(--acc) 15%, transparent), transparent 72%),
+  radial-gradient(44% 36% at 50% 100%, color-mix(in srgb, var(--acc) 8%, transparent), transparent 72%); }
+.tono-noche { background: radial-gradient(70% 60% at 50% 40%, #2f2570, #1f1850 90%); }
+.tono-noche::after { content: ""; position: absolute; inset: 0; z-index: -2; pointer-events: none; opacity: .5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .95 0 0 0 0 .93 0 0 0 0 .83 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.mundo-v1.tono-noche { isolation: isolate; }
+.tono-glitch { background:
+  repeating-linear-gradient(to bottom, rgb(242 237 212 / .025) 0 1px, transparent 1px 4px),
+  radial-gradient(60% 50% at 50% 30%, rgb(237 67 128 / .12), transparent 70%), #2a1f5e; }
+.tono-red { background:
+  linear-gradient(rgb(60 197 242 / .07) 1px, transparent 1px) 0 0 / 48px 48px,
+  linear-gradient(90deg, rgb(60 197 242 / .07) 1px, transparent 1px) 0 0 / 48px 48px,
+  radial-gradient(60% 50% at 50% 50%, rgb(60 197 242 / .1), transparent 70%), #241c57; }
+/* La idea, en crema: la única sección clara, como un afiche */
+.tono-crema { background: var(--crema); color: var(--violeta);
+  --ink: var(--violeta); --ink-70: rgb(53 42 114 / .78); --ink-50: rgb(53 42 114 / .56); --ink-20: rgb(53 42 114 / .2); --ink-10: rgb(53 42 114 / .1); --ink-06: rgb(53 42 114 / .06); }
+.tono-crema .lema__w, .tono-crema .lead { color: var(--violeta); }
+.tono-crema .eyebrow { color: var(--violeta); }
+.tono-crema .lema__forma { filter: none; }
+#e6 { padding-bottom: 150px; }
+/* mundo de la llave · ajustes para que nada se toque en ningún ancho */
+.llave__panel { padding-top: 188px; }
+.door { top: 188px; }
+.llave__carril { top: 132px; bottom: auto; height: 24px; border-bottom: 0; }
+.llave__carril::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--ink-10); }
+.llave__panel--cajones { grid-template-columns: minmax(260px, 340px) minmax(0, 1fr) clamp(180px, 14vw, 250px); }
+.llave__panel--cajones .mesita { width: 100%; }
+.llave-dock { display: none !important; }
+.llave__panel--cerradura .cerradura--foto { width: min(100%, calc((100vh - 290px) * 1473 / 764)); max-height: none; }

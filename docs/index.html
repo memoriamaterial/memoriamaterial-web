@@ -120,7 +120,7 @@
     </section>
 
     <!-- ===================== 1b · LA IDEA (recuperada de la versión 1) ===================== -->
-    <section id="idea" class="v2-sec idea" data-rail="La idea" style="--acc:var(--fucsia)">
+    <section id="idea" class="v2-sec idea tono-crema" data-rail="La idea" style="--acc:var(--fucsia)">
       <div class="deco" aria-hidden="true"></div>
       <div class="lema__grid">
         <h2 class="lema__words" aria-label="Dale una nueva mirada a tu cotidianidad">
@@ -147,11 +147,6 @@
           <h2 class="title">Un lugar a oscuras, tres pantallas encendidas.</h2>
           <p class="body">El lugar está a oscuras, con ruido blanco. Tres computadoras encendidas con luz blanca y el proyector prendido. Cada participante tiene su estación con la experiencia en Unreal; un tótem y un camino de luces conectan lo que pasa en pantalla con el espacio físico.</p>
           <p class="aula__hint mono">Hacé clic en los puntos para conocer cada parte</p>
-          <div class="pp pp--voz pp--inline">
-              <p class="pp__lbl">Voz en off</p>
-              <div data-voice="bienvenida" data-acc="celeste" class="voice--compact pp__card"></div>
-              <button class="pp__leer" type="button" aria-expanded="false" data-leer>Leer</button>
-            </div>
         </div>
         <figure class="aula__map" aria-label="El espacio físico visto desde arriba">
           <svg class="aula-iso" viewBox="-330 -183 720 593" aria-hidden="true"><title id="aula-iso-t">El espacio físico: pantalla de proyección en la pared, el tótem con su camino de luces, el holograma y tres estaciones con las computadoras encendidas.</title><defs>
@@ -186,6 +181,7 @@
         <h3 data-title>Proyector</h3>
         <p>Abre la experiencia con el video de bienvenida: motion de texto y voz en off, con escenas cotidianas donde ciertos objetos se resaltan con color.</p>
         <p>Vuelve a encenderse antes de la Etapa 5 y al final, con el video de cierre.</p>
+        <div data-voice="bienvenida" data-acc="celeste" class="voice--compact pop__voz"></div>
       </template>
       <template data-pop="totem" data-eyebrow="Espacio físico · 2" data-acc="fucsia">
         <h3 data-title>Tótem</h3>
@@ -212,7 +208,7 @@
     </section>
 
     <!-- ===================== 3 · ETAPA 1 (plantilla de etapa) ===================== -->
-    <section id="e1" class="v2-sec etapa" data-rail="1 · Plasticidad sináptica" data-where="unreal" style="--acc:var(--amarillo)">
+    <section id="e1" class="v2-sec etapa tono-acento" data-rail="1 · Plasticidad sináptica" data-where="unreal" style="--acc:var(--amarillo)">
       <div class="deco" aria-hidden="true"></div>
       <header class="etapa__head">
         <p class="etapa__meta"><span class="etapa__n">Etapa 1</span><span class="plat"><svg aria-hidden="true"><use href="#i-pc"/></svg>Unreal</span></p>
@@ -276,7 +272,7 @@
     </section>
 
     <!-- ===================== 4 · ETAPA 2 ===================== -->
-    <section id="e2" class="v2-sec etapa" data-rail="2 · El mundo de los objetos" data-where="unreal" style="--acc:var(--fucsia)">
+    <section id="e2" class="v2-sec etapa tono-noche" data-rail="2 · El mundo de los objetos" data-where="unreal" style="--acc:var(--fucsia)">
       <div class="deco" aria-hidden="true"></div>
       <header class="etapa__head">
         <p class="etapa__meta"><span class="etapa__n">Etapa 2</span><span class="plat"><svg aria-hidden="true"><use href="#i-pc"/></svg>Unreal</span></p>
@@ -335,6 +331,7 @@
 
     <!-- ===================== 4b · ETAPA 2: LOS TRES MUNDOS (como en la versión 1: se avanza con el scroll) ===================== -->
     <section id="e2-llave" class="mundo-v1" data-rail="2 · Mundo de la llave" data-where="unreal" style="--acc:var(--amarillo)">
+      <div class="deco" aria-hidden="true"></div>
       <div class="llave" data-world="llave" style="--acc:var(--amarillo)">
         <div class="pin llave__pin">
           <div class="llave__hud mono" aria-hidden="true"><span>Mundo de la llave</span><span class="llave__doors"><i></i><i></i><i></i><i></i></span></div>
@@ -406,7 +403,8 @@
 
     </section>
 
-    <section id="e2-mate" class="mundo-v1" data-rail="2 · Mundo del mate" data-where="unreal" style="--acc:var(--fucsia)">
+    <section id="e2-mate" class="mundo-v1 tono-noche" data-rail="2 · Mundo del mate" data-where="unreal" style="--acc:var(--fucsia)">
+      <div class="deco" aria-hidden="true"></div>
       <div class="e2-swap" data-swap="mate">
         <div class="wrap e2-swap__in">
           <p class="eyebrow">De vuelta en la cúpula</p>
@@ -423,7 +421,6 @@
         <div class="pin mate1__pin">
           <div class="mate1__copy wrap">
             <p class="stage-num">Mundo del mate · Escenario 1</p>
-            <h3 class="title">El último recreo</h3>
           </div>
           <div class="mate1__fotos">
             <img class="mate1__foto" src="assets/img/escenarios/mate-1a.webp" width="1661" height="795" alt="Un gran charco con sillas flotando y caídas; en el centro, la única silla de pie y en color" loading="lazy" decoding="async">
@@ -446,7 +443,6 @@
           <figure class="mate2__foto"><img src="assets/img/escenarios/mate-2.webp" width="649" height="492" alt="Una pava sobre la hornalla en el centro de un espacio oscuro, rodeada de ventanas de luz de colores" loading="lazy" decoding="async"></figure>
           <div class="mate2__copy wrap">
             <p class="stage-num">Mundo del mate · Escenario 2</p>
-            <h3 class="title">La mañana</h3>
           </div>
           <ol class="manana" aria-label="Diálogo de la mañana">
             <li data-line><p class="onoma onoma--solo">pájaros · un bostezo · se abren las persianas</p></li>
@@ -461,13 +457,13 @@
             <li data-line data-door><p class="onoma onoma--solo">pasos · rechina una puerta</p></li>
             <li data-line data-voz="mateM2d"><p class="said said--r"><b>Voz 2</b>—Bueno, nos vemos a la noche.</p></li>
           </ol>
-          <p class="mate2__portazo" aria-hidden="true">¡PAM!</p>
         </div>
       </div>
 
     </section>
 
     <section id="e2-cuaderno" class="mundo-v1" data-rail="2 · Mundo del cuaderno" data-where="unreal" style="--acc:var(--celeste)">
+      <div class="deco" aria-hidden="true"></div>
       <div class="e2-swap" data-swap="cuaderno">
         <div class="wrap e2-swap__in">
           <p class="eyebrow">De vuelta en la cúpula</p>
@@ -541,7 +537,7 @@
     </section>
 
     <!-- ===================== 5 · ETAPA 3 ===================== -->
-    <section id="e3" class="v2-sec etapa" data-rail="3 · Una extensión del yo" data-where="unreal+fisico" style="--acc:var(--celeste)">
+    <section id="e3" class="v2-sec etapa tono-acento" data-rail="3 · Una extensión del yo" data-where="unreal+fisico" style="--acc:var(--celeste)">
       <div class="deco" aria-hidden="true"></div>
       <header class="etapa__head">
         <p class="etapa__meta"><span class="etapa__n">Etapa 3</span><span class="plat"><svg aria-hidden="true"><use href="#i-pc"/></svg>Unreal</span><span class="plat"><svg aria-hidden="true"><use href="#i-totem"/></svg>Tótem</span></p>
@@ -579,7 +575,7 @@
     </section>
 
     <!-- ===================== 6 · ETAPA 4 ===================== -->
-    <section id="e4" class="v2-sec etapa" data-rail="4 · Objetos perdidos" data-where="unreal+fisico" style="--acc:var(--fucsia)">
+    <section id="e4" class="v2-sec etapa tono-glitch" data-rail="4 · Objetos perdidos" data-where="unreal+fisico" style="--acc:var(--fucsia)">
       <div class="deco" aria-hidden="true"></div>
       <header class="etapa__head">
         <p class="etapa__meta"><span class="etapa__n">Etapa 4</span><span class="plat"><svg aria-hidden="true"><use href="#i-pc"/></svg>Unreal</span><span class="plat"><svg aria-hidden="true"><use href="#i-lugar"/></svg>Espacio físico</span></p>
@@ -657,7 +653,7 @@
     </section>
 
     <!-- ===================== 8 · ETAPA 6 ===================== -->
-    <section id="e6" class="v2-sec etapa" data-rail="6 · Búsqueda del significado" data-where="oculus+fisico" style="--acc:var(--celeste)">
+    <section id="e6" class="v2-sec etapa tono-red" data-rail="6 · Búsqueda del significado" data-where="oculus+fisico" style="--acc:var(--celeste)">
       <div class="deco" aria-hidden="true"></div>
       <header class="etapa__head">
         <p class="etapa__meta"><span class="etapa__n">Etapa 6</span><span class="plat"><svg aria-hidden="true"><use href="#i-oculus"/></svg>Oculus</span><span class="plat"><svg aria-hidden="true"><use href="#i-totem"/></svg>Tótem</span></p>
@@ -704,7 +700,7 @@
     </section>
 
     <!-- ===================== 9 · CIERRE ===================== -->
-    <section id="cierre" class="v2-sec cierre" data-rail="Cierre" data-where="fisico" style="--acc:var(--fucsia)">
+    <section id="cierre" class="v2-sec cierre tono-acento" data-rail="Cierre" data-where="fisico" style="--acc:var(--fucsia)">
       <div class="deco" aria-hidden="true"></div>
       <div class="cierre__in">
         <p class="etapa__meta"><span class="etapa__n">Cierre</span><span class="plat"><svg aria-hidden="true"><use href="#i-lugar"/></svg>Espacio físico</span><span class="plat"><svg aria-hidden="true"><use href="#i-totem"/></svg>Tótem</span></p>

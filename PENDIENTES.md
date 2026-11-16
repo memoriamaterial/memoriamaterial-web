@@ -108,8 +108,14 @@ yo los optimizo y los copio a `docs/assets/`.
   línea por línea en el mate y en el cuaderno, el pasillo de objetos en la E5) y cada audio suena en su lugar.
   Lo que en la v1 era juego (arrastrar la llave, abrir los cajones, "Sentate en la silla de color") ahora
   sucede solo al avanzar, y se sacaron sus instrucciones. Revisar si se quiere recuperar algo de eso.
-- [ ] **39. Voz de la bienvenida en "Antes de empezar".** La pantalla quedó como en la v1, pero se mantuvo el
-  pop-up de la voz del video de bienvenida debajo de la indicación, para no perder ese audio. Sacarlo si no va.
+- [ ] **39. Voz de la bienvenida.** "Antes de empezar" quedó como la captura de referencia (sin el pop-up de la
+  voz). La voz del video de bienvenida pasó a la ficha del Proyector, que es donde se proyecta ese video.
+- [ ] **40. Elementos gráficos con papel en la historia.** Las tres ondas (una por objeto) se conectan en la E1,
+  se pierden en la E4 y se juntan en la E6; la curva sube como la cúpula (E2 y cada vuelta a la cúpula); la
+  banda con dientes es la llave que avanza puerta por puerta; la banda con muesca se cierra como el pasillo
+  (E3); en el cierre se reencuentran las tres bandas. Revisar si se quiere sumar alguno en el mate y el cuaderno.
+- [ ] **41. Títulos que quedan de la v1.** "Llegó el día" (mundo de la llave) y "El pasillo de objetos" (E5)
+  vienen de la versión 1 y no de un material entregado: confirmar si van.
 - [ ] **37. Audio automático.** Las voces suenan solas al llegar a cada sección, pero recién después del
   primer clic, tecla o toque en la página: los navegadores no dejan sonar audio antes (el scroll no cuenta
   como gesto).
