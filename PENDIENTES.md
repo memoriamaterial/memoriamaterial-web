@@ -97,10 +97,8 @@ yo los optimizo y los copio a `docs/assets/`.
   dice el audio, queda así; para sacar "avanzar" habría que regrabar esa frase.
 - [ ] **33. Favicon con el logo reducido.** Sigue el favicon anterior: el archivo del logo reducido no llegó
   (ver #27).
-- [ ] **35. Frase de contexto del cierre (BORRADOR).** Antes de la última pregunta: "Esta última pregunta es
-  para vos, que hiciste el recorrido: queremos saber qué hay detrás del objeto que elegiste, porque ahí
-  empieza la relectura de lo cotidiano." Propuesta, a confirmar o reescribir (en el HTML está marcada con
-  `data-borrador`).
+- [x] **35. Frase de contexto del cierre.** Reemplazada por el final de la versión 1 (frase, de dónde salió la
+  experiencia y la devolución con la pregunta).
 - [ ] **36. "aula" que queda a propósito.** La voz del mundo del mate dice "…en marzo en el aula" (habla de un
   aula de la escuela): el subtítulo y el texto de "Leer" la conservan porque tienen que decir lo que dice el
   audio. En todo lo demás, "aula" pasó a "espacio físico".
@@ -116,6 +114,25 @@ yo los optimizo y los copio a `docs/assets/`.
   (E3); en el cierre se reencuentran las tres bandas. Revisar si se quiere sumar alguno en el mate y el cuaderno.
 - [ ] **41. Títulos que quedan de la v1.** "Llegó el día" (mundo de la llave) y "El pasillo de objetos" (E5)
   vienen de la versión 1 y no de un material entregado: confirmar si van.
+- [ ] **42. Explicaciones antes de cada etapa (BORRADOR).** Las de los mundos y la de la Etapa 4 son las que
+  pasaste. Las otras las escribí con lo que ya dice la web; revisalas:
+  - Etapa 1: "Los asistentes entran a Unreal, a un desierto con una llave, un mate y un cuaderno gigantes, y
+    conectan cada esfera que flota con el objeto al que pertenece."
+  - Etapa 2: "Los asistentes entran en cada objeto, uno por uno, y recorren lo que ese objeto vio, escuchó y vivió."
+  - Etapa 3: "Los asistentes recorren un pasillo, piensan en un objeto que llevan encima, salen de Unreal y lo
+    dejan en el tótem."
+  - Etapa 5: "Los asistentes vuelven a su estación y recorren un pasillo lleno de los objetos que parecían
+    perdidos, hasta encontrar los Oculus."
+  - Etapa 6: "Los asistentes se ponen los Oculus, buscan tres esferas que brillan entre los objetos y las
+    depositan en un tótem."
+  - Cierre: "Los asistentes vuelven al tótem, reciben su objeto dentro de una esfera y ven el video final en el
+    proyector."
+- [ ] **43. Cierre · por qué la experiencia es así y de dónde salió.** El recuadro está vacío para completar
+  (en el HTML, `.origen__txt` con `data-pendiente`), con su foto pendiente al lado.
+- [ ] **44. Textos que vuelven de la versión 1.** Vuelven como estaban: "Los mundos de la ausencia" (y la
+  descripción de cada uno), "Donde estaban los objetos, ahora solo hay humo", "De vuelta a la estación" y sus
+  tres pasos, y en el cierre "En lo cotidiano hay cosas que pueden cobrar otro significado." y "Al devolver los
+  objetos, conversamos".
 - [ ] **37. Audio automático.** Las voces suenan solas al llegar a cada sección, pero recién después del
   primer clic, tecla o toque en la página: los navegadores no dejan sonar audio antes (el scroll no cuenta
   como gesto).

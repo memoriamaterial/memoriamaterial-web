@@ -3,6 +3,7 @@
 // pasar el mouse. Las animaciones muestran la mecánica: el visitante la mira, no la juega.
 import { audio, VOICES } from './audio.js';
 import { mundosV1 } from './v2-mundos.js';
+import { relatos } from './v2-relatos.js';
 
 const { gsap, ScrollToPlugin, DrawSVGPlugin, ScrollTrigger } = window;
 gsap.registerPlugin(ScrollToPlugin, DrawSVGPlugin, ScrollTrigger);
@@ -216,8 +217,9 @@ function riel() {
   const links = $$('a', ol);
   const update = () => {
     const y = innerHeight * 0.55;
-    let i = secs.findIndex((s) => { const r = s.getBoundingClientRect(); return r.top <= y && r.bottom > y; });
-    if (i < 0) i = secs.length - 1;
+    // la última sección marcada en el riel que ya empezó (las explicaciones y los bloques sin marca cuentan como su etapa)
+    let i = 0;
+    secs.forEach((s, k) => { if (s.getBoundingClientRect().top <= y) i = k; });
     links.forEach((l, k) => { l.classList.toggle('is-on', k === i); l.classList.toggle('is-past', k < i); });
   };
   addEventListener('scroll', update, { passive: true });
@@ -385,9 +387,9 @@ function narrativa() {
   // Cierre · el reencuentro: llave, mate y cuaderno (las tres bandas) entran desde los costados y se encuentran
   const ci = $('#cierre');
   if (ci) {
-    const bandas = [forma(capa(ci), 'elemento-banda-dientes', 'amarillo', 220, 'left:-120px;top:30%', true),
-      forma(capa(ci), 'elemento-banda-curva', 'fucsia', 260, 'right:-150px;top:46%'),
-      forma(capa(ci), 'elemento-banda-muesca', 'celeste', 220, 'left:-120px;top:62%', true)];
+    const bandas = [forma(capa(ci), 'elemento-banda-dientes', 'amarillo', 220, 'left:-120px;top:150px', true),
+      forma(capa(ci), 'elemento-banda-curva', 'fucsia', 260, 'right:-150px;top:300px'),
+      forma(capa(ci), 'elemento-banda-muesca', 'celeste', 220, 'left:-120px;top:450px', true)];
     alScroll(ci, (tl) => bandas.forEach((b, k) => tl.fromTo(b, { x: (k === 1 ? 1 : -1) * 240, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, ease: 'power3.out' }, 0.1 + k * 0.1)), { start: 'top bottom', end: 'center center' });
   }
 }
@@ -630,8 +632,12 @@ idea();
 espacio();
 etapa1();
 etapa2();
+relatos();
 mundosV1();
 narrativa();
+// las secuencias fijas se crearon en distinto orden: se ordenan según la página y se recalculan
+ScrollTrigger.sort();
+ScrollTrigger.refresh();
 etapa3();
 etapa4();
 etapa6();
