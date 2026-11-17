@@ -86,11 +86,6 @@
 .vescena figcaption { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-50); text-align: left; }
 /* La voz del video: tarjeta compacta debajo del proyector, con solo la frase que suena
    (antes de escuchar, la primera), para no quitarle lugar a la pantalla */
-.video__pin:has(.video__voz) { grid-template-rows: minmax(0, 1fr) auto auto; }
-.video__voz { width: min(34rem, 100%); }
-.video__voz .voice__text { font-size: var(--t-sm); }
-.video__voz.has-played .cue:not(.is-on) { display: none; }
-.video__voz:not(.has-played) .cue:not(:first-child) { display: none; }
 .video__pin { padding-top: 96px; }
 .vescena .pend { top: 6px; left: 6px; font-size: 8px; z-index: 2; }
 
@@ -143,10 +138,7 @@
 .eco__lines { position: relative; width: min(1100px, calc(100% - 2 * var(--gutter))); height: 60%; }
 .eco__lines p { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; font-weight: 700; font-size: clamp(2rem, 1rem + 4.4vw, 5.2rem); line-height: 1; letter-spacing: -.03em; text-wrap: balance; opacity: 0; }
 .eco__lines p.is-echo { color: transparent; -webkit-text-stroke: 1px var(--fucsia); }
-.eco__voice { position: absolute; left: var(--gutter); bottom: calc(var(--s-6) + var(--bar-h) + env(safe-area-inset-bottom)); width: min(460px, calc(100% - 2 * var(--gutter))); }
 @media (max-width: 899px) {
-  .eco__voice .voice.has-played .cue:not(.is-on) { display: none; }
-  .eco__voice .voice:not(.has-played) .cue:not(:first-child) { display: none; }
 }
 
 /* --- Humo ------------------------------------------------------------------ */

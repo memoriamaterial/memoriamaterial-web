@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="css/v2.css">
   <link rel="stylesheet" href="css/v2-relatos.css">
   <link rel="stylesheet" href="css/v2-narrativa.css">
+  <link rel="stylesheet" href="css/v2-reproductor.css">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body class="v2">
@@ -140,7 +141,7 @@
     </section>
 
     <!-- ===================== 1c · VIDEO DE BIENVENIDA (de la versión 1) ===================== -->
-    <section id="bienvenida" class="mundo-v1 video-sec" data-rail="Bienvenida" data-where="fisico" style="--acc:var(--fucsia)">
+    <section id="bienvenida" class="mundo-v1 video-sec" data-rail="Bienvenida" data-where="fisico" style="--acc:var(--fucsia)" data-voces="bienvenida" data-voces-titulo="Video de bienvenida">
       <div class="video" data-video>
         <div class="pin video__pin">
           <div class="video__frame">
@@ -209,7 +210,6 @@
 
             <div class="video__progress" aria-hidden="true"><i></i></div>
           </div>
-          <div data-voice="bienvenida" data-acc="fucsia" class="voice--compact video__voz"></div>
         </div>
       </div>
 
@@ -282,7 +282,7 @@
       </div>
     </section>
 
-    <section id="e1" class="v2-sec etapa tono-acento" data-where="unreal" style="--acc:var(--amarillo)">
+    <section id="e1" class="v2-sec etapa tono-acento" data-where="unreal" style="--acc:var(--amarillo)" data-voces="e1" data-voces-titulo="Etapa 1 · Plasticidad sináptica">
       <div class="deco" aria-hidden="true"></div>
       <header class="etapa__head">
         <p class="etapa__meta"><span class="etapa__n">Etapa 1</span><span class="plat"><svg aria-hidden="true"><use href="#i-pc"/></svg>Unreal</span></p>
@@ -291,11 +291,6 @@
       </header>
 
       <div class="etapa__grid">
-        <aside class="pp pp--voz" aria-label="Voz en off">
-          <p class="pp__lbl"><svg aria-hidden="true"><use href="#i-cerebro"/></svg>Voz en off</p>
-          <div data-voice="e1" data-acc="amarillo" class="voice--compact pp__card"></div>
-          <button class="pp__leer" type="button" aria-expanded="false" data-leer>Leer</button>
-        </aside>
 
         <figure class="escena" data-escena="e1">
           <img class="escena__foto" src="assets/img/escenarios/e1.webp" width="1765" height="717" alt="El escenario de la Etapa 1 en Unreal: un desierto con la llave, el cuaderno y el mate gigantes, tres esferas y una plataforma en el centro">
@@ -354,18 +349,13 @@
       </div>
     </section>
 
-    <section id="e2" class="v2-sec etapa tono-noche" data-where="unreal" style="--acc:var(--fucsia)">
+    <section id="e2" class="v2-sec etapa tono-noche" data-where="unreal" style="--acc:var(--fucsia)" data-voces="e2" data-voces-titulo="Etapa 2 · El mundo de los objetos">
       <div class="deco" aria-hidden="true"></div>
       <header class="etapa__head">
         <p class="etapa__meta"><span class="etapa__n">Etapa 2</span><span class="plat"><svg aria-hidden="true"><use href="#i-pc"/></svg>Unreal</span></p>
         <h2 class="v2-title">El mundo de los objetos</h2>
       </header>
       <div class="etapa__grid etapa__grid--sin-fondo">
-        <aside class="pp pp--voz" aria-label="Voz en off">
-          <p class="pp__lbl"><svg aria-hidden="true"><use href="#i-cerebro"/></svg>Voz en off</p>
-          <div data-voice="e2" data-acc="fucsia" class="voice--compact pp__card"></div>
-          <button class="pp__leer" type="button" aria-expanded="false" data-leer>Leer</button>
-        </aside>
         <figure class="escena escena--cupula" data-escena="e2">
           <img class="escena__foto" src="assets/img/escenarios/e2.webp" width="1829" height="793" alt="El escenario de la Etapa 2 en Unreal: la llave, el mate y el cuaderno gigantes" loading="lazy">
           <svg class="escena__anim" viewBox="0 0 1000 433.6" aria-hidden="true">
@@ -411,7 +401,7 @@
     </section>
 
     <!-- ===================== 4b · ETAPA 2: LOS TRES MUNDOS (como en la versión 1: se avanza con el scroll) ===================== -->
-    <section id="e2-llave" class="mundo-v1" data-rail="2 · Mundo de la llave" data-where="unreal" style="--acc:var(--amarillo)">
+    <section id="e2-llave" class="mundo-v1" data-rail="2 · Mundo de la llave" data-where="unreal" style="--acc:var(--amarillo)" data-voces="llave1,llave2,llave3,llave4,llave5,llave6,llave7" data-voces-titulo="Mundo de la llave">
       <div class="deco" aria-hidden="true"></div>
       <div class="llave" data-world="llave" style="--acc:var(--amarillo)">
         <div class="pin llave__pin">
@@ -428,7 +418,7 @@
 
             <article class="llave__panel llave__panel--cajas">
               <div class="llave__voices llave__voices--cajas">
-                <div data-voice="llave1" data-acc="amarillo" data-autoplay="off" class="voice--compact"></div>
+                <p class="said llave__frase">—Llegó el día, por fin me voy a mudar.</p>
               </div>
               <figure class="llave__foto"><img src="assets/img/escenarios/llave-1.webp" width="1805" height="784" alt="Cajas de mudanza de todos los tamaños flotando entre la primera y la segunda puerta" loading="lazy" decoding="async"></figure>
               <p class="llave__caption mono">Cajas de mudanza de todos los tamaños</p>
@@ -437,8 +427,8 @@
 
             <article class="llave__panel llave__panel--regalos">
               <div class="llave__voices">
-                <div data-voice="llave2" data-acc="amarillo" data-autoplay="off" class="voice--compact"></div>
-                <div data-voice="llave3" data-acc="amarillo" data-autoplay="off" class="voice--compact"></div>
+                <p class="said llave__frase">—Te voy a extrañar, hijo.</p>
+                <p class="said llave__frase">—Te regalo esto, espero que te guste.</p>
               </div>
               <figure class="llave__foto"><img src="assets/img/escenarios/llave-2.webp" width="1839" height="700" alt="Regalos para quien se muda: cubiertos, plantas, cuadros y una alfombra que dice Welcome" loading="lazy" decoding="async"></figure>
               <p class="llave__caption mono">Lo que se regala a quien se muda</p>
@@ -448,10 +438,10 @@
             <article class="llave__panel llave__panel--cajones">
               <figure class="llave__foto"><img src="assets/img/escenarios/llave-3.webp" width="1518" height="621" alt="Mesitas de luz flotando con los cajones abiertos, y al fondo la cuarta puerta" loading="lazy" decoding="async"></figure>
               <div class="llave__copy">
-                <div data-voice="llave4" data-acc="amarillo" data-autoplay="off" class="voice--compact"></div>
-                <div data-voice="llave5" data-acc="amarillo" data-autoplay="off" class="voice--compact"></div>
-                <div data-voice="llave6" data-acc="amarillo" data-autoplay="off" class="voice--compact"></div>
-                <div data-found hidden><div data-voice="llave7" data-acc="amarillo" data-autoplay="off" class="voice--compact"></div></div>
+                <p class="said llave__frase">—¿En dónde quedaron las llaves?</p>
+                <p class="said llave__frase">—Me falta lo más importante.</p>
+                <p class="said llave__frase">—Creo que la guardaste en la mesita de luz.</p>
+                <div data-found hidden><p class="said llave__frase">—¡Sí! —¡Acá están!</p></div>
               </div>
               <div class="mesita" aria-hidden="true">
                 <span class="cajon" data-cajon="0"><span class="cajon__front"></span><span class="cajon__in mono">vacío</span></span>
@@ -510,7 +500,7 @@
           <button class="pp__btn" type="button" data-seq="pajaros,pavaHirviendo:1500,cebando2:7000,mate4:9200"><i></i>Escuchar</button>
         </div>
       </div>
-      <div class="narrativa" data-narrativa data-zoom="50% 34%" style="--ar:649 / 492">
+      <div class="narrativa" data-narrativa data-zoom="50% 34%" style="--ar:649 / 492" data-voces="mateM2a,mateM2b,mateM2c,mateM2d" data-voces-titulo="Mundo del mate · La mañana">
         <div class="narrativa__media"><figure class="narrativa__marco">
           <div class="narrativa__lienzo">
             <img data-img="0" data-contain src="assets/img/escenarios/mate-2.webp" width="649" height="492" alt="Una pava sobre la hornalla en el centro de un espacio oscuro, rodeada de ventanas de luz de colores" loading="lazy">
@@ -521,13 +511,10 @@
           <p class="narrativa__bloque" data-img="0">Una familia arranca el día. Se saludan, se prende la radio y el primer mate pasa de mano en mano.</p>
           <p class="narrativa__bloque" data-img="0">Antes de irse a trabajar, uno de ellos toma su mate, se despide y sale por la puerta.</p>
         </div>
-        <div class="narrativa__voz">
-          <button class="pp__btn narrativa__play" type="button" data-seqv="mateM2a,mateM2b,mateM2c,mateM2d"><i></i>Escuchar las voces</button>
-        </div>
       </div>
 
       <!-- la ronda -->
-      <div class="narrativa" data-narrativa style="--ar:16 / 9">
+      <div class="narrativa" data-narrativa style="--ar:16 / 9" data-voces="mateR3a,mateR3b" data-voces-titulo="Mundo del mate · La ronda">
         <div class="narrativa__media"><figure class="narrativa__marco">
           <div class="narrativa__lienzo">
             <img data-img="0" src="assets/img/escenarios/mate-1a.webp" width="1661" height="795" alt="Un gran charco con sillas flotando y caídas; en el centro, la única silla de pie y en color" loading="lazy">
@@ -540,9 +527,6 @@
           <p class="narrativa__bloque" data-img="1">Se escucha la ronda de amigos debatiendo y reflexionando el momento.</p>
           <p class="narrativa__bloque" data-img="1">Cada vez que se escucha una voz, una silla distinta emite luz.</p>
           <p class="narrativa__bloque" data-img="1">Una vez termina la ronda, en el centro se revela un agujero que marca el avance al siguiente mundo.</p>
-        </div>
-        <div class="narrativa__voz">
-          <button class="pp__btn narrativa__play" type="button" data-seqv="mateR3a,mateR3b"><i></i>Escuchar las voces</button>
         </div>
       </div>
     </section>
@@ -565,7 +549,7 @@
         <h3 class="title">Mundo del cuaderno</h3>
         <p>Los asistentes entran al mundo del cuaderno y recorren dos cuadernos distintos: uno que se usó para la construcción de una casa propia y otro que muestra una receta que una abuela hace junto a su nieto.</p>
       </div>
-      <div class="narrativa" data-narrativa data-zoom="60% 45%" style="--ar:1580 / 950">
+      <div class="narrativa" data-narrativa data-zoom="60% 45%" style="--ar:1580 / 950" data-voces="cqL2a,cqL2b,cqL2c,cqR2a,cqR2b,cqR2c" data-voces-titulo="Mundo del cuaderno">
         <div class="narrativa__media"><figure class="narrativa__marco">
           <div class="narrativa__lienzo">
             <img data-img="0" src="assets/img/maqueta-cuaderno.webp" width="1580" height="950" alt="Maqueta anterior del mundo del cuaderno: cuadernos y hojas flotantes" loading="lazy">
@@ -578,15 +562,12 @@
           <p class="narrativa__bloque" data-img="0">El escenario cambia de color y aparece el cuaderno de recetas: una abuela le va dictando a su nieto una torta, paso a paso.</p>
           <p class="narrativa__bloque" data-img="0">El último cuaderno se abre de par en par: en sus hojas está dibujada la salida al siguiente mundo.</p>
         </div>
-        <div class="narrativa__voz">
-          <button class="pp__btn narrativa__play" type="button" data-seqv="cqL2a,cqL2b,cqL2c,cqR2a,cqR2b,cqR2c"><i></i>Escuchar las voces</button>
-        </div>
       </div>
     </section>
 
     <!-- ===================== 5 · ETAPA 3 ===================== -->
     <!-- explicación antes de la etapa (con la separación de trama) -->
-        <section id="e3" class="v2-sec etapa etapa--narr tono-acento" data-rail="3 · Una extensión del yo" data-where="unreal+fisico" style="--acc:var(--celeste)">
+        <section id="e3" class="v2-sec etapa etapa--narr tono-acento" data-rail="3 · Una extensión del yo" data-where="unreal+fisico" style="--acc:var(--celeste)" data-voces="e3a,e3b" data-voces-titulo="Etapa 3 · Una extensión del yo">
       <div class="deco" aria-hidden="true"></div>
       <header class="etapa__head">
         <p class="etapa__meta"><span class="etapa__n">Etapa 3</span><span class="plat"><svg aria-hidden="true"><use href="#i-pc"/></svg>Unreal</span><span class="plat"><svg aria-hidden="true"><use href="#i-totem"/></svg>Tótem</span></p>
@@ -607,15 +588,12 @@
           <p class="narrativa__bloque" data-img="1">Una vez que lo hacen, un holograma muestra un ícono que deben elegir en la puerta de Unreal.</p>
           <p class="narrativa__bloque" data-img="0">Al volver a Unreal e indicar el ícono, la puerta se abre con un destello.</p>
         </div>
-        <div class="narrativa__voz">
-          <button class="pp__btn narrativa__play" type="button" data-seqv="e3a,e3b"><i></i>Escuchar la voz</button>
-        </div>
       </div>
     </section>
 
     <!-- ===================== 6 · ETAPA 4 ===================== -->
     <!-- explicación antes de la etapa (con la separación de trama) -->
-        <section id="e4" class="v2-sec etapa etapa--narr tono-glitch" data-rail="4 · Objetos perdidos" data-where="unreal+fisico" style="--acc:var(--fucsia)">
+        <section id="e4" class="v2-sec etapa etapa--narr tono-glitch" data-rail="4 · Objetos perdidos" data-where="unreal+fisico" style="--acc:var(--fucsia)" data-voces="e4a" data-voces-titulo="Etapa 4 · Objetos perdidos">
       <div class="deco" aria-hidden="true"></div>
       <header class="etapa__head">
         <p class="etapa__meta"><span class="etapa__n">Etapa 4</span><span class="plat"><svg aria-hidden="true"><use href="#i-pc"/></svg>Unreal</span><span class="plat"><svg aria-hidden="true"><use href="#i-lugar"/></svg>Espacio físico</span></p>
@@ -637,9 +615,6 @@
           <p class="narrativa__bloque" data-img="1">Quedan siluetas y sombras, que conservan "parte de ellos".</p>
           <p class="narrativa__bloque" data-img="1">Pueden acercarse y escuchar resabios de los objetos.</p>
           <p class="narrativa__bloque" data-img="2">La cúpula estará abierta: al entrar en ella, serán transportados a los mundos de los objetos nuevamente, pero en una versión alterna, donde se muestra qué ocurre sin ellos.</p>
-        </div>
-        <div class="narrativa__voz">
-          <div data-voice="e4a" data-acc="fucsia" class="voice--compact"></div>
         </div>
       </div>
     </section>
@@ -702,7 +677,7 @@
       </div>
     </section>
 
-    <section id="e4-eco" class="mundo-v1" data-where="unreal" style="--acc:var(--fucsia)">
+    <section id="e4-eco" class="mundo-v1" data-where="unreal" style="--acc:var(--fucsia)" data-voces="e4b1,e4b2,e4b3,e4b4,e4b5" data-voces-titulo="Etapa 4 · La voz con eco">
       <div class="eco" data-eco>
         <div class="pin eco__pin">
           <div class="eco__lines" aria-live="polite">
@@ -712,7 +687,6 @@
             <p data-eco-line>Sabemos que ahora querés recuperarlo, y vos sabés a dónde tenés que ir a buscar.</p>
             <p data-eco-line>Te invitamos a que lo hagas.</p>
           </div>
-          <div class="eco__voz"><button class="pp__btn narrativa__play" type="button" data-seqv="e4b1,e4b2,e4b3,e4b4,e4b5"><i></i>Escuchar la voz</button></div>
         </div>
       </div>
 
@@ -736,7 +710,7 @@
       </div>
     </section>
 
-    <section id="e4-video" class="mundo-v1 video-sec" data-where="fisico" style="--acc:var(--fucsia)">
+    <section id="e4-video" class="mundo-v1 video-sec" data-where="fisico" style="--acc:var(--fucsia)" data-voces="e4video" data-voces-titulo="Etapa 4 · Video del proyector">
       <div class="video video--e5" data-video data-total="16">
         <div class="pin video__pin">
           <div class="video__frame">
@@ -747,7 +721,6 @@
             <div class="video__scene" data-scene><p class="video__big" data-vsplit><span class="hl">Volvé a buscarlo.</span></p></div>
             <div class="video__progress" aria-hidden="true"><i></i></div>
           </div>
-          <div data-voice="e4video" data-acc="fucsia" class="voice--compact video__voz"></div>
         </div>
       </div>
     </section>
@@ -761,7 +734,7 @@
     </section>
 
     <!-- ===================== 7 · ETAPA 5 (como en la versión 1: el pasillo de objetos) ===================== -->
-    <section id="e5" class="mundo-v1 e5-hall" data-where="fisico>unreal" style="--acc:var(--amarillo)">
+    <section id="e5" class="mundo-v1 e5-hall" data-where="fisico>unreal" style="--acc:var(--amarillo)" data-voces="e5" data-voces-titulo="Etapa 5 · Obsesión con la pérdida">
       <div class="hall" data-hall>
         <div class="pin hall__pin">
           <div class="hall__space" aria-hidden="true">
@@ -784,7 +757,6 @@
           <div class="hall__desc">
             <p>De vuelta en Unreal, los asistentes recorren un pasillo recto entre pilas de los objetos que parecían perdidos, ahora repetidos por todos lados: ya no pueden dejar de verlos.</p>
             <p>Al final del pasillo, sobre una pila más chica, los esperan los Oculus.</p>
-            <div data-voice="e5" data-acc="amarillo" class="voice--compact"></div>
           </div>
         </div>
       </div>
@@ -799,7 +771,7 @@
       </div>
     </section>
 
-    <section id="e6" class="v2-sec etapa etapa--narr tono-red" data-where="oculus+fisico" style="--acc:var(--celeste)">
+    <section id="e6" class="v2-sec etapa etapa--narr tono-red" data-where="oculus+fisico" style="--acc:var(--celeste)" data-voces="e6" data-voces-titulo="Etapa 6 · Búsqueda del significado">
       <div class="deco" aria-hidden="true"></div>
       <header class="etapa__head">
         <p class="etapa__meta"><span class="etapa__n">Etapa 6</span><span class="plat"><svg aria-hidden="true"><use href="#i-oculus"/></svg>Oculus</span><span class="plat"><svg aria-hidden="true"><use href="#i-totem"/></svg>Tótem</span></p>
@@ -839,9 +811,6 @@
           <p class="narrativa__bloque" data-img="0">Al hacerlo, la voz les dice que se quiten los oculus y vayan al tótem físico.</p>
           <p class="narrativa__bloque" data-img="0">Una vez ahí, encontrarán sus objetos dentro de esferas similares a las que depositaron en el mundo digital.</p>
         </div>
-        <div class="narrativa__voz">
-          <div data-voice="e6" data-acc="celeste" class="voice--compact"></div>
-        </div>
       </div>
     </section>
 
@@ -854,7 +823,7 @@
     </section>
 
     <!-- ===================== 8b · VIDEO FINAL (de la versión 1) ===================== -->
-    <section id="video-final" class="mundo-v1 video-sec" data-where="fisico" style="--acc:var(--fucsia)">
+    <section id="video-final" class="mundo-v1 video-sec" data-where="fisico" style="--acc:var(--fucsia)" data-voces="cierre" data-voces-titulo="Video final">
       <div class="video video--final" data-video data-total="14">
         <div class="pin video__pin">
           <div class="video__frame">
@@ -863,7 +832,6 @@
             <div class="video__scene" data-scene><p class="video__mid" data-vsplit>Esperamos haberte hecho notar que en lo cotidiano, hay cosas que pueden cobrar <span class="hl">otro significado</span>.</p></div>
             <div class="video__progress" aria-hidden="true"><i></i></div>
           </div>
-          <div data-voice="cierre" data-acc="fucsia" class="voice--compact video__voz"></div>
         </div>
       </div>
 

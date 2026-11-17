@@ -133,10 +133,8 @@ yo los optimizo y los copio a `docs/assets/`.
   descripción de cada uno), "Donde estaban los objetos, ahora solo hay humo", "De vuelta a la estación" y sus
   tres pasos, y en el cierre "En lo cotidiano hay cosas que pueden cobrar otro significado." y "Al devolver los
   objetos, conversamos".
-- [ ] **37. Audio automático.** Las voces suenan solas al llegar a cada sección, pero recién después del
-  primer clic, tecla o toque en la página: los navegadores no dejan sonar audio antes (el scroll no cuenta
-  como gesto).
-
+- [x] **37. Audio.** Las voces suenan solo con play, desde el reproductor fijo al pie de cada etapa o mundo;
+  los subtítulos aparecen solo con el botón «Subtítulos». El primer gesto en la página activa el ruido blanco.
 ## Correcciones (correcciones/CORRECCIONES.md) que esperan material
 
 - [x] **26. C-05 · Subtítulos literales.** Reemplazado por el punto 29.6 (subtítulos de las voces nuevas).

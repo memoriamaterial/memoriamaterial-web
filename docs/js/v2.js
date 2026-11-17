@@ -5,6 +5,10 @@ import { audio, VOICES } from './audio.js';
 import { mundosV1 } from './v2-mundos.js';
 import { relatos } from './v2-relatos.js';
 import { narrativas } from './v2-narrativa.js';
+import { reproductor } from './v2-reproductor.js';
+
+// ruido blanco: un 20 % más que el valor anterior (0.0072)
+audio.noiseLevel = 0.00864;
 
 const { gsap, ScrollToPlugin, DrawSVGPlugin, ScrollTrigger } = window;
 gsap.registerPlugin(ScrollToPlugin, DrawSVGPlugin, ScrollTrigger);
@@ -23,41 +27,12 @@ function sonido() {
   });
 }
 
-// --- Pop-ups de audio --------------------------------------------------------------
+// --- Lo que se escucha de fondo (sonidos, solo con play) -------------------------------------------
 function popups() {
-  audio.mountSubbar();
-  $$('[data-voice]').forEach((card) => { audio.registerCard(card); audio.observeCard(card); });
-  // "Leer": muestra el texto de la voz (los subtítulos, que siguen al audio).
-  // El texto se abre DENTRO del pop-up sin cambiar el alto de la sección: en las etapas, el pop-up crece
-  // como mucho hasta el alto de su fila (y si no entra, scrollea por dentro); en los pop-ups sueltos,
-  // el texto se despliega encima de lo que sigue. Así la página no salta.
-  $$('[data-leer]').forEach((b) => b.addEventListener('click', (e) => {
-    e.preventDefault();
-    const pp = b.closest('.pp');
-    const on = !pp.classList.contains('is-leyendo');
-    const fila = pp.closest('.etapa__grid');
-    const altoFila = fila?.getBoundingClientRect().height;
-    if (on && fila) {
-      // lo que queda libre en la fila, repartido entre los textos del pop-up (cada uno scrollea por dentro)
-      const textos = $$('.voice__text, .pp__txt', pp).length || 1;
-      const libre = altoFila - pp.getBoundingClientRect().height - 10 * textos;
-      pp.style.setProperty('--leer-max', `${Math.max(textos > 1 ? 64 : 96, Math.floor(libre / textos))}px`);
-    }
-    pp.style.marginBlock = ''; pp.style.alignSelf = '';
-    pp.classList.toggle('is-leyendo', on);
-    // si aun así no entra (varias voces), el pop-up se agranda por encima de lo que lo rodea
-    // con márgenes negativos: la fila conserva su alto y nada se corre
-    if (on && fila) {
-      const sobra = pp.getBoundingClientRect().height - altoFila;
-      if (sobra > 0) { pp.style.marginBlock = `0 ${-sobra}px`; pp.style.alignSelf = 'start'; }
-    }
-    b.setAttribute('aria-expanded', String(on));
-    b.textContent = on ? 'Ocultar texto' : 'Leer';
-  }));
   // lo que se escucha de fondo: sonidos (y voces) en orden, "id,id:ms desde el inicio". Tocar de nuevo detiene.
   const parar = (b) => {
     (b._timers || []).forEach(clearTimeout); b._timers = [];
-    const ids = (b.dataset.seq || b.dataset.seqv).split(',').map((x) => x.split(':')[0]);
+    const ids = b.dataset.seq.split(',').map((x) => x.split(':')[0]);
     audio.stopSfx(ids.filter((id) => VOICES[id]?.sfx));
     if (ids.some((id) => audio.current?.id === id)) { audio.queue = []; audio.pause(); }
     b.classList.remove('is-playing');
@@ -70,20 +45,6 @@ function popups() {
     const fin = Math.max(...partes.map(({ id, ms }) => ms + VOICES[id].cues.at(-1)[1] * 1000));
     b.classList.add('is-playing');
     b._timers.push(setTimeout(() => b.classList.remove('is-playing'), fin));
-  }));
-  // las voces de un mundo, una detrás de otra (cada una espera a que termine la anterior)
-  $$('[data-seqv]').forEach((b) => b.addEventListener('click', () => {
-    if (b.classList.contains('is-playing')) return parar(b);
-    if (!audio.enabled) audio.enable();
-    // si sonaba otra voz u otro grupo de voces, se corta
-    $$('[data-seqv].is-playing').forEach(parar);
-    audio.queue = [];
-    const ids = b.dataset.seqv.split(',');
-    audio.play(ids[0]);
-    ids.slice(1).forEach((id) => audio.autoplay(id));
-    const fin = ids.reduce((t, id) => t + VOICES[id].cues.at(-1)[1] * 1000 + 250, 0);
-    b.classList.add('is-playing');
-    b._timers = [setTimeout(() => b.classList.remove('is-playing'), fin)];
   }));
   // el ruido blanco del espacio físico (el mismo que prende el botón del encabezado)
   const ruidos = $$('[data-ruido]');
@@ -207,7 +168,6 @@ function espacio() {
     $('[data-pop-eyebrow]', dlg).textContent = tpl.dataset.eyebrow || '';
     const body = $('[data-pop-body]', dlg);
     body.replaceChildren(frag);
-    $$('[data-voice]', body).forEach((card) => audio.registerCard(card));
     dlg.style.setProperty('--acc', `var(--${tpl.dataset.acc || 'crema'})`);
     dlg.showModal();
     if (!reduce) {
@@ -590,6 +550,7 @@ espacio();
 etapa1();
 etapa2();
 relatos();
+reproductor();
 narrativas();
 mundosV1();
 narrativa();

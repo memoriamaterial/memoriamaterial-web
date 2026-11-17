@@ -111,13 +111,6 @@ a.btn { text-decoration: none; }
 .pp__lbl { margin: 0; display: flex; align-items: center; gap: 8px; font-family: var(--f-mono); font-size: 11px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--acc); }
 .pp__lbl svg { width: 16px; height: 16px; }
 /* la tarjeta de la voz: play y progreso; el texto se abre con "Leer" */
-.pp__card.voice { padding: 8px; border: 0; background: none; }
-.pp__card .voice__text { display: none; }
-.pp.is-leyendo .pp__card .voice__text { display: block; font-size: var(--t-sm); }
-.pp__txt { display: none; margin: 0; padding: 0 6px 0 18px; font-size: var(--t-sm); line-height: 1.45; color: var(--ink-70); }
-.pp.is-leyendo .pp__txt { display: grid; gap: 4px; }
-.pp__leer { justify-self: start; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--ink-20); font-family: var(--f-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-70); }
-.pp__leer:hover, .pp__leer[aria-expanded="true"] { border-color: var(--acc); color: var(--acc); }
 .pp--inline { padding: 10px 12px; }
 .pp__list { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
 .pp__list li { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; align-items: start; font-size: var(--t-sm); line-height: 1.35; }
@@ -142,17 +135,10 @@ a.btn { text-decoration: none; }
 .e1a-cupula path { fill: none; stroke: var(--crema); stroke-width: 2; opacity: 0; filter: drop-shadow(0 0 6px var(--crema)); }
 
 /* ajustes del prototipo */
-.pp__card .voice__meta .tag { display: none; }           /* "Voz en off" ya está en el pop-up */
 .etapa__grid { grid-template-columns: 220px minmax(0, 1fr) 250px; gap: var(--s-4); }
 .etapa { gap: var(--s-5); }
 /* "Leer": el texto de la voz ocupa todo el ancho del pop-up, con su propio scroll */
-.pp__card.voice { grid-template-columns: 48px minmax(0, 1fr); align-items: center; }
-.pp__card.voice > div { display: contents; }
-.pp.is-leyendo .pp__card .voice__text { grid-column: 1 / -1; padding-right: 6px; line-height: 1.45; }
-.pp.is-leyendo .voice__text, .pp.is-leyendo .pp__txt { max-height: var(--leer-max, 30vh); overflow-y: auto; overscroll-behavior: contain; }
 /* en los pop-ups sueltos (el espacio físico y el cierre) el texto se despliega encima, hacia arriba */
-.pp--inline .pp__card { position: static; }
-.pp--inline.is-leyendo .pp__card .voice__text { position: absolute; z-index: 6; left: 0; right: 0; bottom: calc(100% + 8px); max-height: 34vh; margin: 0; padding: 12px 14px; border-radius: 12px; background: rgb(53 42 114 / .97); border: 1px solid color-mix(in srgb, var(--acc) 45%, transparent); box-shadow: 0 18px 40px rgb(20 14 60 / .45); text-align: left; }
 html { overflow-anchor: none; }
 
 /* ============================ ETAPA 2: CÚPULA Y MUNDOS ============================ */
@@ -290,7 +276,6 @@ html { overflow-anchor: none; }
 .cierre__esferas { margin: var(--s-2) 0; }
 .cierre__ctx { margin: var(--s-4) 0 0; max-width: 54ch; font-size: var(--t-base); line-height: 1.45; color: var(--ink-70); text-wrap: pretty; }
 .cierre__q { margin: 0; }
-.pp.is-leyendo { z-index: 5; }
 
 /* ============================ CORRECCIONES · RONDA 3 ============================ */
 
@@ -322,7 +307,6 @@ html { overflow-anchor: none; }
 /* --- Los tres mundos y la Etapa 5, como en la versión 1 (se recorren con el scroll) ---------------- */
 .mundo-v1 { position: relative; border-top: 1px solid var(--ink-06); }
 .mundo-v1 .pin { width: 100%; }
-.pp__card .voice__play { width: 48px; height: 48px; }   /* la tarjeta compacta de los mundos no achica las de los pop-ups */
 .cuaderno__maqueta .pend { z-index: 3; }
 /* la llave entra sola en la cerradura (la punta, en el ojo de la cerradura de la foto) */
 .cerradura__llave { position: absolute; z-index: 4; width: 52px; height: 136px; margin: -125px 0 0 -26px; opacity: 0; pointer-events: none; }
@@ -582,8 +566,6 @@ html { overflow-anchor: none; }
   .llave__panel--cerradura { grid-template-columns: 1fr; padding-right: 40px; }
   .llave__panel--cerradura .llave__copy, .llave__panel--cerradura .cerradura--foto { grid-column: 1; grid-row: auto; }
   .llave__panel--cerradura .cerradura--foto { width: 100%; }
-  .llave__panel .voice--compact { padding: 8px; }
-  .llave__panel .voice--compact .voice__text { font-size: .9rem; }
   .llave__hud { top: 76px; }
   .llave__carril { top: 104px; }
   .door { top: 150px; bottom: 32px; border-width: 4px; }
