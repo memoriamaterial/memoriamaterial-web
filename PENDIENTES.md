@@ -114,7 +114,7 @@ yo los optimizo y los copio a `docs/assets/`.
   (E3); en el cierre se reencuentran las tres bandas. Revisar si se quiere sumar alguno en el mate y el cuaderno.
 - [ ] **41. Títulos que quedan de la v1.** "Llegó el día" (mundo de la llave) y "El pasillo de objetos" (E5)
   vienen de la versión 1 y no de un material entregado: confirmar si van.
-- [ ] **42. Explicaciones antes de cada etapa (BORRADOR).** Las de los mundos y la de la Etapa 4 son las que
+- [ ] **42. Explicaciones antes de cada etapa (para revisar).** Las de los mundos y la de la Etapa 4 son las que
   pasaste. Las otras las escribí con lo que ya dice la web; revisalas:
   - Etapa 1: "Los asistentes entran a Unreal, a un desierto con una llave, un mate y un cuaderno gigantes, y
     conectan cada esfera que flota con el objeto al que pertenece."

@@ -8,15 +8,6 @@ const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 
-// la voz de un video suena al llegar a él; si sigue sonando una voz de otra parte, se corta
-function voz(id, card) {
-  if (!audio.enabled) return;
-  audio.queue = [];
-  const cur = audio.current;
-  if (cur && !cur.el.paused && cur.id !== id) { audio.play(id, card); return; }
-  audio.autoplay(id, card);
-}
-
 // --- Secuencia de texto animado que reemplaza a un video (con el scroll) -----------------------
 function video(wrap) {
   const pinEl = $('.video__pin', wrap);
@@ -25,7 +16,6 @@ function video(wrap) {
   const bar = $('.video__progress i', wrap);
   const TOTAL = parseFloat(wrap.dataset.total) || 58;
   const card = $('[data-voice]', wrap);
-  if (card) ScrollTrigger.create({ trigger: wrap, start: 'top 40%', onEnter: () => voz(card.dataset.voice, card) });
   if (reduce) {
     scenes.forEach((s) => { s.style.position = 'relative'; s.style.visibility = 'visible'; s.style.inset = 'auto'; });
     pinEl.classList.remove('pin'); pinEl.style.height = 'auto';
@@ -83,18 +73,10 @@ function eco() {
   if (reduce) {
     lines.forEach((l) => { l.style.position = 'relative'; l.style.opacity = 1; });
     pin.style.height = 'auto';
-    lines.forEach((l, i) => ScrollTrigger.create({ trigger: l, start: 'top 70%', once: true, onEnter: () => audio.autoplay(id(i)) }));
     return;
   }
   const tl = gsap.timeline({ scrollTrigger: { trigger: wrap, pin, start: 'top top', end: () => `+=${window.innerHeight * 4}`, scrub: 0.8 } });
-  const cues = lines.map((l, i) => ({ id: id(i), t: i * 1.4 + 0.1, passed: false }));
-  tl.eventCallback('onUpdate', () => {
-    const now = tl.time();
-    cues.forEach((c, k) => {
-      if (!c.passed && now >= c.t) { c.passed = true; if (k === 0) voz(c.id); else if (audio.enabled) audio.autoplay(c.id); }
-      else if (c.passed && now < c.t) c.passed = false;
-    });
-  });
+  // la voz con reverberación suena solo con play (el reproductor está al pie del eco)
   lines.forEach((l, i) => {
     const ecos = [1, 2, 3].map((k) => { const c = l.cloneNode(true); c.classList.add('is-echo'); c.setAttribute('aria-hidden', 'true'); c.style.opacity = (0.5 / k).toFixed(2); l.before(c); return c; });
     const at = i * 1.4;

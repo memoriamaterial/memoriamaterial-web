@@ -10,18 +10,6 @@ const vh = () => window.innerHeight;
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 
-// Cada voz suena donde va: si sigue sonando una voz de otra sección (la bienvenida, por ejemplo),
-// se corta y suena la de este lugar; si la que suena es de este mismo mundo, la nueva espera su turno.
-const MUNDO = (id) => (/^llave\d$/.test(id) ? 'llave' : /^mate[RM]\d[a-d]$/.test(id) ? 'mate' : /^cq[LR]\d[a-c]$/.test(id) ? 'cuaderno' : id === 'e5' ? 'e5' : null);
-function hablar(id, card) {
-  if (!audio.enabled) return;
-  const aca = MUNDO(id);
-  audio.queue = audio.queue.filter((q) => MUNDO(q.id) === aca); // lo que esperaba de otro lugar ya no suena
-  const cur = audio.current;
-  if (cur && !cur.el.paused && cur.id !== id && MUNDO(cur.id) !== aca) { audio.play(id, card); return; }
-  audio.autoplay(id, card);
-}
-
 // Sonidos de una escena con scroll: cada uno suena una vez, al pasar su paso bajando.
 // - data-voz: la voz que dice esa línea (si otra voz está sonando, espera su turno).
 // - data-sfx / data-drain: efectos de la línea. Si la línea tiene voz, el efecto suena cuando la voz termina.
@@ -42,7 +30,7 @@ function sfxCues(tl, items, { prefix = '', extra = [] } = {}) {
     cues.forEach((c) => {
       if (!c.passed && now >= c.t) {
         c.passed = true;
-        if (c.voz) { hablar(c.id); return; }
+        if (c.voz) return; // las voces suenan solo con play
         if (c.after && audio.enabled) audio.after(c.after, () => fire(c)); else fire(c);
       } else if (c.passed && now < c.t) c.passed = false;
     });
@@ -97,9 +85,7 @@ function llave() {
 
   // las voces, cada una entre sus puertas
   const al = (panel, fn) => ScrollTrigger.create({ trigger: panel, containerAnimation: tween, start: 'left 55%', onEnter: fn });
-  al(panels[1], () => hablar('llave1', v('llave1')));
-  al(panels[2], () => { hablar('llave2', v('llave2')); hablar('llave3', v('llave3')); });
-  al(panels[3], () => { ['llave4', 'llave5', 'llave6'].forEach((k) => hablar(k, v(k))); audio.after('llave6', abrirCajon); });
+  // las voces de cada panel suenan solo con play (sus tarjetas están en cada panel)
 
   // "Creo que la guardaste en la mesita de luz." → se abre el segundo cajón: "¡Sí! ¡Acá están!"
   let abierto = false;
@@ -111,10 +97,9 @@ function llave() {
     if (audio.enabled) audio.play('llavesCajon');
     found.hidden = false;
     if (!reduce) gsap.from(found, { y: 12, opacity: 0, duration: 0.45, delay: 0.3 });
-    setTimeout(() => hablar('llave7', $('[data-voice="llave7"]', found)), 900);
   }
-  // sin sonido, el cajón se abre igual al cruzar el panel
-  ScrollTrigger.create({ trigger: panels[3], containerAnimation: tween, start: 'left 25%', onEnter: () => { if (!audio.enabled) abrirCajon(); } });
+  // el cajón se abre al cruzar el panel de la mesita
+  ScrollTrigger.create({ trigger: panels[3], containerAnimation: tween, start: 'left 25%', onEnter: abrirCajon });
 
   // la cerradura gigante: la llave entra, gira y la puerta se abre
   const llaveEnLaCerradura = $('[data-llave-drag]', wrap).cloneNode(true);
@@ -289,24 +274,25 @@ function pasilloDeObjetos() {
   const pin = $('.hall__pin', wrap);
   const strips = $$('.hall__strip', wrap);
   const end = $('.hall__end', wrap), floor = $('.hall__floor', wrap);
-  const voice = $('[data-voice="e5"]', wrap);
   // pilas de objetos repetidos: "verlo en todos lados"
   strips.forEach((s, k) => {
     let html = '';
     for (let i = 0; i < 240; i++) { const [id, box] = OBJS[(i * 7 + k) % 3]; html += svgUse(id, box, (i * 13 + k * 5) % 29 === 0 ? 'is-acc' : ''); }
     s.innerHTML = html;
   });
-  if (reduce) { end.style.transform = 'none'; ScrollTrigger.create({ trigger: end, start: 'top 70%', once: true, onEnter: () => audio.autoplay('e5', voice) }); return; }
-  let played = false;
+  const desc = $('.hall__desc', wrap);
+  if (reduce) { end.style.transform = 'none'; end.style.opacity = 1; return; }
   const tl = gsap.timeline({
     defaults: { ease: 'none' },
     scrollTrigger: { trigger: wrap, pin, start: 'top top', end: () => `+=${vh() * 3.5}`, scrub: 1,
-      onUpdate: (self) => { if (self.progress > 0.55 && !played) { played = true; hablar('e5', voice); } } },
+ },
   });
   tl.fromTo(strips[0], { x: -3200 }, { x: 0, duration: 1 }, 0)
     .fromTo(strips[1], { x: 3200 }, { x: 0, duration: 1 }, 0)
     .fromTo(floor, { backgroundPosition: '0px 0px' }, { backgroundPosition: '0px 1440px', duration: 1 }, 0)
-    .to(end, { scale: 1, duration: 1, ease: 'power2.in' }, 0);
+    // primero la descripción, en el centro del pasillo; después se acercan los Oculus
+    .fromTo(desc, { opacity: 1, y: 0 }, { opacity: 0, y: -30, duration: 0.15, ease: 'power2.in' }, 0.5)
+    .fromTo(end, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out' }, 0.6);
 }
 
 export function mundosV1() {

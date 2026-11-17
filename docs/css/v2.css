@@ -4,7 +4,7 @@
    Se piensa para compu (no hay versión para celular).
    ========================================================================== */
 
-.v2 { --rail-w: 64px; min-width: 1100px; }
+.v2 { --rail-w: 64px; }
 /* encabezado: una sola fila (logo · "Estás en" · sonido), del borde izquierdo hasta el riel, con el mismo
    alto en todo el scroll. Antes empezaba 64 px a la derecha (quedaba un hueco), su fondo era un degradé de
    22 px que se fundía con el contenido y "Estás en" caía en una segunda fila, suelto debajo del botón. */
@@ -491,3 +491,102 @@ html { overflow-anchor: none; }
 #e3 .escena__marco { aspect-ratio: 16 / 10; }
 /* Etapa 3: la escena, lo más grande posible sin que la sección se pase de la pantalla */
 #e3 .escena { width: min(100%, max(720px, calc((100vh - 330px) * 1.6))); justify-self: center; }
+
+/* ============================ CORRECCIONES · RONDA 9 ============================ */
+
+/* --- volantas: un 10 % más grandes y solo texto (sin guion ni recuadro ni ícono) --------------- */
+.eyebrow { font-size: calc(var(--t-xs) * 1.1); gap: 0; }
+.eyebrow::before { content: none; }
+.stage-num, .etapa__n { font-size: calc(var(--t-xs) * 1.1); }
+.plat { border: 0; padding: 0; border-radius: 0; gap: 0; font-size: 12.1px; }
+.plat svg { display: none; }
+.etapa__meta { gap: 18px; }
+
+/* --- popups del espacio físico: sin volanta ------------------------------------------------- */
+.pop [data-pop-eyebrow] { display: none; }
+
+/* --- «De vuelta en la cúpula»: los tres íconos centrados (cada uno en una caja igual) ---------- */
+.e2-swap__trio { justify-content: center; align-items: center; }
+.e2-swap__trio li { display: grid; place-items: center; width: clamp(80px, 10vw, 128px); height: clamp(80px, 10vw, 128px); }
+.e2-swap__trio svg { width: 100%; height: 100%; }
+
+/* --- entre la Etapa 1 y la 2: la frase grande, en color -------------------------------------- */
+.v2-puente { display: grid; place-items: center; padding: 120px var(--gutter); text-align: center; }
+.puente__txt { margin: 0; max-width: 24ch; font-size: clamp(2rem, 1.1rem + 2.8vw, 3.8rem); font-weight: 700; line-height: 1.08; letter-spacing: -.025em; color: var(--acc); text-wrap: balance; text-shadow: 0 0 40px color-mix(in srgb, var(--acc) 35%, transparent); }
+
+/* --- etapas y mundos con escena narrativa: el contenedor no corta el sticky -------------------- */
+.etapa--narr, .mundo-narr { overflow: clip; }
+.etapa--narr { align-content: start; gap: var(--s-7); }
+.mundo-narr { padding: 0 var(--gutter) var(--s-7); }
+.escena-intro--sonido { padding-top: var(--s-6); }
+.narrativa__blanco { background: radial-gradient(60% 60% at 50% 50%, #fff, var(--crema) 60%, rgb(242 237 212 / .7)); }
+.narrativa__totem { display: grid; place-items: end center; padding-bottom: 8%; background: radial-gradient(50% 40% at 50% 40%, rgb(242 237 212 / .08), transparent 70%), #2a2160; }
+.narrativa__totem > svg { position: relative; width: 22%; height: auto; color: rgb(242 237 212 / .5); }
+.narrativa__scan .scan { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; border: 0; border-radius: 0; }
+
+/* --- Etapa 4: los tres mundos ausentes, secciones cortas ------------------------------------- */
+.ausente-sec { padding: var(--s-9) var(--gutter); }
+.ausente-sec + .ausente-sec { border-top: 1px solid var(--ink-06); }
+.ausente-sec__in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: center; width: min(1180px, 100%); margin-inline: auto; }
+.ausente-sec__art { position: relative; margin: 0; }
+.ausente-sec__art .trip__art { aspect-ratio: 4 / 3; }
+.ausente-sec__art .pend { z-index: 3; }
+.ausente-sec__copy { display: grid; gap: var(--s-4); }
+.ausente-sec__copy .title { margin: 0; font-size: clamp(2.2rem, 1.2rem + 2.4vw, 3.6rem); color: var(--c); }
+.ausente-sec__copy p:not(.eyebrow) { margin: 0; font-size: var(--t-lg); line-height: 1.4; color: var(--ink-70); max-width: 42ch; }
+.eco__voz { position: absolute; left: 0; right: 0; bottom: 40px; display: grid; justify-items: center; }
+
+/* --- Etapa 5: el pasillo más abierto, la descripción en el centro; los Oculus llegan después ------ */
+.hall__space { perspective: 1100px; }
+.hall__end { opacity: 0; }
+.hall__desc { position: absolute; z-index: 5; inset: 0; margin: auto; width: min(640px, 88%); height: fit-content; display: grid; gap: var(--s-4); justify-items: center; padding: 28px 32px; border-radius: 20px; text-align: center; background: rgb(53 42 114 / .88); border: 1px solid rgb(252 182 20 / .35); box-shadow: 0 0 60px rgb(53 42 114 / .9); }
+.hall__desc p { margin: 0; font-size: var(--t-lg); line-height: 1.4; text-wrap: balance; }
+.hall__desc .voice { width: min(440px, 100%); }
+
+/* ============================ MOBILE ============================ */
+@media (max-width: 899px) {
+  .v2 { --rail-w: 0px; }
+  .v2-rail { display: none; }
+  .v2 .hdr { height: 60px; }
+  .v2 .hdr__mark { width: 116px; }
+  .v2 .sound { min-height: 34px; font-size: 10px; }
+  .deco { display: none; }
+  .v2-sec { padding: 84px var(--gutter) 48px; min-height: 0; }
+  .inicio { min-height: 100svh; }
+  .inicio__logo { width: 88vw; }
+  .idea .lema__grid, .aula__grid { grid-template-columns: 1fr; gap: var(--s-6); }
+  .etapa__head .v2-title, .cierre__in .v2-title, .hall__title, .regreso__title { font-size: clamp(2rem, 1.4rem + 3vw, 2.8rem); }
+  .etapa__grid, #e3 .etapa__grid, #e6 .etapa__grid { grid-template-columns: 1fr; gap: var(--s-4); }
+  .etapa__grid--sin-fondo .escena { grid-column: auto; }
+  .pp::before { display: none; }
+  .spot__l { font-size: 8px; padding: 2px 5px; }
+  .v2-intro { min-height: 0; padding: 96px var(--gutter) 64px; }
+  .v2-puente { padding: 72px var(--gutter); }
+  .ausente-sec__in { grid-template-columns: 1fr; }
+  .cierre { padding-top: 96px; gap: var(--s-7); }
+  .cierre__esferas span { width: 64px; }
+  .cierre__pie { flex-wrap: wrap; justify-content: center; }
+  .cierre__logo { width: 72vw; }
+  .devolucion { grid-template-columns: 1fr; }
+  .hall__desc { padding: 20px; }
+  .hall__desc p { font-size: 1.05rem; }
+  /* mundo de la llave en mobile: cada panel apilado (voces, foto y epígrafe) */
+  .llave__panel { --puerta: 40px; grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr) auto; padding: 150px 52px 32px; row-gap: 12px; }
+  .llave__panel .llave__voices, .llave__panel .llave__voices--cajas { grid-column: 1; grid-row: 1; }
+  .llave__panel .llave__foto { grid-column: 1; grid-row: 2; }
+  .llave__panel .llave__caption { grid-column: 1; grid-row: 3; }
+  .llave__panel--cajones { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr) auto; }
+  .llave__panel--cajones .llave__copy { grid-column: 1; grid-row: 1; }
+  .llave__panel--cajones .mesita { grid-column: 1; grid-row: 3; width: 160px; }
+  .llave__panel--cajones .cajon { height: 36px; }
+  .llave__panel--cerradura { grid-template-columns: 1fr; padding-right: 40px; }
+  .llave__panel--cerradura .llave__copy, .llave__panel--cerradura .cerradura--foto { grid-column: 1; grid-row: auto; }
+  .llave__panel--cerradura .cerradura--foto { width: 100%; }
+  .llave__panel .voice--compact { padding: 8px; }
+  .llave__panel .voice--compact .voice__text { font-size: .9rem; }
+  .llave__hud { top: 76px; }
+  .llave__carril { top: 104px; }
+  .door { top: 150px; bottom: 32px; border-width: 4px; }
+  .video__pin { padding-top: 76px; }
+  .eco__lines p { font-size: clamp(1.6rem, 1rem + 4vw, 2.4rem); }
+}

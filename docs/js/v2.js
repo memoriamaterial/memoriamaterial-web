@@ -4,6 +4,7 @@
 import { audio, VOICES } from './audio.js';
 import { mundosV1 } from './v2-mundos.js';
 import { relatos } from './v2-relatos.js';
+import { narrativas } from './v2-narrativa.js';
 
 const { gsap, ScrollToPlugin, DrawSVGPlugin, ScrollTrigger } = window;
 gsap.registerPlugin(ScrollToPlugin, DrawSVGPlugin, ScrollTrigger);
@@ -74,6 +75,9 @@ function popups() {
   $$('[data-seqv]').forEach((b) => b.addEventListener('click', () => {
     if (b.classList.contains('is-playing')) return parar(b);
     if (!audio.enabled) audio.enable();
+    // si sonaba otra voz u otro grupo de voces, se corta
+    $$('[data-seqv].is-playing').forEach(parar);
+    audio.queue = [];
     const ids = b.dataset.seqv.split(',');
     audio.play(ids[0]);
     ids.slice(1).forEach((id) => audio.autoplay(id));
@@ -87,68 +91,21 @@ function popups() {
   audio.on((a) => ruidos.forEach((b) => b.setAttribute('aria-pressed', String(a.enabled))));
 }
 
-// --- Las voces suenan solas al llegar a cada sección (como en la versión 1) ----------------------
-// Los navegadores no dejan sonar audio hasta que la persona toca algo (un clic, una tecla o un toque;
-// el scroll no cuenta). Por eso el primer gesto en cualquier lugar de la página activa el sonido,
-// y desde ahí cada sección reproduce su voz una sola vez al entrar en pantalla.
-function vocesSolas() {
-  const secs = $$('.v2-sec').filter((s) => $('.pp--voz [data-voice]', s));
-  const sonar = (s) => {
-    const cards = $$('.pp--voz [data-voice]', s);
-    const ids = cards.map((c) => c.dataset.voice);
-    audio.queue = audio.queue.filter((q) => ids.includes(q.id)); // las voces de secciones que ya pasaron no esperan más
-    cards.forEach((card) => audio.autoplay(card.dataset.voice, card));
-  };
-  let visible = null;
-  const io = new IntersectionObserver((es) => es.forEach((e) => {
-    if (e.isIntersecting) { visible = e.target; sonar(e.target); }
-  }), { threshold: 0.5 });
-  secs.forEach((s) => io.observe(s));
-
+// --- El sonido se activa con el primer gesto en la página (el ruido blanco del espacio físico) -----
+// Las voces nunca arrancan solas: suenan solo cuando la persona da play.
+function activarSonido() {
   const gestos = ['pointerdown', 'keydown', 'touchend'];
   const desbloquear = (e) => {
     gestos.forEach((g) => removeEventListener(g, desbloquear, true));
-    // si el primer gesto es el botón de sonido (o el del ruido), ese botón decide
     if (e.target.closest?.('[data-sound-toggle], [data-ruido]')) return;
-    if (!audio.enabled) {
-      try { audio.enable(); } catch { return; }
-    }
-    if (visible) sonar(visible);
+    if (!audio.enabled) { try { audio.enable(); } catch { /* sin audio */ } }
   };
   gestos.forEach((g) => addEventListener(g, desbloquear, { capture: true, passive: true }));
 }
 
-// --- Dónde está la persona: espacio físico · Unreal · Oculus (arriba a la derecha) ---------------
-const LUGARES = {
-  fisico: { txt: 'Espacio físico', ico: ['i-lugar'] },
-  unreal: { txt: 'Unreal', ico: ['i-pc'] },
-  'unreal+fisico': { txt: 'Unreal + espacio físico', ico: ['i-pc', 'i-lugar'] },
-  'fisico>unreal': { txt: 'Espacio físico → Unreal', ico: ['i-lugar', 'i-pc'], sep: '→' },
-  'oculus+fisico': { txt: 'Oculus + espacio físico', ico: ['i-oculus', 'i-lugar'] },
-};
-function dondeEstas() {
-  const ui = $('[data-where-ui]');
-  if (!ui) return;
-  const icos = $('.where__icons', ui), txt = $('.where__txt', ui);
-  const secs = $$('main > section');
-  let actual;
-  const poner = (k) => {
-    if (k === actual) return;
-    actual = k;
-    const l = LUGARES[k];
-    ui.classList.toggle('is-hidden', !l);
-    if (!l) return;
-    icos.innerHTML = l.ico.map((id) => `<svg><use href="#${id}"/></svg>`).join(`<i>${l.sep || '+'}</i>`);
-    txt.textContent = l.txt;
-    if (!reduce) gsap.fromTo(ui, { opacity: 0.2 }, { opacity: 1, duration: 0.4 });
-  };
-  const update = () => {
-    const y = innerHeight * 0.5;
-    const s = secs.find((el) => { const r = el.getBoundingClientRect(); return r.top <= y && r.bottom > y; });
-    poner(s?.dataset.where);
-    // el logo chico del encabezado aparece al dejar el inicio (ahí ya está el grande)
-    document.body.classList.toggle('is-past-intro', scrollY > innerHeight * 0.6);
-  };
+// --- El encabezado: el logo chico aparece al dejar el inicio (ahí ya está el grande) ----------------
+function encabezado() {
+  const update = () => document.body.classList.toggle('is-past-intro', scrollY > innerHeight * 0.6);
   addEventListener('scroll', update, { passive: true });
   update();
 }
@@ -622,8 +579,8 @@ function cierre() {
 
 sonido();
 popups();
-vocesSolas();
-dondeEstas();
+activarSonido();
+encabezado();
 navegar();
 riel();
 entradas();
@@ -633,12 +590,11 @@ espacio();
 etapa1();
 etapa2();
 relatos();
+narrativas();
 mundosV1();
 narrativa();
 // las secuencias fijas se crearon en distinto orden: se ordenan según la página y se recalculan
 ScrollTrigger.sort();
 ScrollTrigger.refresh();
-etapa3();
-etapa4();
 etapa6();
 cierre();

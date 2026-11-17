@@ -177,7 +177,7 @@ class AudioManager {
     this.enabled = false;
     this.ctx = null;
     this.noiseGain = null;
-    this.noiseLevel = 0.006; // C-03: ruido blanco apenas perceptible (antes 0.022)
+    this.noiseLevel = 0.0072; // ruido blanco suave (+20 % respecto de 0.006)
     this.current = null;   // { id, el, card }
     this.queue = [];       // voces que esperan a que termine la que suena
     this.cards = new Map(); // id -> [cards]
@@ -250,7 +250,7 @@ class AudioManager {
 
   // Nivel del ruido por escenario (E4 lo sube, por ejemplo).
   setAmbience(mult = 1, cutoff = 2200) {
-    this.noiseLevel = 0.006 * mult;
+    this.noiseLevel = 0.0072 * mult;
     if (this.noiseFilter) this.noiseFilter.frequency.setTargetAtTime(cutoff, this.ctx.currentTime, 0.4);
     if (this.enabled) this.fadeNoise(this.noiseLevel, 1.2);
   }
@@ -283,7 +283,7 @@ class AudioManager {
       </div>`;
     card.querySelector('.voice__play').addEventListener('click', () => {
       if (this.current?.id === id && !this.current.el.paused) this.pause();
-      else { if (!this.enabled) this.enable(); this.play(id, card); }
+      else { if (!this.enabled) this.enable(); this.queue = []; this.play(id, card); } // la anterior se pausa
     });
     if (!this.cards.has(id)) this.cards.set(id, []);
     this.cards.get(id).push(card);
