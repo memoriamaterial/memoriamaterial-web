@@ -640,30 +640,23 @@ html { overflow-anchor: none; }
 /* aula: solo el número; el nombre aparece en la ficha */
 .aula__map .spot__l { display: none; }
 
-/* el tótem vacío: humo de hielo seco que desborda el tótem, cae por sus lados y se arrastra por el piso */
+/* el tótem vacío: un poco de humo de hielo seco, solo en el cuenco donde se dejan los objetos */
 .narrativa__humo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .niebla { position: absolute; inset: 0; container-type: size; pointer-events: none; overflow: hidden; }
-.niebla::before { content: ""; position: absolute; left: 75.5%; top: 75%; width: 40cqw; height: 14cqh; translate: -50% -50%; border-radius: 50%;
-  background: radial-gradient(closest-side, rgb(236 240 255 / .6), rgb(236 240 255 / .2) 60%, transparent); filter: blur(8px); animation: n-respira 5s ease-in-out infinite; }
-.niebla::after { content: ""; position: absolute; left: 75.5%; top: 55.5%; width: 9cqw; height: 5cqh; translate: -50% -50%; border-radius: 50%;
-  background: radial-gradient(closest-side, rgb(245 248 255 / .95), rgb(245 248 255 / .4) 60%, transparent); filter: blur(4px); animation: n-respira 3.2s ease-in-out infinite; }
-@keyframes n-respira { 50% { opacity: .7; scale: 1.08 1.15; } }
-.niebla i { position: absolute; left: 75.5%; border-radius: 50%; background: radial-gradient(closest-side, rgb(244 247 255 / .98), rgb(244 247 255 / .55) 50%, transparent); filter: blur(5px); opacity: 0; }
-.n-sube { top: 55%; width: 10cqw; height: 6.5cqh; animation: n-desborda 6.8s linear var(--d) infinite; }
-.n-suelo { top: 77%; width: 30cqw; height: 9cqh; filter: blur(9px); animation: n-arrastra 9.6s ease-in-out var(--d) infinite; }
-/* sale apenas por arriba, pesado, y enseguida cae por el costado hasta el piso, donde se ensancha */
+.niebla::after { content: ""; position: absolute; left: 75.5%; top: 55.5%; width: 6cqw; height: 2.6cqh; translate: -50% -50%; border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(245 248 255 / .7), rgb(245 248 255 / .25) 60%, transparent); filter: blur(3px); animation: n-respira 3.6s ease-in-out infinite; }
+@keyframes n-respira { 50% { opacity: .65; scale: 1.06 1.12; } }
+.niebla i { position: absolute; left: 75.5%; top: 55%; width: 4.5cqw; height: 2.6cqh; border-radius: 50%; opacity: 0;
+  background: radial-gradient(closest-side, rgb(244 247 255 / .8), rgb(244 247 255 / .3) 55%, transparent); filter: blur(3px); }
+.n-sube { animation: n-desborda 6s linear var(--d) infinite; }
+.n-suelo { display: none; }
+/* asoma apenas sobre el borde del cuenco y cae un poco por el costado, mientras se deshace */
 @keyframes n-desborda {
-  0%   { transform: translate(-50%, -50%) scale(.5); opacity: 0; }
-  12%  { opacity: 1; }
-  30%  { transform: translate(calc(-50% + var(--dx) * .5), calc(-50% - 2cqh)) scale(1); }
-  70%  { opacity: .85; }
-  100% { transform: translate(calc(-50% + var(--dx) * 1.6), calc(-50% + 20cqh)) scale(2.6, 1.6); opacity: 0; }
-}
-@keyframes n-arrastra {
-  0%   { transform: translate(-50%, -50%) scale(.5, .7); opacity: 0; }
-  25%  { opacity: .8; }
-  100% { transform: translate(calc(-50% + var(--dx)), -50%) scale(1.5, 1.1); opacity: 0; }
+  0%   { transform: translate(-50%, -50%) scale(.6); opacity: 0; }
+  20%  { opacity: .6; }
+  40%  { transform: translate(calc(-50% + var(--dx) * .25), calc(-50% - .8cqh)) scale(1); }
+  100% { transform: translate(calc(-50% + var(--dx) * .45), calc(-50% + 4cqh)) scale(1.6, 1.2); opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .niebla i { animation: none; opacity: .45; transform: translate(-50%, -50%); }
+  .niebla i { animation: none; opacity: .3; transform: translate(-50%, -50%); }
 }
