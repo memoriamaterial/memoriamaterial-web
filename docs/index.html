@@ -590,59 +590,51 @@
           <p class="narrativa__bloque" data-img="0">El participante irá recuperando la vista progresivamente, escuchando un pitido que se apaga de a poco.</p>
           <p class="narrativa__bloque" data-img="1">Encontrará recreado el escenario de la etapa 1, pero en su lugar los objetos están ausentes.</p>
           <p class="narrativa__bloque" data-img="1">Quedan siluetas y sombras, que conservan "parte de ellos".</p>
-          <p class="narrativa__bloque" data-img="1">Pueden acercarse y escuchar resabios de los objetos.</p>
-          <p class="narrativa__bloque" data-img="1">La cúpula estará abierta.</p>
-          <p class="narrativa__bloque" data-img="1">Al entrar en ella, serán transportados a los mundos de los objetos nuevamente, pero en una versión alterna, donde se muestra qué ocurre sin ellos.</p>
+          <p class="narrativa__bloque" data-img="1">Pueden acercarse y entrar a verlos</p>
         </div>
       </div>
+      <!-- los mundos de la ausencia: una columna por objeto; el texto, en la ficha -->
+      <div class="aus">
+        <div class="aus__head">
+          <p class="eyebrow">Los mundos de la ausencia</p>
+          <p class="aus__hint mono">Hacé clic en cada mundo para leer qué pasa</p>
+        </div>
+        <ul class="aus__grid">
+          <li><button class="aus-card" type="button" data-pop-open="aus-llave" style="--c:var(--amarillo)" aria-haspopup="dialog">
+            <img class="aus-card__img" src="assets/img/unreal/ausencia-04.webp" width="1600" height="900" alt="El camino de la mudanza a oscuras: las puertas cerradas y las cómodas con los cajones trabados" loading="lazy" decoding="async">
+            <span class="aus-card__pie"><span class="aus-card__t">Llave ausente</span><span class="aus-card__mas mono" aria-hidden="true">Leer <i>+</i></span></span>
+          </button></li>
+          <li><button class="aus-card" type="button" data-pop-open="aus-mate" style="--c:var(--fucsia)" aria-haspopup="dialog">
+            <img class="aus-card__img" src="assets/img/unreal/ausencia-05.webp" width="1600" height="900" alt="El espacio de la ronda a oscuras: una luz desde arriba y las sillas caídas, con sus sombras" loading="lazy" decoding="async">
+            <span class="aus-card__pie"><span class="aus-card__t">Mate ausente</span><span class="aus-card__mas mono" aria-hidden="true">Leer <i>+</i></span></span>
+          </button></li>
+          <li><button class="aus-card" type="button" data-pop-open="aus-cuaderno" style="--c:var(--celeste)" aria-haspopup="dialog">
+            <img class="aus-card__img" src="assets/img/unreal/ausencia-06.webp" width="1600" height="900" alt="Hojas arrugadas que caen desde arriba y forman una pila; alrededor, anotaciones que quedan a medio escribir" loading="lazy" decoding="async">
+            <span class="aus-card__pie"><span class="aus-card__t">Cuaderno ausente</span><span class="aus-card__mas mono" aria-hidden="true">Leer <i>+</i></span></span>
+          </button></li>
+        </ul>
+        <template data-pop="aus-llave" data-acc="amarillo" data-eyebrow="Los mundos de la ausencia">
+          <h3 data-title>Llave ausente</h3>
+          <p>Se vuelve a recorrer el camino de la mudanza, pero ahora los marcos son puertas cerradas y los cajones de la mesita no se abren: cada vez que se tocan, suena una cerradura trabada.</p>
+        </template>
+        <template data-pop="aus-mate" data-acc="fucsia" data-eyebrow="Los mundos de la ausencia">
+          <h3 data-title>Mate ausente</h3>
+          <p>El espacio de la ronda está a oscuras. Una luz desde arriba ilumina el lugar donde estaban las sillas, pero las sillas no están: solo quedan sus sombras.</p>
+        </template>
+        <template data-pop="aus-cuaderno" data-acc="celeste" data-eyebrow="Los mundos de la ausencia">
+          <h3 data-title>Cuaderno ausente</h3>
+          <p>Del cielo caen hojas arrugadas que forman una pila. Las anotaciones empiezan a escribirse, pero se apagan antes de terminar.</p>
+        </template>
+        <figure class="aus__cupula">
+          <img src="assets/img/unreal/ausencia-cupula.webp" width="1600" height="900" alt="El desierto sin color: en el centro, la cúpula salió del suelo, con sus tres esferas apagadas sobre la entrada" loading="lazy" decoding="async">
+          <!-- BORRADOR: revisar -->
+          <figcaption>Después de recorrer los tres mundos, de vuelta en el desierto, la cúpula sale del suelo.</figcaption>
+        </figure>
+      </div>
+
     </section>
 
     <!-- ===================== 6b · ETAPA 4: los mundos de la ausencia, el eco, el tótem vacío y el video (de la versión 1) ===================== -->
-    <section id="e4-llave" class="mundo-v1 ausente-sec" data-where="unreal" style="--acc:var(--fucsia);--c:var(--amarillo)">
-      <div class="ausente-sec__in">
-        <figure class="ausente-sec__art"><img src="assets/img/unreal/ausencia-04.webp" width="1600" height="900" alt="El camino de la mudanza a oscuras: las puertas cerradas y las cómodas con los cajones trabados" loading="lazy" decoding="async"></figure>
-        <div class="ausente-sec__copy">
-          <p class="eyebrow">Etapa 4 · Los mundos de la ausencia</p>
-          <h3 class="title">Llave ausente</h3>
-          <p>Se vuelve a recorrer el camino de la mudanza, pero ahora los marcos son puertas cerradas y los cajones de la mesita no se abren: cada vez que se tocan, suena una cerradura trabada.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="e4-mate" class="mundo-v1 ausente-sec" data-where="unreal" style="--acc:var(--fucsia);--c:var(--fucsia)">
-      <div class="ausente-sec__in">
-        <figure class="ausente-sec__art"><img src="assets/img/unreal/ausencia-05.webp" width="1600" height="900" alt="El espacio de la ronda a oscuras: una luz desde arriba y las sillas caídas, con sus sombras" loading="lazy" decoding="async"></figure>
-        <div class="ausente-sec__copy">
-          <p class="eyebrow">Etapa 4 · Los mundos de la ausencia</p>
-          <h3 class="title">Mate ausente</h3>
-          <p>El espacio de la ronda está a oscuras. Una luz desde arriba ilumina el lugar donde estaban las sillas, pero las sillas no están: solo quedan sus sombras.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="e4-cuaderno" class="mundo-v1 ausente-sec" data-where="unreal" style="--acc:var(--fucsia);--c:var(--celeste)">
-      <div class="ausente-sec__in">
-        <figure class="ausente-sec__art"><img src="assets/img/unreal/ausencia-06.webp" width="1600" height="900" alt="Hojas arrugadas que caen desde arriba y forman una pila; alrededor, anotaciones que quedan a medio escribir" loading="lazy" decoding="async"></figure>
-        <div class="ausente-sec__copy">
-          <p class="eyebrow">Etapa 4 · Los mundos de la ausencia</p>
-          <h3 class="title">Cuaderno ausente</h3>
-          <p>Del cielo caen hojas arrugadas que forman una pila. Las anotaciones empiezan a escribirse, pero se apagan antes de terminar.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="e4-cupula" class="mundo-v1 ausente-sec ausente-sec--cupula" data-where="unreal" style="--acc:var(--fucsia);--c:var(--crema)">
-      <div class="ausente-sec__in">
-        <figure class="ausente-sec__art"><img src="assets/img/unreal/ausencia-cupula.webp" width="1600" height="900" alt="El desierto sin color: en el centro, la cúpula salió del suelo, con sus tres esferas apagadas sobre la entrada" loading="lazy" decoding="async"></figure>
-        <div class="ausente-sec__copy">
-          <p class="eyebrow">Etapa 4 · Los mundos de la ausencia</p>
-          <h3 class="title">La cúpula</h3>
-          <!-- BORRADOR: revisar -->
-          <p>Después de recorrer los tres mundos, de vuelta en el desierto, la cúpula sale del suelo.</p>
-        </div>
-      </div>
-    </section>
-
     <section id="e4-eco" class="mundo-v1" data-where="unreal" style="--acc:var(--fucsia)" data-voces="e4b1,e4b2,e4b3,e4b4,e4b5" data-voces-titulo="Etapa 4 · La voz con eco">
       <div class="eco" data-eco>
         <div class="pin eco__pin">

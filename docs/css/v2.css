@@ -672,3 +672,29 @@ html { overflow-anchor: none; }
 /* Etapa 5: la imagen del escenario, más chica, debajo del pasillo */
 .e5-foto { width: min(820px, calc(100% - 2 * var(--gutter))); margin: var(--s-8) auto var(--s-9); }
 .e5-foto img { display: block; width: 100%; height: auto; border-radius: 18px; border: 1px solid var(--ink-10); }
+
+/* ============================ RONDA 19 · Etapa 4 unificada ============================ */
+.aus { width: min(1240px, 100%); margin: var(--s-8) auto 0; display: grid; gap: var(--s-6); }
+.aus__head { display: grid; justify-items: center; gap: var(--s-3); text-align: center; }
+.aus__hint { margin: 0; font-size: var(--t-xs); letter-spacing: .14em; text-transform: uppercase; color: var(--celeste); }
+.aus__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); }
+.aus-card { position: relative; display: grid; width: 100%; padding: 0; text-align: left; color: inherit; font: inherit; cursor: pointer;
+  border-radius: 18px; overflow: hidden; border: 1px solid color-mix(in srgb, var(--c) 45%, transparent); background: rgb(53 42 114 / .6);
+  transition: transform .35s var(--ease-out), border-color .35s, box-shadow .35s; }
+.aus-card__img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; transition: transform .6s var(--ease-out), filter .35s; filter: saturate(.9) brightness(.92); }
+.aus-card__pie { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; }
+.aus-card__t { font-size: clamp(1.15rem, .9rem + .7vw, 1.5rem); font-weight: 700; color: var(--c); }
+.aus-card__mas { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-70); }
+.aus-card__mas i { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; font-style: normal; font-size: 16px; background: var(--c); color: var(--violeta); box-shadow: 0 0 0 0 var(--c); animation: aus-ping 2.4s var(--ease-out) infinite; }
+.aus__grid li:nth-child(2) .aus-card__mas i { animation-delay: -.8s; } .aus__grid li:nth-child(3) .aus-card__mas i { animation-delay: -1.6s; }
+@keyframes aus-ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--c) 60%, transparent); } 70%, 100% { box-shadow: 0 0 0 10px transparent; } }
+.aus-card:hover, .aus-card:focus-visible { transform: translateY(-6px); border-color: var(--c); box-shadow: 0 18px 40px rgb(0 0 0 / .35), 0 0 24px color-mix(in srgb, var(--c) 35%, transparent); }
+.aus-card:hover .aus-card__img, .aus-card:focus-visible .aus-card__img { transform: scale(1.05); filter: none; }
+.aus-card:focus-visible { outline: 2px solid var(--c); outline-offset: 3px; }
+.aus-card.is-seen .aus-card__mas i { animation: none; background: var(--crema); }
+.aus__cupula { margin: var(--s-6) auto 0; width: min(900px, 100%); display: grid; gap: var(--s-4); justify-items: center; text-align: center; }
+.aus__cupula img { display: block; width: 100%; height: auto; border-radius: 18px; border: 1px solid var(--ink-10); }
+.aus__cupula figcaption { font-size: var(--t-lg); line-height: 1.4; max-width: 46ch; text-wrap: balance; }
+@media (max-width: 899px) { .aus__grid { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .aus-card, .aus-card__img { transition: none; } .aus-card__mas i { animation: none; } }
+.aus .aus-card .aus-card__img { height: auto; max-height: none; aspect-ratio: 16 / 10; }
