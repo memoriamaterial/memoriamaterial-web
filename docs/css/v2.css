@@ -674,7 +674,7 @@ html { overflow-anchor: none; }
 .e5-foto img { display: block; width: 100%; height: auto; border-radius: 18px; border: 1px solid var(--ink-10); }
 
 /* ============================ RONDA 19 · Etapa 4 unificada ============================ */
-.aus { width: min(1240px, 100%); margin: var(--s-8) auto 0; display: grid; gap: var(--s-6); }
+.aus { width: min(1520px, 100%); margin: var(--s-8) auto 0; display: grid; gap: var(--s-6); }
 .aus__head { display: grid; justify-items: center; gap: var(--s-3); text-align: center; }
 .aus__hint { margin: 0; font-size: var(--t-xs); letter-spacing: .14em; text-transform: uppercase; color: var(--celeste); }
 .aus__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); }
@@ -698,3 +698,4 @@ html { overflow-anchor: none; }
 @media (max-width: 899px) { .aus__grid { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { .aus-card, .aus-card__img { transition: none; } .aus-card__mas i { animation: none; } }
 .aus .aus-card .aus-card__img { height: auto; max-height: none; aspect-ratio: 16 / 10; }
+.aus .aus__grid { gap: clamp(14px, 1.6vw, 24px); }
