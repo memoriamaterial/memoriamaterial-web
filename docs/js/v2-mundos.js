@@ -138,6 +138,11 @@ function swaps() {
     const order = ['llave', 'mate', 'cuaderno'];
     const prev = order[order.indexOf(next) - 1];
     const items = Object.fromEntries($$('[data-k]', sw).map((li) => [li.dataset.k, li]));
+    if (!prev) { // primer mundo: solo se enciende la llave
+      ScrollTrigger.create({ trigger: sw, start: 'top 65%', onEnter: () => items[next].classList.add('is-color'), onLeaveBack: () => items[next].classList.remove('is-color') });
+      if (!reduce) gsap.from($('.e2-swap__in', sw).children, { y: 24, opacity: 0, stagger: 0.08, duration: 0.5, scrollTrigger: { trigger: sw, start: 'top 80%', once: true } });
+      return;
+    }
     items[prev].classList.add('is-color');
     ScrollTrigger.create({
       trigger: sw, start: 'top 65%',

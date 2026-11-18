@@ -615,9 +615,13 @@ html { overflow-anchor: none; }
 .escena--serie .escena__foto { transition: opacity 1s ease; }
 #e1 .escena, #e2 .escena { width: min(100%, calc((100vh - 220px) * 16 / 9)); justify-self: center; }
 
-/* el espacio físico: la foto del aula ambientada, debajo del plano */
-.aula__foto { width: min(1320px, 100%); margin: var(--s-6) auto 0; }
-.aula__foto img { display: block; width: 100%; height: auto; border-radius: 18px; border: 1px solid var(--ink-10); }
+/* el espacio físico: los puntos van sobre la foto del aula ambientada */
+.aula__img { display: block; width: 100%; height: auto; border-radius: 18px; border: 1px solid var(--ink-10); }
+.aula__map .spot__l { text-shadow: 0 1px 6px rgb(0 0 0 / .8); }
+
+/* cada pasaje por la cúpula: el escenario con el objeto que toca, en color */
+.e2-swap__foto { width: min(760px, 100%); margin: var(--s-4) auto 0; }
+.e2-swap__foto img { display: block; width: 100%; height: auto; border-radius: 18px; border: 1px solid var(--ink-10); }
 
 /* los mundos de la ausencia */
 .ausente-sec__art img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 18px; border: 1px solid var(--ink-10); }
