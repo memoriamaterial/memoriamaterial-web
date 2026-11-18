@@ -12,7 +12,7 @@
 .narrativa__media { position: sticky; top: 96px; height: calc(100vh - 140px); display: grid; align-items: center; }
 .narrativa__marco { position: relative; margin: 0; width: 100%; aspect-ratio: var(--ar); max-height: 100%; border-radius: 18px; overflow: hidden; border: 1px solid var(--ink-10); background: #2a1d6b; }
 .narrativa__lienzo { position: absolute; inset: 0; will-change: transform; }
-.narrativa__lienzo > [data-img] { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .9s ease; }
+.narrativa__lienzo > [data-img] { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; }
 .narrativa__lienzo > img[data-contain] { object-fit: contain; }
 .narrativa__lienzo > [data-img].is-on { opacity: 1; }
 .narrativa__lienzo > div[data-img] { display: grid; place-items: center; }

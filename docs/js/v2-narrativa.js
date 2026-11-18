@@ -1,5 +1,5 @@
 // Memoria Material · versión 2 · componente «escena narrativa» (css/v2-narrativa.css)
-// - el bloque de texto que está en el centro de la pantalla queda activo; su imagen (data-img) entra con un fundido
+// - el bloque cuyo texto llegó al centro de la pantalla queda activo; su imagen (data-img) entra con un fundido suave
 // - data-zoom="x% y%": zoom sutil atado al scroll, dentro del marco, hacia ese punto
 // - [data-aula-clone]: una capa con el dibujo del espacio físico (se copia del de «Antes de empezar»)
 const { gsap } = window;
@@ -15,9 +15,18 @@ function escena(n) {
     const k = b.dataset.img;
     if (k !== undefined) capas.forEach((c) => c.classList.toggle('is-on', c.dataset.img === k));
   };
-  if (bloques[0]) activar(bloques[0]);
-  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) activar(e.target); }), { rootMargin: '-42% 0px -42% 0px' });
-  bloques.forEach((b) => io.observe(b));
+  // el bloque activo es el último cuyo TEXTO ya llegó al centro de la pantalla (no cuenta su margen):
+  // así cada imagen queda fija hasta que el bloque que la cambia está realmente en el centro
+  let actual = null;
+  const revisar = () => {
+    const y = innerHeight * 0.55;
+    let b = bloques[0];
+    bloques.forEach((x) => { const r = x.getBoundingClientRect(); if (r.top + r.height / 2 <= y) b = x; });
+    if (b && b !== actual) { actual = b; activar(b); }
+  };
+  addEventListener('scroll', revisar, { passive: true });
+  addEventListener('resize', revisar);
+  revisar();
 
   const zoom = n.dataset.zoom;
   const lienzo = n.querySelector('.narrativa__lienzo');
