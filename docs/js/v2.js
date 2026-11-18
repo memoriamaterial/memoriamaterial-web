@@ -261,7 +261,26 @@ function narrativa() {
   };
   if ($('#e2')) cupula($('#e2'));
   // cada vuelta a la cúpula entre los mundos
-  $$('[data-swap]').forEach((sw) => { sw.style.position = 'relative'; cupula(sw); });
+  // cada vuelta a la cúpula entre los mundos: las dos mitades enmarcan los tres íconos, a su misma
+  // altura y dentro del bloque (antes iban en las esquinas de abajo y el bloque las recortaba)
+  $$('[data-swap]').forEach((sw) => {
+    sw.style.position = 'relative';
+    const trio = $('.e2-swap__trio', sw);
+    const lado = 112;
+    const a = forma(capa(sw), 'elemento-cuadrado-curvo', 'crema', lado, '', true);
+    const b = forma(capa(sw), 'elemento-cuadrado-curvo', 'crema', lado, '');
+    const ubicar = () => {
+      const s = sw.getBoundingClientRect(), t = trio.getBoundingClientRect();
+      const top = t.top - s.top + (t.height - lado) / 2;
+      a.style.top = b.style.top = `${top}px`;
+      a.style.left = `${t.left - s.left - lado - 40}px`;
+      b.style.left = `${t.right - s.left + 40}px`;
+    };
+    ubicar();
+    addEventListener('resize', ubicar);
+    alScroll(sw, (tl) => tl.fromTo([a, b], { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, ease: 'power3.out' }, 0.05)
+      .to([a, b], { y: -24, opacity: 0, duration: 0.25 }, 0.75));
+  });
   // Mundo de la llave · la llave (banda con dientes) avanza de puerta en puerta, abajo, en su propio carril
   const pinLlave = $('#e2-llave .llave__pin');
   if (pinLlave) {

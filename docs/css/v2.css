@@ -599,3 +599,9 @@ html { overflow-anchor: none; }
 /* cierre: sin los textos que se sacaron, el espaciado se reparte sin huecos */
 .cierre-fin { gap: var(--s-8); }
 .cierre__esferas { margin-bottom: 0; }
+
+/* ============================ CORRECCIONES · RONDA 13 ============================ */
+/* E1 → frase de la cúpula: el brillo amarillo ya no termina de golpe en el corte entre las dos secciones.
+   La E1 conserva solo el brillo de arriba; la frase tiene su propio brillo, que se desvanece antes de sus bordes. */
+#e1.tono-acento { background: radial-gradient(60% 46% at 50% 0%, color-mix(in srgb, var(--acc) 15%, transparent), transparent 72%); }
+.v2-puente { background: radial-gradient(46% 42% at 50% 50%, color-mix(in srgb, var(--acc) 11%, transparent), transparent 100%); }
