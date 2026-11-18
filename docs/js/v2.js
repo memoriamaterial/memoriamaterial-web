@@ -7,8 +7,8 @@ import { relatos } from './v2-relatos.js';
 import { narrativas } from './v2-narrativa.js';
 import { reproductor } from './v2-reproductor.js';
 
-// ruido blanco: un 20 % más que el valor anterior (0.0072)
-audio.noiseLevel = 0.00864;
+// ruido blanco: un 20 % más que el valor anterior (0.00864)
+audio.noiseLevel = 0.0104;
 
 const { gsap, ScrollToPlugin, DrawSVGPlugin, ScrollTrigger } = window;
 gsap.registerPlugin(ScrollToPlugin, DrawSVGPlugin, ScrollTrigger);
