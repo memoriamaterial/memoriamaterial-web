@@ -178,38 +178,21 @@ function espacio() {
 }
 
 // --- Etapa 1: cada esfera se conecta con su objeto y se eleva la cúpula -------------------
+// (los cinco escenarios de Unreal, uno tras otro, mientras la escena está a la vista)
+function serie(fig, ms = 2200, alFinal = 2400) {
+  const pasos = $$('img', fig);
+  let i = 0, t = null;
+  const ver = (k) => pasos.forEach((p, j) => p.classList.toggle('is-on', j === k));
+  const sig = () => { i = (i + 1) % pasos.length; ver(i); t = setTimeout(sig, i === pasos.length - 1 ? alFinal : ms); };
+  return { ver, play: () => { if (!t) t = setTimeout(sig, ms); }, pause: () => { clearTimeout(t); t = null; }, pasos };
+}
 function etapa1() {
   const sec = $('#e1');
   if (!sec) return;
-  const svg = $('.escena__anim', sec);
-  const ORDEN = ['llave', 'mate', 'cuaderno'];
-  const q = (sel) => $(sel, svg);
-  const arcos = $$('.e1a-cupula path', svg);
-
-  if (reduce) { // todo conectado, sin movimiento
-    ORDEN.forEach((k) => { q(`[data-o="${k}"]`).style.opacity = 1; q(`[data-s="${k}"]`).style.opacity = 1; q(`[data-p="${k}"]`).style.fill = `var(--${k === 'llave' ? 'amarillo' : k === 'mate' ? 'fucsia' : 'celeste'})`; });
-    arcos.forEach((a) => { a.style.opacity = 1; });
-    return;
-  }
-  const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.6, paused: true });
-  tl.set($$('.e1a-lines path', svg), { drawSVG: '0%' })
-    .set($$('.e1a-objs rect', svg), { opacity: 0 })
-    .set($$('.e1a-spheres circle', svg), { opacity: 0.55, scale: 1, transformOrigin: 'center' })
-    .set($$('.e1a-slots circle', svg), { fill: 'var(--violeta)' })
-    .set(arcos, { opacity: 0, drawSVG: '0%' });
-  ORDEN.forEach((k) => {
-    const c = getComputedStyle(q(`[data-s="${k}"]`)).getPropertyValue('--c');
-    tl.to(q(`[data-s="${k}"]`), { opacity: 1, scale: 1.25, duration: 0.35, yoyo: true, repeat: 1, ease: 'power2.out' }, '+=0.5')   // la esfera suena
-      .to(q(`[data-l="${k}"]`), { drawSVG: '100%', duration: 0.9, ease: 'power2.inOut' })                                          // se conecta
-      .to(q(`[data-o="${k}"]`), { opacity: 1, duration: 0.3 }, '-=0.1')                                                            // el objeto se ilumina
-      .to(q(`[data-s="${k}"]`), { opacity: 1, duration: 0.3 }, '<')
-      .to(q(`[data-p="${k}"]`), { fill: c, duration: 0.3 }, '<');                                                                  // y su esfera en la plataforma
-  });
-  tl.to(arcos, { opacity: 1, drawSVG: '100%', duration: 1, stagger: 0.18, ease: 'power2.out' }, '+=0.4')                       // se eleva la cúpula
-    .to({}, { duration: 1.6 })
-    .to(svg.children, { opacity: 0, duration: 0.4 })
-    .set(svg.children, { opacity: 1 });
-  alVer(sec, () => tl.play(), () => tl.pause());
+  const s = serie($('.escena--serie', sec));
+  if (reduce) { s.ver(s.pasos.length - 1); return; }
+  s.ver(0);
+  alVer(sec, s.play, s.pause);
 }
 
 // --- Elementos gráficos: acompañan la historia y marcan el avance del scroll ----------------------
@@ -335,12 +318,12 @@ function narrativa() {
 function etapa2() {
   const sec = $('#e2');
   if (!sec) return;
-  const gs = $$('.e2a g[data-k]', sec);
+  const pasos = $$('.escena--serie img', sec);
   const cup = $('.cupula', sec);
   const stage = $('.cupula__stage', cup), body = $('.dome__body', cup), frame = $('.door__frame', cup);
   const glow = $('.door__glow', cup), gems = $$('.dome__gems circle', cup), flash = $('.cupula__flash', cup);
-  const marco = (i) => () => gs.forEach((g, k) => g.classList.toggle('is-on', k === i));
-  if (reduce) { cup.style.display = 'none'; gs.forEach((g) => g.classList.add('is-on')); return; }
+  const marco = (i) => () => pasos.forEach((p, k) => p.classList.toggle('is-on', k === Math.max(i, 0)));
+  if (reduce) { cup.style.display = 'none'; marco(0)(); return; }
   const tl = gsap.timeline({ repeat: -1, paused: true, defaults: { ease: 'power2.inOut' } });
   tl.call(marco(-1))
     .set(cup, { opacity: 1 }).set(stage, { scale: 1 }).set(flash, { opacity: 0 }).set(glow, { opacity: 0 })
@@ -426,6 +409,7 @@ function etapa6() {
   const sec = $('#e6');
   if (!sec) return;
   const scan = $('[data-scan]', sec);
+  if (!scan) return;
   const dim = $('.scan__field--dim', scan), lit = $('.scan__field--lit', scan);
   const orbs = $$('[data-orb]', scan), tray = $$('[data-tray]', scan), signal = $('[data-signal]', scan);
   const totem = $('.scan__totem-svg', scan), guide = $('.scan__guide', scan);

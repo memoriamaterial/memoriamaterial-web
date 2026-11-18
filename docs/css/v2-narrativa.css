@@ -39,8 +39,11 @@
 /* --- mobile: imagen arriba y texto abajo, apilados, sin sticky -------------------------------- */
 @media (max-width: 899px) {
   .narrativa { grid-template-columns: 1fr; row-gap: var(--s-5); }
-  .narrativa__media { position: relative; top: auto; height: auto; }
-  .narrativa__textos { padding-block: 0; gap: var(--s-5); }
-  .narrativa__bloque { padding-block: 0; font-size: 1.15rem; }
+  /* la imagen queda fija arriba mientras se leen sus bloques: así se ve cada escenario */
+  body .narrativa .narrativa__media, body [data-voces] .narrativa__media, body .narrativa[data-voces] .narrativa__media {
+    position: sticky; top: 64px; z-index: 2; height: auto; padding: 8px var(--gutter) 14px; margin-inline: calc(-1 * var(--gutter));
+    background: linear-gradient(var(--violeta) 82%, transparent); }
+  .narrativa__textos { padding-block: 4vh 30vh; gap: 0; }
+  .narrativa__bloque { padding-block: 9vh; font-size: 1.15rem; }
 }
 .narrativa__marco .pend { top: auto; bottom: 12px; left: 12px; }

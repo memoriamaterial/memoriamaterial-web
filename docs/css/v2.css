@@ -605,3 +605,32 @@ html { overflow-anchor: none; }
    La E1 conserva solo el brillo de arriba; la frase tiene su propio brillo, que se desvanece antes de sus bordes. */
 #e1.tono-acento { background: radial-gradient(60% 46% at 50% 0%, color-mix(in srgb, var(--acc) 15%, transparent), transparent 72%); }
 .v2-puente { background: radial-gradient(46% 42% at 50% 50%, color-mix(in srgb, var(--acc) 11%, transparent), transparent 100%); }
+
+/* ============================ ESCENARIOS FINALES DE UNREAL ============================ */
+/* serie de escenarios (Etapa 1 y Etapa 2): la primera imagen da el tamaño, las demás se funden encima */
+.escena--serie { overflow: hidden; border-radius: 18px; }
+.escena--serie .escena__foto, .escena--serie .escena__paso { aspect-ratio: 16 / 9; object-fit: cover; }
+.escena--serie .escena__paso { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 18px; border: 1px solid var(--ink-10); opacity: 0; transition: opacity 1s ease; }
+.escena--serie .escena__paso.is-on { opacity: 1; }
+.escena--serie .escena__foto { transition: opacity 1s ease; }
+#e1 .escena, #e2 .escena { width: min(100%, calc((100vh - 220px) * 16 / 9)); justify-self: center; }
+
+/* el espacio físico: la foto del aula ambientada, debajo del plano */
+.aula__foto { width: min(1320px, 100%); margin: var(--s-6) auto 0; }
+.aula__foto img { display: block; width: 100%; height: auto; border-radius: 18px; border: 1px solid var(--ink-10); }
+
+/* los mundos de la ausencia */
+.ausente-sec__art img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 18px; border: 1px solid var(--ink-10); }
+
+/* Etapa 5: el pasillo de Unreal ocupa la pantalla y la cámara avanza hacia los Oculus */
+.hall__space { perspective: none; }
+.hall__foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; will-change: transform; }
+.hall__space::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgb(53 42 114 / .55), transparent 30%, transparent 75%, rgb(53 42 114 / .5)); pointer-events: none; }
+
+/* la cerradura gigante del escenario final: la llave entra en el centro del ojo, que se enciende como puerta */
+.cerradura--foto { aspect-ratio: 16 / 9; }
+.cerradura--foto .cerradura__foto { width: 100%; height: 100%; object-fit: cover; border-radius: 20px; }
+.cerradura--foto .cerradura__ojo { left: 60.5%; top: 36%; width: 6%; }
+.cerradura--foto .cerradura__target { left: 60.5%; top: 36%; width: 14%; }
+.cerradura__salida { left: 51.2%; top: 23%; width: 18.6%; height: 46%; border-radius: 48% 48% 6px 6px / 30% 30% 6px 6px; mix-blend-mode: screen; }
+@media (min-width: 900px) { .llave__panel--cerradura .cerradura--foto { width: min(100%, calc((100vh - 290px) * 16 / 9)); } }

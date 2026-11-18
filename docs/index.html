@@ -243,6 +243,9 @@
             <button class="spot spot--r" style="--x:67.6%;--y:69.3%" data-pop-open="oculus"><span class="spot__n">6</span><span class="spot__l">Oculus</span></button>
         </figure>
       </div>
+      <figure class="aula__foto">
+        <img src="assets/img/unreal/aula.webp" width="1600" height="900" alt="El aula a oscuras, como queda armada para la experiencia: la pantalla de proyección con la bienvenida, las tres estaciones, el camino de luces LED hasta el tótem y el holograma" loading="lazy" decoding="async">
+      </figure>
 
 
       <template data-pop="proyector" data-acc="celeste">
@@ -285,36 +288,12 @@
 
       <div class="etapa__grid">
 
-        <figure class="escena" data-escena="e1">
-          <img class="escena__foto" src="assets/img/escenarios/e1.webp" width="1765" height="717" alt="El escenario de la Etapa 1 en Unreal: un desierto con la llave, el cuaderno y el mate gigantes, tres esferas y una plataforma en el centro">
-          <!-- animación de la mecánica, encima del screen (viewBox con la proporción de la foto) -->
-          <svg class="escena__anim" viewBox="0 0 1000 406.2" aria-hidden="true">
-            <g class="e1a-objs">
-              <rect data-o="llave" x="97" y="160.4" width="230" height="117.8" rx="14" style="--c:var(--amarillo)"/>
-              <rect data-o="cuaderno" x="525.5" y="117.8" width="85" height="105.6" rx="12" style="--c:var(--celeste)"/>
-              <rect data-o="mate" x="635" y="243.7" width="170" height="146.2" rx="16" style="--c:var(--fucsia)"/>
-            </g>
-            <g class="e1a-lines">
-              <path data-l="llave" d="M748 229.5 Q470 120 171 195.8" style="--c:var(--amarillo)"/>
-              <path data-l="mate" d="M469 205.1 Q640 150 720 280.3" style="--c:var(--fucsia)"/>
-              <path data-l="cuaderno" d="M442 333.1 Q520 230 568 138.9" style="--c:var(--celeste)"/>
-            </g>
-            <g class="e1a-spheres">
-              <circle data-s="llave" cx="748" cy="229.5" r="30" style="--c:var(--amarillo)"/>
-              <circle data-s="mate" cx="469" cy="205.1" r="30" style="--c:var(--fucsia)"/>
-              <circle data-s="cuaderno" cx="442" cy="333.1" r="42" style="--c:var(--celeste)"/>
-            </g>
-            <g class="e1a-slots">
-              <circle data-p="llave" cx="487" cy="270.5" r="6" style="--c:var(--amarillo)"/>
-              <circle data-p="mate" cx="503" cy="263" r="6" style="--c:var(--fucsia)"/>
-              <circle data-p="cuaderno" cx="519" cy="270.5" r="6" style="--c:var(--celeste)"/>
-            </g>
-            <g class="e1a-cupula">
-              <path d="M413 268A90 90 0 0 1 593 268"/>
-              <path d="M443 268A60 60 0 0 1 563 268"/>
-              <path d="M473 268A30 30 0 0 1 533 268"/>
-            </g>
-          </svg>
+        <figure class="escena escena--serie" data-escena="e1">
+          <img class="escena__foto" src="assets/img/unreal/e1-01.webp" width="1600" height="900" alt="El desierto de la Etapa 1: la llave, el mate y el cuaderno gigantes, apagados, y tres esferas de colores" decoding="async">
+          <img class="escena__paso" src="assets/img/unreal/e1-02.webp" width="1600" height="900" alt="La esfera amarilla se conecta con la llave, que se colorea" loading="lazy" decoding="async">
+          <img class="escena__paso" src="assets/img/unreal/e1-03.webp" width="1600" height="900" alt="La esfera fucsia se conecta con el mate, que se colorea" loading="lazy" decoding="async">
+          <img class="escena__paso" src="assets/img/unreal/e1-04.webp" width="1600" height="900" alt="La esfera celeste se conecta con el cuaderno: los tres objetos quedan en color" loading="lazy" decoding="async">
+          <img class="escena__paso" src="assets/img/unreal/e1-05.webp" width="1600" height="900" alt="Con las tres conexiones, se eleva la cúpula en el centro del desierto" loading="lazy" decoding="async">
         </figure>
 
         <aside class="pp pp--fondo" aria-label="Lo que se escucha de fondo">
@@ -344,15 +323,10 @@
         <p class="etapa__desc">Los asistentes entran en cada objeto, uno por uno, y recorren lo que ese objeto vio, escuchó y vivió.</p>
       </header>
       <div class="etapa__grid etapa__grid--sin-fondo">
-        <figure class="escena escena--cupula" data-escena="e2">
-          <img class="escena__foto" src="assets/img/escenarios/e2.webp" width="1829" height="793" alt="El escenario de la Etapa 2 en Unreal: la llave, el mate y el cuaderno gigantes" loading="lazy">
-          <svg class="escena__anim" viewBox="0 0 1000 433.6" aria-hidden="true">
-            <g class="e2a">
-              <g data-k="llave" style="--c:var(--amarillo)"><rect x="6" y="44" width="326" height="376" rx="18"/><circle cx="30" cy="68" r="17"/><text x="30" y="74">1</text></g>
-              <g data-k="mate" style="--c:var(--fucsia)"><rect x="388" y="50" width="174" height="370" rx="18"/><circle cx="412" cy="74" r="17"/><text x="412" y="80">2</text></g>
-              <g data-k="cuaderno" style="--c:var(--celeste)"><rect x="634" y="124" width="360" height="296" rx="18"/><circle cx="658" cy="148" r="17"/><text x="658" y="154">3</text></g>
-            </g>
-          </svg>
+        <figure class="escena escena--cupula escena--serie" data-escena="e2">
+          <img class="escena__foto" src="assets/img/unreal/objetos-01.webp" width="1600" height="900" alt="Los tres objetos gigantes en el desierto: la llave en color, con su entrada encendida" loading="lazy" decoding="async">
+          <img class="escena__paso" src="assets/img/unreal/objetos-06.webp" width="1600" height="900" alt="Los tres objetos gigantes: ahora el mate en color, con su entrada encendida" loading="lazy" decoding="async">
+          <img class="escena__paso" src="assets/img/unreal/objetos-16.webp" width="1600" height="900" alt="Los tres objetos gigantes: por último el cuaderno en color, con su entrada encendida" loading="lazy" decoding="async">
           <!-- la Cúpula del Reencuadre (animación recuperada de la versión 1): se eleva, se dibuja la puerta y la cámara entra -->
           <div class="cupula" aria-hidden="true">
             <div class="cupula__stage">
@@ -408,7 +382,7 @@
               <div class="llave__voices llave__voices--cajas">
                 <p class="said llave__frase">—Llegó el día, por fin me voy a mudar.</p>
               </div>
-              <figure class="llave__foto"><img src="assets/img/escenarios/llave-1.webp" width="1805" height="784" alt="Cajas de mudanza de todos los tamaños flotando entre la primera y la segunda puerta" loading="lazy" decoding="async"></figure>
+              <figure class="llave__foto"><img src="assets/img/unreal/objetos-02.webp" width="1600" height="900" alt="El camino de la mudanza: cajas de todos los tamaños, una lámpara y una alfombra enrollada, hasta la siguiente puerta" loading="lazy" decoding="async"></figure>
               <p class="llave__caption mono">Cajas de mudanza de todos los tamaños</p>
               <div class="door" aria-hidden="true"><span class="door__n mono">Puerta 2</span></div>
             </article>
@@ -418,13 +392,13 @@
                 <p class="said llave__frase">—Te voy a extrañar, hijo.</p>
                 <p class="said llave__frase">—Te regalo esto, espero que te guste.</p>
               </div>
-              <figure class="llave__foto"><img src="assets/img/escenarios/llave-2.webp" width="1839" height="700" alt="Regalos para quien se muda: cubiertos, plantas, cuadros y una alfombra que dice Welcome" loading="lazy" decoding="async"></figure>
+              <figure class="llave__foto"><img src="assets/img/unreal/objetos-03.webp" width="1600" height="900" alt="Lo que se regala a quien se muda: una cocina, un comedor y una cama armados a los costados del camino" loading="lazy" decoding="async"></figure>
               <p class="llave__caption mono">Lo que se regala a quien se muda</p>
               <div class="door" aria-hidden="true"><span class="door__n mono">Puerta 3</span></div>
             </article>
 
             <article class="llave__panel llave__panel--cajones">
-              <figure class="llave__foto"><img src="assets/img/escenarios/llave-3.webp" width="1518" height="621" alt="Mesitas de luz flotando con los cajones abiertos, y al fondo la cuarta puerta" loading="lazy" decoding="async"></figure>
+              <figure class="llave__foto"><img src="assets/img/unreal/objetos-04.webp" width="1600" height="900" alt="Mesitas de luz y cómodas con los cajones abiertos a los dos lados del camino, y al fondo más puertas" loading="lazy" decoding="async"></figure>
               <div class="llave__copy">
                 <p class="said llave__frase">—¿En dónde quedaron las llaves?</p>
                 <p class="said llave__frase">—Me falta lo más importante.</p>
@@ -445,7 +419,7 @@
 
             <article class="llave__panel llave__panel--cerradura" data-lock-panel>
               <div class="cerradura cerradura--foto" data-lock>
-                <img class="cerradura__foto" src="assets/img/escenarios/llave-4.webp" width="1473" height="764" alt="La cerradura gigante y, al lado, el último marco de puerta" loading="lazy" decoding="async">
+                <img class="cerradura__foto" src="assets/img/unreal/objetos-05.webp" width="1600" height="900" alt="La cerradura gigante, que se abre como una puerta hacia el siguiente mundo; al lado, la mesita con la llave en el cajón" loading="lazy" decoding="async">
                 <span class="cerradura__salida" aria-hidden="true"></span>
                 <span class="cerradura__ojo" aria-hidden="true"></span>
                 <span class="cerradura__target" aria-hidden="true"></span>
@@ -488,16 +462,18 @@
           <button class="pp__btn" type="button" data-seq="pajaros,pavaHirviendo:1500,cebando2:7000,mate4:9200"><i></i>Escuchar</button>
         </div>
       </div>
-      <div class="narrativa" data-narrativa data-zoom="50% 34%" style="--ar:649 / 492" data-voces="mateM2a,mateM2b,mateM2c,mateM2d" data-voces-titulo="Mundo del mate · La mañana">
+      <div class="narrativa" data-narrativa data-zoom="50% 45%" style="--ar:16 / 9" data-voces="mateM2a,mateM2b,mateM2c,mateM2d" data-voces-titulo="Mundo del mate · La mañana">
         <div class="narrativa__media"><figure class="narrativa__marco">
           <div class="narrativa__lienzo">
-            <img data-img="0" data-contain src="assets/img/escenarios/mate-2.webp" width="649" height="492" alt="Una pava sobre la hornalla en el centro de un espacio oscuro, rodeada de ventanas de luz de colores" loading="lazy">
+            <img data-img="0" src="assets/img/unreal/objetos-13.webp" width="1600" height="900" alt="Un espacio oscuro: una pava sobre la hornalla, en el centro, rodeada de paneles apagados y la silueta de un mate" loading="lazy" decoding="async">
+            <img data-img="1" src="assets/img/unreal/objetos-14.webp" width="1600" height="900" alt="Los paneles alrededor de la pava se encienden con luz de colores" loading="lazy" decoding="async">
+            <img data-img="2" src="assets/img/unreal/objetos-15.webp" width="1600" height="900" alt="El mate se ilumina y deja ver, adentro, el paso al siguiente escenario" loading="lazy" decoding="async">
           </div>
         </figure></div>
         <div class="narrativa__textos">
           <p class="narrativa__bloque" data-img="0">Un espacio oscuro: una pava sobre la hornalla, en el centro, rodeada de ventanas de luz de colores.</p>
-          <p class="narrativa__bloque" data-img="0">Una familia arranca el día. Se saludan, se prende la radio y el primer mate pasa de mano en mano.</p>
-          <p class="narrativa__bloque" data-img="0">Antes de irse a trabajar, uno de ellos toma su mate, se despide y sale por la puerta.</p>
+          <p class="narrativa__bloque" data-img="1">Una familia arranca el día. Se saludan, se prende la radio y el primer mate pasa de mano en mano.</p>
+          <p class="narrativa__bloque" data-img="2">Antes de irse a trabajar, uno de ellos toma su mate, se despide y sale por la puerta.</p>
         </div>
       </div>
 
@@ -505,16 +481,21 @@
       <div class="narrativa" data-narrativa style="--ar:16 / 9" data-voces="mateR3a,mateR3b" data-voces-titulo="Mundo del mate · La ronda">
         <div class="narrativa__media"><figure class="narrativa__marco">
           <div class="narrativa__lienzo">
-            <img data-img="0" src="assets/img/escenarios/mate-1a.webp" width="1661" height="795" alt="Un gran charco con sillas flotando y caídas; en el centro, la única silla de pie y en color" loading="lazy">
-            <img data-img="1" src="assets/img/escenarios/mate-1b.webp" width="1802" height="685" alt="Las sillas acomodadas en ronda alrededor de un hueco en el centro" loading="lazy">
+            <img data-img="0" src="assets/img/unreal/objetos-07.webp" width="1600" height="900" alt="Sillas flotando y dadas vuelta alrededor de la única silla de pie y encendida, en el centro" loading="lazy" decoding="async">
+            <img data-img="1" src="assets/img/unreal/objetos-08.webp" width="1600" height="900" alt="Las sillas acomodadas en ronda; una de ellas emite luz" loading="lazy" decoding="async">
+            <img data-img="2" src="assets/img/unreal/objetos-09.webp" width="1600" height="900" alt="La ronda de sillas: se ilumina otra silla, la de quien habla" loading="lazy" decoding="async">
+            <img data-img="3" data-loop src="assets/img/unreal/objetos-10.webp" width="1600" height="900" alt="La ronda de sillas: con cada voz se ilumina una silla distinta" loading="lazy" decoding="async">
+            <img data-img="3" data-loop src="assets/img/unreal/objetos-11.webp" width="1600" height="900" alt="La ronda de sillas: con cada voz se ilumina una silla distinta" loading="lazy" decoding="async">
+            <img data-img="3" data-loop src="assets/img/unreal/objetos-09.webp" width="1600" height="900" alt="La ronda de sillas: con cada voz se ilumina una silla distinta" loading="lazy" decoding="async">
+            <img data-img="4" src="assets/img/unreal/objetos-12.webp" width="1600" height="900" alt="Todas las sillas encendidas y, en el centro de la ronda, un agujero de luz" loading="lazy" decoding="async">
           </div>
         </figure></div>
         <div class="narrativa__textos">
           <p class="narrativa__bloque" data-img="0"><strong>Al salir de la habitación</strong>, se ingresa a otro espacio abierto con sillas delante, una coloreada y bien ubicada, el resto desaturadas y flotando.</p>
           <p class="narrativa__bloque" data-img="1">Al sentarse en la silla, el resto se ordena y colorea.</p>
-          <p class="narrativa__bloque" data-img="1">Se escucha la ronda de amigos debatiendo y reflexionando el momento.</p>
-          <p class="narrativa__bloque" data-img="1">Cada vez que se escucha una voz, una silla distinta emite luz.</p>
-          <p class="narrativa__bloque" data-img="1">Una vez termina la ronda, en el centro se revela un agujero que marca el avance al siguiente mundo.</p>
+          <p class="narrativa__bloque" data-img="2">Se escucha la ronda de amigos debatiendo y reflexionando el momento.</p>
+          <p class="narrativa__bloque" data-img="3">Cada vez que se escucha una voz, una silla distinta emite luz.</p>
+          <p class="narrativa__bloque" data-img="4">Una vez termina la ronda, en el centro se revela un agujero que marca el avance al siguiente mundo.</p>
         </div>
       </div>
     </section>
@@ -537,18 +518,21 @@
         <h3 class="title">Mundo del cuaderno</h3>
         <p>Los asistentes entran al mundo del cuaderno y recorren dos cuadernos distintos: uno que se usó para la construcción de una casa propia y otro que muestra una receta que una abuela hace junto a su nieto.</p>
       </div>
-      <div class="narrativa" data-narrativa data-zoom="60% 45%" style="--ar:1580 / 950" data-voces="cqL2a,cqL2b,cqL2c,cqR2a,cqR2b,cqR2c" data-voces-titulo="Mundo del cuaderno">
+      <div class="narrativa" data-narrativa data-zoom="50% 50%" style="--ar:16 / 9" data-voces="cqL2a,cqL2b,cqL2c,cqR2a,cqR2b,cqR2c" data-voces-titulo="Mundo del cuaderno">
         <div class="narrativa__media"><figure class="narrativa__marco">
           <div class="narrativa__lienzo">
-            <img data-img="0" src="assets/img/maqueta-cuaderno.webp" width="1580" height="950" alt="Maqueta anterior del mundo del cuaderno: cuadernos y hojas flotantes" loading="lazy">
+            <img data-img="0" src="assets/img/unreal/objetos-17.webp" width="1600" height="900" alt="Hojas que forman un camino de plataformas hacia el primer cuaderno: la lista de materiales" loading="lazy" decoding="async">
+            <img data-img="1" src="assets/img/unreal/objetos-18.webp" width="1600" height="900" alt="Sobre la lista de materiales aparecen, escritas solas, las frases de la pareja que planea la obra" loading="lazy" decoding="async">
+            <img data-img="2" src="assets/img/unreal/objetos-19.webp" width="1600" height="900" alt="El escenario cambia y aparece el cuaderno de recetas" loading="lazy" decoding="async">
+            <img data-img="2" src="assets/img/unreal/objetos-20.webp" width="1600" height="900" alt="Sobre el cuaderno de recetas aparecen las frases de la abuela y el nieto, paso a paso" loading="lazy" decoding="async">
+            <img data-img="3" src="assets/img/unreal/objetos-21.webp" width="1600" height="900" alt="El último cuaderno abierto de par en par: en sus hojas está dibujado un pasillo con una puerta" loading="lazy" decoding="async">
           </div>
-          <span class="pend">Maqueta anterior · foto pendiente</span>
         </figure></div>
         <div class="narrativa__textos">
           <p class="narrativa__bloque" data-img="0">Cuadernos y hojas flotan en el espacio. Las hojas se ordenan frente al participante y forman un camino hacia el primer cuaderno.</p>
-          <p class="narrativa__bloque" data-img="0">En el cuaderno de materiales se escucha cómo se planea la obra de una casa propia, con martillazos y un taladro de fondo, mientras las anotaciones se escriben solas.</p>
-          <p class="narrativa__bloque" data-img="0">El escenario cambia de color y aparece el cuaderno de recetas: una abuela le va dictando a su nieto una torta, paso a paso.</p>
-          <p class="narrativa__bloque" data-img="0">El último cuaderno se abre de par en par: en sus hojas está dibujada la salida al siguiente mundo.</p>
+          <p class="narrativa__bloque" data-img="1">En el cuaderno de materiales se escucha cómo se planea la obra de una casa propia, con martillazos y un taladro de fondo, mientras las anotaciones se escriben solas.</p>
+          <p class="narrativa__bloque" data-img="2">El escenario cambia de color y aparece el cuaderno de recetas: una abuela le va dictando a su nieto una torta, paso a paso.</p>
+          <p class="narrativa__bloque" data-img="3">El último cuaderno se abre de par en par: en sus hojas está dibujada la salida al siguiente mundo.</p>
         </div>
       </div>
     </section>
@@ -561,19 +545,20 @@
         <h2 class="v2-title">Una extensión del yo</h2>
         <p class="etapa__sub">El objeto que llevás encima</p>
       </header>
-      <div class="narrativa" data-narrativa style="--ar:4 / 3">
+      <div class="narrativa" data-narrativa style="--ar:16 / 9">
         <div class="narrativa__media"><figure class="narrativa__marco">
           <div class="narrativa__lienzo">
-            <img data-img="0" src="assets/img/escenarios/pasillo.webp" width="701" height="671" alt="El pasillo en Unreal: paredes violetas, luces blancas en el techo y el piso que se pierde al fondo" loading="lazy">
-            <div data-img="1" data-aula-clone></div>
+<img data-img="0" src="assets/img/unreal/pasillo-01.webp" width="1600" height="900" alt="El pasillo en Unreal: paredes violetas, luces en el techo y una puerta al fondo" loading="lazy" decoding="async">
+            <img data-img="1" src="assets/img/unreal/pasillo-02.webp" width="1600" height="900" alt="La puerta cerrada al final del pasillo, con la consigna: depositar el objeto en el tótem para poder pasar" loading="lazy" decoding="async">
+            <img data-img="2" src="assets/img/unreal/aula.webp" width="1600" height="900" alt="El aula: el camino de luces LED lleva de las estaciones al tótem, y al lado está el holograma" loading="lazy" decoding="async">
           </div>
         </figure></div>
         <div class="narrativa__textos">
           <p class="narrativa__bloque" data-img="0">En esta etapa, la voz les pide a los asistentes que piensen en un objeto que tengan encima.</p>
-          <p class="narrativa__bloque" data-img="0">Al final, la salida está cerrada: en este momento hay que salir de Unreal.</p>
-          <p class="narrativa__bloque" data-img="1">Deben seguir las luces hasta el tótem y dejar el objeto ahí.</p>
-          <p class="narrativa__bloque" data-img="1">Una vez que lo hacen, un holograma muestra un ícono que deben elegir en la puerta de Unreal.</p>
-          <p class="narrativa__bloque" data-img="0">Al volver a Unreal e indicar el ícono, la puerta se abre con un destello.</p>
+          <p class="narrativa__bloque" data-img="1">Al final, la salida está cerrada: en este momento hay que salir de Unreal.</p>
+          <p class="narrativa__bloque" data-img="2">Deben seguir las luces hasta el tótem y dejar el objeto ahí.</p>
+          <p class="narrativa__bloque" data-img="2">Una vez que lo hacen, un holograma muestra un ícono que deben elegir en la puerta de Unreal.</p>
+          <p class="narrativa__bloque" data-img="1">Al volver a Unreal e indicar el ícono, la puerta se abre con un destello.</p>
         </div>
       </div>
     </section>
@@ -590,10 +575,10 @@
         <div class="narrativa__media"><figure class="narrativa__marco">
           <div class="narrativa__lienzo">
             <div data-img="0" class="narrativa__blanco"></div>
-            <img data-img="1" src="assets/img/maqueta-e1-inv.webp" width="1927" height="903" alt="La primera etapa recreada, invertida: de los objetos solo quedan siluetas y sombras" loading="lazy">
-            <img data-img="2" src="assets/img/escenarios/e2.webp" width="1829" height="793" alt="La llave, el mate y el cuaderno gigantes" loading="lazy">
+            <img data-img="1" src="assets/img/unreal/ausencia-01.webp" width="1600" height="900" alt="El desierto de la Etapa 1 recreado, sin color: de los objetos solo quedan siluetas oscuras y sombras" loading="lazy" decoding="async">
+            <img data-img="2" src="assets/img/unreal/ausencia-02.webp" width="1600" height="900" alt="En el desierto sin color, la cúpula está abierta" loading="lazy" decoding="async">
+            <img data-img="2" src="assets/img/unreal/ausencia-03.webp" width="1600" height="900" alt="Dentro de la cúpula, los tres objetos gigantes en blanco y negro: la entrada a los mundos de la ausencia" loading="lazy" decoding="async">
           </div>
-          <span class="pend">Screen pendiente</span>
         </figure></div>
         <div class="narrativa__textos">
           <p class="narrativa__bloque" data-img="0">El participante irá recuperando la vista progresivamente, escuchando un pitido que se apaga de a poco.</p>
@@ -608,17 +593,7 @@
     <!-- ===================== 6b · ETAPA 4: los mundos de la ausencia, el eco, el tótem vacío y el video (de la versión 1) ===================== -->
     <section id="e4-llave" class="mundo-v1 ausente-sec" data-where="unreal" style="--acc:var(--fucsia);--c:var(--amarillo)">
       <div class="ausente-sec__in">
-        <figure class="ausente-sec__art trip--llave"><span class="pend">Screen pendiente</span>
-          <div class="trip__art">
-                <div class="puertas" aria-hidden="true"><i></i><i></i><i></i></div>
-                <div class="trip__cajones" role="group" aria-label="Cajones que no se abren">
-                  <button type="button" class="trip__cajon" aria-label="Cajón cerrado"></button>
-                  <button type="button" class="trip__cajon" aria-label="Cajón cerrado"></button>
-                  <button type="button" class="trip__cajon" aria-label="Cajón cerrado"></button>
-                </div>
-                <p class="onoma trip__clack" aria-live="polite"></p>
-              </div>
-        </figure>
+        <figure class="ausente-sec__art"><img src="assets/img/unreal/ausencia-04.webp" width="1600" height="900" alt="El camino de la mudanza a oscuras: las puertas cerradas y las cómodas con los cajones trabados" loading="lazy" decoding="async"></figure>
         <div class="ausente-sec__copy">
           <p class="eyebrow">Etapa 4 · Los mundos de la ausencia</p>
           <h3 class="title">Llave ausente</h3>
@@ -629,13 +604,7 @@
 
     <section id="e4-mate" class="mundo-v1 ausente-sec" data-where="unreal" style="--acc:var(--fucsia);--c:var(--fucsia)">
       <div class="ausente-sec__in">
-        <figure class="ausente-sec__art trip--mate"><span class="pend">Screen pendiente</span>
-          <div class="trip__art" aria-hidden="true">
-                <span class="cenital"></span>
-                <span class="cenital__floor"></span>
-                <svg class="sombra" style="--a:0deg"><use href="#obj-silla"/></svg><svg class="sombra" style="--a:72deg"><use href="#obj-silla"/></svg><svg class="sombra" style="--a:144deg"><use href="#obj-silla"/></svg><svg class="sombra" style="--a:216deg"><use href="#obj-silla"/></svg><svg class="sombra" style="--a:288deg"><use href="#obj-silla"/></svg>
-              </div>
-        </figure>
+        <figure class="ausente-sec__art"><img src="assets/img/unreal/ausencia-05.webp" width="1600" height="900" alt="El espacio de la ronda a oscuras: una luz desde arriba y las sillas caídas, con sus sombras" loading="lazy" decoding="async"></figure>
         <div class="ausente-sec__copy">
           <p class="eyebrow">Etapa 4 · Los mundos de la ausencia</p>
           <h3 class="title">Mate ausente</h3>
@@ -646,15 +615,7 @@
 
     <section id="e4-cuaderno" class="mundo-v1 ausente-sec" data-where="unreal" style="--acc:var(--fucsia);--c:var(--celeste)">
       <div class="ausente-sec__in">
-        <figure class="ausente-sec__art trip--cuaderno"><span class="pend">Screen pendiente</span>
-          <div class="trip__art" aria-hidden="true">
-                <div class="bollos"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-                <div class="pila"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-                <p class="borrador b1">primero hay que elegir el mod</p>
-                <p class="borrador b2">3 huevos, 1 taza de az</p>
-                <p class="borrador b3">metro, calad</p>
-              </div>
-        </figure>
+        <figure class="ausente-sec__art"><img src="assets/img/unreal/ausencia-06.webp" width="1600" height="900" alt="Hojas arrugadas que caen desde arriba y forman una pila; alrededor, anotaciones que quedan a medio escribir" loading="lazy" decoding="async"></figure>
         <div class="ausente-sec__copy">
           <p class="eyebrow">Etapa 4 · Los mundos de la ausencia</p>
           <h3 class="title">Cuaderno ausente</h3>
@@ -679,10 +640,10 @@
     </section>
 
     <section id="e4-totem" class="mundo-v1 mundo-narr" data-where="fisico" style="--acc:var(--fucsia)">
-      <div class="narrativa" data-narrativa style="--ar:4 / 3">
+      <div class="narrativa" data-narrativa style="--ar:16 / 9">
         <div class="narrativa__media"><figure class="narrativa__marco">
           <div class="narrativa__lienzo">
-            <div data-img="0" data-aula-clone></div>
+            <img data-img="0" src="assets/img/unreal/aula.webp" width="1600" height="900" alt="El aula: las luces LED vuelven a encenderse y marcan el camino hasta el tótem" loading="lazy" decoding="async">
             <div data-img="1" class="narrativa__totem"><div class="humo"><i></i><i></i><i></i><i></i><i></i><i></i></div>
             <svg viewBox="0 0 120 260"><use href="#obj-totem"/></svg></div>
           </div>
@@ -716,22 +677,12 @@
       <div class="trama-sep" aria-hidden="true"></div>
       <div class="hall" data-hall>
         <div class="pin hall__pin">
-          <div class="hall__space" aria-hidden="true">
-            <div class="hall__wall hall__wall--l"><div class="hall__strip"></div></div>
-            <div class="hall__wall hall__wall--r"><div class="hall__strip"></div></div>
-            <div class="floor hall__floor"></div>
-          </div>
-          <div class="hall__end" aria-hidden="true">
-            <div class="oculus">
-              <svg viewBox="0 0 220 110"><g fill="none" stroke="currentColor" stroke-width="5"><rect x="10" y="18" width="200" height="74" rx="30"/><path d="M92 92c6-18 30-18 36 0"/><path d="M10 50H0M210 50h10"/></g><g fill="currentColor" opacity=".25"><rect x="26" y="32" width="70" height="46" rx="18"/><rect x="124" y="32" width="70" height="46" rx="18"/></g></svg>
-              <span class="oculus__pile"></span>
-            </div>
-            <p class="mono oculus__label">Detector de significado</p>
+          <div class="hall__space">
+            <img class="hall__foto" src="assets/img/unreal/transicion-vr.webp" width="1600" height="900" alt="El pasillo de Unreal entre pilas de objetos en blanco y negro (llaves, mates, cuadernos, cajas) que llevan a los Oculus, sobre una pila más chica al fondo" loading="lazy" decoding="async">
           </div>
           <div class="hall__copy wrap">
             <h2 class="v2-title hall__title">Obsesión con la pérdida</h2>
           </div>
-          <span class="pend">Screen pendiente</span>
           <div class="hall__desc">
             <!-- BORRADOR: revisar -->
             <p class="etapa__desc">Los asistentes vuelven a su estación y, de vuelta en Unreal, recorren un pasillo recto entre pilas de los objetos que parecían perdidos, ahora repetidos por todos lados: ya no pueden dejar de verlos. Al final del pasillo, sobre una pila más chica, los esperan los Oculus.</p>
@@ -749,38 +700,23 @@
         <!-- BORRADOR: revisar -->
         <p class="etapa__desc">Los asistentes se ponen los Oculus, que funcionan como un detector de significado: buscan tres esferas que brillan entre los objetos y las depositan en un tótem.</p>
       </header>
-      <div class="narrativa" data-narrativa style="--ar:1000 / 562">
+      <div class="narrativa" data-narrativa style="--ar:16 / 9">
         <div class="narrativa__media"><figure class="narrativa__marco">
           <div class="narrativa__lienzo">
-            <div data-img="0" class="narrativa__scan">
-          <div class="scan" data-scan aria-hidden="true">
-            <div class="scan__field scan__field--dim"></div>
-            <div class="scan__field scan__field--lit"></div>
-            <div class="scan__lens"><span></span></div>
-            <div class="scan__hud mono">
-              <span class="scan__corner tl"></span><span class="scan__corner tr"></span><span class="scan__corner bl"></span><span class="scan__corner br"></span>
-              <span class="scan__read">Detector · señal <b data-signal>0</b>%</span>
-              <span class="scan__tray"><i data-tray="0"></i><i data-tray="1"></i><i data-tray="2"></i></span>
-            </div>
-            <span class="scan__orb" data-orb="0" style="--x:18%;--y:62%;--c:var(--fucsia)"></span>
-            <span class="scan__orb" data-orb="1" style="--x:58%;--y:30%;--c:var(--amarillo)"></span>
-            <span class="scan__orb" data-orb="2" style="--x:84%;--y:72%;--c:var(--celeste)"></span>
-            <div class="scan__totem">
-              <svg class="scan__guide" viewBox="0 0 400 200" preserveAspectRatio="none"><path d="M20 190C120 180 160 120 200 60" fill="none"/><path d="M380 190C280 180 240 120 200 60" fill="none"/></svg>
-              <svg class="scan__totem-svg" viewBox="0 0 120 260"><use href="#obj-totem"/></svg>
-            </div>
+            <img data-img="0" src="assets/img/unreal/vr-01.webp" width="1600" height="900" alt="Con los Oculus: el escenario en wireframe, los objetos reducidos a sus líneas y una esfera amarilla para recolectar" loading="lazy" decoding="async">
+            <img data-img="1" src="assets/img/unreal/vr-02.webp" width="1600" height="900" alt="Con las tres esferas recolectadas, se eleva un tótem de luz en el centro del pasillo" loading="lazy" decoding="async">
+            <img data-img="2" src="assets/img/unreal/vr-03.webp" width="1600" height="900" alt="Frente al tótem, la indicación para depositar el significado" loading="lazy" decoding="async">
+            <img data-img="3" src="assets/img/unreal/vr-04.webp" width="1600" height="900" alt="El mensaje final: depositaste el significado en el tótem, es momento de sacarse los Oculus y recuperar el objeto" loading="lazy" decoding="async">
+            <img data-img="4" src="assets/img/unreal/aula.webp" width="1600" height="900" alt="De vuelta en el aula: el tótem físico, donde esperan los objetos" loading="lazy" decoding="async">
           </div>
-</div>
-          </div>
-          <span class="pend">Screen pendiente</span>
         </figure></div>
         <div class="narrativa__textos">
           <p class="narrativa__bloque" data-img="0">Con los Oculus puestos, el mismo escenario de la etapa anterior se ve en wireframe: los objetos quedan reducidos a sus líneas.</p>
           <p class="narrativa__bloque" data-img="0">Los participantes usan los Oculus como un detector: entre los objetos brillan tres esferas y sus sonidos los guían hasta cada una para recolectarlas.</p>
-          <p class="narrativa__bloque" data-img="0">Una vez recolectadas todas las esferas, se eleva un tótem similar al que se encuentra en el espacio físico.</p>
-          <p class="narrativa__bloque" data-img="0">En él deben depositar las esferas.</p>
-          <p class="narrativa__bloque" data-img="0">Al hacerlo, la voz les dice que se quiten los oculus y vayan al tótem físico.</p>
-          <p class="narrativa__bloque" data-img="0">Una vez ahí, encontrarán sus objetos dentro de esferas similares a las que depositaron en el mundo digital.</p>
+          <p class="narrativa__bloque" data-img="1">Una vez recolectadas todas las esferas, se eleva un tótem similar al que se encuentra en el espacio físico.</p>
+          <p class="narrativa__bloque" data-img="2">En él deben depositar las esferas.</p>
+          <p class="narrativa__bloque" data-img="3">Al hacerlo, la voz les dice que se quiten los oculus y vayan al tótem físico.</p>
+          <p class="narrativa__bloque" data-img="4">Una vez ahí, encontrarán sus objetos dentro de esferas similares a las que depositaron en el mundo digital.</p>
         </div>
       </div>
     </section>
