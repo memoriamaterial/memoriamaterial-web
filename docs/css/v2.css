@@ -699,3 +699,7 @@ html { overflow-anchor: none; }
 @media (prefers-reduced-motion: reduce) { .aus-card, .aus-card__img { transition: none; } .aus-card__mas i { animation: none; } }
 .aus .aus-card .aus-card__img { height: auto; max-height: none; aspect-ratio: 16 / 10; }
 .aus .aus__grid { gap: clamp(14px, 1.6vw, 24px); }
+/* el título y la consigna de los mundos de la ausencia, al doble */
+.aus .aus__head .eyebrow { font-size: 26.4px; letter-spacing: .16em; }
+.aus .aus__head .aus__hint { font-size: 24px; letter-spacing: .1em; line-height: 1.3; }
+@media (max-width: 899px) { .aus .aus__head .eyebrow { font-size: 20px; } .aus .aus__head .aus__hint { font-size: 17px; } }
