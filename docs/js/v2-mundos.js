@@ -270,21 +270,34 @@ function cuaderno() {
   tl.eventCallback('onUpdate', () => { syncMat(); syncRec(); });
 }
 
-// --- Etapa 5: el pasillo de objetos (la cámara avanza por el escenario de Unreal hasta los Oculus) -------
+// --- Etapa 5: el pasillo de objetos (la cámara avanza entre las pilas hasta los Oculus) -------------
+const OBJS = [['obj-llave', '0 0 100 260'], ['obj-mate', '0 0 200 240'], ['obj-cuaderno', '0 0 240 180']];
+const svgUse = (id, box, cls = '') => `<svg viewBox="${box}" class="${cls}" aria-hidden="true"><use href="#${id}"/></svg>`;
 function pasilloDeObjetos() {
   const wrap = $('[data-hall]');
   if (!wrap) return;
   const pin = $('.hall__pin', wrap);
-  const foto = $('.hall__foto', wrap);
+  const strips = $$('.hall__strip', wrap);
+  const end = $('.hall__end', wrap), floor = $('.hall__floor', wrap);
+  // pilas de objetos repetidos: "verlo en todos lados"
+  strips.forEach((s, k) => {
+    let html = '';
+    for (let i = 0; i < 240; i++) { const [id, box] = OBJS[(i * 7 + k) % 3]; html += svgUse(id, box, (i * 13 + k * 5) % 29 === 0 ? 'is-acc' : ''); }
+    s.innerHTML = html;
+  });
   const desc = $('.hall__desc', wrap);
-  if (reduce) return;
+  if (reduce) { end.style.transform = 'none'; end.style.opacity = 1; return; }
   const tl = gsap.timeline({
     defaults: { ease: 'none' },
-    scrollTrigger: { trigger: wrap, pin, start: 'top top', end: () => `+=${vh() * 3.5}`, scrub: 1 },
+    scrollTrigger: { trigger: wrap, pin, start: 'top top', end: () => `+=${vh() * 3.5}`, scrub: 1,
+ },
   });
-  // primero la descripción, en el centro del pasillo; después la cámara llega hasta los Oculus
-  tl.fromTo(foto, { scale: 1 }, { scale: 1.9, transformOrigin: '50% 50%', duration: 1, ease: 'power1.in' }, 0)
-    .fromTo(desc, { opacity: 1, y: 0 }, { opacity: 0, y: -30, duration: 0.15, ease: 'power2.in' }, 0.4);
+  tl.fromTo(strips[0], { x: -3200 }, { x: 0, duration: 1 }, 0)
+    .fromTo(strips[1], { x: 3200 }, { x: 0, duration: 1 }, 0)
+    .fromTo(floor, { backgroundPosition: '0px 0px' }, { backgroundPosition: '0px 1440px', duration: 1 }, 0)
+    // primero la descripción, en el centro del pasillo; después se acercan los Oculus
+    .fromTo(desc, { opacity: 1, y: 0 }, { opacity: 0, y: -30, duration: 0.15, ease: 'power2.in' }, 0.5)
+    .fromTo(end, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out' }, 0.6);
 }
 
 export function mundosV1() {

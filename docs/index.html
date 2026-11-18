@@ -157,7 +157,7 @@
             </div>
 
             <div class="video__scene video__scene--escenas" data-scene>
-              <p class="video__mid" data-vsplit>¿Nunca tuviste un <span class="c-amarillo">objeto,</span> un <span class="c-fucsia">momento,</span> un <span class="c-celeste">hábito…</span></p>
+              <p class="video__mid" data-vsplit>¿Nunca tuviste un <span class="c-amarillo">objeto,</span> un <span class="c-fucsia">momento,</span> un <span class="c-celeste">hábito</span></p>
               <div class="vescenas">
                 <figure class="vescena" style="--acc:var(--amarillo)">
                   <span class="pend">Foto pendiente</span>
@@ -196,16 +196,20 @@
             </div>
 
             <div class="video__scene" data-scene>
-              <p class="video__mid" data-vsplit>…que con el tiempo pasó de ser <span class="muted">cotidiano y rutinario</span>, a resignificarse como algo <span class="hl">importante y propio de vos</span>?</p>
+              <p class="video__mid" data-vsplit>que con el tiempo, pasó de ser <span class="muted">cotidiano y rutinario</span>, a resignificarse como algo <span class="hl">importante y propio de vos</span>?</p>
             </div>
 
             <div class="video__scene" data-scene>
-              <p class="video__big" data-vsplit>Hoy vas a vivir qué pasaba en <span class="hl">tu mente</span> en ese momento.</p>
+              <p class="video__mid" data-vsplit>Hoy vas a recorrer un circuito que recrea lo que pasaba en <span class="hl">tu mente</span> en ese momento,</p>
             </div>
 
             <div class="video__scene" data-scene>
-              <p class="video__big" data-vsplit>Acercate a la computadora designada</p>
-              <p class="video__mid" data-vsplit>y preparate para vivir esta experiencia.</p>
+              <p class="video__mid" data-vsplit>los procesos cognitivos que se daban en ese instante en el que te diste cuenta del <span class="hl">nuevo valor</span> de ese elemento cotidiano.</p>
+            </div>
+
+            <div class="video__scene" data-scene>
+              <p class="video__big" data-vsplit>Acércate a la computadora designada</p>
+              <p class="video__mid" data-vsplit>y prepárate para vivir esta experiencia</p>
             </div>
 
             <div class="video__progress" aria-hidden="true"><i></i></div>
@@ -636,8 +640,8 @@
             <p data-eco-line>¿Te das cuenta lo que sería perder ese objeto?</p>
             <p data-eco-line>¿Cómo se sentiría?</p>
             <p data-eco-line>¿Cómo te sentís ahora que sabés que no está con vos?</p>
-            <p data-eco-line>Sabemos que ahora querés recuperarlo, y vos sabés a dónde tenés que ir a buscar.</p>
-            <p data-eco-line>Te invitamos a que lo hagas.</p>
+            <p data-eco-line>Sabemos que ahora querés recuperarlo, y vos sabés a dónde lo dejaste.</p>
+            <p data-eco-line>Te invitamos a que lo busques.</p>
           </div>
         </div>
       </div>
@@ -669,10 +673,10 @@
         <div class="pin video__pin">
           <div class="video__frame">
             <div class="video__hud mono" aria-hidden="true"><span class="video__rec">Proyector</span><span>Video · antes de la Etapa 5</span><span class="video__tc">00:00</span></div>
-            <div class="video__scene" data-scene><p class="video__big" data-vsplit>Cuando lo tenías encima ni pensabas en él.</p></div>
-            <div class="video__scene" data-scene><p class="video__mid" data-vsplit>Ahora que lo perdiste, no podés dejar de pensarlo, de <span class="hl">verlo en todos lados</span>.</p></div>
-            <div class="video__scene" data-scene><p class="video__mid" data-vsplit>Tu cerebro no te va a dejar descansar hasta que lo encuentres.</p></div>
-            <div class="video__scene" data-scene><p class="video__big" data-vsplit><span class="hl">Volvé a buscarlo.</span></p></div>
+            <div class="video__scene" data-scene><p class="video__big" data-vsplit>Cuando lo tenías encima ni pensabas en él,</p></div>
+            <div class="video__scene" data-scene><p class="video__mid" data-vsplit>ahora que lo perdiste, no podés dejar de pensarlo, de <span class="hl">verlo en todos lados</span>.</p></div>
+            <div class="video__scene" data-scene><p class="video__mid" data-vsplit>Tu cerebro no te va a dejar descansar hasta que lo tengas de vuelta,</p></div>
+            <div class="video__scene" data-scene><p class="video__mid" data-vsplit><span class="hl">entra por la cúpula para encontrarlo</span></p></div>
             <div class="video__progress" aria-hidden="true"><i></i></div>
           </div>
         </div>
@@ -684,8 +688,17 @@
       <div class="trama-sep" aria-hidden="true"></div>
       <div class="hall" data-hall>
         <div class="pin hall__pin">
-          <div class="hall__space">
-            <img class="hall__foto" src="assets/img/unreal/transicion-vr.webp" width="1600" height="900" alt="El pasillo de Unreal entre pilas de objetos en blanco y negro (llaves, mates, cuadernos, cajas) que llevan a los Oculus, sobre una pila más chica al fondo" loading="lazy" decoding="async">
+          <div class="hall__space" aria-hidden="true">
+            <div class="hall__wall hall__wall--l"><div class="hall__strip"></div></div>
+            <div class="hall__wall hall__wall--r"><div class="hall__strip"></div></div>
+            <div class="floor hall__floor"></div>
+          </div>
+          <div class="hall__end" aria-hidden="true">
+            <div class="oculus">
+              <svg viewBox="0 0 220 110"><g fill="none" stroke="currentColor" stroke-width="5"><rect x="10" y="18" width="200" height="74" rx="30"/><path d="M92 92c6-18 30-18 36 0"/><path d="M10 50H0M210 50h10"/></g><g fill="currentColor" opacity=".25"><rect x="26" y="32" width="70" height="46" rx="18"/><rect x="124" y="32" width="70" height="46" rx="18"/></g></svg>
+              <span class="oculus__pile"></span>
+            </div>
+            <p class="mono oculus__label">Detector de significado</p>
           </div>
           <div class="hall__copy wrap">
             <h2 class="v2-title hall__title">Obsesión con la pérdida</h2>
@@ -696,6 +709,9 @@
           </div>
         </div>
       </div>
+      <figure class="e5-foto">
+        <img src="assets/img/unreal/transicion-vr.webp" width="1600" height="900" alt="El pasillo de Unreal entre pilas de objetos en blanco y negro (llaves, mates, cuadernos, cajas) que llevan a los Oculus, sobre una pila más chica al fondo" loading="lazy" decoding="async">
+      </figure>
     </section>
 
     <!-- ===================== 8 · ETAPA 6 ===================== -->

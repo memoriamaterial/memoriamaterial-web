@@ -623,10 +623,6 @@ html { overflow-anchor: none; }
 /* los mundos de la ausencia */
 .ausente-sec__art img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 18px; border: 1px solid var(--ink-10); }
 
-/* Etapa 5: el pasillo de Unreal ocupa la pantalla y la cámara avanza hacia los Oculus */
-.hall__space { perspective: none; }
-.hall__foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; will-change: transform; }
-.hall__space::after { content: ""; position: absolute; inset: 0; background: linear-gradient(rgb(53 42 114 / .55), transparent 30%, transparent 75%, rgb(53 42 114 / .5)); pointer-events: none; }
 
 /* la cerradura gigante del escenario final: la llave entra en el centro del ojo, que se enciende como puerta */
 .cerradura--foto { aspect-ratio: 16 / 9; }
@@ -660,3 +656,19 @@ html { overflow-anchor: none; }
 @media (prefers-reduced-motion: reduce) {
   .niebla i { animation: none; opacity: .3; transform: translate(-50%, -50%); }
 }
+
+/* ============================ RONDA 17 ============================ */
+/* mundo de la llave: sin la llave dibujada saliendo de la mesita */
+.llave__panel--cajones .mesita .llave-drag { display: none; }
+
+/* mundos del mate y del cuaderno: carril vertical a la derecha (como el de la llave, girado) */
+.mundo__carril { position: fixed; z-index: 30; top: 112px; left: calc(100% - var(--rail-w) - 22px); width: calc(100vh - 112px - var(--repro-h, 96px) - 40px); height: 24px;
+  transform-origin: 0 0; rotate: 90deg; pointer-events: none; opacity: 0; transition: opacity .4s; }
+.mundo__carril.is-on { opacity: 1; }
+.mundo__carril::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--ink-10); }
+.mundo__carril .tr { position: absolute; top: 0; opacity: .9; }
+@media (max-width: 899px) { .mundo__carril { left: calc(100% - 4px); top: 84px; height: 16px; } }
+
+/* Etapa 5: la imagen del escenario, más chica, debajo del pasillo */
+.e5-foto { width: min(820px, calc(100% - 2 * var(--gutter))); margin: var(--s-8) auto var(--s-9); }
+.e5-foto img { display: block; width: 100%; height: auto; border-radius: 18px; border: 1px solid var(--ink-10); }

@@ -253,11 +253,13 @@ function narrativa() {
     const a = forma(capa(sw), 'elemento-cuadrado-curvo', 'crema', lado, '', true);
     const b = forma(capa(sw), 'elemento-cuadrado-curvo', 'crema', lado, '');
     const ubicar = () => {
+      // se miden los dibujos (no sus cajas): la llave es angosta y el cuaderno ancho
       const s = sw.getBoundingClientRect(), t = trio.getBoundingClientRect();
+      const ll = $('li:first-child use', trio).getBoundingClientRect(), cq = $('li:last-child use', trio).getBoundingClientRect();
       const top = t.top - s.top + (t.height - lado) / 2;
       a.style.top = b.style.top = `${top}px`;
-      a.style.left = `${t.left - s.left - lado - 40}px`;
-      b.style.left = `${t.right - s.left + 40}px`;
+      a.style.left = `${ll.left - s.left - lado - 64}px`;
+      b.style.left = `${cq.right - s.left + 64}px`;
     };
     ubicar();
     addEventListener('resize', ubicar);
@@ -271,6 +273,18 @@ function narrativa() {
     const llave = forma(carril, 'elemento-banda-dientes', 'amarillo', 74, 'left:0;top:0', true);
     if (!reduce) gsap.fromTo(llave, { left: '0%' }, { left: 'calc(100% - 74px)', ease: 'none', scrollTrigger: { trigger: '#e2-llave .llave', start: 'top top', end: () => ScrollTrigger.getAll().find((t) => t.pin === pinLlave)?.end ?? '+=4000', scrub: 0.5 } });
   }
+  // Mundos del mate y del cuaderno · como el carril de la llave, pero vertical, a la derecha: la banda del objeto baja con el scroll
+  [['#e2-mate', 'elemento-banda-curva', 'fucsia'], ['#e2-cuaderno', 'elemento-banda-muesca', 'celeste']].forEach(([sel, f, c]) => {
+    const sec = $(sel);
+    if (!sec) return;
+    const carril = document.body.appendChild(Object.assign(document.createElement('div'), { className: 'mundo__carril', ariaHidden: 'true' }));
+    carril.setAttribute('aria-hidden', 'true');
+    carril.style.setProperty('--c', `var(--${c})`);
+    const pieza = forma(carril, f, c, 74, 'left:0;top:0');
+    const zona = { trigger: sec, start: 'top 35%', end: 'bottom 65%' };
+    ScrollTrigger.create({ ...zona, onToggle: (st) => carril.classList.toggle('is-on', st.isActive) });
+    if (!reduce) gsap.fromTo(pieza, { left: '0%' }, { left: 'calc(100% - 74px)', ease: 'none', scrollTrigger: { ...zona, scrub: 0.5 } });
+  });
   // Etapa 3 · el pasillo: dos bandas con muesca se cierran desde los costados y, al salir, se abren
   const e3 = $('#e3');
   if (e3) {
@@ -289,19 +303,6 @@ function narrativa() {
       ondas.forEach((o, k) => tl.to(o, { opacity: 0.15, duration: 0.02, repeat: 5, yoyo: true, ease: 'steps(1)' }, 0.3 + k * 0.12)
         .to(o, { opacity: 0, x: (k === 2 ? 1 : -1) * 30, duration: 0.06 }, 0.42 + k * 0.12));
     });
-  }
-  // Etapa 6 · la búsqueda: las tres ondas aparecen sueltas en los márgenes y se juntan abajo, en el centro
-  const e6 = $('#e6');
-  if (e6) {
-    const pos = [['amarillo', 'left:-30px;top:18%'], ['fucsia', 'right:-30px;top:16%'], ['celeste', 'left:-30px;top:70%']];
-    const ondas = pos.map(([c, css]) => forma(capa(e6), 'trama-02', c, 96, css));
-    alScroll(e6, (tl) => {
-      tl.fromTo(ondas, { opacity: 0 }, { opacity: 1, duration: 0.12, stagger: 0.04 }, 0.1);
-      ondas.forEach((o, k) => tl.to(o, {
-        x: () => { const r = o.getBoundingClientRect(), s = e6.getBoundingClientRect(); return s.left + s.width / 2 + (k - 1) * 112 - r.width / 2 - (r.left - (gsap.getProperty(o, 'x') || 0)); },
-        y: () => { const r = o.getBoundingClientRect(), s = e6.getBoundingClientRect(); return s.bottom - 72 - r.height / 2 - (r.top - (gsap.getProperty(o, 'y') || 0)) - r.height / 2; },
-        duration: 0.35, ease: 'power2.inOut' }, 0.3));
-    }, { start: 'top 90%', end: 'bottom 60%' });
   }
   // Cierre · el reencuentro: llave, mate y cuaderno (las tres bandas) entran desde los costados y se encuentran
   const ci = $('#cierre');
