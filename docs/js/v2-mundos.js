@@ -2,7 +2,7 @@
 // Se avanza con el scroll: de puerta en puerta en la llave, línea por línea en el mate y en el cuaderno,
 // y cada audio suena en su lugar, cuando se llega a él. Lo que en la versión 1 era juego (arrastrar la
 // llave, abrir los cajones, sentarse) acá sucede solo, al avanzar: la web explica, no se juega.
-import { audio } from './audio.js?v=20261119b';
+import { audio } from './audio.js?v=20261119c';
 
 const { gsap, ScrollTrigger } = window;
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
