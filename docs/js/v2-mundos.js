@@ -2,7 +2,7 @@
 // Se avanza con el scroll: de puerta en puerta en la llave, línea por línea en el mate y en el cuaderno,
 // y cada audio suena en su lugar, cuando se llega a él. Lo que en la versión 1 era juego (arrastrar la
 // llave, abrir los cajones, sentarse) acá sucede solo, al avanzar: la web explica, no se juega.
-import { audio } from './audio.js';
+import { audio } from './audio.js?v=20261119a';
 
 const { gsap, ScrollTrigger } = window;
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -61,8 +61,6 @@ function llave() {
   const pips = $$('.llave__doors i', wrap);
   const panels = [...track.children];
   const v = (k) => $(`[data-voice="${k}"]`, wrap);
-  const mesita = $('.mesita', wrap);
-  const cajon = $$('.cajon', wrap)[1];
   const found = $('[data-found]', wrap);
   const lock = $('[data-lock]', wrap);
   const ojo = $('.cerradura__ojo', lock);
@@ -79,7 +77,7 @@ function llave() {
   panels.forEach((p, n) => {
     const door = $('.door', p);
     if (door) gsap.fromTo(door, { scale: 0.86 }, { scale: 1.06, ease: 'none', scrollTrigger: { trigger: p, containerAnimation: tween, start: 'left right', end: 'right left', scrub: true } });
-    const items = p.querySelectorAll('.llave__voices, .llave__copy, .mesita, .cerradura');
+    const items = p.querySelectorAll('.llave__voices, .llave__copy, .cerradura');
     if (items.length && n > 0) gsap.from(items, { y: 40, opacity: 0, stagger: 0.08, duration: 0.6, ease: 'power3.out', scrollTrigger: { trigger: p, containerAnimation: tween, start: 'left 70%', toggleActions: 'play none none reverse' } });
   });
 
@@ -92,8 +90,6 @@ function llave() {
   function abrirCajon() {
     if (abierto) return;
     abierto = true;
-    cajon.classList.add('is-open');
-    mesita.classList.add('is-llave');
     if (audio.enabled) audio.play('llavesCajon');
     found.hidden = false;
     if (!reduce) gsap.from(found, { y: 12, opacity: 0, duration: 0.45, delay: 0.3 });
@@ -102,7 +98,7 @@ function llave() {
   ScrollTrigger.create({ trigger: panels[3], containerAnimation: tween, start: 'left 25%', onEnter: abrirCajon });
 
   // la cerradura gigante: la llave entra, gira y la puerta se abre
-  const llaveEnLaCerradura = $('[data-llave-drag]', wrap).cloneNode(true);
+  const llaveEnLaCerradura = $('[data-llave-molde]', wrap).content.firstElementChild.cloneNode(true);
   llaveEnLaCerradura.classList.add('cerradura__llave');
   lock.appendChild(llaveEnLaCerradura);
   let usada = false;
@@ -112,7 +108,6 @@ function llave() {
       if (usada) return;
       usada = true;
       abrirCajon();
-      mesita.classList.add('is-usada');
       const t = reduce ? 0 : 1;
       gsap.timeline()
         .fromTo(llaveEnLaCerradura, { x: -260, y: 60, rotation: -20, opacity: 0 }, { x: 0, y: 0, rotation: 0, opacity: 1, duration: 0.9 * t, ease: 'power3.out' })

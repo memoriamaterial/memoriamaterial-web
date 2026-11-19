@@ -1,7 +1,7 @@
 // Memoria Material · versión 2 · piezas recuperadas de la versión 1:
 // los videos del proyector (bienvenida, antes de la Etapa 5 y final, con su voz), los mundos de la
 // ausencia, el eco de la Etapa 4 con sus voces, y el regreso a Unreal (js/stages/inicio.js, e4.js, e5e6.js).
-import { audio } from './audio.js';
+import { audio } from './audio.js?v=20261119a';
 
 const { gsap, ScrollTrigger, SplitText } = window;
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -68,6 +68,8 @@ function eco() {
   const wrap = $('[data-eco]');
   if (!wrap) return;
   const pin = $('.eco__pin', wrap);
+  // las frases solo se muestran con el eco en pantalla (nunca encima de otra sección)
+  new IntersectionObserver(([e]) => wrap.classList.toggle('is-visible', e.isIntersecting)).observe(wrap);
   const lines = $$('[data-eco-line]', wrap);
   const id = (i) => `e4b${i + 1}`;
   if (reduce) {

@@ -1,11 +1,11 @@
 // Memoria Material · versión 2
 // Una web para EXPLICAR la experiencia. Lo único que se toca: abrir los pop-ups, dar play a un audio,
 // pasar el mouse. Las animaciones muestran la mecánica: el visitante la mira, no la juega.
-import { audio, VOICES } from './audio.js';
-import { mundosV1 } from './v2-mundos.js';
-import { relatos } from './v2-relatos.js';
-import { narrativas } from './v2-narrativa.js';
-import { reproductor } from './v2-reproductor.js';
+import { audio, VOICES } from './audio.js?v=20261119a';
+import { mundosV1 } from './v2-mundos.js?v=20261119a';
+import { relatos } from './v2-relatos.js?v=20261119a';
+import { narrativas } from './v2-narrativa.js?v=20261119a';
+import { reproductor } from './v2-reproductor.js?v=20261119a';
 
 // ruido blanco: un 20 % más que el valor anterior (0.00864)
 audio.noiseLevel = 0.0104;
@@ -254,9 +254,12 @@ function narrativa() {
     const b = forma(capa(sw), 'elemento-cuadrado-curvo', 'crema', lado, '');
     const ubicar = () => {
       // se miden los dibujos (no sus cajas): la llave es angosta y el cuaderno ancho
-      const s = sw.getBoundingClientRect(), t = trio.getBoundingClientRect();
+      // posiciones relativas a la capa donde están las curvas
+      const s = (a.offsetParent || sw).getBoundingClientRect(), t = trio.getBoundingClientRect();
       const ll = $('li:first-child use', trio).getBoundingClientRect(), cq = $('li:last-child use', trio).getBoundingClientRect();
-      const top = t.top - s.top + (t.height - lado) / 2;
+      const cs = $$('use', trio).map((u) => { const r = u.getBoundingClientRect(); return r.top + r.height / 2; });
+      const ty = gsap.getProperty(trio, 'y') || 0; // sin contar la animación de entrada de los íconos
+      const top = cs.reduce((x, y) => x + y, 0) / cs.length - ty - s.top - lado / 2;
       a.style.top = b.style.top = `${top}px`;
       a.style.left = `${ll.left - s.left - lado - 64}px`;
       b.style.left = `${cq.right - s.left + 64}px`;
@@ -561,5 +564,11 @@ narrativa();
 // las secuencias fijas se crearon en distinto orden: se ordenan según la página y se recalculan
 ScrollTrigger.sort();
 ScrollTrigger.refresh();
+// si las fuentes o las imágenes cargan tarde, las alturas cambian: se recalculan los tramos fijos (pin)
+let reajuste = null;
+const reajustar = () => { clearTimeout(reajuste); reajuste = setTimeout(() => ScrollTrigger.refresh(), 200); };
+document.fonts?.ready.then(reajustar);
+addEventListener('load', reajustar);
+$$('img').forEach((im) => { if (!im.complete) im.addEventListener('load', reajustar, { once: true }); });
 etapa6();
 cierre();

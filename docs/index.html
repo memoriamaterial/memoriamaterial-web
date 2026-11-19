@@ -9,13 +9,13 @@
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/space-grotesk-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/ibm-plex-mono-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/aula.css">
-  <link rel="stylesheet" href="css/e2.css">
-  <link rel="stylesheet" href="css/v2.css">
-  <link rel="stylesheet" href="css/v2-relatos.css">
-  <link rel="stylesheet" href="css/v2-narrativa.css">
-  <link rel="stylesheet" href="css/v2-reproductor.css">
+  <link rel="stylesheet" href="css/base.css?v=20261119a">
+  <link rel="stylesheet" href="css/aula.css?v=20261119a">
+  <link rel="stylesheet" href="css/e2.css?v=20261119a">
+  <link rel="stylesheet" href="css/v2.css?v=20261119a">
+  <link rel="stylesheet" href="css/v2-relatos.css?v=20261119a">
+  <link rel="stylesheet" href="css/v2-narrativa.css?v=20261119a">
+  <link rel="stylesheet" href="css/v2-reproductor.css?v=20261119a">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body class="v2">
@@ -239,15 +239,15 @@
 
       <template data-pop="proyector" data-acc="celeste">
         <h3 data-title>Proyector</h3>
-        <p>Abre la experiencia con el video de bienvenida, vuelve a encenderse antes de la Etapa 5 y al final, con el video de cierre.</p>
+        <p class="pop__grande">Abre la experiencia con el video de bienvenida, vuelve a encenderse antes de la Etapa 5 y al final, con el video de cierre.</p>
       </template>
       <template data-pop="totem" data-acc="fucsia">
         <h3 data-title>Tótem</h3>
-        <p>Acá los asistentes depositarán sus objetos de valor y los ayudará a resignificarlos.</p>
+        <p class="pop__grande">Acá los asistentes depositarán sus objetos de valor y los ayudará a resignificarlos.</p>
       </template>
       <template data-pop="luces" data-acc="amarillo">
         <h3 data-title>Camino de luces LED</h3>
-        <p>Un camino de luces en el piso une las estaciones con el tótem. Se enciende cada vez que hay que salir de Unreal.</p>
+        <p class="pop__grande">Un camino de luces en el piso une las estaciones con el tótem. Se enciende cada vez que hay que salir de Unreal.</p>
       </template>
       <template data-pop="estaciones" data-acc="celeste">
         <h3 data-title>Tres estaciones</h3>
@@ -255,11 +255,11 @@
       </template>
       <template data-pop="holograma" data-acc="fucsia">
         <h3 data-title>Holograma</h3>
-        <p>En una mesa cercana al tótem. Cuando se deposita el objeto, proyecta un ícono que anticipa la próxima zona del cerebro a transitar: el ícono que permite abrir la puerta de la Etapa 3.</p>
+        <p class="pop__grande">Proyectará un ícono que anticipará la siguiente etapa para los asistentes.</p>
       </template>
       <template data-pop="oculus" data-acc="amarillo">
         <h3 data-title>Oculus · Detector de significado</h3>
-        <p>Ayudará a los asistentes a encontrar el significado.</p>
+        <p class="pop__grande">Ayudará a los asistentes a encontrar el significado.</p>
       </template>
     </section>
 
@@ -268,6 +268,7 @@
       <div class="trama-sep" aria-hidden="true"></div>
       <div class="deco" aria-hidden="true"></div>
       <header class="etapa__head">
+        <p class="etapa__lugar">Etapa 1: en Unreal</p>
         <h2 class="v2-title">Plasticidad sináptica</h2>
         <!-- BORRADOR: revisar -->
         <p class="etapa__desc">Los asistentes entran a Unreal, a un desierto con una llave, un mate y un cuaderno gigantes, y reorganizan las conexiones: conectan cada esfera con el objeto al que pertenece.</p>
@@ -305,6 +306,7 @@
       <div class="trama-sep" aria-hidden="true"></div>
       <div class="deco" aria-hidden="true"></div>
       <header class="etapa__head">
+        <p class="etapa__lugar">Etapa 2: en Unreal</p>
         <h2 class="v2-title">El mundo de los objetos</h2>
         <!-- BORRADOR: revisar -->
         <p class="etapa__desc">Los asistentes entran en cada objeto, uno por uno, y recorren lo que ese objeto vio, escuchó y vivió.</p>
@@ -404,15 +406,7 @@
                 <p class="said llave__frase">—Creo que la guardaste en la mesita de luz.</p>
                 <div data-found hidden><p class="said llave__frase">—¡Sí! —¡Acá están!</p></div>
               </div>
-              <div class="mesita" aria-hidden="true">
-                <span class="cajon" data-cajon="0"><span class="cajon__front"></span><span class="cajon__in mono">vacío</span></span>
-                <span class="cajon" data-cajon="1"><span class="cajon__front"></span><span class="cajon__in"></span></span>
-                <span class="cajon" data-cajon="2"><span class="cajon__front"></span><span class="cajon__in mono">papeles</span></span>
-                <span class="mesita__legs" aria-hidden="true"></span>
-                <span class="llave-drag" data-llave-drag aria-hidden="true">
-                  <svg viewBox="0 0 100 260" aria-hidden="true"><use href="#obj-llave"/></svg>
-                </span>
-              </div>
+              <template data-llave-molde><span class="llave-drag" data-llave-drag aria-hidden="true"><svg viewBox="0 0 100 260" aria-hidden="true"><use href="#obj-llave"/></svg></span></template>
               <div class="door" aria-hidden="true"><span class="door__n mono">Puerta 4</span></div>
             </article>
 
@@ -534,7 +528,7 @@
           <p class="narrativa__bloque" data-img="1">En el cuaderno de materiales se escucha cómo se planea la obra de una casa propia, con martillazos y un taladro de fondo, mientras las anotaciones se escriben solas.</p>
           <p class="narrativa__bloque" data-img="2">El escenario cambia de color y aparece el cuaderno de recetas.</p>
           <p class="narrativa__bloque" data-img="3">Una abuela le va dictando a su nieto una torta, paso a paso.</p>
-          <p class="narrativa__bloque" data-img="4">El último cuaderno se abre de par en par: en sus hojas está dibujada la salida al siguiente mundo.</p>
+          <p class="narrativa__bloque" data-img="4">El último cuaderno se abre de par en par: en sus hojas está dibujada la salida a la siguiente etapa.</p>
         </div>
       </div>
     </section>
@@ -544,6 +538,7 @@
         <section id="e3" class="v2-sec etapa etapa--narr tono-acento" data-rail="3 · Una extensión del yo" data-where="unreal+fisico" style="--acc:var(--celeste)" data-voces="e3a,e3b" data-voces-titulo="Etapa 3 · Una extensión del yo">
       <div class="deco" aria-hidden="true"></div>
       <header class="etapa__head">
+        <p class="etapa__lugar">Etapa 3: en Unreal y en el espacio físico</p>
         <h2 class="v2-title">Una extensión del yo</h2>
         <p class="etapa__sub">El objeto que llevás encima</p>
       </header>
@@ -557,7 +552,7 @@
         </figure></div>
         <div class="narrativa__textos">
           <p class="narrativa__bloque" data-img="0">En esta etapa, la voz les pide a los asistentes que piensen en un objeto que tengan encima.</p>
-          <p class="narrativa__bloque" data-img="1">Al final, la salida está cerrada: en este momento hay que salir de Unreal.</p>
+          <p class="narrativa__bloque" data-img="1">Al final, la salida está cerrada: en este momento la voz en off y el texto encima de la puerta indican salir de Unreal.</p>
           <p class="narrativa__bloque" data-img="2">Deben seguir las luces hasta el tótem y dejar el objeto ahí.</p>
           <p class="narrativa__bloque" data-img="2">Una vez que lo hacen, un holograma muestra un ícono que deben elegir en la puerta de Unreal.</p>
           <p class="narrativa__bloque" data-img="1">Al volver a Unreal e indicar el ícono, la puerta se abre con un destello.</p>
@@ -570,6 +565,7 @@
         <section id="e4" class="v2-sec etapa etapa--narr tono-glitch" data-rail="4 · Objetos perdidos" data-where="unreal+fisico" style="--acc:var(--fucsia)" data-voces="e4a" data-voces-titulo="Etapa 4 · Objetos perdidos">
       <div class="deco" aria-hidden="true"></div>
       <header class="etapa__head">
+        <p class="etapa__lugar">Etapa 4: en Unreal y en el espacio físico</p>
         <h2 class="v2-title e4-glitch" data-text="Objetos perdidos">Objetos perdidos</h2>
         <p class="etapa__sub">Cuando el objeto no está</p>
       </header>
@@ -696,6 +692,7 @@
             <p class="mono oculus__label">Detector de significado</p>
           </div>
           <div class="hall__copy wrap">
+            <p class="etapa__lugar">Etapa 5: del espacio físico a Unreal</p>
             <h2 class="v2-title hall__title">Obsesión con la pérdida</h2>
           </div>
           <div class="hall__desc">
@@ -715,6 +712,7 @@
       <div class="trama-sep" aria-hidden="true"></div>
       <div class="deco" aria-hidden="true"></div>
       <header class="etapa__head">
+        <p class="etapa__lugar">Etapa 6: con los Oculus y en el espacio físico</p>
         <h2 class="v2-title">Búsqueda del significado</h2>
         <!-- BORRADOR: revisar -->
         <p class="etapa__desc">Los asistentes se ponen los Oculus, que funcionan como un detector de significado: buscan tres esferas que brillan entre los objetos y las depositan en un tótem.</p>
@@ -807,6 +805,6 @@
   <script src="js/vendor/DrawSVGPlugin.min.js"></script>
   <script src="js/vendor/ScrollTrigger.min.js"></script>
   <script src="js/vendor/SplitText.min.js"></script>
-  <script type="module" src="js/v2.js"></script>
+  <script type="module" src="js/v2.js?v=20261119a"></script>
 </body>
 </html>

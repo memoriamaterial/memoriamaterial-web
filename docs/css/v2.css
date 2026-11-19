@@ -705,4 +705,21 @@ html { overflow-anchor: none; }
 @media (max-width: 899px) { .aus .aus__head .eyebrow { font-size: 20px; } .aus .aus__head .aus__hint { font-size: 17px; } }
 .e5-foto { display: grid; gap: var(--s-4); }
 .e5-foto__lbl { justify-self: center; font-family: var(--f-mono); font-size: calc(var(--t-xs) * 1.32); letter-spacing: .2em; text-transform: uppercase; color: var(--amarillo); }
-.pop__body p.pop__grande { font-size: clamp(1.15rem, 1rem + .5vw, 1.4rem); line-height: 1.45; color: var(--crema); }
+
+/* ============================ RONDA 22 ============================ */
+/* fichas del espacio físico: misma letra en todas; título en crema, párrafo en lavanda */
+.pop .pop__title { color: var(--crema); }
+.pop__body p.pop__grande { font-size: clamp(1.15rem, 1rem + .5vw, 1.4rem); line-height: 1.45; color: #c9bff0; }
+
+/* rótulo de lugar sobre el título de cada etapa */
+.etapa__lugar { margin: 0; font-family: var(--f-mono); font-size: calc(var(--t-xs) * 1.32); letter-spacing: .18em; text-transform: uppercase; color: var(--acc); }
+.hall__copy .etapa__lugar { justify-self: center; }
+
+/* mundo de la llave: sin la mesita, la foto ocupa su lugar y queda más aire alrededor de las puertas */
+.llave__panel--cajones { grid-template-columns: minmax(260px, 340px) minmax(0, 1fr); }
+.llave__panel { padding-left: calc(var(--puerta) / 2 + 64px); padding-right: calc(var(--puerta) / 2 + 64px); }
+@media (max-width: 899px) { .llave__panel { padding-left: 52px; padding-right: 52px; } }
+
+/* el eco: solo visible con su sección en pantalla */
+.eco .eco__lines { visibility: hidden; }
+.eco.is-visible .eco__lines { visibility: visible; }
