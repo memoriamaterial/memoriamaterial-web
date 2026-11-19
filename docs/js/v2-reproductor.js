@@ -4,7 +4,7 @@
 // - La voz nunca arranca sola: solo con play. Si hay varias voces, siguen una detrás de otra hasta pausar.
 // - Al cambiar de zona, lo que sonaba se pausa: nunca suenan dos voces a la vez.
 // - «Subtítulos»: apagados por defecto; al activarlos, la frase que suena (sincronizada) aparece sobre la barra.
-import { audio, VOICES } from './audio.js?v=20261119a';
+import { audio, VOICES } from './audio.js?v=20261119b';
 
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => [...el.querySelectorAll(s)];

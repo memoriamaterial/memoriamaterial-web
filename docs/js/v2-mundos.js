@@ -2,7 +2,7 @@
 // Se avanza con el scroll: de puerta en puerta en la llave, línea por línea en el mate y en el cuaderno,
 // y cada audio suena en su lugar, cuando se llega a él. Lo que en la versión 1 era juego (arrastrar la
 // llave, abrir los cajones, sentarse) acá sucede solo, al avanzar: la web explica, no se juega.
-import { audio } from './audio.js?v=20261119a';
+import { audio } from './audio.js?v=20261119b';
 
 const { gsap, ScrollTrigger } = window;
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -281,7 +281,8 @@ function pasilloDeObjetos() {
     s.innerHTML = html;
   });
   const desc = $('.hall__desc', wrap);
-  if (reduce) { end.style.transform = 'none'; end.style.opacity = 1; return; }
+  gsap.set(end, { xPercent: -50, yPercent: -50 });
+  if (reduce) { gsap.set(end, { scale: 1, opacity: 1 }); return; }
   const tl = gsap.timeline({
     defaults: { ease: 'none' },
     scrollTrigger: { trigger: wrap, pin, start: 'top top', end: () => `+=${vh() * 3.5}`, scrub: 1,
@@ -292,7 +293,7 @@ function pasilloDeObjetos() {
     .fromTo(floor, { backgroundPosition: '0px 0px' }, { backgroundPosition: '0px 1440px', duration: 1 }, 0)
     // primero la descripción, en el centro del pasillo; después se acercan los Oculus
     .fromTo(desc, { opacity: 1, y: 0 }, { opacity: 0, y: -30, duration: 0.15, ease: 'power2.in' }, 0.5)
-    .fromTo(end, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out' }, 0.6);
+    .fromTo(end, { opacity: 0, scale: 0.4, xPercent: -50, yPercent: -50 }, { opacity: 1, scale: 1, xPercent: -50, yPercent: -50, duration: 0.4, ease: 'power2.out' }, 0.6);
 }
 
 export function mundosV1() {

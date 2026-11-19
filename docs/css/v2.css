@@ -723,3 +723,16 @@ html { overflow-anchor: none; }
 /* el eco: solo visible con su sección en pantalla */
 .eco .eco__lines { visibility: hidden; }
 .eco.is-visible .eco__lines { visibility: visible; }
+
+/* ============================ RONDA 23 ============================ */
+/* Etapa 5: el centrado de los Oculus lo maneja la animación (en porcentaje) */
+.hall__end { translate: none; }
+
+/* cierre: el llavero que disparó la experiencia */
+.origen .origen__img.origen__img--llavero { aspect-ratio: auto; border: 0; background: radial-gradient(45% 45% at 50% 55%, rgb(237 67 128 / .16), transparent 70%); padding: var(--s-5) 0; }
+.origen__img--llavero img { display: block; width: auto; height: min(62vh, 560px); margin-inline: auto; filter: drop-shadow(0 18px 30px rgb(0 0 0 / .45)); }
+.origen__txt.origen__txt--lleno { min-height: 0; border: 0; border-radius: 0; margin: 0; font-size: clamp(1.25rem, .95rem + 1vw, 1.75rem); line-height: 1.45; text-wrap: pretty; }
+
+/* la devolución: el texto gris, un poco más grande */
+.devolucion__head .devolucion__txt { font-size: clamp(1.15rem, 1rem + .5vw, 1.4rem); line-height: 1.45; }
+@media (max-width: 899px) { .origen__img--llavero img { height: min(50vh, 420px); } }
