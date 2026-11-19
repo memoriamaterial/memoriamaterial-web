@@ -705,3 +705,4 @@ html { overflow-anchor: none; }
 @media (max-width: 899px) { .aus .aus__head .eyebrow { font-size: 20px; } .aus .aus__head .aus__hint { font-size: 17px; } }
 .e5-foto { display: grid; gap: var(--s-4); }
 .e5-foto__lbl { justify-self: center; font-family: var(--f-mono); font-size: calc(var(--t-xs) * 1.32); letter-spacing: .2em; text-transform: uppercase; color: var(--amarillo); }
+.pop__body p.pop__grande { font-size: clamp(1.15rem, 1rem + .5vw, 1.4rem); line-height: 1.45; color: var(--crema); }
