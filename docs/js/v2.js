@@ -1,11 +1,11 @@
 // Memoria Material · versión 2
 // Una web para EXPLICAR la experiencia. Lo único que se toca: abrir los pop-ups, dar play a un audio,
 // pasar el mouse. Las animaciones muestran la mecánica: el visitante la mira, no la juega.
-import { audio, VOICES } from './audio.js?v=20261119c';
-import { mundosV1 } from './v2-mundos.js?v=20261119c';
-import { relatos } from './v2-relatos.js?v=20261119c';
-import { narrativas } from './v2-narrativa.js?v=20261119c';
-import { reproductor } from './v2-reproductor.js?v=20261119c';
+import { audio, VOICES } from './audio.js?v=20261119d';
+import { mundosV1 } from './v2-mundos.js?v=20261119d';
+import { relatos } from './v2-relatos.js?v=20261119d';
+import { narrativas } from './v2-narrativa.js?v=20261119d';
+import { reproductor } from './v2-reproductor.js?v=20261119d';
 
 // ruido blanco: un 20 % más que el valor anterior (0.00864)
 audio.noiseLevel = 0.0104;

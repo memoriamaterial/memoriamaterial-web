@@ -1,7 +1,7 @@
 // Memoria Material · versión 2 · piezas recuperadas de la versión 1:
 // los videos del proyector (bienvenida, antes de la Etapa 5 y final, con su voz), los mundos de la
 // ausencia, el eco de la Etapa 4 con sus voces, y el regreso a Unreal (js/stages/inicio.js, e4.js, e5e6.js).
-import { audio } from './audio.js?v=20261119c';
+import { audio } from './audio.js?v=20261119d';
 
 const { gsap, ScrollTrigger, SplitText } = window;
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
